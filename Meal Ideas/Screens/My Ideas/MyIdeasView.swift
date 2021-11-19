@@ -13,6 +13,11 @@ struct MyIdeasView: View {
             Text("Welcome to My Ideas View")
             Text(APIKey.test)
             Text(APIKey.test)
+            Text(APIKey.test)
+            Text(APIKey.test)
+            Text(APIKey.test)
+            Text(APIKey.test)
+            
         }
         
         
