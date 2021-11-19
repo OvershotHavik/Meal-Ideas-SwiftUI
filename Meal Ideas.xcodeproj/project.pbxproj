@@ -157,9 +157,9 @@
 			isa = PBXGroup;
 			children = (
 				B3CA23712748108C00CA9C68 /* MealIdeasTabView.swift */,
-				B3CA2376274810EB00CA9C68 /* Spoonacular */,
-				B3CA2375274810E200CA9C68 /* MealDB */,
 				B3CA2374274810D100CA9C68 /* My Ideas */,
+				B3CA2375274810E200CA9C68 /* MealDB */,
+				B3CA2376274810EB00CA9C68 /* Spoonacular */,
 			);
 			path = Screens;
 			sourceTree = "<group>";

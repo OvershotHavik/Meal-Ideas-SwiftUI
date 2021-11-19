@@ -9,7 +9,12 @@ import SwiftUI
 
 struct MyIdeasView: View {
     var body: some View {
-        Text("Welcome to My Ideas View")
+        VStack{
+            Text("Welcome to My Ideas View")
+            Text(APIKey.test)
+        }
+        
+        
     }
 }
 
