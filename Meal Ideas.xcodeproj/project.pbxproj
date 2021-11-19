@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B3606D932748224800E61972 /* Color+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3606D922748224800E61972 /* Color+Ext.swift */; };
 		B37E360A27481DC900687A8C /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37E360927481DC900687A8C /* APIKey.swift */; };
 		B3CA2341274808CA00CA9C68 /* Meal_IdeasApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CA2340274808CA00CA9C68 /* Meal_IdeasApp.swift */; };
 		B3CA2343274808CA00CA9C68 /* CoreDataExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CA2342274808CA00CA9C68 /* CoreDataExample.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B3606D922748224800E61972 /* Color+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Ext.swift"; sourceTree = "<group>"; };
 		B37E360927481DC900687A8C /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		B3CA233D274808CA00CA9C68 /* Meal Ideas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Meal Ideas.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3CA2340274808CA00CA9C68 /* Meal_IdeasApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal_IdeasApp.swift; sourceTree = "<group>"; };
@@ -85,9 +87,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B3606D8F2748221E00E61972 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		B3606D902748222800E61972 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B3606D922748224800E61972 /* Color+Ext.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		B37E360827481DB500687A8C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B3606D902748222800E61972 /* Extensions */,
 				B37E360927481DC900687A8C /* APIKey.swift */,
 			);
 			path = Resources;
@@ -116,6 +134,7 @@
 		B3CA233F274808CA00CA9C68 /* Meal Ideas */ = {
 			isa = PBXGroup;
 			children = (
+				B3606D8F2748221E00E61972 /* New Group */,
 				B37E360827481DB500687A8C /* Resources */,
 				B3CA2373274810C900CA9C68 /* Screens */,
 				B3CA2340274808CA00CA9C68 /* Meal_IdeasApp.swift */,
@@ -327,6 +346,7 @@
 				B3CA23722748108C00CA9C68 /* MealIdeasTabView.swift in Sources */,
 				B37E360A27481DC900687A8C /* APIKey.swift in Sources */,
 				B3CA23782748112500CA9C68 /* MyIdeasView.swift in Sources */,
+				B3606D932748224800E61972 /* Color+Ext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
