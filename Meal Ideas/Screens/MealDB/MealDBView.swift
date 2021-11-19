@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MealDBView: View {
     var body: some View {
-        Text("MealDB Test View")
+        Text(APIKey.mealDB)
     }
 }
 
