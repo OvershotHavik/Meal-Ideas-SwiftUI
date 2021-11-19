@@ -12,11 +12,6 @@ struct MyIdeasView: View {
         VStack{
             Text("Welcome to My Ideas View")
             Text(APIKey.test)
-            Text(APIKey.test)
-            Text(APIKey.test)
-            Text(APIKey.test)
-            Text(APIKey.test)
-            Text(APIKey.test)
             
         }
         
