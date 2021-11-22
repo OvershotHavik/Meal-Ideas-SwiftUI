@@ -102,11 +102,26 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		B3606D94274C1BD900E61972 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B3606D95274C1C2B00E61972 /* Ignored */ = {
+			isa = PBXGroup;
+			children = (
+				B37E360927481DC900687A8C /* APIKey.swift */,
+			);
+			path = Ignored;
+			sourceTree = "<group>";
+		};
 		B37E360827481DB500687A8C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B3606D95274C1C2B00E61972 /* Ignored */,
 				B3606D902748222800E61972 /* Extensions */,
-				B37E360927481DC900687A8C /* APIKey.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -134,6 +149,7 @@
 		B3CA233F274808CA00CA9C68 /* Meal Ideas */ = {
 			isa = PBXGroup;
 			children = (
+				B3606D94274C1BD900E61972 /* Model */,
 				B3606D8F2748221E00E61972 /* New Group */,
 				B37E360827481DB500687A8C /* Resources */,
 				B3CA2373274810C900CA9C68 /* Screens */,

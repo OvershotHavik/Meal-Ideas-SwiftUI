@@ -17,12 +17,10 @@ struct MealIdeasTabView: View {
             MealDBView()
                 .tabItem {
                     Label("The Meal DB", systemImage: "fork.knife.circle.fill")
-                        .accentColor(.mealDBColor)
                 }
             SpoonView()
                 .tabItem {
                     Label("Spoonacular", systemImage: "fork.knife.circle.fill")
-                        .accentColor(.spoonacularColor)
                 }
         }
         
