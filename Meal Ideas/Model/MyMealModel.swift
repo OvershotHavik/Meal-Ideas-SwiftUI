@@ -25,7 +25,7 @@ struct UserMealModel: Codable, Equatable, Identifiable{
 
 // For UI setup only
 struct SampleUserMealModel: Codable, Equatable, Identifiable{
-    var id = UUID()
+    var id : Int
     var mealName : String
     var mealPhoto: String // use string to identify the image in assets
     var category : [String]
@@ -43,7 +43,40 @@ struct UserResults: Codable{
 
 struct MockData{
 //    static let userMealSample = SampleUserMealModel
-    static let userMealSample = SampleUserMealModel(id: UUID(),
+    static let userMealSample = SampleUserMealModel(id: 01,
+                                                    mealName: "Pizza",
+                                                    mealPhoto: "Pizza",
+                                                    category: ["Dinner", "Lunch"],
+                                                    ingredients: ["Frozen Food"],
+                                                    sides: ["Garlic Bread", "French Fries"],
+                                                    source: "https://www.thekitchn.com/how-to-make-really-good-pizza-at-home-cooking-lessons-from-the-kitchn-178384",
+                                                    instructionsPhoto: "Pizza-Instructions",
+                                                    recipe: "Preheat oven to 400, set timmer for 21 min",
+                                                    favorite: true,
+                                                    measurements: ["1"])
+    static let userMealSample2 = SampleUserMealModel(id: 02,
+                                                    mealName: "Pizza",
+                                                    mealPhoto: "Pizza",
+                                                    category: ["Dinner", "Lunch"],
+                                                    ingredients: ["Frozen Food"],
+                                                    sides: ["Garlic Bread", "French Fries"],
+                                                    source: "https://www.thekitchn.com/how-to-make-really-good-pizza-at-home-cooking-lessons-from-the-kitchn-178384",
+                                                    instructionsPhoto: "Pizza-Instructions",
+                                                    recipe: "Preheat oven to 400, set timmer for 21 min",
+                                                    favorite: true,
+                                                    measurements: ["1"])
+    static let userMealSample3 = SampleUserMealModel(id: 03,
+                                                    mealName: "Pizza",
+                                                    mealPhoto: "Pizza",
+                                                    category: ["Dinner", "Lunch"],
+                                                    ingredients: ["Frozen Food"],
+                                                    sides: ["Garlic Bread", "French Fries"],
+                                                    source: "https://www.thekitchn.com/how-to-make-really-good-pizza-at-home-cooking-lessons-from-the-kitchn-178384",
+                                                    instructionsPhoto: "Pizza-Instructions",
+                                                    recipe: "Preheat oven to 400, set timmer for 21 min",
+                                                    favorite: true,
+                                                    measurements: ["1"])
+    static let userMealSample4 = SampleUserMealModel(id: 04,
                                                     mealName: "Pizza",
                                                     mealPhoto: "Pizza",
                                                     category: ["Dinner", "Lunch"],
@@ -55,4 +88,5 @@ struct MockData{
                                                     favorite: true,
                                                     measurements: ["1"])
     
+    static let testUerArray = [userMealSample, userMealSample2, userMealSample3, userMealSample4]
 }
