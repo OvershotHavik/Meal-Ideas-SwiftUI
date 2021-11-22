@@ -22,8 +22,7 @@ struct TopView: View {
             TopViewButtons()
         }
         .background(Color.orange)
-        .frame(width: .infinity,
-               height: 75)
+        .frame(height: 75)
     }
 }
 

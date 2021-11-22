@@ -44,7 +44,7 @@ struct UserResults: Codable{
 struct MockData{
 //    static let userMealSample = SampleUserMealModel
     static let userMealSample = SampleUserMealModel(id: 01,
-                                                    mealName: "Pizza",
+                                                    mealName: "Pizza extra long name to see how it wraps in the view accordingly ",
                                                     mealPhoto: "Pizza",
                                                     category: ["Dinner", "Lunch"],
                                                     ingredients: ["Frozen Food"],

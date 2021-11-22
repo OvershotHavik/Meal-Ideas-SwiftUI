@@ -19,7 +19,7 @@ struct MealCardView: View {
     
     var body: some View {
         ZStack{
-            Color(UIColor.systemBackground)
+            Color(UIColor.secondarySystemBackground)
 
             VStack{
                 HistoryFavoriteHStack(inHistory: $inHistory,
@@ -31,10 +31,12 @@ struct MealCardView: View {
                 Text(userMeal?.mealName ?? "")
                     .lineLimit(2)
                     .multilineTextAlignment(.center)
-                    .padding()
+                    .padding([.bottom, .horizontal], 5)
+//                    .scaledToFit()
+//                    .minimumScaleFactor(0.6)
             }
         }
-        .frame(width: 160, height: 200)
+        .frame(width: 160, height: 210)
         .cornerRadius(10)
         .shadow(color: .black, radius: 5, x: 0, y: 0)
     }
