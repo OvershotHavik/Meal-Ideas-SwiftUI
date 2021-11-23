@@ -8,27 +8,23 @@
 import SwiftUI
 
 struct MealCardView: View {
-//    @State var userMeal: UserMealModel?
-    @State var userMeal: SampleUserMealModel?
-    var spoonMeal: SpoonacularResults?
-    var mealdbMeal: MealDBResults?
-    
-    //Will need to figure out how to get these to work later
-    @State var inHistory = true
-    @State var inFavorites = true
+    var mealPhoto: String // will need changed for data once that is setup
+    var mealName: String
+    var favorited: Bool
+    var inHistory: Bool
     
     var body: some View {
         ZStack{
             Color(UIColor.secondarySystemBackground)
 
             VStack{
-                HistoryFavoriteHStack(inHistory: $inHistory,
-                                      inFavorites: $inFavorites)
-                Image(userMeal?.mealPhoto ?? "")
+                HistoryFavoriteHStack(inHistory: inHistory,
+                                      favorited: favorited)
+                Image(mealPhoto)
                     .resizable()
                     .frame(width: 100, height: 100, alignment: .center)
                     .clipShape(Circle())
-                Text(userMeal?.mealName ?? "")
+                Text(mealName)
                     .lineLimit(2)
                     .multilineTextAlignment(.center)
                     .padding([.bottom, .horizontal], 5)
@@ -44,19 +40,24 @@ struct MealCardView: View {
 
 struct MealCardView_Previews: PreviewProvider {
     static var previews: some View {
-        MealCardView(userMeal: MockData.userMealSample)
+        MealCardView(mealPhoto: "Pizza",
+                     mealName: "test name",
+                     favorited: true,
+                     inHistory: true)
     }
 }
 
 struct HistoryFavoriteHStack: View{
-    @Binding var inHistory: Bool
-    @Binding var inFavorites: Bool
+    
+    //need to change accordingly
+    var inHistory: Bool
+    var favorited: Bool
     var body: some View{
         HStack{
-            Image(systemName: "book")
+            Image(systemName: inHistory ? "book" : "") // If in history is true, then show book, if not, show nothing
                 .padding([.leading, .top])
             Spacer()
-            Image(systemName: "heart.fill")
+            Image(systemName: favorited ? "heart.fill" : "") // If favorited is true, then show book, if not, show nothing
                 .foregroundColor(.pink)
                 .padding([.trailing, .top])
         }

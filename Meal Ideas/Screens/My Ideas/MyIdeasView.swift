@@ -17,7 +17,13 @@ struct MyIdeasView: View {
                 ScrollView{
                     LazyVGrid(columns: columns, alignment: .center) {
                         ForEach(MockData.testUerArray) {meal in
-                            MealCardView(userMeal: meal)
+                            NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: meal))) {
+                                MealCardView(mealPhoto: meal.mealPhoto,
+                                             mealName: meal.mealName,
+                                             favorited: true,
+                                             inHistory: true)
+                            }
+                            .foregroundColor(.primary)
                         }
                     }
                 }
