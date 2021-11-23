@@ -16,7 +16,7 @@ struct MyIdeasView: View {
                 let columns = [GridItem(), GridItem()]
                 ScrollView{
                     LazyVGrid(columns: columns, alignment: .center) {
-                        ForEach(MockData.testUerArray) {meal in
+                        ForEach(MockData.testUserArray) {meal in
                             NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: meal))) {
                                 MealCardView(mealPhoto: meal.mealPhoto,
                                              mealName: meal.mealName,

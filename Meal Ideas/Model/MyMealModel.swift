@@ -47,13 +47,13 @@ struct MockData{
                                                     mealName: "Pizza extra long name to see how it wraps in the view accordingly ",
                                                     mealPhoto: "Pizza",
                                                     category: ["Dinner", "Lunch"],
-                                                    ingredients: ["Frozen Food"],
+                                                    ingredients: ["Frozen Food", "Cheese", "Pepperoni"],
                                                     sides: ["Garlic Bread", "French Fries"],
                                                     source: "https://www.thekitchn.com/how-to-make-really-good-pizza-at-home-cooking-lessons-from-the-kitchn-178384",
                                                     instructionsPhoto: "Pizza-Instructions",
                                                     recipe: "Preheat oven to 400, set timmer for 21 min",
                                                     favorite: true,
-                                                    measurements: ["1"])
+                                                    measurements: ["1", "2 cups", "15"])
     static let userMealSample2 = SampleUserMealModel(id: 02,
                                                     mealName: "Pizza",
                                                     mealPhoto: "Pizza",
@@ -88,5 +88,5 @@ struct MockData{
                                                     favorite: true,
                                                     measurements: ["1"])
     
-    static let testUerArray = [userMealSample, userMealSample2, userMealSample3, userMealSample4]
+    static let testUserArray = [userMealSample, userMealSample2, userMealSample3, userMealSample4]
 }

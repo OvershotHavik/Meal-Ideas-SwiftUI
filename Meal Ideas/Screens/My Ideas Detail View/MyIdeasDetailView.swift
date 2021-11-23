@@ -14,32 +14,17 @@ struct MyIdeasDetailView: View {
     var body: some View {
         VStack{
             ScrollView{
-                Image(vm.meal.mealPhoto)
-                    .resizable()
-                    .frame(width: 200, height: 200)
-                    .clipShape(Circle())
+                MealPhotoView(mealPhoto: vm.meal.mealPhoto)
                 
-                Text(vm.meal.mealName)
-                    .font(.title)
-                    .multilineTextAlignment(.center)
-                    .padding([.bottom, .horizontal], 5)
-                HStack{
-                    ForEach(vm.meal.category, id: \.self) {cat in
-                        Text(cat)
-                            .background(.cyan)
-                    }
-                    ForEach(vm.meal.ingredients, id: \.self){ing in
-                        Text(ing)
-                            .background(.green)
-                    }
-                }
-                Text(vm.meal.recipe)
-                    .font(.body)
+                MealNameView(name: vm.meal.mealName)
                 
+                BadgesHStack(categories: vm.meal.category)
+                
+                IngredientVGrid(ingredients: vm.meal.ingredients, measurements: vm.meal.measurements)
+                
+                RecipeView(recipe: vm.meal.recipe)
             }
-            Link(destination: URL(string: vm.meal.source ?? "https://www.google.com")!) {
-                Text("Visit Source")
-            }
+            SourceLinkView(source: vm.meal.source)
             .padding()
         }
     }
