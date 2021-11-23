@@ -8,13 +8,39 @@
 import SwiftUI
 
 struct MealDBView: View {
+    @StateObject var vm: MealDBVM
+    
     var body: some View {
-        Text(APIKey.mealDB)
+        NavigationView{
+            VStack{
+                TopView()
+                let columns = [GridItem(), GridItem()]
+                ScrollView{
+                    LazyVGrid(columns: columns, alignment: .center) {
+                        ForEach(vm.meals, id: \.id) { meal in
+                            NavigationLink(destination: MealDBDetailView(meal: meal)) {
+                                MealCardView(mealPhoto: "\(String(describing: meal.strMealThumb))",
+                                             mealName: meal.strMeal ?? "",
+                                             favorited: true,
+                                             inHistory: true)
+                            }
+                            .foregroundColor(.primary)
+                        }
+                    }
+                }
+                .navigationBarTitleDisplayMode(.inline)
+                .padding()
+
+            }
+            .onAppear {
+                vm.getMeals()
+            }
+        }
     }
 }
 
 struct MealDBView_Previews: PreviewProvider {
     static var previews: some View {
-        MealDBView()
+        MealDBView(vm: MealDBVM())
     }
 }

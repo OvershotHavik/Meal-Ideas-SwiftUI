@@ -14,7 +14,7 @@ struct MealIdeasTabView: View {
                 .tabItem {
                     Label("My Ideas", systemImage: "person")
                 }
-            MealDBView()
+            MealDBView(vm: MealDBVM())
                 .tabItem {
                     Label("The Meal DB", systemImage: "fork.knife.circle.fill")
                 }

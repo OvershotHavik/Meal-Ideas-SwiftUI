@@ -9,10 +9,11 @@ import Foundation
 
 struct MealDBResults {
 
-    struct Results: Decodable {
+    struct Results: Decodable  {
         let meals: [Meal]
     }
-    struct Meal: Decodable{
+    struct Meal: Decodable, Identifiable{
+        
         enum CodingKeys: String, CodingKey{
             case idMeal, strMeal, strDrinkAlternative, strCategory, strArea, strInstructions, strMealThumb,
             strTags, strYoutube, strSource,
@@ -26,7 +27,7 @@ struct MealDBResults {
             var ingredientArray = [String]()
             var measureArray = [String]()
             let container = try decoder.container(keyedBy: CodingKeys.self)
-            idMeal = try container.decodeIfPresent(String.self, forKey: .idMeal)
+            id = try container.decodeIfPresent(String.self, forKey: .idMeal)
             strMeal = try container.decodeIfPresent(String.self, forKey: .strMeal)
             strDrinkAlternative = try container.decodeIfPresent(String.self, forKey: .strDrinkAlternative)
             strCategory = try container.decodeIfPresent(String.self, forKey: .strCategory)
@@ -166,7 +167,7 @@ struct MealDBResults {
             measurementsArray = measureArray
             
         }
-        var idMeal : String?
+        var id : String?
         var strMeal : String?
         var strDrinkAlternative : String?
         var strCategory : String?
@@ -226,8 +227,8 @@ struct MealDBResults {
         }
     }
 }
-
-struct MealDBMultiMeal {
+/*
+struct MealDBMultiMeal: Codable {
     struct Results: Decodable {
         let meals: [Meal]
     }
@@ -237,3 +238,5 @@ struct MealDBMultiMeal {
         var idMeal : String?
     }
 }
+
+*/
