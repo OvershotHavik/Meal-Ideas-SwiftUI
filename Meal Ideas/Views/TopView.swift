@@ -21,7 +21,7 @@ struct TopView: View {
             
             TopViewButtons()
         }
-        .background(Color.orange)
+        .background(Color.blue)
         .frame(height: 75)
     }
 }
@@ -42,11 +42,25 @@ struct TopViewButtons: View{
             .border(Color.black, width: 2)
             Button("Ingredient"){}
             .border(Color.black, width: 2)
-            Button("History"){}
-            .border(Color.black, width: 2)
-            Button("Favorites"){}
-            .border(Color.black, width: 2)
+            
+            Button {
+                
+            } label: {
+                Image(systemName: "book")
+                    .padding(.horizontal)
+                    .border(Color.black, width: 2)
+            }
+            Button {
+                
+            } label: {
+                Image(systemName: "heart.fill")
+                    .foregroundColor(.pink)
+                    .padding(.horizontal)
+                    .border(Color.black, width: 2)
+            }
+
         }
         .padding(.bottom, 5)
+        .foregroundColor(.primary)
     }
 }

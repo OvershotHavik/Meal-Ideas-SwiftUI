@@ -19,7 +19,7 @@ struct MealDBView: View {
                     LazyVGrid(columns: columns, alignment: .center) {
                         ForEach(vm.meals, id: \.id) { meal in
                             NavigationLink(destination: MealDBDetailView(meal: meal)) {
-                                MealCardView(mealPhoto: "\(String(describing: meal.strMealThumb))",
+                                MealCardView(mealPhoto: meal.strMealThumb ?? "",
                                              mealName: meal.strMeal ?? "",
                                              favorited: true,
                                              inHistory: true)
@@ -30,7 +30,6 @@ struct MealDBView: View {
                 }
                 .navigationBarTitleDisplayMode(.inline)
                 .padding()
-
             }
             .onAppear {
                 vm.getMeals()

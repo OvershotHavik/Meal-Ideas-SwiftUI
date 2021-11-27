@@ -33,7 +33,7 @@ struct MealDBResults {
             strCategory = try container.decodeIfPresent(String.self, forKey: .strCategory)
             strArea = try container.decodeIfPresent(String.self, forKey: .strArea)
             strInstructions = try container.decodeIfPresent(String.self, forKey: .strInstructions)
-            strMealThumb = try container.decodeIfPresent(URL.self, forKey: .strMealThumb)
+            strMealThumb = try container.decodeIfPresent(String.self, forKey: .strMealThumb)
             strTags = try container.decodeIfPresent(String.self, forKey: .strTags)
             strYoutube = try container.decodeIfPresent(String.self, forKey: .strYoutube)
             strSource = try container.decodeIfPresent(String.self, forKey: .strSource)
@@ -173,7 +173,7 @@ struct MealDBResults {
         var strCategory : String?
         var strArea : String?
         var strInstructions : String?
-        var strMealThumb : URL?
+        var strMealThumb : String?
         var strTags: String?
         var strYoutube: String?
         var strSource: String?

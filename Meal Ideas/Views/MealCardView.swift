@@ -20,8 +20,9 @@ struct MealCardView: View {
             VStack{
                 HistoryFavoriteHStack(inHistory: inHistory,
                                       favorited: favorited)
-                Image(mealPhoto)
-                    .resizable()
+                LoadRemoteImageView(urlString: mealPhoto)
+//                Image(mealPhoto)
+//                    .resizable()
                     .frame(width: 100, height: 100, alignment: .center)
                     .clipShape(Circle())
                 Text(mealName)
