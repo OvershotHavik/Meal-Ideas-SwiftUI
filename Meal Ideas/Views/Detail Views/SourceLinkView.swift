@@ -10,9 +10,18 @@ import SwiftUI
 struct SourceLinkView: View {
     var source: String?
     var body: some View {
-        Link(destination: URL(string: source ?? "https://www.google.com")!) {
-            Text("Visit Source")
+        
+        if let safeURL = source{
+            if safeURL == ""{
+                //do something
+            } else {
+                Link(destination: URL(string: safeURL)!) {
+                    Text("Visit Source")
+                }
+            }
+
         }
+        //if source is nil then don't show the source button
     }
 }
 

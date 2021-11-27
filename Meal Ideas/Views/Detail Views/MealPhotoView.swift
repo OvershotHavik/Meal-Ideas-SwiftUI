@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct MealPhotoView: View {
-    var mealPhoto: String // will need changed once working
+    var mealPhoto: String // will need to figure out how to get this to work once core data is used for my meals, getting it to work for meal db and spoon for now.. may just need to create a different view and just use that on the my meals view..
     var body: some View {
-        Image(mealPhoto)
-            .resizable()
+        LoadRemoteImageView(urlString: mealPhoto)
             .frame(width: 200, height: 200)
             .clipShape(Circle())
     }

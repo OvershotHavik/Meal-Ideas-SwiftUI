@@ -8,10 +8,28 @@
 import SwiftUI
 
 struct MealDBDetailView: View {
-    var meal: MealDBResults.Meal
+    @StateObject var vm : MealDBDetailVM
+//    var meal: MealDBResults.Meal
     
     var body: some View {
-        Text(meal.strMeal ?? "")
+        VStack{
+            ScrollView{
+                MealPhotoView(mealPhoto: vm.meal.strMealThumb ?? "")
+                
+                MealNameView(name: vm.meal.strMeal ?? "")
+                
+                BadgesHStack(categories: [vm.meal.strCategory ?? ""] )
+                
+                IngredientVGrid(ingredients: vm.meal.ingredientsArray,
+                                measurements: vm.meal.measurementsArray)
+                
+                RecipeView(recipe: vm.meal.strInstructions ?? "")
+                
+                YoutubeLinkView(youtubeLink: vm.meal.strYoutube ?? "")
+            }
+
+            SourceLinkView(source: vm.meal.strSource ?? "")
+        }
     }
 }
 

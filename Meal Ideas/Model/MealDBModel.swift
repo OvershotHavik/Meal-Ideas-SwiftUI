@@ -163,7 +163,7 @@ struct MealDBResults {
             if let measure = try container.decodeIfPresent(String.self, forKey: .strMeasure20){
                 measureArray.append(measure)
             }
-            measureArray[(ingredientArray.count-1)...] = []
+//            measureArray[(ingredientArray.count-1)...] = []
             measurementsArray = measureArray
             
         }

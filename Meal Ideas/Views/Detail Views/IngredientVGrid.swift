@@ -9,13 +9,13 @@ import SwiftUI
 
 struct IngredientVGrid: View {
     var ingredients : [String]
-    var measurements: [String]?
+    var measurements: [String?]
     let columns = [GridItem(), GridItem()]
     var body: some View {
         LazyVGrid(columns: columns, alignment: .center){
             ForEach(ingredients.indices, id: \.self) { i in
                 IngredientView(name: ingredients[i],
-                               value: measurements?[i],
+                               value: measurements[i],
                                image: "Pizza")
             }
         }

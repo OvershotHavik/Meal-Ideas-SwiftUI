@@ -20,7 +20,7 @@ struct MyIdeasDetailView: View {
                 
                 BadgesHStack(categories: vm.meal.category)
                 
-                IngredientVGrid(ingredients: vm.meal.ingredients, measurements: vm.meal.measurements)
+                IngredientVGrid(ingredients: vm.meal.ingredients, measurements: vm.meal.measurements ?? [])
                 
                 RecipeView(recipe: vm.meal.recipe)
             }
