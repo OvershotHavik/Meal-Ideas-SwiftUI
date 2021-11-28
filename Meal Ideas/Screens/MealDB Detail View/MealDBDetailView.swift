@@ -25,10 +25,10 @@ struct MealDBDetailView: View {
                 
                 RecipeView(recipe: vm.meal.strInstructions ?? "")
                 
-                YoutubeLinkView(youtubeLink: vm.meal.strYoutube ?? "")
+                LinkView(url: vm.meal.strYoutube ?? "", title: "Visit Youtube Link")
             }
 
-            SourceLinkView(source: vm.meal.strSource ?? "")
+            LinkView(url: vm.meal.strSource ?? "", title: "Visit Source")
         }
     }
 }

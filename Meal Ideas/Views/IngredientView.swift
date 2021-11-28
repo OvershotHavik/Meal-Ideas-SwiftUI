@@ -10,7 +10,7 @@ import SwiftUI
 struct IngredientView: View {
     var name: String
     var value: String?
-    var image: String // the url to the image eventually
+    var image: String // will need to be changed to the core data image eventually
     var body: some View {
         let modifiedMealDB = name.replacingOccurrences(of: " ", with: "%20")
         if let mealDBImages = URL(string: "https://www.themealdb.com/images/ingredients/\(modifiedMealDB).png"){

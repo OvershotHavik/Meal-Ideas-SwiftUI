@@ -19,7 +19,7 @@
 		B3606DA8274D5C0000E61972 /* MealView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3606DA7274D5C0000E61972 /* MealView.swift */; };
 		B3606DAB274D5E4A00E61972 /* MyIdeasDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3606DAA274D5E4A00E61972 /* MyIdeasDetailView.swift */; };
 		B3606DAE274D5EC900E61972 /* MyIdeasDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3606DAD274D5EC900E61972 /* MyIdeasDetailVM.swift */; };
-		B3606DB0274D691100E61972 /* SourceLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3606DAF274D691100E61972 /* SourceLinkView.swift */; };
+		B3606DB0274D691100E61972 /* LinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3606DAF274D691100E61972 /* LinkView.swift */; };
 		B3606DB2274D696700E61972 /* RecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3606DB1274D696700E61972 /* RecipeView.swift */; };
 		B3606DB4274D69F300E61972 /* BadgesHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3606DB3274D69F300E61972 /* BadgesHStack.swift */; };
 		B3606DB6274D6A4400E61972 /* IngredientVGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3606DB5274D6A4400E61972 /* IngredientVGrid.swift */; };
@@ -35,7 +35,6 @@
 		B3C2BDB3275264E200CD5EE0 /* MIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2BDB2275264E200CD5EE0 /* MIError.swift */; };
 		B3C2BDB52752651C00CD5EE0 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2BDB42752651C00CD5EE0 /* Alert.swift */; };
 		B3C2BDB72752703B00CD5EE0 /* MealDBDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2BDB62752703A00CD5EE0 /* MealDBDetailVM.swift */; };
-		B3C2BDB927527AA700CD5EE0 /* YoutubeLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2BDB827527AA700CD5EE0 /* YoutubeLinkView.swift */; };
 		B3CA2341274808CA00CA9C68 /* Meal_IdeasApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CA2340274808CA00CA9C68 /* Meal_IdeasApp.swift */; };
 		B3CA2343274808CA00CA9C68 /* CoreDataExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CA2342274808CA00CA9C68 /* CoreDataExample.swift */; };
 		B3CA2345274808D600CA9C68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3CA2344274808D600CA9C68 /* Assets.xcassets */; };
@@ -81,7 +80,7 @@
 		B3606DA7274D5C0000E61972 /* MealView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealView.swift; sourceTree = "<group>"; };
 		B3606DAA274D5E4A00E61972 /* MyIdeasDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyIdeasDetailView.swift; sourceTree = "<group>"; };
 		B3606DAD274D5EC900E61972 /* MyIdeasDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyIdeasDetailVM.swift; sourceTree = "<group>"; };
-		B3606DAF274D691100E61972 /* SourceLinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceLinkView.swift; sourceTree = "<group>"; };
+		B3606DAF274D691100E61972 /* LinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkView.swift; sourceTree = "<group>"; };
 		B3606DB1274D696700E61972 /* RecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeView.swift; sourceTree = "<group>"; };
 		B3606DB3274D69F300E61972 /* BadgesHStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgesHStack.swift; sourceTree = "<group>"; };
 		B3606DB5274D6A4400E61972 /* IngredientVGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientVGrid.swift; sourceTree = "<group>"; };
@@ -97,7 +96,6 @@
 		B3C2BDB2275264E200CD5EE0 /* MIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MIError.swift; path = ../../../../../../MIError.swift; sourceTree = "<group>"; };
 		B3C2BDB42752651C00CD5EE0 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Alert.swift; path = ../../../../../../Alert.swift; sourceTree = "<group>"; };
 		B3C2BDB62752703A00CD5EE0 /* MealDBDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MealDBDetailVM.swift; path = ../../../../../../MealDBDetailVM.swift; sourceTree = "<group>"; };
-		B3C2BDB827527AA700CD5EE0 /* YoutubeLinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = YoutubeLinkView.swift; path = ../../../../../../YoutubeLinkView.swift; sourceTree = "<group>"; };
 		B3CA233D274808CA00CA9C68 /* Meal Ideas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Meal Ideas.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3CA2340274808CA00CA9C68 /* Meal_IdeasApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal_IdeasApp.swift; sourceTree = "<group>"; };
 		B3CA2342274808CA00CA9C68 /* CoreDataExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataExample.swift; sourceTree = "<group>"; };
@@ -207,8 +205,7 @@
 				B3606DB3274D69F300E61972 /* BadgesHStack.swift */,
 				B3606DB5274D6A4400E61972 /* IngredientVGrid.swift */,
 				B3606DB1274D696700E61972 /* RecipeView.swift */,
-				B3606DAF274D691100E61972 /* SourceLinkView.swift */,
-				B3C2BDB827527AA700CD5EE0 /* YoutubeLinkView.swift */,
+				B3606DAF274D691100E61972 /* LinkView.swift */,
 			);
 			path = "Detail Views";
 			sourceTree = "<group>";
@@ -491,9 +488,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3606D97274C1F6E00E61972 /* MyMealModel.swift in Sources */,
-				B3C2BDB927527AA700CD5EE0 /* YoutubeLinkView.swift in Sources */,
 				B3606DB6274D6A4400E61972 /* IngredientVGrid.swift in Sources */,
-				B3606DB0274D691100E61972 /* SourceLinkView.swift in Sources */,
+				B3606DB0274D691100E61972 /* LinkView.swift in Sources */,
 				B3CA234A274808D600CA9C68 /* Persistence.swift in Sources */,
 				B3C2BDB3275264E200CD5EE0 /* MIError.swift in Sources */,
 				B3606DC4274D8E7C00E61972 /* MealDBDetailView.swift in Sources */,

@@ -24,7 +24,7 @@ struct MyIdeasDetailView: View {
                 
                 RecipeView(recipe: vm.meal.recipe)
             }
-            SourceLinkView(source: vm.meal.source)
+            LinkView(url: vm.meal.source, title: "Visit Source")
             .padding()
         }
     }
