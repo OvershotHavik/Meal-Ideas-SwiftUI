@@ -13,7 +13,7 @@ class SpoonacularResults{
     class DataResults: Codable {
         var recipes: [Recipe]
     }
-    class Recipe: Codable{
+    class Recipe: Codable, Identifiable{
         var creditsText: String?
         var sourceName: String?
         var extendedIngredients: [ExtendedIngredients]
@@ -22,7 +22,7 @@ class SpoonacularResults{
         var readyInMinutes: Int?
         var servings: Int?
         var sourceUrl: String?
-        var image: URL?
+        var image: String?
         var cuisines : [String]?
         var dishTypes: [String]?
         var diets: [String]?
@@ -43,7 +43,7 @@ class SpoonacularResults{
         var name: String?
     }
     
-    class ExtendedIngredients: Codable{
+    class ExtendedIngredients: Codable, Identifiable{
         let id: Int?
         let original: String?
         let name: String?

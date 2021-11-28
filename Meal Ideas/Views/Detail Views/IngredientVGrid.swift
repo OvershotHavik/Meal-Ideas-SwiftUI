@@ -10,6 +10,7 @@ import SwiftUI
 struct IngredientVGrid: View {
     var ingredients : [String]
     var measurements: [String?]
+//    var spoonIngredients: [SpoonacularResults.ExtendedIngredients]?
     let columns = [GridItem(), GridItem()]
     var body: some View {
         LazyVGrid(columns: columns, alignment: .center){

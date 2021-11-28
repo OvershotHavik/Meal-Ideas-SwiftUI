@@ -18,7 +18,7 @@ struct MealIdeasTabView: View {
                 .tabItem {
                     Label("The Meal DB", systemImage: "fork.knife.circle.fill")
                 }
-            SpoonView()
+            SpoonView(vm: SpoonVM())
                 .tabItem {
                     Label("Spoonacular", systemImage: "fork.knife.circle.fill")
                 }
