@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MealIdeasTabView: View {
+    @EnvironmentObject var query: Query
+    
     var body: some View {
         TabView{
             MyIdeasView()

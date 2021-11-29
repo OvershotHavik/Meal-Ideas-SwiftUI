@@ -9,13 +9,12 @@ import SwiftUI
 
 struct TopView: View {
     @State var search = ""
+    @State private var isActive = false
+    
     var body: some View {
         VStack{
-            Text("Selected...")
-            TextField("Keyword Search....", text: $search)
-                .frame(width: 200)
-//                .background(.white)
-                .textFieldStyle(.roundedBorder)
+            SelectedQueryView(isActive: $isActive)
+            
             Divider()
             Spacer()
             
@@ -32,33 +31,86 @@ struct TopView_Previews: PreviewProvider {
     }
 }
 
+struct SelectedQueryView: View{
+    @EnvironmentObject var query: Query
+    @Binding var isActive : Bool
+    var body: some View{
+        switch query.query{
+        case .random:
+            Button {
+                //perform network call to get more meals
+            } label: {
+                Text("Get more random Meals")
+                    .foregroundColor(.primary)
+            }
+            
+        case .category:
+            HStack{
+                Button {
+                    //bring up list view of categories
+                } label: {
+                    Text("Select a category")
+                        .foregroundColor(.primary)
+                }
+                
+            }
+            
+        case .ingredient:
+            HStack{
+                
+                NavigationLink(destination: IngredientsListView(vm: IngredientsListVM(), isActive: $isActive)) {
+                    Text("Select an ingredient")
+                        .foregroundColor(.primary)
+                }
+                if let safeSelected = query.selected{
+                    Text("Selected: \(safeSelected)")
+                }
+            }
+        case .history:
+            HStack{
+                Button {
+                    //bring up list view of history
+                } label: {
+                    Text("View History") // or maybe just change the bottom view to the list..? not sure yet
+                        .foregroundColor(.primary)
+                }
+                
+            }
+        case .favorite:
+            HStack{
+                Button {
+                    //bring up list view of favorites
+                } label: {
+                    Text("View Favorites") // or maybe just change the bottom view to the list..? not sure yet
+                        .foregroundColor(.primary)
+                }
+                
+            }
+        }
+    }
+}
+
+
+
+
 struct TopViewButtons: View{
+    @EnvironmentObject var query : Query
+    //    var query = QueryType.favorite.rawValue
     var body: some View{
         //When button is pressed, transition the top view to show the options available for the respective choice
-        HStack{
-            Button("Random"){}
-            .border(Color.black, width: 2)
-            Button("Category"){}
-            .border(Color.black, width: 2)
-            Button("Ingredient"){}
-            .border(Color.black, width: 2)
+        HStack(spacing: 0){
+            QueryButtonView(title: .random)
             
-            Button {
-                
-            } label: {
-                Image(systemName: "book")
-                    .padding(.horizontal)
-                    .border(Color.black, width: 2)
-            }
-            Button {
-                
-            } label: {
-                Image(systemName: "heart.fill")
-                    .foregroundColor(.pink)
-                    .padding(.horizontal)
-                    .border(Color.black, width: 2)
-            }
-
+            QueryButtonView(title: .category)
+            
+            QueryButtonView(title: .ingredient)
+            
+            QueryImageButtonView(title: .favorite)
+                .foregroundColor(.pink)
+            
+            QueryImageButtonView(title: .history)
+            
+            
         }
         .padding(.bottom, 5)
         .foregroundColor(.primary)
