@@ -13,8 +13,11 @@ struct Meal_IdeasApp: App {
 
     var body: some Scene {
         WindowGroup {
+            IngredientsListView(vm: IngredientsListVM())
+            /*
             MealIdeasTabView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+             */
         }
     }
 }

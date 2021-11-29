@@ -42,6 +42,9 @@
 		B3C2BDC427541B3300CD5EE0 /* SpoonBadgesHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2BDC327541B3300CD5EE0 /* SpoonBadgesHStack.swift */; };
 		B3C2BDC62754231100CD5EE0 /* Double+Ext .swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2BDC52754231100CD5EE0 /* Double+Ext .swift */; };
 		B3C2BDC82754275700CD5EE0 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2BDC72754275700CD5EE0 /* String+Ext.swift */; };
+		B3C2BDCB27551E7A00CD5EE0 /* IngredientsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2BDCA27551E7A00CD5EE0 /* IngredientsListView.swift */; };
+		B3C2BDCD27551EB500CD5EE0 /* IngredientsListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2BDCC27551EB500CD5EE0 /* IngredientsListVM.swift */; };
+		B3C2BDD02755300D00CD5EE0 /* IngredientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2BDCF2755300D00CD5EE0 /* IngredientCell.swift */; };
 		B3CA2341274808CA00CA9C68 /* Meal_IdeasApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CA2340274808CA00CA9C68 /* Meal_IdeasApp.swift */; };
 		B3CA2343274808CA00CA9C68 /* CoreDataExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CA2342274808CA00CA9C68 /* CoreDataExample.swift */; };
 		B3CA2345274808D600CA9C68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3CA2344274808D600CA9C68 /* Assets.xcassets */; };
@@ -110,6 +113,9 @@
 		B3C2BDC327541B3300CD5EE0 /* SpoonBadgesHStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SpoonBadgesHStack.swift; path = ../../../../../../SpoonBadgesHStack.swift; sourceTree = "<group>"; };
 		B3C2BDC52754231100CD5EE0 /* Double+Ext .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Double+Ext .swift"; path = "../../../../../../Double+Ext .swift"; sourceTree = "<group>"; };
 		B3C2BDC72754275700CD5EE0 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "String+Ext.swift"; path = "../../../../../../String+Ext.swift"; sourceTree = "<group>"; };
+		B3C2BDCA27551E7A00CD5EE0 /* IngredientsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IngredientsListView.swift; path = ../../../../../../IngredientsListView.swift; sourceTree = "<group>"; };
+		B3C2BDCC27551EB500CD5EE0 /* IngredientsListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IngredientsListVM.swift; path = ../../../../../../IngredientsListVM.swift; sourceTree = "<group>"; };
+		B3C2BDCF2755300D00CD5EE0 /* IngredientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IngredientCell.swift; path = ../../../../../../IngredientCell.swift; sourceTree = "<group>"; };
 		B3CA233D274808CA00CA9C68 /* Meal Ideas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Meal Ideas.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3CA2340274808CA00CA9C68 /* Meal_IdeasApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal_IdeasApp.swift; sourceTree = "<group>"; };
 		B3CA2342274808CA00CA9C68 /* CoreDataExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataExample.swift; sourceTree = "<group>"; };
@@ -156,6 +162,7 @@
 		B3606D8F2748221E00E61972 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B3C2BDCE27552FFC00CD5EE0 /* Cells */,
 				B3606DAC274D5E8000E61972 /* Detail Views */,
 				B3606DA2274C2A8F00E61972 /* MealCardView.swift */,
 				B3606DA4274C446900E61972 /* TopView.swift */,
@@ -283,6 +290,23 @@
 			path = SpoonDetailView;
 			sourceTree = "<group>";
 		};
+		B3C2BDC92755170A00CD5EE0 /* Ingredient List View */ = {
+			isa = PBXGroup;
+			children = (
+				B3C2BDCA27551E7A00CD5EE0 /* IngredientsListView.swift */,
+				B3C2BDCC27551EB500CD5EE0 /* IngredientsListVM.swift */,
+			);
+			path = "Ingredient List View";
+			sourceTree = "<group>";
+		};
+		B3C2BDCE27552FFC00CD5EE0 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				B3C2BDCF2755300D00CD5EE0 /* IngredientCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		B3CA2334274808CA00CA9C68 = {
 			isa = PBXGroup;
 			children = (
@@ -356,6 +380,7 @@
 				B3606DC2274D8E5700E61972 /* MealDB Detail View */,
 				B3CA2376274810EB00CA9C68 /* Spoonacular */,
 				B3C2BDBE2753CDCF00CD5EE0 /* SpoonDetailView */,
+				B3C2BDC92755170A00CD5EE0 /* Ingredient List View */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -542,7 +567,9 @@
 				B3CA2341274808CA00CA9C68 /* Meal_IdeasApp.swift in Sources */,
 				B3606DB8274D6AEA00E61972 /* MealNameView.swift in Sources */,
 				B3606DBA274D6B3400E61972 /* MealPhotoView.swift in Sources */,
+				B3C2BDD02755300D00CD5EE0 /* IngredientCell.swift in Sources */,
 				B3CA234D274808D600CA9C68 /* Meal_Ideas.xcdatamodeld in Sources */,
+				B3C2BDCB27551E7A00CD5EE0 /* IngredientsListView.swift in Sources */,
 				B3606D9F274C210700E61972 /* FavoritesModel.swift in Sources */,
 				B3C2BDAE2752634500CD5EE0 /* NetworkManager.swift in Sources */,
 				B3C2BDC427541B3300CD5EE0 /* SpoonBadgesHStack.swift in Sources */,
@@ -553,6 +580,7 @@
 				B3606DB4274D69F300E61972 /* BadgesHStack.swift in Sources */,
 				B3C2BDC62754231100CD5EE0 /* Double+Ext .swift in Sources */,
 				B3C2BDC82754275700CD5EE0 /* String+Ext.swift in Sources */,
+				B3C2BDCD27551EB500CD5EE0 /* IngredientsListVM.swift in Sources */,
 				B3606D9D274C20AF00E61972 /* HistoryModel.swift in Sources */,
 				B3606DAB274D5E4A00E61972 /* MyIdeasDetailView.swift in Sources */,
 				B3606DA1274C217700E61972 /* IngredientsModel.swift in Sources */,

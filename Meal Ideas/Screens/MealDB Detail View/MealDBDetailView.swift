@@ -32,6 +32,8 @@ struct MealDBDetailView: View {
             }
 
             LinkView(url: vm.meal.strSource ?? "", title: "Visit Source")
+                .navigationTitle(vm.meal.strMeal ?? "")
+
         }
     }
 }

@@ -30,7 +30,7 @@ struct MyIdeasDetailView: View {
                 RecipeView(recipe: vm.meal.recipe)
             }
             LinkView(url: vm.meal.source, title: "Visit Source")
-            .padding()
+            .navigationTitle(vm.meal.mealName)
         }
     }
 }
