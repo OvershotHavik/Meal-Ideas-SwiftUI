@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct UserMealModel: Codable, Equatable, Identifiable{
     var id = UUID()
@@ -14,14 +15,30 @@ struct UserMealModel: Codable, Equatable, Identifiable{
     var category : [String]
     var ingredients: [String]
     var sides : [String]
-    var source: String?
+    var source: String
     var instructionsPhoto: Data?
     var recipe: String
     var favorite = false
-    var measurements: [String]?
+    var measurements: [String]
 }
 
+struct UserIngredient: Identifiable{
+    var id = UUID()
+    var name: String
+    var measurement: String
+}
 
+struct Blank{
+    static let userMeal = UserMealModel(mealName: "",
+                                        mealPhoto: nil,
+                                        category: [],
+                                        ingredients: [],
+                                        sides: [],
+                                        source: "",
+                                        instructionsPhoto: nil,
+                                        recipe: "",
+                                        measurements: [])
+}
 
 // For UI setup only
 struct SampleUserMealModel: Codable, Equatable, Identifiable{

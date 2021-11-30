@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MyIdeasView: View {
-   
+   @State var isActive = false
     var body: some View {
         NavigationView{
             VStack{
@@ -32,7 +32,7 @@ struct MyIdeasView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {}) {
+                    NavigationLink(destination: EditIdeaView(vm: EditIdeaVM())) {
                         Image(systemName: "plus")
                             .padding(.horizontal)
                             .foregroundColor(.black)
