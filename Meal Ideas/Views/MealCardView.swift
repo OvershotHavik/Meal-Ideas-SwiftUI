@@ -12,7 +12,7 @@ struct MealCardView: View {
     var mealName: String
     var favorited: Bool
     var inHistory: Bool
-    
+
     var body: some View {
         ZStack{
             Color(UIColor.secondarySystemBackground)

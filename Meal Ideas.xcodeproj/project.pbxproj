@@ -29,10 +29,10 @@
 		B3606DC1274D7B0900E61972 /* MealDBVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3606DC0274D7B0900E61972 /* MealDBVM.swift */; };
 		B3606DC4274D8E7C00E61972 /* MealDBDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3606DC3274D8E7C00E61972 /* MealDBDetailView.swift */; };
 		B37E360A27481DC900687A8C /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37E360927481DC900687A8C /* APIKey.swift */; };
+		B3AE0A182756D109001EAD15 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE0A172756D109001EAD15 /* Alert.swift */; };
 		B3C2BDAE2752634500CD5EE0 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2BDAD2752634500CD5EE0 /* NetworkManager.swift */; };
 		B3C2BDB0275263D800CD5EE0 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2BDAF275263D800CD5EE0 /* ImageLoader.swift */; };
 		B3C2BDB3275264E200CD5EE0 /* MIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2BDB2275264E200CD5EE0 /* MIError.swift */; };
-		B3C2BDB52752651C00CD5EE0 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2BDB42752651C00CD5EE0 /* Alert.swift */; };
 		B3C2BDB72752703B00CD5EE0 /* MealDBDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2BDB62752703A00CD5EE0 /* MealDBDetailVM.swift */; };
 		B3C2BDBB2753C95300CD5EE0 /* SpoonJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2BDBA2753C95300CD5EE0 /* SpoonJSON.swift */; };
 		B3C2BDBD2753C9AD00CD5EE0 /* SpoonVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2BDBC2753C9AD00CD5EE0 /* SpoonVM.swift */; };
@@ -105,10 +105,10 @@
 		B3606DC0274D7B0900E61972 /* MealDBVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDBVM.swift; sourceTree = "<group>"; };
 		B3606DC3274D8E7C00E61972 /* MealDBDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDBDetailView.swift; sourceTree = "<group>"; };
 		B37E360927481DC900687A8C /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		B3AE0A172756D109001EAD15 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		B3C2BDAD2752634500CD5EE0 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NetworkManager.swift; path = ../../../../../../NetworkManager.swift; sourceTree = "<group>"; };
 		B3C2BDAF275263D800CD5EE0 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageLoader.swift; path = ../../../../../../ImageLoader.swift; sourceTree = "<group>"; };
 		B3C2BDB2275264E200CD5EE0 /* MIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MIError.swift; path = ../../../../../../MIError.swift; sourceTree = "<group>"; };
-		B3C2BDB42752651C00CD5EE0 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Alert.swift; path = ../../../../../../Alert.swift; sourceTree = "<group>"; };
 		B3C2BDB62752703A00CD5EE0 /* MealDBDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MealDBDetailVM.swift; path = ../../../../../../MealDBDetailVM.swift; sourceTree = "<group>"; };
 		B3C2BDBA2753C95300CD5EE0 /* SpoonJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SpoonJSON.swift; path = ../../../../../../SpoonJSON.swift; sourceTree = "<group>"; };
 		B3C2BDBC2753C9AD00CD5EE0 /* SpoonVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SpoonVM.swift; path = ../../../../../../SpoonVM.swift; sourceTree = "<group>"; };
@@ -282,7 +282,7 @@
 			isa = PBXGroup;
 			children = (
 				B3C2BDB2275264E200CD5EE0 /* MIError.swift */,
-				B3C2BDB42752651C00CD5EE0 /* Alert.swift */,
+				B3AE0A172756D109001EAD15 /* Alert.swift */,
 			);
 			path = Alerts;
 			sourceTree = "<group>";
@@ -574,7 +574,6 @@
 				B3606DBF274D7A9800E61972 /* MealDBJSON.swift in Sources */,
 				B3CA2343274808CA00CA9C68 /* CoreDataExample.swift in Sources */,
 				B3C2BDD22755411300CD5EE0 /* Query.swift in Sources */,
-				B3C2BDB52752651C00CD5EE0 /* Alert.swift in Sources */,
 				B3CA237A2748114000CA9C68 /* MealDBView.swift in Sources */,
 				B3606DB2274D696700E61972 /* RecipeView.swift in Sources */,
 				B3CA237C2748115D00CA9C68 /* SpoonView.swift in Sources */,
@@ -605,6 +604,7 @@
 				B3C37AF227566F7A00D0E841 /* EditIdeaView.swift in Sources */,
 				B3606DA5274C446900E61972 /* TopView.swift in Sources */,
 				B3606DAE274D5EC900E61972 /* MyIdeasDetailVM.swift in Sources */,
+				B3AE0A182756D109001EAD15 /* Alert.swift in Sources */,
 				B3606D932748224800E61972 /* Color+Ext.swift in Sources */,
 				B3C2BDD627554CCC00CD5EE0 /* QueryImageButtonView.swift in Sources */,
 			);

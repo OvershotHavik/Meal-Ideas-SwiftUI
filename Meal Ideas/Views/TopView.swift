@@ -52,7 +52,6 @@ struct SelectedQueryView: View{
                     Text("Select a category")
                         .foregroundColor(.primary)
                 }
-                
             }
             
         case .ingredient:
