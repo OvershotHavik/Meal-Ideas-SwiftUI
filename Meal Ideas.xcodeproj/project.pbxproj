@@ -30,24 +30,6 @@
 		B3606DC4274D8E7C00E61972 /* MealDBDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3606DC3274D8E7C00E61972 /* MealDBDetailView.swift */; };
 		B37E360A27481DC900687A8C /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37E360927481DC900687A8C /* APIKey.swift */; };
 		B3AE0A182756D109001EAD15 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE0A172756D109001EAD15 /* Alert.swift */; };
-		B3C2BDAE2752634500CD5EE0 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2BDAD2752634500CD5EE0 /* NetworkManager.swift */; };
-		B3C2BDB0275263D800CD5EE0 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2BDAF275263D800CD5EE0 /* ImageLoader.swift */; };
-		B3C2BDB3275264E200CD5EE0 /* MIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2BDB2275264E200CD5EE0 /* MIError.swift */; };
-		B3C2BDB72752703B00CD5EE0 /* MealDBDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2BDB62752703A00CD5EE0 /* MealDBDetailVM.swift */; };
-		B3C2BDBB2753C95300CD5EE0 /* SpoonJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2BDBA2753C95300CD5EE0 /* SpoonJSON.swift */; };
-		B3C2BDBD2753C9AD00CD5EE0 /* SpoonVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2BDBC2753C9AD00CD5EE0 /* SpoonVM.swift */; };
-		B3C2BDC02753CEF000CD5EE0 /* SpoonDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2BDBF2753CEF000CD5EE0 /* SpoonDetailView.swift */; };
-		B3C2BDC22753CF0400CD5EE0 /* SpoonDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2BDC12753CF0400CD5EE0 /* SpoonDetailVM.swift */; };
-		B3C2BDC427541B3300CD5EE0 /* SpoonBadgesHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2BDC327541B3300CD5EE0 /* SpoonBadgesHStack.swift */; };
-		B3C2BDC62754231100CD5EE0 /* Double+Ext .swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2BDC52754231100CD5EE0 /* Double+Ext .swift */; };
-		B3C2BDC82754275700CD5EE0 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2BDC72754275700CD5EE0 /* String+Ext.swift */; };
-		B3C2BDCB27551E7A00CD5EE0 /* IngredientsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2BDCA27551E7A00CD5EE0 /* IngredientsListView.swift */; };
-		B3C2BDCD27551EB500CD5EE0 /* IngredientsListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2BDCC27551EB500CD5EE0 /* IngredientsListVM.swift */; };
-		B3C2BDD02755300D00CD5EE0 /* IngredientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2BDCF2755300D00CD5EE0 /* IngredientCell.swift */; };
-		B3C2BDD22755411300CD5EE0 /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2BDD12755411300CD5EE0 /* Query.swift */; };
-		B3C2BDD4275549CA00CD5EE0 /* QueryButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2BDD3275549CA00CD5EE0 /* QueryButtonView.swift */; };
-		B3C2BDD627554CCC00CD5EE0 /* QueryImageButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2BDD527554CCC00CD5EE0 /* QueryImageButtonView.swift */; };
-		B3C2BDD82755615D00CD5EE0 /* ThingsToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2BDD72755615D00CD5EE0 /* ThingsToDo.swift */; };
 		B3CA2341274808CA00CA9C68 /* Meal_IdeasApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CA2340274808CA00CA9C68 /* Meal_IdeasApp.swift */; };
 		B3CA2343274808CA00CA9C68 /* CoreDataExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CA2342274808CA00CA9C68 /* CoreDataExample.swift */; };
 		B3CA2345274808D600CA9C68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3CA2344274808D600CA9C68 /* Assets.xcassets */; };
@@ -63,6 +45,24 @@
 		B3CA237C2748115D00CA9C68 /* SpoonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CA237B2748115D00CA9C68 /* SpoonView.swift */; };
 		B3CEDD9E2756F9D200BB832B /* EditIdeaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CEDD9D2756F9D200BB832B /* EditIdeaView.swift */; };
 		B3CEDDA02756FA1D00BB832B /* EditIdeaVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CEDD9F2756FA1D00BB832B /* EditIdeaVM.swift */; };
+		B3CEDDA22756FB4400BB832B /* Double+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CEDDA12756FB4400BB832B /* Double+Ext.swift */; };
+		B3CEDDA42756FBFB00BB832B /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CEDDA32756FBFB00BB832B /* ImageLoader.swift */; };
+		B3CEDDA62756FC7700BB832B /* IngredientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CEDDA52756FC7700BB832B /* IngredientCell.swift */; };
+		B3CEDDA82756FCB800BB832B /* IngredientsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CEDDA72756FCB800BB832B /* IngredientsListView.swift */; };
+		B3CEDDAA2756FCE700BB832B /* IngredientsListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CEDDA92756FCE700BB832B /* IngredientsListVM.swift */; };
+		B3CEDDAC2756FD3800BB832B /* MealDBDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CEDDAB2756FD3800BB832B /* MealDBDetailVM.swift */; };
+		B3CEDDAE2756FD7D00BB832B /* MIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CEDDAD2756FD7D00BB832B /* MIError.swift */; };
+		B3CEDDB02756FDB700BB832B /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CEDDAF2756FDB700BB832B /* NetworkManager.swift */; };
+		B3CEDDB22756FDEA00BB832B /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CEDDB12756FDEA00BB832B /* Query.swift */; };
+		B3CEDDB42756FE1D00BB832B /* QueryButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CEDDB32756FE1D00BB832B /* QueryButtonView.swift */; };
+		B3CEDDB62756FE4D00BB832B /* QueryImageButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CEDDB52756FE4D00BB832B /* QueryImageButtonView.swift */; };
+		B3CEDDB82756FEA300BB832B /* SpoonServingPrepHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CEDDB72756FEA300BB832B /* SpoonServingPrepHStack.swift */; };
+		B3CEDDBA2756FFB900BB832B /* SpoonDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CEDDB92756FFB900BB832B /* SpoonDetailView.swift */; };
+		B3CEDDBC2756FFDD00BB832B /* SpoonDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CEDDBB2756FFDD00BB832B /* SpoonDetailVM.swift */; };
+		B3CEDDBE2757000F00BB832B /* SpoonJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CEDDBD2757000F00BB832B /* SpoonJSON.swift */; };
+		B3CEDDC02757005800BB832B /* SpoonVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CEDDBF2757005800BB832B /* SpoonVM.swift */; };
+		B3CEDDC22757008800BB832B /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CEDDC12757008800BB832B /* String+Ext.swift */; };
+		B3CEDDC4275700E300BB832B /* ThingsToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CEDDC3275700E300BB832B /* ThingsToDo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,24 +106,6 @@
 		B3606DC3274D8E7C00E61972 /* MealDBDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDBDetailView.swift; sourceTree = "<group>"; };
 		B37E360927481DC900687A8C /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		B3AE0A172756D109001EAD15 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
-		B3C2BDAD2752634500CD5EE0 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NetworkManager.swift; path = ../../../../../../NetworkManager.swift; sourceTree = "<group>"; };
-		B3C2BDAF275263D800CD5EE0 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageLoader.swift; path = ../../../../../../ImageLoader.swift; sourceTree = "<group>"; };
-		B3C2BDB2275264E200CD5EE0 /* MIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MIError.swift; path = ../../../../../../MIError.swift; sourceTree = "<group>"; };
-		B3C2BDB62752703A00CD5EE0 /* MealDBDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MealDBDetailVM.swift; path = ../../../../../../MealDBDetailVM.swift; sourceTree = "<group>"; };
-		B3C2BDBA2753C95300CD5EE0 /* SpoonJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SpoonJSON.swift; path = ../../../../../../SpoonJSON.swift; sourceTree = "<group>"; };
-		B3C2BDBC2753C9AD00CD5EE0 /* SpoonVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SpoonVM.swift; path = ../../../../../../SpoonVM.swift; sourceTree = "<group>"; };
-		B3C2BDBF2753CEF000CD5EE0 /* SpoonDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SpoonDetailView.swift; path = ../../../../../../SpoonDetailView.swift; sourceTree = "<group>"; };
-		B3C2BDC12753CF0400CD5EE0 /* SpoonDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SpoonDetailVM.swift; path = ../../../../../../SpoonDetailVM.swift; sourceTree = "<group>"; };
-		B3C2BDC327541B3300CD5EE0 /* SpoonBadgesHStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SpoonBadgesHStack.swift; path = ../../../../../../SpoonBadgesHStack.swift; sourceTree = "<group>"; };
-		B3C2BDC52754231100CD5EE0 /* Double+Ext .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Double+Ext .swift"; path = "../../../../../../Double+Ext .swift"; sourceTree = "<group>"; };
-		B3C2BDC72754275700CD5EE0 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "String+Ext.swift"; path = "../../../../../../String+Ext.swift"; sourceTree = "<group>"; };
-		B3C2BDCA27551E7A00CD5EE0 /* IngredientsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IngredientsListView.swift; path = ../../../../../../IngredientsListView.swift; sourceTree = "<group>"; };
-		B3C2BDCC27551EB500CD5EE0 /* IngredientsListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IngredientsListVM.swift; path = ../../../../../../IngredientsListVM.swift; sourceTree = "<group>"; };
-		B3C2BDCF2755300D00CD5EE0 /* IngredientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IngredientCell.swift; path = ../../../../../../IngredientCell.swift; sourceTree = "<group>"; };
-		B3C2BDD12755411300CD5EE0 /* Query.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Query.swift; path = ../../../../../Query.swift; sourceTree = "<group>"; };
-		B3C2BDD3275549CA00CD5EE0 /* QueryButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QueryButtonView.swift; path = ../../../../../QueryButtonView.swift; sourceTree = "<group>"; };
-		B3C2BDD527554CCC00CD5EE0 /* QueryImageButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QueryImageButtonView.swift; path = ../../../../../QueryImageButtonView.swift; sourceTree = "<group>"; };
-		B3C2BDD72755615D00CD5EE0 /* ThingsToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ThingsToDo.swift; path = ../../../../../ThingsToDo.swift; sourceTree = "<group>"; };
 		B3CA233D274808CA00CA9C68 /* Meal Ideas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Meal Ideas.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3CA2340274808CA00CA9C68 /* Meal_IdeasApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal_IdeasApp.swift; sourceTree = "<group>"; };
 		B3CA2342274808CA00CA9C68 /* CoreDataExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataExample.swift; sourceTree = "<group>"; };
@@ -142,6 +124,24 @@
 		B3CA237B2748115D00CA9C68 /* SpoonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpoonView.swift; sourceTree = "<group>"; };
 		B3CEDD9D2756F9D200BB832B /* EditIdeaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditIdeaView.swift; sourceTree = "<group>"; };
 		B3CEDD9F2756FA1D00BB832B /* EditIdeaVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditIdeaVM.swift; sourceTree = "<group>"; };
+		B3CEDDA12756FB4400BB832B /* Double+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Ext.swift"; sourceTree = "<group>"; };
+		B3CEDDA32756FBFB00BB832B /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		B3CEDDA52756FC7700BB832B /* IngredientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientCell.swift; sourceTree = "<group>"; };
+		B3CEDDA72756FCB800BB832B /* IngredientsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsListView.swift; sourceTree = "<group>"; };
+		B3CEDDA92756FCE700BB832B /* IngredientsListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsListVM.swift; sourceTree = "<group>"; };
+		B3CEDDAB2756FD3800BB832B /* MealDBDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDBDetailVM.swift; sourceTree = "<group>"; };
+		B3CEDDAD2756FD7D00BB832B /* MIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIError.swift; sourceTree = "<group>"; };
+		B3CEDDAF2756FDB700BB832B /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		B3CEDDB12756FDEA00BB832B /* Query.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
+		B3CEDDB32756FE1D00BB832B /* QueryButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryButtonView.swift; sourceTree = "<group>"; };
+		B3CEDDB52756FE4D00BB832B /* QueryImageButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryImageButtonView.swift; sourceTree = "<group>"; };
+		B3CEDDB72756FEA300BB832B /* SpoonServingPrepHStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpoonServingPrepHStack.swift; sourceTree = "<group>"; };
+		B3CEDDB92756FFB900BB832B /* SpoonDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpoonDetailView.swift; sourceTree = "<group>"; };
+		B3CEDDBB2756FFDD00BB832B /* SpoonDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpoonDetailVM.swift; sourceTree = "<group>"; };
+		B3CEDDBD2757000F00BB832B /* SpoonJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpoonJSON.swift; sourceTree = "<group>"; };
+		B3CEDDBF2757005800BB832B /* SpoonVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpoonVM.swift; sourceTree = "<group>"; };
+		B3CEDDC12757008800BB832B /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
+		B3CEDDC3275700E300BB832B /* ThingsToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThingsToDo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,8 +177,8 @@
 				B3606DA2274C2A8F00E61972 /* MealCardView.swift */,
 				B3606DA4274C446900E61972 /* TopView.swift */,
 				B3606DBB274D6C8900E61972 /* IngredientView.swift */,
-				B3C2BDD3275549CA00CD5EE0 /* QueryButtonView.swift */,
-				B3C2BDD527554CCC00CD5EE0 /* QueryImageButtonView.swift */,
+				B3CEDDB32756FE1D00BB832B /* QueryButtonView.swift */,
+				B3CEDDB52756FE4D00BB832B /* QueryImageButtonView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -187,8 +187,8 @@
 			isa = PBXGroup;
 			children = (
 				B3606D922748224800E61972 /* Color+Ext.swift */,
-				B3C2BDC52754231100CD5EE0 /* Double+Ext .swift */,
-				B3C2BDC72754275700CD5EE0 /* String+Ext.swift */,
+				B3CEDDA12756FB4400BB832B /* Double+Ext.swift */,
+				B3CEDDC12757008800BB832B /* String+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -203,7 +203,7 @@
 				B3606D9C274C20AF00E61972 /* HistoryModel.swift */,
 				B3606D9E274C210700E61972 /* FavoritesModel.swift */,
 				B3606DA0274C217700E61972 /* IngredientsModel.swift */,
-				B3C2BDD12755411300CD5EE0 /* Query.swift */,
+				B3CEDDB12756FDEA00BB832B /* Query.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -234,7 +234,7 @@
 				B3606DB5274D6A4400E61972 /* IngredientVGrid.swift */,
 				B3606DB1274D696700E61972 /* RecipeView.swift */,
 				B3606DAF274D691100E61972 /* LinkView.swift */,
-				B3C2BDC327541B3300CD5EE0 /* SpoonBadgesHStack.swift */,
+				B3CEDDB72756FEA300BB832B /* SpoonServingPrepHStack.swift */,
 			);
 			path = "Detail Views";
 			sourceTree = "<group>";
@@ -243,7 +243,7 @@
 			isa = PBXGroup;
 			children = (
 				B3606DBE274D7A9800E61972 /* MealDBJSON.swift */,
-				B3C2BDBA2753C95300CD5EE0 /* SpoonJSON.swift */,
+				B3CEDDBD2757000F00BB832B /* SpoonJSON.swift */,
 			);
 			path = "JSON Samples";
 			sourceTree = "<group>";
@@ -252,7 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				B3606DC3274D8E7C00E61972 /* MealDBDetailView.swift */,
-				B3C2BDB62752703A00CD5EE0 /* MealDBDetailVM.swift */,
+				B3CEDDAB2756FD3800BB832B /* MealDBDetailVM.swift */,
 			);
 			path = "MealDB Detail View";
 			sourceTree = "<group>";
@@ -264,7 +264,7 @@
 				B3C2BDAC2752632300CD5EE0 /* Managers */,
 				B3606D95274C1C2B00E61972 /* Ignored */,
 				B3606D902748222800E61972 /* Extensions */,
-				B3C2BDD72755615D00CD5EE0 /* ThingsToDo.swift */,
+				B3CEDDC3275700E300BB832B /* ThingsToDo.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -272,8 +272,8 @@
 		B3C2BDAC2752632300CD5EE0 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				B3C2BDAD2752634500CD5EE0 /* NetworkManager.swift */,
-				B3C2BDAF275263D800CD5EE0 /* ImageLoader.swift */,
+				B3CEDDA32756FBFB00BB832B /* ImageLoader.swift */,
+				B3CEDDAF2756FDB700BB832B /* NetworkManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -281,8 +281,8 @@
 		B3C2BDB1275264B800CD5EE0 /* Alerts */ = {
 			isa = PBXGroup;
 			children = (
-				B3C2BDB2275264E200CD5EE0 /* MIError.swift */,
 				B3AE0A172756D109001EAD15 /* Alert.swift */,
+				B3CEDDAD2756FD7D00BB832B /* MIError.swift */,
 			);
 			path = Alerts;
 			sourceTree = "<group>";
@@ -290,8 +290,8 @@
 		B3C2BDBE2753CDCF00CD5EE0 /* SpoonDetailView */ = {
 			isa = PBXGroup;
 			children = (
-				B3C2BDBF2753CEF000CD5EE0 /* SpoonDetailView.swift */,
-				B3C2BDC12753CF0400CD5EE0 /* SpoonDetailVM.swift */,
+				B3CEDDB92756FFB900BB832B /* SpoonDetailView.swift */,
+				B3CEDDBB2756FFDD00BB832B /* SpoonDetailVM.swift */,
 			);
 			path = SpoonDetailView;
 			sourceTree = "<group>";
@@ -299,8 +299,8 @@
 		B3C2BDC92755170A00CD5EE0 /* Ingredient List View */ = {
 			isa = PBXGroup;
 			children = (
-				B3C2BDCA27551E7A00CD5EE0 /* IngredientsListView.swift */,
-				B3C2BDCC27551EB500CD5EE0 /* IngredientsListVM.swift */,
+				B3CEDDA72756FCB800BB832B /* IngredientsListView.swift */,
+				B3CEDDA92756FCE700BB832B /* IngredientsListVM.swift */,
 			);
 			path = "Ingredient List View";
 			sourceTree = "<group>";
@@ -308,7 +308,7 @@
 		B3C2BDCE27552FFC00CD5EE0 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				B3C2BDCF2755300D00CD5EE0 /* IngredientCell.swift */,
+				B3CEDDA52756FC7700BB832B /* IngredientCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -421,7 +421,7 @@
 			isa = PBXGroup;
 			children = (
 				B3CA237B2748115D00CA9C68 /* SpoonView.swift */,
-				B3C2BDBC2753C9AD00CD5EE0 /* SpoonVM.swift */,
+				B3CEDDBF2757005800BB832B /* SpoonVM.swift */,
 			);
 			path = Spoonacular;
 			sourceTree = "<group>";
@@ -558,55 +558,55 @@
 			files = (
 				B3606D97274C1F6E00E61972 /* MyMealModel.swift in Sources */,
 				B3606DB6274D6A4400E61972 /* IngredientVGrid.swift in Sources */,
+				B3CEDDA22756FB4400BB832B /* Double+Ext.swift in Sources */,
 				B3606DB0274D691100E61972 /* LinkView.swift in Sources */,
 				B3CA234A274808D600CA9C68 /* Persistence.swift in Sources */,
-				B3C2BDB3275264E200CD5EE0 /* MIError.swift in Sources */,
+				B3CEDDB82756FEA300BB832B /* SpoonServingPrepHStack.swift in Sources */,
 				B3606DC4274D8E7C00E61972 /* MealDBDetailView.swift in Sources */,
-				B3C2BDB0275263D800CD5EE0 /* ImageLoader.swift in Sources */,
 				B3CEDDA02756FA1D00BB832B /* EditIdeaVM.swift in Sources */,
 				B3606DA3274C2A8F00E61972 /* MealCardView.swift in Sources */,
 				B3606DC1274D7B0900E61972 /* MealDBVM.swift in Sources */,
 				B3606D99274C1FB600E61972 /* MealDBModel.swift in Sources */,
-				B3C2BDBB2753C95300CD5EE0 /* SpoonJSON.swift in Sources */,
-				B3C2BDC22753CF0400CD5EE0 /* SpoonDetailVM.swift in Sources */,
-				B3C2BDD4275549CA00CD5EE0 /* QueryButtonView.swift in Sources */,
-				B3C2BDC02753CEF000CD5EE0 /* SpoonDetailView.swift in Sources */,
+				B3CEDDB62756FE4D00BB832B /* QueryImageButtonView.swift in Sources */,
 				B3606DBF274D7A9800E61972 /* MealDBJSON.swift in Sources */,
 				B3CA2343274808CA00CA9C68 /* CoreDataExample.swift in Sources */,
-				B3C2BDD22755411300CD5EE0 /* Query.swift in Sources */,
+				B3CEDDB02756FDB700BB832B /* NetworkManager.swift in Sources */,
 				B3CEDD9E2756F9D200BB832B /* EditIdeaView.swift in Sources */,
 				B3CA237A2748114000CA9C68 /* MealDBView.swift in Sources */,
+				B3CEDDB22756FDEA00BB832B /* Query.swift in Sources */,
 				B3606DB2274D696700E61972 /* RecipeView.swift in Sources */,
+				B3CEDDB42756FE1D00BB832B /* QueryButtonView.swift in Sources */,
 				B3CA237C2748115D00CA9C68 /* SpoonView.swift in Sources */,
 				B3606DBC274D6C8900E61972 /* IngredientView.swift in Sources */,
-				B3C2BDB72752703B00CD5EE0 /* MealDBDetailVM.swift in Sources */,
-				B3C2BDBD2753C9AD00CD5EE0 /* SpoonVM.swift in Sources */,
+				B3CEDDBA2756FFB900BB832B /* SpoonDetailView.swift in Sources */,
 				B3CA2341274808CA00CA9C68 /* Meal_IdeasApp.swift in Sources */,
 				B3606DB8274D6AEA00E61972 /* MealNameView.swift in Sources */,
 				B3606DBA274D6B3400E61972 /* MealPhotoView.swift in Sources */,
-				B3C2BDD02755300D00CD5EE0 /* IngredientCell.swift in Sources */,
 				B3CA234D274808D600CA9C68 /* Meal_Ideas.xcdatamodeld in Sources */,
-				B3C2BDCB27551E7A00CD5EE0 /* IngredientsListView.swift in Sources */,
+				B3CEDDAE2756FD7D00BB832B /* MIError.swift in Sources */,
+				B3CEDDBC2756FFDD00BB832B /* SpoonDetailVM.swift in Sources */,
 				B3606D9F274C210700E61972 /* FavoritesModel.swift in Sources */,
-				B3C2BDAE2752634500CD5EE0 /* NetworkManager.swift in Sources */,
-				B3C2BDC427541B3300CD5EE0 /* SpoonBadgesHStack.swift in Sources */,
+				B3CEDDC4275700E300BB832B /* ThingsToDo.swift in Sources */,
+				B3CEDDA82756FCB800BB832B /* IngredientsListView.swift in Sources */,
 				B3CA23722748108C00CA9C68 /* MealIdeasTabView.swift in Sources */,
 				B3606D9B274C201200E61972 /* SpoonMealModel.swift in Sources */,
-				B3C2BDD82755615D00CD5EE0 /* ThingsToDo.swift in Sources */,
+				B3CEDDA42756FBFB00BB832B /* ImageLoader.swift in Sources */,
 				B37E360A27481DC900687A8C /* APIKey.swift in Sources */,
 				B3CA23782748112500CA9C68 /* MyIdeasView.swift in Sources */,
+				B3CEDDBE2757000F00BB832B /* SpoonJSON.swift in Sources */,
 				B3606DB4274D69F300E61972 /* BadgesHStack.swift in Sources */,
-				B3C2BDC62754231100CD5EE0 /* Double+Ext .swift in Sources */,
-				B3C2BDC82754275700CD5EE0 /* String+Ext.swift in Sources */,
-				B3C2BDCD27551EB500CD5EE0 /* IngredientsListVM.swift in Sources */,
 				B3606D9D274C20AF00E61972 /* HistoryModel.swift in Sources */,
+				B3CEDDC02757005800BB832B /* SpoonVM.swift in Sources */,
+				B3CEDDC22757008800BB832B /* String+Ext.swift in Sources */,
+				B3CEDDAC2756FD3800BB832B /* MealDBDetailVM.swift in Sources */,
+				B3CEDDA62756FC7700BB832B /* IngredientCell.swift in Sources */,
 				B3606DAB274D5E4A00E61972 /* MyIdeasDetailView.swift in Sources */,
+				B3CEDDAA2756FCE700BB832B /* IngredientsListVM.swift in Sources */,
 				B3606DA1274C217700E61972 /* IngredientsModel.swift in Sources */,
 				B3606DA5274C446900E61972 /* TopView.swift in Sources */,
 				B3606DAE274D5EC900E61972 /* MyIdeasDetailVM.swift in Sources */,
 				B3AE0A182756D109001EAD15 /* Alert.swift in Sources */,
 				B3606D932748224800E61972 /* Color+Ext.swift in Sources */,
-				B3C2BDD627554CCC00CD5EE0 /* QueryImageButtonView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
