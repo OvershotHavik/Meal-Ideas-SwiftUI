@@ -73,7 +73,7 @@ struct EditIdeaView: View {
                             .frame(width: 100)
                     }
                 }
-                Text("Or type in below:")
+                Text("And/Or type in below:")
                 TextEditor(text: $vm.recipe)
                     .frame(height: 150)
             }
