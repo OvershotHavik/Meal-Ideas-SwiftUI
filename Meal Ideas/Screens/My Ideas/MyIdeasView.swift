@@ -32,7 +32,7 @@ struct MyIdeasView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: EditIdeaView(vm: EditIdeaVM(meal: nil))) {
+                    NavigationLink(destination: EditIdeaView(vm: EditIdeaVM(meal: TestMeal.testUserMeal))) {
                         Image(systemName: "plus")
                             .padding(.horizontal)
                             .foregroundColor(.black)

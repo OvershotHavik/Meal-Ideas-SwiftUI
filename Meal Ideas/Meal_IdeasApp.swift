@@ -14,8 +14,8 @@ struct Meal_IdeasApp: App {
     var body: some Scene {
         WindowGroup {
 //            IngredientsListView(vm: IngredientsListVM())
-//            EditIdeaView(vm: EditIdeaVM())
-            MealIdeasTabView()
+            EditIdeaView(vm: EditIdeaVM(meal: TestMeal.testUserMeal))
+//            MealIdeasTabView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .environmentObject(query)
             

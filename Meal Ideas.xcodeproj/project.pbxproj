@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B32D0308275E6C91003ACE14 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32D0307275E6C91003ACE14 /* Constants.swift */; };
 		B3606D932748224800E61972 /* Color+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3606D922748224800E61972 /* Color+Ext.swift */; };
 		B3606D97274C1F6E00E61972 /* MyMealModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3606D96274C1F6E00E61972 /* MyMealModel.swift */; };
 		B3606D99274C1FB600E61972 /* MealDBModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3606D98274C1FB500E61972 /* MealDBModel.swift */; };
@@ -83,6 +84,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B32D0307275E6C91003ACE14 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B3606D922748224800E61972 /* Color+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Ext.swift"; sourceTree = "<group>"; };
 		B3606D96274C1F6E00E61972 /* MyMealModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMealModel.swift; sourceTree = "<group>"; };
 		B3606D98274C1FB500E61972 /* MealDBModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDBModel.swift; sourceTree = "<group>"; };
@@ -265,6 +267,7 @@
 				B3606D95274C1C2B00E61972 /* Ignored */,
 				B3606D902748222800E61972 /* Extensions */,
 				B3CEDDC3275700E300BB832B /* ThingsToDo.swift */,
+				B32D0307275E6C91003ACE14 /* Constants.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -563,6 +566,7 @@
 				B3CA234A274808D600CA9C68 /* Persistence.swift in Sources */,
 				B3CEDDB82756FEA300BB832B /* SpoonServingPrepHStack.swift in Sources */,
 				B3606DC4274D8E7C00E61972 /* MealDBDetailView.swift in Sources */,
+				B32D0308275E6C91003ACE14 /* Constants.swift in Sources */,
 				B3CEDDA02756FA1D00BB832B /* EditIdeaVM.swift in Sources */,
 				B3606DA3274C2A8F00E61972 /* MealCardView.swift in Sources */,
 				B3606DC1274D7B0900E61972 /* MealDBVM.swift in Sources */,

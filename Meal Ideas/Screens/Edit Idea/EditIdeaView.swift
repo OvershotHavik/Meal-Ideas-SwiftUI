@@ -25,7 +25,8 @@ struct EditIdeaView: View {
                             .frame(width: 100)
                     }
                 }
-                TextField("Meal Name", text: $vm.mealName)
+
+                TextField(vm.meal?.mealName ?? "Meal Name", text: $vm.mealName)
             }
             
             Section(header: Text("Category")){
@@ -34,6 +35,7 @@ struct EditIdeaView: View {
                 ForEach(vm.categories, id: \.self){ cat in
                     Text(cat)
                 }
+                .onDelete(perform: vm.deleteCat)
             }
             
             Section(header: Text("Ingredients")){
@@ -42,9 +44,13 @@ struct EditIdeaView: View {
                 ForEach($vm.userIngredients) {$ing in
                     HStack{
                         Text(ing.name)
+                        Spacer()
                         TextField("Measurement", text: $ing.measurement)
+                            .background(.green)
+                            .frame(width: 100)
                     }
                 }
+                .onDelete(perform: vm.deleteIngredient)
             }
             
             
@@ -53,6 +59,7 @@ struct EditIdeaView: View {
                 ForEach(vm.sides, id: \.self) {side in
                     Text(side)
                 }
+                .onDelete(perform: vm.deleteSide)
             }
             
             Section(header: Text("Instructions")){
@@ -80,15 +87,19 @@ struct EditIdeaView: View {
             if vm.meal != nil{
                 //Only show and add space if the meal was passed in
                 Spacer(minLength: 5)
-                DeleteButtonView()
-                    .frame(width: 450)
+                DeleteButtonView(vm: vm)
+//                    .frame(width: 450)
                     .listRowBackground(Color.red)
             }
             
         }
+        .onAppear(perform: {
+            vm.convertMeal()
+        })
         .navigationTitle(vm.meal?.mealName ?? "Create a Meal")
 
     }
+        
 }
 
 struct CreateIdeaView_Previews: PreviewProvider {
@@ -127,11 +138,6 @@ struct IngredientSelectView: View{
         NavigationLink(destination: IngredientsListView(vm: IngredientsListVM(), isActive: $isActive)) {
             Text("Select Ingredients")
         }
-//            Button {
-//                //bring up ingredient selector
-//            } label: {
-//                Text("Select Ingredient(s)")
-//            }
     }
 }
 // MARK: - Sides Button View
@@ -172,9 +178,10 @@ struct SaveButtonView: View{
 
 // MARK: - Delete Button
 struct DeleteButtonView: View{
+    var vm: EditIdeaVM
     var body: some View{
             Button {
-                //Delete if meal exists
+                vm.deleteMeal()
             } label: {
                 Text("Delete Meal")
                     .padding()

@@ -39,6 +39,18 @@ struct Blank{
                                         recipe: "",
                                         measurements: [])
 }
+struct TestMeal{
+    static let testUserMeal = UserMealModel(mealName: "Testing Meal Name",
+                                            mealPhoto: nil,
+                                            category: ["Breakfast", "Lunch", "Dinner"],
+                                            ingredients: ["Oatmeal", "Bananas"],
+                                            sides: ["Bread", "OJ"],
+                                            source: "www.google.com",
+                                            instructionsPhoto: nil,
+                                            recipe: "Here would be the recipe of the meal that is being edited",
+                                            favorite: false,
+                                            measurements: ["1 cup", "1 whole"])
+}
 
 // For UI setup only
 struct SampleUserMealModel: Codable, Equatable, Identifiable{
