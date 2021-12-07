@@ -14,29 +14,32 @@ struct MyIdeasDetailView: View {
     var body: some View {
         VStack{
             ScrollView{
-                MealPhotoView(mealPhoto: vm.meal.mealPhoto)
+                CDMealPhotoView(mealPhotoData: vm.meal.mealPhoto)
                 
-                MealNameView(name: vm.meal.mealName)
+                MealNameView(name: vm.meal.mealName ?? "No Name Provided")
                 
                 
                 BadgesHStack(title: "Categories",
-                             items: vm.meal.category,
+                             items: vm.meal.category as! [String],
                              topColor: .blue,
                              bottomColor: .black)
                 
                 
-                IngredientVGrid(ingredients: vm.meal.ingredients, measurements: vm.meal.measurements ?? [])
+                IngredientVGrid(ingredients: vm.meal.ingredients as! [String],
+                                measurements: vm.meal.measurements as! [String] )
                 
-                RecipeView(recipe: vm.meal.recipe)
+                RecipeView(recipe: vm.meal.recipe ?? "No recipe Provided")
             }
             LinkView(url: vm.meal.source, title: "Visit Source")
-            .navigationTitle(vm.meal.mealName)
+                .navigationTitle(vm.meal.mealName ?? "")
         }
     }
 }
 
+/*
 struct MyIdeasDetailView_Previews: PreviewProvider {
     static var previews: some View {
         MyIdeasDetailView(vm: MyIdeasDetailVM(meal: MockData.userMealSample))
     }
 }
+*/

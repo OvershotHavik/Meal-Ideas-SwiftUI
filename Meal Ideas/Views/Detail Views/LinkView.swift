@@ -22,7 +22,7 @@ struct LinkView: View {
                         .frame(width: 200, height: 50)
                         .background(.blue)
                         .cornerRadius(10)
-                        .padding()
+                        .padding(.bottom)
                 }
             }
         }

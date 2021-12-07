@@ -8,12 +8,30 @@
 import SwiftUI
 
 struct MealPhotoView: View {
-    var mealPhoto: String // will need to figure out how to get this to work once core data is used for my meals, getting it to work for meal db and spoon for now.. may just need to create a different view and just use that on the my meals view..
+    var mealPhoto: String 
     var body: some View {
         LoadRemoteImageView(urlString: mealPhoto)
             .frame(width: 200, height: 200)
             .clipShape(Circle())
     }
+}
+// MARK: - Core Data Meal Photo View
+struct CDMealPhotoView: View{
+    var mealPhotoData: Data?
+    var body: some View{
+        if let safeData = mealPhotoData{
+            Image(uiImage: (UIImage(data: safeData) ?? UIImage(imageLiteralResourceName: "Placeholder")))
+                .resizable()
+                .frame(width: 200, height: 200)
+                .clipShape(Circle())
+        } else {
+            Image("Placeholder")
+                .resizable()
+                .frame(width: 200, height: 200)
+                .clipShape(Circle())
+        }
+    }
+
 }
 
 struct MealPhotoView_Previews: PreviewProvider {

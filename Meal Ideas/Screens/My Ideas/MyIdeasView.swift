@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct MyIdeasView: View {
-   @State var isActive = false
+    @ObservedObject var vm = MyIdeasVM()
+//   @State var isActive = false
     var body: some View {
         NavigationView{
             VStack{
@@ -16,24 +17,27 @@ struct MyIdeasView: View {
                 let columns = [GridItem(), GridItem()]
                 ScrollView{
                     LazyVGrid(columns: columns, alignment: .center) {
-                        ForEach(MockData.testUserArray) {meal in
+                        ForEach(vm.savedMeals) {meal in
                             NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: meal))) {
-                                MealCardView(mealPhoto: meal.mealPhoto,
-                                             mealName: meal.mealName,
+                                MealCardView(mealPhoto: "",
+                                             mealPhotoData: meal.mealPhoto,
+                                             mealName: meal.mealName ?? "",
                                              favorited: true,
                                              inHistory: true)
                             }
                             .foregroundColor(.primary)
                         }
+                        // TODO:  If no meals, direct user to click the edit button at the top left to add Ideas
                     }
                 }
                 .padding()
             }
+            .onAppear(perform: vm.fetchMeals)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: EditIdeaView(vm: EditIdeaVM(meal: nil))) {
-                        Image(systemName: "plus")
+                ToolbarItem(placement: .navigationBarLeading) {
+                    NavigationLink(destination: EditMealsListView(vm: EditMealsListVM())) {
+                        Image(systemName: "square.and.pencil")
                             .padding(.horizontal)
                             .foregroundColor(.black)
                     }

@@ -9,9 +9,9 @@ import SwiftUI
 
 final class MyIdeasDetailVM: ObservableObject{
     
-    @Published var  meal: SampleUserMealModel
+    @Published var  meal: UserMeals
     
-    init(meal: SampleUserMealModel){
+    init(meal: UserMeals){
         self.meal = meal
     }
     

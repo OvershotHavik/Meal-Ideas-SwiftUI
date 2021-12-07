@@ -1,5 +1,5 @@
 //
-//  TestCoreDataVM.swift
+//  EditMealsListVM.swift
 //  Meal Ideas
 //
 //  Created by Steve Plavetzky on 12/7/21.
@@ -13,20 +13,11 @@ import CoreData
 // TODO:  Keep this setup though so I can easily delete the meals while testing the rest for now
 
 
-final class TestCoreDataVM: ObservableObject{
+final class EditMealsListVM: ObservableObject{
     @Published var savedMeals: [UserMeals] = []
     @Published var TextFieldText: String = ""
     private let pc = PersistenceController.shared
-//    let container: NSPersistentContainer
     init() {
-//        container = NSPersistentContainer(name: "Meal_Ideas")
-//        container.loadPersistentStores { (description, error) in
-//            if let error = error{
-//                print("Error loading core data. \(error.localizedDescription)")
-//            } else {
-//                print("Successfully loaded core data!")
-//            }
-//        }
         fetchMeals()
     }
     
@@ -40,6 +31,7 @@ final class TestCoreDataVM: ObservableObject{
             print("error fetching: \(error.localizedDescription)")
         }
     }
+    /*
     //in vm for edit meals
     func addMeal(Text: String){
         let newMeal = UserMeals(context: pc.container.viewContext)
@@ -74,4 +66,5 @@ final class TestCoreDataVM: ObservableObject{
         meal.mealName = newName
         saveData()
     }
+     */
 }

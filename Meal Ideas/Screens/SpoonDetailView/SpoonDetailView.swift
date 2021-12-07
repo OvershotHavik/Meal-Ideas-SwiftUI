@@ -16,7 +16,9 @@ struct SpoonDetailView: View {
                 MealPhotoView(mealPhoto: vm.meal.image ?? "")
                 
                 MealNameView(name: vm.meal.title.withoutHtmlTags)
-                SpoonServingPrepHStack() // needs to pass in prep time and servings
+                SpoonServingPrepHStack(prepTime: vm.meal.readyInMinutes,
+                                       servings: vm.meal.servings)
+                
                 //For each HStack, check to see if there is at least 1 in each array, if not don't display it.
                 if vm.meal.dishTypes?.count ?? 0 > 0{
                     BadgesHStack(title: "Category",

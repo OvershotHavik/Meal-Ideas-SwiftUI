@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MealCardView: View {
     var mealPhoto: String // will need changed for data once that is setup
+    var mealPhotoData: Data?
     var mealName: String
     var favorited: Bool
     var inHistory: Bool
@@ -20,17 +21,20 @@ struct MealCardView: View {
             VStack{
                 HistoryFavoriteHStack(inHistory: inHistory,
                                       favorited: favorited)
-                LoadRemoteImageView(urlString: mealPhoto)
-//                Image(mealPhoto)
-//                    .resizable()
-                    .frame(width: 100, height: 100, alignment: .center)
-                    .clipShape(Circle())
+                if mealPhotoData != nil{
+                    // TODO:  Make sure this works once photo data is saving correctly to see if this works
+                    CDMealPhotoView(mealPhotoData: mealPhotoData)
+                        .frame(width: 100, height: 100, alignment: .center)
+                } else {
+                    LoadRemoteImageView(urlString: mealPhoto)
+                        .frame(width: 100, height: 100, alignment: .center)
+                        .clipShape(Circle())
+                }
+
                 Text(mealName)
                     .lineLimit(2)
                     .multilineTextAlignment(.center)
                     .padding([.bottom, .horizontal], 5)
-//                    .scaledToFit()
-//                    .minimumScaleFactor(0.6)
             }
         }
         .frame(width: 160, height: 210)
