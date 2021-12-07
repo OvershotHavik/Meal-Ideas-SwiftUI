@@ -86,6 +86,7 @@ struct EditIdeaView: View {
                 
             if vm.meal != nil{
                 //Only show and add space if the meal was passed in
+                // TODO:  Add a confirmation alert before processing delete
                 Spacer(minLength: 5)
                 DeleteButtonView(vm: vm)
 //                    .frame(width: 450)
@@ -98,6 +99,11 @@ struct EditIdeaView: View {
         })
         .navigationTitle(vm.meal?.mealName ?? "Create a Meal")
 
+        .alert(item: $vm.alertItem) { alertItem in
+            Alert(title: alertItem.title,
+                  message: alertItem.message,
+                  dismissButton: alertItem.dismissButton)
+        }
     }
         
 }

@@ -13,6 +13,7 @@ import Foundation
  - Figure out Search for the list
  - Figure out if possible to pop the view once the "Done" button is pressed after the selection is made, if not user can just go back..  would be nice to change the background, or have a check mark next to the one selected
  - Setup the form for the user to create meals
+    - have it set to delete the old meal if the user changes the meal name
     -figure out how to pass data back and forth between the form and the selection 
     -Figure out core data to store said meals
     - Figure out how to do plists for custom ingredients and sides and categories

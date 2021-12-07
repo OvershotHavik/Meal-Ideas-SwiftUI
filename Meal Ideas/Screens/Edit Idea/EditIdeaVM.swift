@@ -8,6 +8,145 @@
 import SwiftUI
 
 final class EditIdeaVM: ObservableObject{
+    @Published var meal : UserMeals?
+    @Published var alertItem: AlertItem?
+    
+    @Published var mealPhoto : UIImage?
+    @Published var mealName = ""
+    @Published var categories: [String] = []
+    @Published var userIngredients : [UserIngredient] = []
+    @Published var recipe = ""
+    @Published var instructionsPhoto : UIImage?
+    @Published var sides : [String] = []
+    @Published var source = ""
+    @Published var favorited = false
+    private let pc = PersistenceController.shared
+
+    init(meal: UserMeals?){
+        self.meal = meal
+    }
+    
+    // MARK: - Remove Category
+    func deleteCat(at offsets: IndexSet){
+        categories.remove(atOffsets: offsets)
+    }
+    // MARK: - Remove Ingredient
+    func deleteIngredient(at offsets: IndexSet){
+        userIngredients.remove(atOffsets: offsets)
+    }
+    // MARK: - Remove Sides
+    func deleteSide(at offsets: IndexSet){
+        sides.remove(atOffsets: offsets)
+    }
+    
+    
+    
+    // MARK: - Save Meal
+    func saveMeal(){
+        
+        print("Save meal...")
+        var mealPhotoData: Data?
+        if let safePhoto = mealPhoto{
+            mealPhotoData = safePhoto.jpegData(compressionQuality: 1.0)
+        }
+        
+        var instructionsPhotoData: Data?
+        if let safePhoto = instructionsPhoto{
+            instructionsPhotoData = safePhoto.jpegData(compressionQuality: 1.0)
+        }
+        
+        var ingredients : [String] = []
+        var measurements : [String] = []
+        
+        userIngredients = userIngredients.sorted {$0.name < $1.name}
+        for x in userIngredients{
+            ingredients.append(x.name)
+            measurements.append(x.measurement)
+        }
+        
+        let newMealCD = UserMeals(context: pc.container.viewContext)
+        newMealCD.mealName = mealName
+        newMealCD.mealPhoto = mealPhotoData
+        newMealCD.category = categories as NSObject
+        newMealCD.ingredients = ingredients as NSObject
+        newMealCD.sides = sides as NSObject
+        newMealCD.source = source
+        newMealCD.instructionsPhoto = instructionsPhotoData
+        newMealCD.recipe = recipe
+        newMealCD.favorite = favorited
+        newMealCD.measurements = measurements as NSObject
+        
+        pc.saveData(){ result in
+            switch result {
+            case .success(_):
+                print("Successfully saved \(self.mealName)")
+                self.alertItem = AlertItem(title: Text("Success!"),
+                                      message: Text("\(self.mealName) saved"),
+                                      dismissButton: .default(Text("OK")))
+                // TODO:  Make it so it pops the view back to the previous view
+            case .failure(_):
+                self.alertItem = AlertContext.unableToSave
+            }
+        }
+        
+        let newMeal = UserMealModel(mealName: mealName,
+                                    mealPhoto: mealPhotoData,
+                                    category: categories,
+                                    ingredients: ingredients,
+                                    sides: sides,
+                                    source: source,
+                                    instructionsPhoto: instructionsPhotoData,
+                                    recipe: recipe,
+                                    favorite: favorited,
+                                    measurements: measurements)
+        print(newMeal)
+        
+    }
+    // MARK: - Delete Meal
+    func deleteMeal(){
+        print("Delete meal...")
+        if let safeMeal = meal{
+            pc.deleteMeal(meal: safeMeal)
+        }
+        
+        // TODO:  delete the meal from core data
+        
+    }
+    
+    // MARK: - Convert meal to values to be able to modify it
+    func convertMeal(){
+        guard let safeMeal = meal else {
+            return
+        }
+        self.mealName = safeMeal.mealName ?? ""
+        
+        if let safeMealPhotoData = safeMeal.mealPhoto{
+            self.mealPhoto = UIImage(data: safeMealPhotoData)
+        }
+        
+        self.categories = safeMeal.category as? [String] ?? []
+        let ingredients = safeMeal.ingredients as? [String] ?? []
+        let measurements = safeMeal.measurements as? [String] ?? []
+        for (index, _) in ingredients.enumerated() {
+            let UserIngredient = UserIngredient(name: ingredients[index],
+                                                measurement: measurements[index])
+            self.userIngredients.append(UserIngredient)
+        }
+        
+        if let safeInstructionsData = safeMeal.instructionsPhoto{
+            self.instructionsPhoto = UIImage(data: safeInstructionsData)
+        }
+        self.recipe = safeMeal.recipe ?? ""
+        
+        self.sides = safeMeal.sides as? [String] ?? []
+        self.source = safeMeal.source ?? ""
+        
+    }
+}
+
+/*
+//Original before changing to use Core Data
+final class EditIdeaVM: ObservableObject{
     @Published var meal : UserMealModel?
     @Published var alertItem: AlertItem?
     
@@ -112,3 +251,4 @@ final class EditIdeaVM: ObservableObject{
         
     }
 }
+*/

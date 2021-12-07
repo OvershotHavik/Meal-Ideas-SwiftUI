@@ -32,4 +32,9 @@ struct AlertContext {
     static let unableToComplete   = AlertItem(title: Text("Server Error"),
                                               message: Text("Unable to complete your request at this time. Please check your internet connection."),
                                               dismissButton: .default(Text("OK")))
+    
+    // MARK: - Core Data
+    static let unableToSave   = AlertItem(title: Text("Save Error"),
+                                              message: Text("Unable to save to device. Please try closing the app and starting again"),
+                                              dismissButton: .default(Text("OK")))
 }

@@ -13,4 +13,10 @@ enum MIError: Error {
     case unableToComplete
     case invalidEmail
     case missingFields
+    case unableToSave
+    
+}
+
+enum MISuccess{
+    case successfullySaved
 }

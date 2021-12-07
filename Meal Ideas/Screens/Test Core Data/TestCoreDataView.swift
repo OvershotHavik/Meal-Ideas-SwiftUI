@@ -12,6 +12,7 @@ struct TestCoreDataView: View {
     var body: some View {
         NavigationView{
             VStack(spacing: 20) {
+                /*
                 TextField("Meal Name", text: $vm.TextFieldText)
                     .font(.headline)
                     .padding(.leading)
@@ -33,21 +34,42 @@ struct TestCoreDataView: View {
                         .background(.red)
                         .cornerRadius(10)
                 }
-                
+                */
                 List {
+                    
                     ForEach(vm.savedMeals) {meal in
-                        Text(meal.mealName ?? "No name")
-                            .onTapGesture {
-                                vm.updateMeal(meal: meal)
-                            }
+                        NavigationLink(destination: EditIdeaView(vm: EditIdeaVM(meal: meal))) {
+                            Text(meal.mealName ?? "No name")
+                                .onTapGesture {
+//                                    vm.updateMeal(meal: meal)
+                                }
+                        }
+
                     }
-                    .onDelete(perform: vm.deleteMeal)
+//                    .onDelete(perform: PersistenceController.shared.deleteMealInList
+//                    )
+                    .onDelete { IndexSet in
+                        PersistenceController.shared.deleteMealInList(indexSet: IndexSet)
+                        vm.fetchMeals()
+                    }
+                    
                 }
                 
                 .listStyle(PlainListStyle())
 
             }
             .navigationTitle("Meals")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink(destination: EditIdeaView(vm: EditIdeaVM(meal: nil))) {
+                        Image(systemName: "plus")
+                            .padding(.horizontal)
+                            .foregroundColor(.black)
+                    }
+                }
+            }
+            
+            .onAppear(perform: vm.fetchMeals)
         }
     }
 }
