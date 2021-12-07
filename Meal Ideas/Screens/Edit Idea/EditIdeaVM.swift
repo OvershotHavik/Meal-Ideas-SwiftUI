@@ -24,6 +24,7 @@ final class EditIdeaVM: ObservableObject{
 
     init(meal: UserMeals?){
         self.meal = meal
+        convertMeal()
     }
     
     // MARK: - Remove Category
@@ -64,17 +65,32 @@ final class EditIdeaVM: ObservableObject{
             measurements.append(x.measurement)
         }
         
-        let newMealCD = UserMeals(context: pc.container.viewContext)
-        newMealCD.mealName = mealName
-        newMealCD.mealPhoto = mealPhotoData
-        newMealCD.category = categories as NSObject
-        newMealCD.ingredients = ingredients as NSObject
-        newMealCD.sides = sides as NSObject
-        newMealCD.source = source
-        newMealCD.instructionsPhoto = instructionsPhotoData
-        newMealCD.recipe = recipe
-        newMealCD.favorite = favorited
-        newMealCD.measurements = measurements as NSObject
+        //Update existing meal, or create a new one
+        if let safeMeal = meal{
+            safeMeal.mealName = mealName
+            safeMeal.mealPhoto = mealPhotoData
+            safeMeal.category = categories as NSObject
+            safeMeal.ingredients = ingredients as NSObject
+            safeMeal.sides = sides as NSObject
+            safeMeal.source = source
+            safeMeal.instructionsPhoto = instructionsPhotoData
+            safeMeal.recipe = recipe
+            safeMeal.favorite = favorited
+            safeMeal.measurements = measurements as NSObject
+        } else {
+            let newMealCD = UserMeals(context: pc.container.viewContext)
+            newMealCD.mealName = mealName
+            newMealCD.mealPhoto = mealPhotoData
+            newMealCD.category = categories as NSObject
+            newMealCD.ingredients = ingredients as NSObject
+            newMealCD.sides = sides as NSObject
+            newMealCD.source = source
+            newMealCD.instructionsPhoto = instructionsPhotoData
+            newMealCD.recipe = recipe
+            newMealCD.favorite = favorited
+            newMealCD.measurements = measurements as NSObject
+        }
+
         
         pc.saveData(){ result in
             switch result {
@@ -88,20 +104,8 @@ final class EditIdeaVM: ObservableObject{
                 self.alertItem = AlertContext.unableToSave
             }
         }
-        
-        let newMeal = UserMealModel(mealName: mealName,
-                                    mealPhoto: mealPhotoData,
-                                    category: categories,
-                                    ingredients: ingredients,
-                                    sides: sides,
-                                    source: source,
-                                    instructionsPhoto: instructionsPhotoData,
-                                    recipe: recipe,
-                                    favorite: favorited,
-                                    measurements: measurements)
-        print(newMeal)
-        
     }
+
     // MARK: - Delete Meal
     func deleteMeal(){
         print("Delete meal...")

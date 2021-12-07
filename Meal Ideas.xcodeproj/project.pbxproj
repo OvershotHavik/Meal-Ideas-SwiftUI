@@ -31,6 +31,7 @@
 		B3606DC4274D8E7C00E61972 /* MealDBDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3606DC3274D8E7C00E61972 /* MealDBDetailView.swift */; };
 		B3627BF9275F756B004A6519 /* TestCoreDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3627BF8275F756B004A6519 /* TestCoreDataView.swift */; };
 		B3627BFB275F75C8004A6519 /* TestCoreDataVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3627BFA275F75C8004A6519 /* TestCoreDataVM.swift */; };
+		B3627BFD275FC680004A6519 /* MyIdeasVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3627BFC275FC67F004A6519 /* MyIdeasVM.swift */; };
 		B37E360A27481DC900687A8C /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37E360927481DC900687A8C /* APIKey.swift */; };
 		B3AE0A182756D109001EAD15 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE0A172756D109001EAD15 /* Alert.swift */; };
 		B3CA2341274808CA00CA9C68 /* Meal_IdeasApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CA2340274808CA00CA9C68 /* Meal_IdeasApp.swift */; };
@@ -110,6 +111,7 @@
 		B3606DC3274D8E7C00E61972 /* MealDBDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDBDetailView.swift; sourceTree = "<group>"; };
 		B3627BF8275F756B004A6519 /* TestCoreDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCoreDataView.swift; sourceTree = "<group>"; };
 		B3627BFA275F75C8004A6519 /* TestCoreDataVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCoreDataVM.swift; sourceTree = "<group>"; };
+		B3627BFC275FC67F004A6519 /* MyIdeasVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyIdeasVM.swift; sourceTree = "<group>"; };
 		B37E360927481DC900687A8C /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		B3AE0A172756D109001EAD15 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		B3CA233D274808CA00CA9C68 /* Meal Ideas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Meal Ideas.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -429,6 +431,7 @@
 			isa = PBXGroup;
 			children = (
 				B3CA23772748112500CA9C68 /* MyIdeasView.swift */,
+				B3627BFC275FC67F004A6519 /* MyIdeasVM.swift */,
 			);
 			path = "My Ideas";
 			sourceTree = "<group>";
@@ -587,6 +590,7 @@
 				B3606DB0274D691100E61972 /* LinkView.swift in Sources */,
 				B3CA234A274808D600CA9C68 /* PersistenceController.swift in Sources */,
 				B3CEDDB82756FEA300BB832B /* SpoonServingPrepHStack.swift in Sources */,
+				B3627BFD275FC680004A6519 /* MyIdeasVM.swift in Sources */,
 				B3606DC4274D8E7C00E61972 /* MealDBDetailView.swift in Sources */,
 				B32D0308275E6C91003ACE14 /* Constants.swift in Sources */,
 				B3CEDDA02756FA1D00BB832B /* EditIdeaVM.swift in Sources */,

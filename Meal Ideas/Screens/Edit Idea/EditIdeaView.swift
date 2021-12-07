@@ -94,9 +94,6 @@ struct EditIdeaView: View {
             }
             
         }
-        .onAppear(perform: {
-            vm.convertMeal()
-        })
         .navigationTitle(vm.meal?.mealName ?? "Create a Meal")
 
         .alert(item: $vm.alertItem) { alertItem in

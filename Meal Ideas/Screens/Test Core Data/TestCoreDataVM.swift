@@ -40,7 +40,7 @@ final class TestCoreDataVM: ObservableObject{
             print("error fetching: \(error.localizedDescription)")
         }
     }
-    //in vm
+    //in vm for edit meals
     func addMeal(Text: String){
         let newMeal = UserMeals(context: pc.container.viewContext)
         newMeal.mealName = Text
@@ -67,6 +67,7 @@ final class TestCoreDataVM: ObservableObject{
         saveData()
     }
     //in vm
+    
     func updateMeal(meal: UserMeals){
         let currentName = meal.mealName ?? ""
         let newName = currentName + "!"
