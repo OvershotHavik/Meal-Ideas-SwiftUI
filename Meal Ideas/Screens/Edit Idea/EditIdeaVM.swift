@@ -8,6 +8,7 @@
 import SwiftUI
 
 final class EditIdeaVM: ObservableObject{
+
     @Published var meal : UserMeals?
     @Published var alertItem: AlertItem?
     
@@ -111,6 +112,7 @@ final class EditIdeaVM: ObservableObject{
         print("Delete meal...")
         if let safeMeal = meal{
             pc.deleteMeal(meal: safeMeal)
+            
         }
         
         // TODO:  delete the meal from core data

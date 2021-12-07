@@ -9,6 +9,11 @@ import SwiftUI
 
 struct EditIdeaView: View {
     @StateObject var vm: EditIdeaVM
+    
+    @Environment(\.dismiss) var dismiss
+    @State private var showingDeleteAlert = false
+    
+    
     enum FormTextField{ // will need changed to match this form
         case firstName, lastName, email
     }
@@ -88,7 +93,7 @@ struct EditIdeaView: View {
                 //Only show and add space if the meal was passed in
                 // TODO:  Add a confirmation alert before processing delete
                 Spacer(minLength: 5)
-                DeleteButtonView(vm: vm)
+                DeleteButtonView(vm: vm, showingDeleteAlert: $showingDeleteAlert)
 //                    .frame(width: 450)
                     .listRowBackground(Color.red)
             }
@@ -99,10 +104,26 @@ struct EditIdeaView: View {
         .alert(item: $vm.alertItem) { alertItem in
             Alert(title: alertItem.title,
                   message: alertItem.message,
-                  dismissButton: alertItem.dismissButton)
+                  dismissButton: .default(Text("OK"), action: popView))
+            
+        }
+        // MARK: - Delete Alert
+        .alert("Delete Meal", isPresented: $showingDeleteAlert) {
+            Button("Delete", role: .destructive, action: deleteMeal)
+            Button("Cancel", role: .cancel) { }
+        } message: {
+            Text("Are you sure you want to delete \(vm.meal?.mealName ?? vm.mealName)?")
         }
     }
-        
+        // MARK: - Delete meal from VM and dismiss the view
+    func deleteMeal(){
+        vm.deleteMeal()
+        dismiss()
+    }
+    // MARK: - popView to go back after saved
+    func popView(){
+        dismiss()
+    }
 }
 
 struct CreateIdeaView_Previews: PreviewProvider {
@@ -182,9 +203,11 @@ struct SaveButtonView: View{
 // MARK: - Delete Button
 struct DeleteButtonView: View{
     var vm: EditIdeaVM
+    @Binding var showingDeleteAlert: Bool
     var body: some View{
             Button {
-                vm.deleteMeal()
+                showingDeleteAlert = true
+                
             } label: {
                 Text("Delete Meal")
                     .padding()
