@@ -6,10 +6,12 @@
 //
 
 import CoreData
+import SwiftUI
 
 struct PersistenceController {
     static let shared = PersistenceController()
 
+    //Just used for preview of the example pre built, will delete later
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
@@ -51,5 +53,32 @@ struct PersistenceController {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
+    }
+    
+    // MARK: - Save
+    func save(completion: @escaping (Error?) -> () = { _ in }) {
+        withAnimation {
+            let context = container.viewContext
+            if context.hasChanges{
+                do {
+                    try context.save()
+                    completion(nil)
+                }catch {
+                    completion(error)
+                }
+            }
+        }
+
+    }
+    
+// MARK: - Delete
+    func delete(_ object: NSManagedObject, completion: @escaping (Error?) -> () = { _ in }) {
+        withAnimation {
+            let context = container.viewContext
+            
+            context.delete(object)
+            save(completion: completion)
+        }
+
     }
 }

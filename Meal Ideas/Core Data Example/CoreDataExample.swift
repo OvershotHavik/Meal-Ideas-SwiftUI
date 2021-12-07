@@ -57,6 +57,7 @@ struct CoreDataExample: View {
             }
         }
     }
+ 
 
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
@@ -72,6 +73,7 @@ struct CoreDataExample: View {
             }
         }
     }
+ 
 }
 
 private let itemFormatter: DateFormatter = {

@@ -16,7 +16,7 @@ struct Meal_IdeasApp: App {
 //            IngredientsListView(vm: IngredientsListVM())
 //            EditIdeaView(vm: EditIdeaVM(meal: TestMeal.testUserMeal))
 //            MealIdeasTabView()
-            CoreDataExample()
+            TestCoreDataView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .environmentObject(query)
             

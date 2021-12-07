@@ -29,6 +29,8 @@
 		B3606DBF274D7A9800E61972 /* MealDBJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3606DBE274D7A9800E61972 /* MealDBJSON.swift */; };
 		B3606DC1274D7B0900E61972 /* MealDBVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3606DC0274D7B0900E61972 /* MealDBVM.swift */; };
 		B3606DC4274D8E7C00E61972 /* MealDBDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3606DC3274D8E7C00E61972 /* MealDBDetailView.swift */; };
+		B3627BF9275F756B004A6519 /* TestCoreDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3627BF8275F756B004A6519 /* TestCoreDataView.swift */; };
+		B3627BFB275F75C8004A6519 /* TestCoreDataVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3627BFA275F75C8004A6519 /* TestCoreDataVM.swift */; };
 		B37E360A27481DC900687A8C /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37E360927481DC900687A8C /* APIKey.swift */; };
 		B3AE0A182756D109001EAD15 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE0A172756D109001EAD15 /* Alert.swift */; };
 		B3CA2341274808CA00CA9C68 /* Meal_IdeasApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CA2340274808CA00CA9C68 /* Meal_IdeasApp.swift */; };
@@ -106,6 +108,8 @@
 		B3606DBE274D7A9800E61972 /* MealDBJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDBJSON.swift; sourceTree = "<group>"; };
 		B3606DC0274D7B0900E61972 /* MealDBVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDBVM.swift; sourceTree = "<group>"; };
 		B3606DC3274D8E7C00E61972 /* MealDBDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDBDetailView.swift; sourceTree = "<group>"; };
+		B3627BF8275F756B004A6519 /* TestCoreDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCoreDataView.swift; sourceTree = "<group>"; };
+		B3627BFA275F75C8004A6519 /* TestCoreDataVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCoreDataVM.swift; sourceTree = "<group>"; };
 		B37E360927481DC900687A8C /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		B3AE0A172756D109001EAD15 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		B3CA233D274808CA00CA9C68 /* Meal Ideas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Meal Ideas.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -259,6 +263,24 @@
 			path = "MealDB Detail View";
 			sourceTree = "<group>";
 		};
+		B3627BF6275F6CFF004A6519 /* Core Data Example */ = {
+			isa = PBXGroup;
+			children = (
+				B3CA2342274808CA00CA9C68 /* CoreDataExample.swift */,
+				B3CA2349274808D600CA9C68 /* Persistence.swift */,
+			);
+			path = "Core Data Example";
+			sourceTree = "<group>";
+		};
+		B3627BF7275F754B004A6519 /* Test Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				B3627BF8275F756B004A6519 /* TestCoreDataView.swift */,
+				B3627BFA275F75C8004A6519 /* TestCoreDataVM.swift */,
+			);
+			path = "Test Core Data";
+			sourceTree = "<group>";
+		};
 		B37E360827481DB500687A8C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -353,9 +375,8 @@
 				B37E360827481DB500687A8C /* Resources */,
 				B3CA2373274810C900CA9C68 /* Screens */,
 				B3CA2340274808CA00CA9C68 /* Meal_IdeasApp.swift */,
-				B3CA2342274808CA00CA9C68 /* CoreDataExample.swift */,
+				B3627BF6275F6CFF004A6519 /* Core Data Example */,
 				B3CA2344274808D600CA9C68 /* Assets.xcassets */,
-				B3CA2349274808D600CA9C68 /* Persistence.swift */,
 				B3CA234B274808D600CA9C68 /* Meal_Ideas.xcdatamodeld */,
 				B3CA2346274808D600CA9C68 /* Preview Content */,
 			);
@@ -390,6 +411,7 @@
 		B3CA2373274810C900CA9C68 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				B3627BF7275F754B004A6519 /* Test Core Data */,
 				B3C37AF027566F4800D0E841 /* Edit Idea */,
 				B3CA23712748108C00CA9C68 /* MealIdeasTabView.swift */,
 				B3CA2374274810D100CA9C68 /* My Ideas */,
@@ -591,12 +613,14 @@
 				B3CEDDBC2756FFDD00BB832B /* SpoonDetailVM.swift in Sources */,
 				B3606D9F274C210700E61972 /* FavoritesModel.swift in Sources */,
 				B3CEDDC4275700E300BB832B /* ThingsToDo.swift in Sources */,
+				B3627BF9275F756B004A6519 /* TestCoreDataView.swift in Sources */,
 				B3CEDDA82756FCB800BB832B /* IngredientsListView.swift in Sources */,
 				B3CA23722748108C00CA9C68 /* MealIdeasTabView.swift in Sources */,
 				B3606D9B274C201200E61972 /* SpoonMealModel.swift in Sources */,
 				B3CEDDA42756FBFB00BB832B /* ImageLoader.swift in Sources */,
 				B37E360A27481DC900687A8C /* APIKey.swift in Sources */,
 				B3CA23782748112500CA9C68 /* MyIdeasView.swift in Sources */,
+				B3627BFB275F75C8004A6519 /* TestCoreDataVM.swift in Sources */,
 				B3CEDDBE2757000F00BB832B /* SpoonJSON.swift in Sources */,
 				B3606DB4274D69F300E61972 /* BadgesHStack.swift in Sources */,
 				B3606D9D274C20AF00E61972 /* HistoryModel.swift in Sources */,
