@@ -10,6 +10,7 @@ import Foundation
 //Notepad for what still needs worked on or where I left off etc...
 
 /*
+ Search for ToDo's throughout the project, been adding things here and there as well
  
  - Figure out Search for the list
  

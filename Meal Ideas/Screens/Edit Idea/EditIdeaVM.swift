@@ -7,10 +7,24 @@
 
 import SwiftUI
 
+enum ActiveSheet: Identifiable {
+    case mealPhoto, mealInstructions
+    
+    var id: Int {
+        hashValue
+    }
+}
+
 final class EditIdeaVM: ObservableObject{
 
+    
     @Published var meal : UserMeals?
     @Published var alertItem: AlertItem?
+    @Published var isMPActionSheetPresented = false
+    @Published var isMIActionSheetPresented = false
+    
+    @Published var activeSheet: ActiveSheet?
+    @Published var showingDeleteAlert = false
     
     @Published var mealPhoto : UIImage?
     @Published var mealName = ""
