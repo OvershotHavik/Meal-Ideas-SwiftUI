@@ -14,6 +14,9 @@ import Foundation
  
  - Figure out Search for the list
  
+ - add confirm delete to the lsit view as well
+ 
+ 
 - figure out how to modify the list to show which item was selected, then pop it back if needed for single selection like cat or ing search. would be nice to change the background, or have a check mark next to the one selected
  - Setup the form for the user to create meals
     - still needs :

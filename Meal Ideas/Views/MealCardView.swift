@@ -23,7 +23,7 @@ struct MealCardView: View {
                                       favorited: favorited)
                 if mealPhotoData != nil{
                     // TODO:  Make sure this works once photo data is saving correctly to see if this works
-                    CDMealPhotoView(mealPhotoData: mealPhotoData)
+                    CDPhotoView(photoData: mealPhotoData)
                         .frame(width: 100, height: 100, alignment: .center)
                 } else {
                     LoadRemoteImageView(urlString: mealPhoto)

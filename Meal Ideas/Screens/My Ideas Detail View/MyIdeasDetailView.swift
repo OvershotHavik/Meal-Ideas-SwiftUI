@@ -14,7 +14,7 @@ struct MyIdeasDetailView: View {
     var body: some View {
         VStack{
             ScrollView{
-                CDMealPhotoView(mealPhotoData: vm.meal.mealPhoto)
+                CDPhotoView(photoData: vm.meal.mealPhoto)
                 
                 MealNameView(name: vm.meal.mealName ?? "No Name Provided")
                 
@@ -27,6 +27,8 @@ struct MyIdeasDetailView: View {
                 
                 IngredientVGrid(ingredients: vm.meal.ingredients as! [String],
                                 measurements: vm.meal.measurements as! [String] )
+                
+                CDPhotoView(photoData: vm.meal.instructionsPhoto)
                 
                 RecipeView(recipe: vm.meal.recipe ?? "No recipe Provided")
             }

@@ -7,8 +7,9 @@
 
 import SwiftUI
 
-enum ActiveSheet: Identifiable {
-    case mealPhoto, mealInstructions
+
+enum ImagePickerSelection: Identifiable {
+    case mealPhoto, instructions
     
     var id: Int {
         hashValue
@@ -20,21 +21,31 @@ final class EditIdeaVM: ObservableObject{
     
     @Published var meal : UserMeals?
     @Published var alertItem: AlertItem?
+    
+    
+    // MARK: - UI Adjustments
     @Published var isMPActionSheetPresented = false
     @Published var isMIActionSheetPresented = false
-    
-    @Published var activeSheet: ActiveSheet?
     @Published var showingDeleteAlert = false
     
-    @Published var mealPhoto : UIImage?
+    // MARK: - For Image Picker
+    @Published var isShowPhotoLibrary = false
+    @Published var imagePickerSelection : ImagePickerSelection?
+    @Published var imageSource: UIImagePickerController.SourceType = .camera
+
+    
+    // MARK: - Meal Variables
+    @Published var mealPhoto = UIImage()
     @Published var mealName = ""
     @Published var categories: [String] = []
     @Published var userIngredients : [UserIngredient] = []
     @Published var recipe = ""
-    @Published var instructionsPhoto : UIImage?
+    @Published var instructionsPhoto = UIImage()
     @Published var sides : [String] = []
     @Published var source = ""
     @Published var favorited = false
+    
+    // MARK: - used for Core Data
     private let pc = PersistenceController.shared
 
     init(meal: UserMeals?){
@@ -62,13 +73,14 @@ final class EditIdeaVM: ObservableObject{
         
         print("Save meal...")
         var mealPhotoData: Data?
-        if let safePhoto = mealPhoto{
-            mealPhotoData = safePhoto.jpegData(compressionQuality: 1.0)
+        
+        if mealPhoto != UIImage(){
+            mealPhotoData = mealPhoto.jpegData(compressionQuality: 1.0)
         }
         
         var instructionsPhotoData: Data?
-        if let safePhoto = instructionsPhoto{
-            instructionsPhotoData = safePhoto.jpegData(compressionQuality: 1.0)
+        if instructionsPhoto != UIImage(){
+            instructionsPhotoData = instructionsPhoto.jpegData(compressionQuality: 1.0)
         }
         
         var ingredients : [String] = []
@@ -126,11 +138,7 @@ final class EditIdeaVM: ObservableObject{
         print("Delete meal...")
         if let safeMeal = meal{
             pc.deleteMeal(meal: safeMeal)
-            
         }
-        
-        // TODO:  delete the meal from core data
-        
     }
     
     // MARK: - Convert meal to values to be able to modify it
@@ -140,8 +148,9 @@ final class EditIdeaVM: ObservableObject{
         }
         self.mealName = safeMeal.mealName ?? ""
         
+        
         if let safeMealPhotoData = safeMeal.mealPhoto{
-            self.mealPhoto = UIImage(data: safeMealPhotoData)
+            self.mealPhoto = UIImage(data: safeMealPhotoData) ?? UIImage()
         }
         
         self.categories = safeMeal.category as? [String] ?? []
@@ -154,7 +163,7 @@ final class EditIdeaVM: ObservableObject{
         }
         
         if let safeInstructionsData = safeMeal.instructionsPhoto{
-            self.instructionsPhoto = UIImage(data: safeInstructionsData)
+            self.instructionsPhoto = UIImage(data: safeInstructionsData) ?? UIImage()
         }
         self.recipe = safeMeal.recipe ?? ""
         

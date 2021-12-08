@@ -7,26 +7,26 @@
 
 import SwiftUI
 
+
+
 struct EditIdeaView: View {
     @StateObject var vm: EditIdeaVM
     
     @Environment(\.dismiss) var dismiss
-    @State private var showingDeleteAlert = false
-//    @State var activeSheet: ActiveSheet?
 
+    @State var isShowPhotoLibrary = false
+    @State private var image = UIImage()
     
     enum FormTextField{ // will need changed to match this form
         case firstName, lastName, email
     }
-    
-
     
     var body: some View {
         Form{
             Section(header: Text("Meal Information")) {
                 MealPhotoButtonView(vm: vm)
                     .modifier(MealPhotoActionSheet(vm: vm))
-                if vm.mealPhoto != nil{
+                if vm.mealPhoto != UIImage(){
                     if let safeImage = vm.mealPhoto{
                         Image(uiImage: safeImage)
                             .resizable()
@@ -62,7 +62,6 @@ struct EditIdeaView: View {
                 .onDelete(perform: vm.deleteIngredient)
             }
             
-            
             Section(header: Text("Sides")){
                 SidesButtonView()
                 ForEach(vm.sides, id: \.self) {side in
@@ -74,7 +73,7 @@ struct EditIdeaView: View {
             Section(header: Text("Instructions")){
                 MealInstructionsButtonView(vm: vm)
                     .modifier(MealInstructionsActionSheet(vm: vm))
-                if vm.instructionsPhoto != nil{
+                if vm.instructionsPhoto != UIImage(){
                     if let safeImage = vm.instructionsPhoto{
                         Image(uiImage: safeImage)
                             .resizable()
@@ -96,44 +95,12 @@ struct EditIdeaView: View {
             if vm.meal != nil{
                 //Only show and add space if the meal was passed in
                 Spacer(minLength: 5)
-                DeleteButtonView(vm: vm, showingDeleteAlert: $showingDeleteAlert)
-//                    .frame(width: 450)
+                DeleteButtonView(vm: vm, showingDeleteAlert: $vm.showingDeleteAlert)
                     .listRowBackground(Color.red)
             }
-            
         }
         .navigationTitle(vm.meal?.mealName ?? "Create a Meal")
-        
-//        .modifier(IdeaActionSheet(vm: vm))
-//        .modifier(MealInstructionsActionSheet(vm: vm))
-//        .modifier(MealPhotoActionSheet(vm: vm))
-        
-        
-        /*
-        .actionSheet(isPresented: $vm.isMPActionSheetPresented, content: {
-            var buttons = [ActionSheet.Button]()
-            let cameraRoll = ActionSheet.Button.default(Text("Camera Roll")) {
-                //bring up the photo picker
-            }
-            buttons.append(cameraRoll)
-            
-            let camera = ActionSheet.Button.default(Text("Take Picture")) {
-                //bring up the camera view
-            }
-            buttons.append(camera)
-            if vm.mealPhoto != nil{
-                // TODO:  make sure this actually works once photo data is saved
-                let remove = ActionSheet.Button.destructive(Text("Remove Photo")){
-                    //remove photo from meal
-                    vm.mealPhoto = nil
-                }
-                buttons.append(remove)
-            }
-            buttons.append(.cancel())
-            return ActionSheet(title: Text("Select where you want to get the photo from"), message: nil, buttons: buttons)
-        })
-        */
-        
+                
         // MARK: - Save alert
         .alert(item: $vm.alertItem) { alertItem in
             Alert(title: alertItem.title,
@@ -142,11 +109,25 @@ struct EditIdeaView: View {
             
         }
         // MARK: - Delete Alert
-        .alert("Delete Meal", isPresented: $showingDeleteAlert) {
+        .alert("Delete Meal", isPresented: $vm.showingDeleteAlert) {
             Button("Delete", role: .destructive, action: deleteMeal)
             Button("Cancel", role: .cancel) { }
         } message: {
             Text("Are you sure you want to delete \(vm.meal?.mealName ?? vm.mealName)?")
+        }
+
+        // MARK: - Image Picker sheet
+        .sheet(isPresented: $vm.isShowPhotoLibrary){
+            if let safeSelection = vm.imagePickerSelection{
+                switch safeSelection{
+                case .mealPhoto:
+                    ImagePicker(selectedImage: $vm.mealPhoto,
+                                sourceType: vm.imageSource)
+                case .instructions:
+                    ImagePicker(selectedImage: $vm.instructionsPhoto,
+                                sourceType: vm.imageSource)
+                }
+            }
         }
         
     }
@@ -160,7 +141,7 @@ struct EditIdeaView: View {
         dismiss()
     }
 }
-
+// MARK: - Preview
 struct CreateIdeaView_Previews: PreviewProvider {
     static var previews: some View {
         EditIdeaView(vm: EditIdeaVM(meal: nil))
@@ -171,8 +152,6 @@ struct MealPhotoButtonView: View{
     @ObservedObject var vm: EditIdeaVM
     var body: some View{
         Button {
-            //bring up action sheet to select where to get photo
-//            vm.activeSheet = .mealPhoto
             vm.isMPActionSheetPresented.toggle()
             print("isMPActionSheetPresented state: \(vm.isMPActionSheetPresented)")
         } label: {
@@ -218,8 +197,6 @@ struct MealInstructionsButtonView: View{
     @ObservedObject var vm: EditIdeaVM
     var body: some View{
         Button {
-//            vm.activeSheet = .mealInstructions
-            //bring up camera or image picker options
             vm.isMIActionSheetPresented.toggle()
             print("vm.isMIActionSheetPresented state: \(vm.isMIActionSheetPresented)")
         } label: {
@@ -257,7 +234,7 @@ struct DeleteButtonView: View{
         
     }
 }
-
+// MARK: - Meal Photo Action Sheet
 struct MealPhotoActionSheet: ViewModifier{
     @StateObject var vm: EditIdeaVM
     func body(content: Content) -> some View {
@@ -266,20 +243,24 @@ struct MealPhotoActionSheet: ViewModifier{
                 var buttons = [ActionSheet.Button]()
                 let cameraRoll = ActionSheet.Button.default(Text("Camera Roll")) {
                     print("bring up camera roll")
-                    //bring up the photo picker
+                    vm.imagePickerSelection = .mealPhoto
+                    vm.imageSource = .photoLibrary
+                    vm.isShowPhotoLibrary.toggle()
                 }
                 buttons.append(cameraRoll)
                 
                 let camera = ActionSheet.Button.default(Text("Take Picture")) {
-                    //bring up the camera view
                     print("bring up camera to take photo")
+                    vm.imagePickerSelection = .mealPhoto
+                    vm.imageSource = .camera
+                    vm.isShowPhotoLibrary.toggle()
                 }
                 buttons.append(camera)
-                if vm.mealPhoto != nil{
+                if vm.mealPhoto != UIImage(){
                     // TODO:  make sure this actually works once photo data is saved
                     let remove = ActionSheet.Button.destructive(Text("Remove Photo")){
                         //remove photo from meal
-                        vm.mealPhoto = nil
+                        vm.mealPhoto = UIImage()
                     }
                     buttons.append(remove)
                 }
@@ -289,6 +270,7 @@ struct MealPhotoActionSheet: ViewModifier{
     }
 }
 
+// MARK: - Meal Instructions Action Sheet
 struct MealInstructionsActionSheet: ViewModifier{
     @StateObject var vm: EditIdeaVM
     func body(content: Content) -> some View {
@@ -297,20 +279,25 @@ struct MealInstructionsActionSheet: ViewModifier{
                 var buttons = [ActionSheet.Button]()
                 let cameraRoll = ActionSheet.Button.default(Text("Camera Roll")) {
                     print("bring up camera roll")
-                    //bring up the photo picker
+                    vm.isShowPhotoLibrary.toggle()
+                    vm.imagePickerSelection = .instructions
+                    vm.imageSource = .photoLibrary
                 }
                 buttons.append(cameraRoll)
                 
                 let camera = ActionSheet.Button.default(Text("Take Picture")) {
-                    //bring up the camera view
                     print("bring up camera to take photo")
+                    vm.isShowPhotoLibrary.toggle()
+                    vm.imageSource = .camera
+                    vm.imagePickerSelection = .instructions
+
                 }
                 buttons.append(camera)
-                if vm.instructionsPhoto != nil{
+                if vm.instructionsPhoto != UIImage(){
                     // TODO:  make sure this actually works once photo data is saved
                     let remove = ActionSheet.Button.destructive(Text("Remove Photo")){
                         //remove photo from meal
-                        vm.instructionsPhoto = nil
+                        vm.instructionsPhoto = UIImage()
                     }
                     buttons.append(remove)
                 }
@@ -319,43 +306,4 @@ struct MealInstructionsActionSheet: ViewModifier{
             })
     }
 }
-/*
-struct IdeaActionSheet: ViewModifier{
-    @StateObject var vm: EditIdeaVM
-    func body(content: Content) -> some View {
-        content
-        
-            .actionsheet
-            .sheet(item: $vm.activeSheet,
-                   onDismiss: resetActiveSheet) { item in
-                switch item {
-                case .mealPhoto:
-                    VStack{
-                        Button {
-                            print("Meal Photo")
-                        } label: {
-                            Text("meal Photo ")
-                        }
-                    }
-                case .mealInstructions:
-                    VStack{
-                        Button {
-                            print("Meal Instructions")
-                        } label: {
-                            Text("Meal Instructions")
-                        }
-                    }
 
-
-
-                }
-            }
-        
-
-    }
-    func resetActiveSheet(){
-        vm.activeSheet = nil
-    }
-}
-
-*/

@@ -16,10 +16,10 @@ struct MealPhotoView: View {
     }
 }
 // MARK: - Core Data Meal Photo View
-struct CDMealPhotoView: View{
-    var mealPhotoData: Data?
+struct CDPhotoView: View{
+    var photoData: Data?
     var body: some View{
-        if let safeData = mealPhotoData{
+        if let safeData = photoData{
             Image(uiImage: (UIImage(data: safeData) ?? UIImage(imageLiteralResourceName: "Placeholder")))
                 .resizable()
                 .frame(width: 200, height: 200)
