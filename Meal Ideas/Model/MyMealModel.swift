@@ -22,7 +22,7 @@ struct UserMealModel: Codable, Equatable, Identifiable{
     var measurements: [String]
 }
 
-struct UserIngredient: Identifiable{
+struct UserIngredient: Identifiable, Equatable{
     var id = UUID()
     var name: String
     var measurement: String

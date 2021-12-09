@@ -39,6 +39,7 @@
 		B375C98727621B170013895F /* SingleChoiceListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B375C98627621B170013895F /* SingleChoiceListVM.swift */; };
 		B375C98927621B380013895F /* MultiChoiceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B375C98827621B380013895F /* MultiChoiceListView.swift */; };
 		B375C98B27621B4B0013895F /* MultiChoiceListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B375C98A27621B4B0013895F /* MultiChoiceListVM.swift */; };
+		B375C99327629F140013895F /* MultiIngredientListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B375C99227629F140013895F /* MultiIngredientListView.swift */; };
 		B37C63252760F3DB00DF3934 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C63242760F3DB00DF3934 /* ImagePicker.swift */; };
 		B37E360A27481DC900687A8C /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37E360927481DC900687A8C /* APIKey.swift */; };
 		B3AE0A182756D109001EAD15 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE0A172756D109001EAD15 /* Alert.swift */; };
@@ -60,8 +61,8 @@
 		B3CEDDA22756FB4400BB832B /* Double+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CEDDA12756FB4400BB832B /* Double+Ext.swift */; };
 		B3CEDDA42756FBFB00BB832B /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CEDDA32756FBFB00BB832B /* ImageLoader.swift */; };
 		B3CEDDA62756FC7700BB832B /* IngredientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CEDDA52756FC7700BB832B /* IngredientCell.swift */; };
-		B3CEDDA82756FCB800BB832B /* IngredientsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CEDDA72756FCB800BB832B /* IngredientsListView.swift */; };
-		B3CEDDAA2756FCE700BB832B /* IngredientsListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CEDDA92756FCE700BB832B /* IngredientsListVM.swift */; };
+		B3CEDDA82756FCB800BB832B /* SingleIngredientListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CEDDA72756FCB800BB832B /* SingleIngredientListView.swift */; };
+		B3CEDDAA2756FCE700BB832B /* IngredientListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CEDDA92756FCE700BB832B /* IngredientListVM.swift */; };
 		B3CEDDAC2756FD3800BB832B /* MealDBDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CEDDAB2756FD3800BB832B /* MealDBDetailVM.swift */; };
 		B3CEDDAE2756FD7D00BB832B /* MIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CEDDAD2756FD7D00BB832B /* MIError.swift */; };
 		B3CEDDB02756FDB700BB832B /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CEDDAF2756FDB700BB832B /* NetworkManager.swift */; };
@@ -127,6 +128,7 @@
 		B375C98627621B170013895F /* SingleChoiceListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleChoiceListVM.swift; sourceTree = "<group>"; };
 		B375C98827621B380013895F /* MultiChoiceListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiChoiceListView.swift; sourceTree = "<group>"; };
 		B375C98A27621B4B0013895F /* MultiChoiceListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiChoiceListVM.swift; sourceTree = "<group>"; };
+		B375C99227629F140013895F /* MultiIngredientListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiIngredientListView.swift; sourceTree = "<group>"; };
 		B37C63242760F3DB00DF3934 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		B37E360927481DC900687A8C /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		B3AE0A172756D109001EAD15 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
@@ -151,8 +153,8 @@
 		B3CEDDA12756FB4400BB832B /* Double+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Ext.swift"; sourceTree = "<group>"; };
 		B3CEDDA32756FBFB00BB832B /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		B3CEDDA52756FC7700BB832B /* IngredientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientCell.swift; sourceTree = "<group>"; };
-		B3CEDDA72756FCB800BB832B /* IngredientsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsListView.swift; sourceTree = "<group>"; };
-		B3CEDDA92756FCE700BB832B /* IngredientsListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsListVM.swift; sourceTree = "<group>"; };
+		B3CEDDA72756FCB800BB832B /* SingleIngredientListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleIngredientListView.swift; sourceTree = "<group>"; };
+		B3CEDDA92756FCE700BB832B /* IngredientListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientListVM.swift; sourceTree = "<group>"; };
 		B3CEDDAB2756FD3800BB832B /* MealDBDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDBDetailVM.swift; sourceTree = "<group>"; };
 		B3CEDDAD2756FD7D00BB832B /* MIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIError.swift; sourceTree = "<group>"; };
 		B3CEDDAF2756FDB700BB832B /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -347,6 +349,22 @@
 			path = Lists;
 			sourceTree = "<group>";
 		};
+		B375C9942762A0690013895F /* Single */ = {
+			isa = PBXGroup;
+			children = (
+				B3CEDDA72756FCB800BB832B /* SingleIngredientListView.swift */,
+			);
+			path = Single;
+			sourceTree = "<group>";
+		};
+		B375C9952762A0700013895F /* Multiple */ = {
+			isa = PBXGroup;
+			children = (
+				B375C99227629F140013895F /* MultiIngredientListView.swift */,
+			);
+			path = Multiple;
+			sourceTree = "<group>";
+		};
 		B37C63232760F3B500DF3934 /* UIKit COmponents */ = {
 			isa = PBXGroup;
 			children = (
@@ -400,8 +418,9 @@
 		B3C2BDC92755170A00CD5EE0 /* Ingredient List View */ = {
 			isa = PBXGroup;
 			children = (
-				B3CEDDA72756FCB800BB832B /* IngredientsListView.swift */,
-				B3CEDDA92756FCE700BB832B /* IngredientsListVM.swift */,
+				B3CEDDA92756FCE700BB832B /* IngredientListVM.swift */,
+				B375C9952762A0700013895F /* Multiple */,
+				B375C9942762A0690013895F /* Single */,
 			);
 			path = "Ingredient List View";
 			sourceTree = "<group>";
@@ -694,11 +713,12 @@
 				B3606D9F274C210700E61972 /* FavoritesModel.swift in Sources */,
 				B3CEDDC4275700E300BB832B /* ThingsToDo.swift in Sources */,
 				B3627BF9275F756B004A6519 /* EditMealsListView.swift in Sources */,
-				B3CEDDA82756FCB800BB832B /* IngredientsListView.swift in Sources */,
+				B3CEDDA82756FCB800BB832B /* SingleIngredientListView.swift in Sources */,
 				B3CA23722748108C00CA9C68 /* MealIdeasTabView.swift in Sources */,
 				B3606D9B274C201200E61972 /* SpoonMealModel.swift in Sources */,
 				B375C98727621B170013895F /* SingleChoiceListVM.swift in Sources */,
 				B3CEDDA42756FBFB00BB832B /* ImageLoader.swift in Sources */,
+				B375C99327629F140013895F /* MultiIngredientListView.swift in Sources */,
 				B37E360A27481DC900687A8C /* APIKey.swift in Sources */,
 				B3CA23782748112500CA9C68 /* MyIdeasView.swift in Sources */,
 				B3627BFB275F75C8004A6519 /* EditMealsListVM.swift in Sources */,
@@ -711,7 +731,7 @@
 				B3CEDDAC2756FD3800BB832B /* MealDBDetailVM.swift in Sources */,
 				B3CEDDA62756FC7700BB832B /* IngredientCell.swift in Sources */,
 				B3606DAB274D5E4A00E61972 /* MyIdeasDetailView.swift in Sources */,
-				B3CEDDAA2756FCE700BB832B /* IngredientsListVM.swift in Sources */,
+				B3CEDDAA2756FCE700BB832B /* IngredientListVM.swift in Sources */,
 				B3606DA1274C217700E61972 /* IngredientsModel.swift in Sources */,
 				B375C981276216F10013895F /* PListManager.swift in Sources */,
 				B375C98B27621B4B0013895F /* MultiChoiceListVM.swift in Sources */,

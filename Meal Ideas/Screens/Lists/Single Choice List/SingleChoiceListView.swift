@@ -25,10 +25,6 @@ struct SingleChoiceListView: View {
             }
             .navigationTitle("Select One")
             .navigationBarTitleDisplayMode(.inline)
-//            .toolbar{ EditButton()}
-        
-        
-
     }
 }
 /*

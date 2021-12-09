@@ -45,6 +45,11 @@ final class EditIdeaVM: ObservableObject{
     @Published var source = ""
     @Published var favorited = false
     
+    // MARK: - Sets for selections
+    @Published var ingredientSet = Set<String>()
+    @Published var categorySet = Set<String>()
+    @Published var sidesSet = Set<String>()
+    
     // MARK: - used for Core Data
     private let pc = PersistenceController.shared
 

@@ -6,22 +6,27 @@
 //
 
 import Foundation
+import SwiftUI
 
-@MainActor final class IngredientsListVM: ObservableObject{
+@MainActor final class IngredientListVM: ObservableObject{
     @Published var ingredients: [Ingredients.Meals] = []
     @Published var alertItem: AlertItem?
     @Published var isLoading = false
+    @ObservedObject var editIdeaVM: EditIdeaVM
+    @Published var selectedArray : [String] = []
     
-    init(){
+    init(editIdeaVM: EditIdeaVM){
+        self.editIdeaVM = editIdeaVM
+        selectedArray = editIdeaVM.userIngredients.compactMap{$0.name}
         getIngredients()
     }
     
     func getIngredients(){
-
         Task(priority: .userInitiated) {
             do {
                 ingredients = try await NetworkManager.shared.getIngredients()
                 ingredients = ingredients.sorted {$0.strIngredient < $1.strIngredient}
+
             } catch {
                 DispatchQueue.main.async {
                     if let MIError = error as? MIError{
@@ -40,6 +45,31 @@ import Foundation
                 }
             }
         }
+    }
+    
+    func checkArray(item: UserIngredient){
+        
+        let filtered = editIdeaVM.userIngredients.compactMap{$0.name}
+        if filtered.contains(item.name){
+            if let repeatItem = editIdeaVM.userIngredients.firstIndex(of: item){
+                editIdeaVM.userIngredients.remove(at: repeatItem)
+                print("duplicate item: \(item), removed from array")
+            }
+        } else {
+            editIdeaVM.userIngredients.append(item)
+            print("added item: \(item)")
+        }
+        
+        /*
+        if let repeatItem = editIdeaVM.userIngredients.firstIndex(of: item){
+            editIdeaVM.userIngredients.remove(at: repeatItem)
+            print("duplicate item: \(item), removed from array")
+        } else {
+            editIdeaVM.userIngredients.append(item)
+            print("added item: \(item)")
+        }
+         */
+        selectedArray = editIdeaVM.userIngredients.compactMap{$0.name}
     }
     
 }

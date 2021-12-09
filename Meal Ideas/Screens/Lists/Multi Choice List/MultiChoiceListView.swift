@@ -9,19 +9,22 @@ import SwiftUI
 
 struct MultiChoiceListView: View {
     @StateObject var vm: MultiChoiceListVM
-
+    @EnvironmentObject var editIdeaVM: EditIdeaVM
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
-        List(vm.listItems, id: \.self, selection: $vm.multi) {item in
+        List(vm.listItems, id: \.self) {item in
             Text(item)
-                .listRowBackground(vm.multi.contains(item)  ? Color.green : Color.clear) // works
+//                .listRowBackground(vm.multiSelection.contains(item)  ? Color.green : Color.clear) // works
+                .listRowBackground(vm.selectedArray.contains(item)  ? Color.green : Color.clear) // works
+                .onTapGesture {
+                    vm.checkArray(item: item)
+                }
             // TODO:  could maybe change this to show a check mark on the cell or something, would need to create said cell..
         }
-
         .navigationTitle("Select One")
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar{ EditButton()}
+//        .toolbar{ EditButton()}
 
     }
 }

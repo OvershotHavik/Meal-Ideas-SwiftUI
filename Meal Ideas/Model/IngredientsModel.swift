@@ -11,7 +11,7 @@ struct ListOfItems{
     static var title = [String]()
     static var image = [Image]()
 }
-struct Ingredients: Codable{
+class Ingredients: Codable{
     struct mealDBIngredients: Decodable{
         var meals : [Meals]
     }

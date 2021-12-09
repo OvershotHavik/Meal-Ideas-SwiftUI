@@ -37,7 +37,7 @@ struct EditIdeaView: View {
             }
             
             Section(header: Text("Category")){
-                CategorySelectView()
+                CategorySelectView(vm: vm)
                 
                 ForEach(vm.categories, id: \.self){ cat in
                     Text(cat)
@@ -46,7 +46,7 @@ struct EditIdeaView: View {
             }
             
             Section(header: Text("Ingredients")){
-                IngredientSelectView()
+                IngredientSelectView(vm: vm)
                 
                 ForEach($vm.userIngredients) {$ing in
                     HStack{
@@ -61,7 +61,7 @@ struct EditIdeaView: View {
             }
             
             Section(header: Text("Sides")){
-                SidesButtonView()
+                SidesButtonView(vm: vm)
                 ForEach(vm.sides, id: \.self) {side in
                     Text(side)
                 }
@@ -97,6 +97,7 @@ struct EditIdeaView: View {
                     .listRowBackground(Color.red)
             }
         }
+        .environmentObject(vm)
         .navigationTitle(vm.meal?.mealName ?? "Create a Meal")
         
         // MARK: - Save alert
@@ -160,31 +161,29 @@ struct MealPhotoButtonView: View{
 
 // MARK: - Category Select View
 struct CategorySelectView: View{
-    
+    @ObservedObject var vm: EditIdeaVM
     var body: some View{
-        Button {
-            //bring up category selector
-        } label: {
-            Text("Select Category(s)")
+        NavigationLink(destination: MultiChoiceListView(vm: MultiChoiceListVM(PList: .categories, editIdeaVM: vm))) {
+            Text("Select Categories")
         }
     }
 }
 // MARK: - Ingredient Select View
 struct IngredientSelectView: View{
-    @State var isActive = true
+    @ObservedObject var vm: EditIdeaVM
     var body: some View{
         
-        NavigationLink(destination: IngredientsListView(vm: IngredientsListVM(), isActive: $isActive)) {
+        NavigationLink(destination: MultiIngredientListView(vm: IngredientListVM(editIdeaVM: vm))) {
             Text("Select Ingredients")
         }
     }
 }
 // MARK: - Sides Button View
 struct SidesButtonView: View{
+    @ObservedObject var vm: EditIdeaVM
     var body: some View{
-        Button{
-            // Bring up the sides selector
-        } label: {
+        NavigationLink(destination: MultiChoiceListView(vm: MultiChoiceListVM(PList: .sides,
+                                                                              editIdeaVM: vm))) {
             Text("Select Sides")
         }
     }

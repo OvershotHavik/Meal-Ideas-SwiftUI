@@ -58,7 +58,7 @@ struct SelectedQueryView: View{
         case .ingredient:
             HStack{
                 
-                NavigationLink(destination: IngredientsListView(vm: IngredientsListVM(), isActive: $isActive)) {
+                NavigationLink(destination: SingleIngredientListView(vm: IngredientListVM(editIdeaVM: EditIdeaVM(meal: nil)))) {
                     Text("Select an ingredient")
                         .foregroundColor(.primary)
                 }
