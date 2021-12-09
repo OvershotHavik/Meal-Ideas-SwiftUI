@@ -327,6 +327,26 @@
 			path = "Multi Choice List";
 			sourceTree = "<group>";
 		};
+		B375C98C276255860013895F /* My Ideas Screens */ = {
+			isa = PBXGroup;
+			children = (
+				B3CA2374274810D100CA9C68 /* My Ideas */,
+				B3627BF7275F754B004A6519 /* Edit Meals List */,
+				B3C37AF027566F4800D0E841 /* Edit Idea */,
+			);
+			path = "My Ideas Screens";
+			sourceTree = "<group>";
+		};
+		B375C98D276255B00013895F /* Lists */ = {
+			isa = PBXGroup;
+			children = (
+				B3C2BDC92755170A00CD5EE0 /* Ingredient List View */,
+				B375C98327621A7D0013895F /* Multi Choice List */,
+				B375C98227621A460013895F /* Single Choice List */,
+			);
+			path = Lists;
+			sourceTree = "<group>";
+		};
 		B37C63232760F3B500DF3934 /* UIKit COmponents */ = {
 			isa = PBXGroup;
 			children = (
@@ -467,18 +487,11 @@
 		B3CA2373274810C900CA9C68 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				B375C98327621A7D0013895F /* Multi Choice List */,
-				B375C98227621A460013895F /* Single Choice List */,
-				B3627BF7275F754B004A6519 /* Edit Meals List */,
-				B3C37AF027566F4800D0E841 /* Edit Idea */,
-				B3CA23712748108C00CA9C68 /* MealIdeasTabView.swift */,
-				B3CA2374274810D100CA9C68 /* My Ideas */,
-				B3606DA9274D5DDF00E61972 /* My Ideas Detail View */,
+				B375C98D276255B00013895F /* Lists */,
+				B375C98C276255860013895F /* My Ideas Screens */,
 				B3CA2375274810E200CA9C68 /* MealDB */,
-				B3606DC2274D8E5700E61972 /* MealDB Detail View */,
 				B3CA2376274810EB00CA9C68 /* Spoonacular */,
-				B3C2BDBE2753CDCF00CD5EE0 /* SpoonDetailView */,
-				B3C2BDC92755170A00CD5EE0 /* Ingredient List View */,
+				B3CA23712748108C00CA9C68 /* MealIdeasTabView.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -486,6 +499,7 @@
 		B3CA2374274810D100CA9C68 /* My Ideas */ = {
 			isa = PBXGroup;
 			children = (
+				B3606DA9274D5DDF00E61972 /* My Ideas Detail View */,
 				B3CA23772748112500CA9C68 /* MyIdeasView.swift */,
 				B3627BFC275FC67F004A6519 /* MyIdeasVM.swift */,
 			);
@@ -495,6 +509,7 @@
 		B3CA2375274810E200CA9C68 /* MealDB */ = {
 			isa = PBXGroup;
 			children = (
+				B3606DC2274D8E5700E61972 /* MealDB Detail View */,
 				B3CA23792748114000CA9C68 /* MealDBView.swift */,
 				B3606DC0274D7B0900E61972 /* MealDBVM.swift */,
 			);
@@ -504,6 +519,7 @@
 		B3CA2376274810EB00CA9C68 /* Spoonacular */ = {
 			isa = PBXGroup;
 			children = (
+				B3C2BDBE2753CDCF00CD5EE0 /* SpoonDetailView */,
 				B3CA237B2748115D00CA9C68 /* SpoonView.swift */,
 				B3CEDDBF2757005800BB832B /* SpoonVM.swift */,
 			);
