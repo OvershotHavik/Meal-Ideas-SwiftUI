@@ -16,7 +16,7 @@ struct Meal_IdeasApp: App {
 //            IngredientsListView(vm: IngredientsListVM())
 //            EditIdeaView(vm: EditIdeaVM(meal: nil))
 
-            
+//            SingleChoiceListView(vm: SingleChoiceListVM(PList: .sides))
             MealIdeasTabView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .environmentObject(query)

@@ -46,11 +46,12 @@ struct SelectedQueryView: View{
             
         case .category:
             HStack{
-                Button {
-                    //bring up list view of categories
-                } label: {
+                NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: .categories))) {
                     Text("Select a category")
                         .foregroundColor(.primary)
+                }
+                if let safeSelected = query.selected{
+                    Text(safeSelected)
                 }
             }
             

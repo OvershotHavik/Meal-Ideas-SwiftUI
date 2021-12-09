@@ -42,6 +42,6 @@ struct Ingredients: Codable{
     }
 }
 //used for custom ingredients/categories/sides
-class NewItem: Codable{
+struct NewItem: Codable, Hashable{
     var itemName = String()
 }
