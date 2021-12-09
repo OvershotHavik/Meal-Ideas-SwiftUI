@@ -13,9 +13,7 @@ struct EditIdeaView: View {
     @StateObject var vm: EditIdeaVM
     
     @Environment(\.dismiss) var dismiss
-
-    @State var isShowPhotoLibrary = false
-    @State private var image = UIImage()
+    
     
     enum FormTextField{ // will need changed to match this form
         case firstName, lastName, email
@@ -34,7 +32,7 @@ struct EditIdeaView: View {
                             .frame(width: 100)
                     }
                 }
-
+                
                 TextField(vm.meal?.mealName ?? "Meal Name", text: $vm.mealName)
             }
             
@@ -91,7 +89,7 @@ struct EditIdeaView: View {
             }
             SaveButtonView(vm: vm)
                 .listRowBackground(Color.green)
-                
+            
             if vm.meal != nil{
                 //Only show and add space if the meal was passed in
                 Spacer(minLength: 5)
@@ -100,7 +98,7 @@ struct EditIdeaView: View {
             }
         }
         .navigationTitle(vm.meal?.mealName ?? "Create a Meal")
-                
+        
         // MARK: - Save alert
         .alert(item: $vm.alertItem) { alertItem in
             Alert(title: alertItem.title,
@@ -115,10 +113,11 @@ struct EditIdeaView: View {
         } message: {
             Text("Are you sure you want to delete \(vm.meal?.mealName ?? vm.mealName)?")
         }
-
+        
         // MARK: - Image Picker sheet
         .sheet(isPresented: $vm.isShowPhotoLibrary){
             if let safeSelection = vm.imagePickerSelection{
+                //These are set by the action sheet when the user taps a button to select the photo
                 switch safeSelection{
                 case .mealPhoto:
                     ImagePicker(selectedImage: $vm.mealPhoto,
@@ -129,9 +128,8 @@ struct EditIdeaView: View {
                 }
             }
         }
-        
     }
-        // MARK: - Delete meal from VM and dismiss the view
+    // MARK: - Delete meal from VM and dismiss the view
     func deleteMeal(){
         vm.deleteMeal()
         dismiss()
@@ -164,11 +162,11 @@ struct MealPhotoButtonView: View{
 struct CategorySelectView: View{
     
     var body: some View{
-            Button {
-                //bring up category selector
-            } label: {
-                Text("Select Category(s)")
-            }
+        Button {
+            //bring up category selector
+        } label: {
+            Text("Select Category(s)")
+        }
     }
 }
 // MARK: - Ingredient Select View
@@ -223,15 +221,14 @@ struct DeleteButtonView: View{
     var vm: EditIdeaVM
     @Binding var showingDeleteAlert: Bool
     var body: some View{
-            Button {
-                showingDeleteAlert = true
-                
-            } label: {
-                Text("Delete Meal")
-                    .padding()
-                    .foregroundColor(.white)
-            }
-        
+        Button {
+            showingDeleteAlert = true
+            
+        } label: {
+            Text("Delete Meal")
+                .padding()
+                .foregroundColor(.white)
+        }
     }
 }
 // MARK: - Meal Photo Action Sheet
@@ -290,7 +287,6 @@ struct MealInstructionsActionSheet: ViewModifier{
                     vm.isShowPhotoLibrary.toggle()
                     vm.imageSource = .camera
                     vm.imagePickerSelection = .instructions
-
                 }
                 buttons.append(camera)
                 if vm.instructionsPhoto != UIImage(){

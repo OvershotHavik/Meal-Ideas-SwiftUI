@@ -13,6 +13,15 @@ enum QueryType: String{
     case history = "book"
     case favorite = "heart.fill"
 }
+enum QueryName: String{
+    case ingredients = "Ingredients"
+    case category = "Category"
+    case random = "Random"
+    case keyword = "Keyword"
+    case favorites = "Favorites"
+    case sides = "Sides"
+}
+
 
 final class Query: ObservableObject{
     @Published var query = QueryType.random

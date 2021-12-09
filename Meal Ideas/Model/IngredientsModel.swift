@@ -41,6 +41,7 @@ struct Ingredients: Codable{
         var imageID : String
     }
 }
+//used for custom ingredients/categories/sides
 class NewItem: Codable{
     var itemName = String()
 }

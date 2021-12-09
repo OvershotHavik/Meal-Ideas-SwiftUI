@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+   Sides.plist
+   Meal Ideas
+
+   Created by Steve Plavetzky on 12/9/21.
+   Copyright (c) 2021 ___ORGANIZATIONNAME___. All rights reserved.
+-->
+<plist version="1.0">
+    <array>
+        <dict>
+            <key>itemName</key>
+            <string>*Not Applicable*</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Apple</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Applesauce</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Asparagus</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Au Gratin Potatoes</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Bacon</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Baked Beans</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Baked Potato</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Banana</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Biscuits</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Blue Berries</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Broccoli</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Brown Rice</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Brussels sprouts</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Buns</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Buttered Noodles</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Carrots</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Cauliflower</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Chilli</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Coleslaw</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Corn</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Corn Bread</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Corn on the cob</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Cream Corn</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Dumplings</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>French Fries</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Fruit Salad</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Garlic Bread</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Garlic Potatos</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Grapes</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Green Bean Casserole</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Green Beans</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Green Peas</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Grits</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Hashbrowns</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Kale</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Mac n Cheese</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Mashed Potato</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Muffins</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Mushrooms</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Onion Rings</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Orange</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Parsley Potatoes</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Pasta Salad</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Potato Chips</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Potato Salad</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Raspberries</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Red Potatoes</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Rice Pack</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Risotto</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Salad</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Sausage</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Scalloped Potatoes</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Spanish Rice</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Spinach</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Strawberries</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Stuffing</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Sweet Potatoes</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Tater Tots</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Toast</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Watermelon</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>White Rice</string>
+        </dict>
+        <dict>
+            <key>itemName</key>
+            <string>Zucchini</string>
+        </dict>
+    </array>
+    </plist>
+

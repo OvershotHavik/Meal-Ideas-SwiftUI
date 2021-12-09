@@ -13,8 +13,6 @@ struct ImagePicker: UIViewControllerRepresentable {
         Coordinator(self)
     }
     
-
-    
     @Binding var selectedImage: UIImage
     @Environment(\.presentationMode) private var presentationMode
     
