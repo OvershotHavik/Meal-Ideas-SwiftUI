@@ -11,7 +11,6 @@ struct MultiIngredientListView: View {
     @StateObject var vm: IngredientListVM
     @EnvironmentObject var query: Query
     @Environment(\.dismiss) var dismiss
-    
     var body: some View {
         //May want to switch to a forEach loop instead if list doesn't work the way I want to do the selections.. Could have the cell update if it has a check mark or not if it is in the title matches the selected
         
@@ -31,12 +30,10 @@ struct MultiIngredientListView: View {
         List(vm.ingredients){ ingredient in
             IngredientCell(ingredient: ingredient)
                 .onTapGesture {
-                    var selected = UserIngredient(name: "", measurement: "")
-                    selected.name = ingredient.strIngredient
-                    vm.checkArray(item: selected)
+                    vm.checkArray(item: ingredient.strIngredient)
                 }
                 .listRowBackground(vm.selectedArray.contains(ingredient.strIngredient) ? Color.green : Color.clear)
-//         .listRowBackground(ingredient.strIngredient == selection ? Color.green : Color.clear)
+//                .listRowBackground(ingredient.strIngredient == vm. ? Color.green : Color.clear)
         }
         
         .navigationTitle(Text("Select an Ingredient"))

@@ -26,7 +26,7 @@ struct MyIdeasDetailView: View {
                 
                 
                 IngredientVGrid(ingredients: vm.meal.ingredients as! [String],
-                                measurements: vm.meal.measurements as! [String] )
+                                measurements: vm.meal.measurements as! [String?])
                 
                 CDPhotoView(photoData: vm.meal.instructionsPhoto)
                 
