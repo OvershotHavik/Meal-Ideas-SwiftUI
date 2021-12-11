@@ -9,7 +9,8 @@ import SwiftUI
 
 struct MealDBView: View {
     @StateObject var vm: MealDBVM
-    
+    @EnvironmentObject var query: Query
+
     var body: some View {
         NavigationView{
             VStack{
@@ -32,7 +33,8 @@ struct MealDBView: View {
                 .padding()
             }
             .onAppear {
-                vm.getMeals()
+                vm.checkQuery(query: query.selected ?? "", queryType: query.query)
+//                vm.getRandomMeals()
             }
         }
     }

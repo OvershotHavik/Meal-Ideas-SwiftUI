@@ -12,6 +12,7 @@ enum QueryType: String{
     case ingredient = "Ingredient"
     case history = "book"
     case favorite = "heart.fill"
+    case none = "None"
 }
 enum QueryName: String{
     case ingredients = "Ingredients"

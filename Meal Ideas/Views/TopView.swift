@@ -36,6 +36,8 @@ struct SelectedQueryView: View{
     @Binding var isActive : Bool
     var body: some View{
         switch query.query{
+        case .none:
+            Text("")
         case .random:
             Button {
                 //perform network call to get more meals

@@ -49,7 +49,6 @@ final class NetworkManager {
         
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
             throw MIError.invalidResponse
-            
         }
         
         do{
@@ -60,7 +59,87 @@ final class NetworkManager {
             throw MIError.invalidData
         }
     }
-    
+    // MARK: - Meal DB Query
+  
+    func mealDBQuery(query: String, queryType: QueryType) async throws ->[MealDBResults.Meal]{
+        switch queryType {
+        case .random:
+            guard let url = URL(string: BaseURL.mealDBRandom) else {
+                throw MIError.invalidURL
+            }
+            print(url)
+            return try await mealDBNetworkCall(url: url)
+            
+        case .category:
+            
+            guard let url = URL(string: BaseURL.mealDBCategories + query) else {
+                throw MIError.invalidURL
+            }
+            print(url)
+            return try await mealDBNetworkCall(url: url)
+        case .none:
+            //used for single meal lookup
+            guard let url = URL(string: BaseURL.mealDBIndividual + query) else {
+                throw MIError.invalidURL
+            }
+            print(url)
+            return try await mealDBNetworkCall(url: url)
+            
+        default:
+            print("Query Type not setup in MealDBQuery yet")
+            guard let url = URL(string: "https://www.google.com") else {
+                throw MIError.invalidURL
+            }
+            print(url)
+            return try await mealDBNetworkCall(url: url)
+        }
+//        case .ingredient:
+//            ()
+//        case .history:
+//            ()
+//        case .favorite:
+//            ()
+//        case .none:
+//            ()
+        
+    }
+    /*
+Original random meal
+    func mealDBRandom() async throws -> [MealDBResults.Meal]{
+        guard let url = URL(string: BaseURL.mealDBRandom) else {
+            throw MIError.invalidURL
+        }
+        print(url)
+        let (data, response) = try await URLSession.shared.data(from: url)
 
+        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+            throw MIError.invalidResponse
+        }
+
+        do{
+            let results = try JSONDecoder().decode(MealDBResults.Results.self, from: data)
+
+            return results.meals
+        } catch {
+            throw MIError.invalidData
+        }
+    }
+    */
+    func mealDBNetworkCall(url: URL) async throws -> [MealDBResults.Meal]{
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+            throw MIError.invalidResponse
+        }
+        
+        do{
+            let results = try JSONDecoder().decode(MealDBResults.Results.self, from: data)
+            
+            return results.meals
+        } catch {
+            throw MIError.invalidData
+        }
+    }
 }
+
 

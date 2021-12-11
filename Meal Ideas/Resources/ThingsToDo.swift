@@ -14,32 +14,28 @@ import Foundation
  
  - Figure out Search for the list
  
- - add confirm delete to the lsit view as well
- 
- 
-- figure out how to modify the list to show which item was selected, then pop it back if needed for single selection like cat or ing search. would be nice to change the background, or have a check mark next to the one selected
  - Setup the form for the user to create meals
-    - still needs :
-        - Category picker
-        - Photo picker for both meal photo and instructions
-        - Sides Picker
-        -
-    -figure out how to pass data back and forth between the form and the selection
     - Figure out how to do plists for custom ingredients and sides and categories
  
  - Setup Network Calls instead of using the mock data for the mealdb and spoon
  
- - Figure out text fields background so it stays white in dark mode
+ get each query to work
+ - Random
+ - Category
+ - Ingredient
+ - Keyword
+ - Favorite
+ - History
  
- - Setup the category picker, which should just be a list/forEach loop to allow just one for the query, but will need changed for when user is creating a meal
-    -Maybe just do a popup list when the query it, but bring up a list when creating a meal?
+ - Figure out a better way to do the top view that isn't so buggy
+    - Maybe figure out an actual tab view instead of the one I made? not sure if they can be up in the app view like that
+ 
+ - Figure out text fields background so it stays white in dark mode
  
  - Figure out how to do history and favorites
   
  - Figure out the "large picture view" when user clicks on the meal photo
- 
- - Change the selection Text to include the ingredient image next to the name
- 
+  
  - maybe change the background color of the top view depending on which source? orange for meal db and green for spoon?
  
  - Add the loading spinner when network calls are going
