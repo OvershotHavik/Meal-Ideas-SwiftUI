@@ -24,7 +24,9 @@ struct IngredientCell: View {
                         .font(.body)
                         .padding(.horizontal)
                     Spacer()
-                    Image(systemName: selected ? "checkmark" : "")
+                    if selected == true{
+                        Image(systemName: "checkmark")
+                    }
                 }
             }
         }

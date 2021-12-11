@@ -16,12 +16,17 @@ struct SingleChoiceListView: View {
     var body: some View {
             VStack{
                 List(vm.listItems, id: \.self, selection: $vm.singleChoiceString) {item in
-                    Text(item)
-//                        .listRowBackground(query.selected == item ? Color.green : Color.clear) // works
-                        .onTapGesture{
-                            query.selected = item
-                            dismiss()
+                    HStack{
+                        Text(item)
+                        Spacer()
+                        if query.selected == item{
+                            Image(systemName: "checkmark")
                         }
+                    }
+                    .onTapGesture{
+                        query.selected = item
+                        dismiss()
+                    }
                 }
             }
             .navigationTitle(title.rawValue)
