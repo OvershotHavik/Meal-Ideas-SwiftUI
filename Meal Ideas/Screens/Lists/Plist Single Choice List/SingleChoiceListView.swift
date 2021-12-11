@@ -10,6 +10,7 @@ import SwiftUI
 struct SingleChoiceListView: View {
     @StateObject var vm: SingleChoiceListVM
     @EnvironmentObject var query: Query
+    var title: Titles
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
@@ -23,7 +24,7 @@ struct SingleChoiceListView: View {
                         }
                 }
             }
-            .navigationTitle("Select One")
+            .navigationTitle(title.rawValue)
             .navigationBarTitleDisplayMode(.inline)
     }
 }

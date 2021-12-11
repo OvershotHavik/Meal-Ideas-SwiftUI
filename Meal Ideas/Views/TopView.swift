@@ -46,7 +46,7 @@ struct SelectedQueryView: View{
             
         case .category:
             HStack{
-                NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: .categories))) {
+                NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: .categories), title: .oneCategory)) {
                     Text("Select a category")
                         .foregroundColor(.primary)
                 }

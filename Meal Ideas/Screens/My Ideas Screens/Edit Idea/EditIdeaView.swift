@@ -163,7 +163,7 @@ struct MealPhotoButtonView: View{
 struct CategorySelectView: View{
     @ObservedObject var vm: EditIdeaVM
     var body: some View{
-        NavigationLink(destination: MultiChoiceListView(vm: MultiChoiceListVM(PList: .categories, editIdeaVM: vm))) {
+        NavigationLink(destination: MultiChoiceListView(vm: MultiChoiceListVM(PList: .categories, editIdeaVM: vm), title: .multiCategory)) {
             Text("Select Categories")
         }
     }
@@ -183,7 +183,7 @@ struct SidesButtonView: View{
     @ObservedObject var vm: EditIdeaVM
     var body: some View{
         NavigationLink(destination: MultiChoiceListView(vm: MultiChoiceListVM(PList: .sides,
-                                                                              editIdeaVM: vm))) {
+                                                                              editIdeaVM: vm), title: .multiSides)) {
             Text("Select Sides")
         }
     }

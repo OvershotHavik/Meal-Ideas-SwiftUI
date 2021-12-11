@@ -13,19 +13,20 @@ struct BadgesHStack: View {
     var topColor: Color
     var bottomColor: Color
     var body: some View {
-        ScrollView(.horizontal){
-            HStack{
-                Text(title)
-                    .font(.body)
-                ForEach(items, id: \.self) {cat in
-                    Text(cat)
-                        .padding(3)
-                        .background(LinearGradient(gradient: Gradient(colors: [topColor, bottomColor]),
-                                                   startPoint: .top,
-                                                   endPoint: .bottom))
-                        .cornerRadius(10)
+        HStack{
+            Text(title)
+                .font(.body)
+            ScrollView(.horizontal){
+                HStack{
+                    ForEach(items, id: \.self) {cat in
+                        Text(cat)
+                            .padding(3)
+                            .background(LinearGradient(gradient: Gradient(colors: [topColor, bottomColor]),
+                                                       startPoint: .top,
+                                                       endPoint: .bottom))
+                            .cornerRadius(10)
+                    }
                 }
-                
             }
         }
     }

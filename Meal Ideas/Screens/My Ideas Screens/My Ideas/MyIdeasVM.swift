@@ -11,8 +11,8 @@ import CoreData
 final class MyIdeasVM: ObservableObject{
     @Published var savedMeals : [UserMeals] = []
     private let pc = PersistenceController.shared
+    
     init(){
-        fetchMeals()
     }
     
     func fetchMeals(){

@@ -311,22 +311,22 @@
 			path = PLists;
 			sourceTree = "<group>";
 		};
-		B375C98227621A460013895F /* Single Choice List */ = {
+		B375C98227621A460013895F /* Plist Single Choice List */ = {
 			isa = PBXGroup;
 			children = (
 				B375C98427621B060013895F /* SingleChoiceListView.swift */,
 				B375C98627621B170013895F /* SingleChoiceListVM.swift */,
 			);
-			path = "Single Choice List";
+			path = "Plist Single Choice List";
 			sourceTree = "<group>";
 		};
-		B375C98327621A7D0013895F /* Multi Choice List */ = {
+		B375C98327621A7D0013895F /* Plist Multi Choice List */ = {
 			isa = PBXGroup;
 			children = (
 				B375C98827621B380013895F /* MultiChoiceListView.swift */,
 				B375C98A27621B4B0013895F /* MultiChoiceListVM.swift */,
 			);
-			path = "Multi Choice List";
+			path = "Plist Multi Choice List";
 			sourceTree = "<group>";
 		};
 		B375C98C276255860013895F /* My Ideas Screens */ = {
@@ -343,8 +343,8 @@
 			isa = PBXGroup;
 			children = (
 				B3C2BDC92755170A00CD5EE0 /* Ingredient List View */,
-				B375C98327621A7D0013895F /* Multi Choice List */,
-				B375C98227621A460013895F /* Single Choice List */,
+				B375C98327621A7D0013895F /* Plist Multi Choice List */,
+				B375C98227621A460013895F /* Plist Single Choice List */,
 			);
 			path = Lists;
 			sourceTree = "<group>";

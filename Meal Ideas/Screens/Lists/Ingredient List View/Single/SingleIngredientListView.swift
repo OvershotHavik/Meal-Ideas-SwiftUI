@@ -31,15 +31,16 @@ struct SingleIngredientListView: View {
         
         
         List(vm.ingredients, selection: $selection){ ingredient in
-            IngredientCell(ingredient: ingredient)
+            let selected = ingredient.strIngredient == selection
+            IngredientCell(ingredient: ingredient, selected: selected)
                 .onTapGesture {
                     query.selected = ingredient.strIngredient
                     dismiss()
                 }
-         .listRowBackground(ingredient.strIngredient == selection ? Color.green : Color.clear)
+//         .listRowBackground(ingredient.strIngredient == selection ? Color.green : Color.clear)
         }
         
-        .navigationTitle(Text("Select an Ingredient"))
+        .navigationTitle(Titles.oneIngredient.rawValue)
         .toolbar{ EditButton() }
 
         

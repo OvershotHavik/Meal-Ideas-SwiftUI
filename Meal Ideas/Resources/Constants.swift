@@ -42,3 +42,11 @@ enum Source: String{
 //    case user = "User"
 }
 
+enum Titles: String{
+    case oneCategory = "Select One Category"
+    case oneIngredient = "Select One Ingredient"
+    
+    case multiCategory = "Select Categories"
+    case multiIngredients = "Select Ingredients"
+    case multiSides = "Select Sides"
+}

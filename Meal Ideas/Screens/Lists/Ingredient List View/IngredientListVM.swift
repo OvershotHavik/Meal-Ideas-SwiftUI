@@ -12,11 +12,11 @@ import SwiftUI
     @Published var ingredients: [Ingredients.Meals] = []
     @Published var alertItem: AlertItem?
     @Published var isLoading = false
-    @ObservedObject var editIdeaVM: EditIdeaVM
+    @ObservedObject var editVM: EditIdeaVM
     @Published var selectedArray : [String] = []
     
     init(editIdeaVM: EditIdeaVM){
-        self.editIdeaVM = editIdeaVM
+        self.editVM = editIdeaVM
         selectedArray = editIdeaVM.userIngredients.compactMap{$0.name}
         getIngredients()
     }
@@ -48,28 +48,16 @@ import SwiftUI
     }
     
     func checkArray(item: String){
-        // TODO:  get this to work again, check for the string value of the ingredient in the list to see if that string is in the user ingredients array
         if let repeatItem = selectedArray.firstIndex(of: item){
-            editIdeaVM.userIngredients.remove(at: repeatItem)
+            editVM.userIngredients.remove(at: repeatItem)
             print("duplicate item: \(item), removed from array")
         } else {
             let newItem = UserIngredient(name: item, measurement: "")
-            editIdeaVM.userIngredients.append(newItem)
+            editVM.userIngredients.append(newItem)
+            editVM.userIngredients = editVM.userIngredients.sorted{$0.name < $1.name}
             print("added item: \(item)")
         }
-        selectedArray = editIdeaVM.userIngredients.compactMap{$0.name}
-        
-        /*
-         
-        if let repeatItem = editIdeaVM.userIngredients.firstIndex(of: item){
-            editIdeaVM.userIngredients.remove(at: repeatItem)
-            print("duplicate item: \(item), removed from array")
-        } else {
-            editIdeaVM.userIngredients.append(item)
-            print("added item: \(item)")
-        }
-        selectedArray = editIdeaVM.userIngredients.compactMap{$0.name}
-         */
+        selectedArray = editVM.userIngredients.compactMap{$0.name}
     }
     
 }

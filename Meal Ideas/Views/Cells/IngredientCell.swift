@@ -9,7 +9,7 @@ import SwiftUI
 
 struct IngredientCell: View {
     var ingredient: Ingredients.Meals
-    
+    var selected: Bool
     var body: some View {
         let modifiedMealDB = ingredient.strIngredient.replacingOccurrences(of: " ", with: "%20")
         if let mealDBImages = URL(string: "\(BaseURL.ingredientImage)\(modifiedMealDB).png"){
@@ -23,6 +23,8 @@ struct IngredientCell: View {
                     Text(ingredient.strIngredient)
                         .font(.body)
                         .padding(.horizontal)
+                    Spacer()
+                    Image(systemName: selected ? "checkmark" : "")
                 }
             }
         }

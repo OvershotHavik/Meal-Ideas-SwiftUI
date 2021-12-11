@@ -10,14 +10,14 @@ import SwiftUI
 
 final class  MultiChoiceListVM: ObservableObject {
 //    @EnvironmentObject var editIdeaVM: EditIdeaVM
-    @ObservedObject var editIdeaVM: EditIdeaVM
+    @ObservedObject var editVM: EditIdeaVM
     @Published var listItems: [String] = []
     @Published var PList: PList
     @Published var selectedArray: [String] = [] // updates based on the plist selected
     
     init(PList: PList, editIdeaVM: EditIdeaVM){
         self.PList = PList
-        self.editIdeaVM = editIdeaVM
+        self.editVM = editIdeaVM
         fetchPlist()
     }
     
@@ -35,9 +35,9 @@ final class  MultiChoiceListVM: ObservableObject {
         })
         switch PList{
         case .categories:
-            selectedArray = editIdeaVM.categories
+            selectedArray = editVM.categories
         case .sides:
-            selectedArray = editIdeaVM.sides
+            selectedArray = editVM.sides
         default: print("plist selection array not setup in MultiChoiceListVM")
         }
     }
@@ -47,25 +47,27 @@ final class  MultiChoiceListVM: ObservableObject {
         
         switch PList{
         case .categories:
-            if let repeatItem = editIdeaVM.categories.firstIndex(of: item){
-                editIdeaVM.categories.remove(at: repeatItem)
+            if let repeatItem = editVM.categories.firstIndex(of: item){
+                editVM.categories.remove(at: repeatItem)
                 print("duplicate item: \(item), removed from array")
             } else {
-                editIdeaVM.categories.append(item)
+                editVM.categories.append(item)
+                editVM.categories = editVM.categories.sorted{$0 < $1}
                 print("added item: \(item)")
             }
-            selectedArray = editIdeaVM.categories
+            selectedArray = editVM.categories
             
             
         case .sides:
-            if let repeatItem = editIdeaVM.sides.firstIndex(of: item){
-                editIdeaVM.sides.remove(at: repeatItem)
+            if let repeatItem = editVM.sides.firstIndex(of: item){
+                editVM.sides.remove(at: repeatItem)
                 print("duplicate item: \(item), removed from array")
             } else {
-                editIdeaVM.sides.append(item)
+                editVM.sides.append(item)
+                editVM.sides = editVM.sides.sorted{$0 < $1}
                 print("added item: \(item)")
             }
-            selectedArray = editIdeaVM.sides
+            selectedArray = editVM.sides
 
             
         default: print("plist selection checkArray  not setup in MultiChoiceListVM")
