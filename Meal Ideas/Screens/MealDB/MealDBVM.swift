@@ -12,21 +12,28 @@ import Foundation
     @Published var alertItem : AlertItem?
     @Published var isLoading = false
     @Published var originalQueryType = QueryType.none
+    @Published var originalQuery: String?
     
     func checkQuery(query: String, queryType: QueryType){
         
         if originalQueryType != queryType{
             meals = []
-            getMealDBMeals(query: query, queryType: queryType)
             self.originalQueryType = queryType
+            self.originalQuery = query
+            getMealDBMeals(query: query, queryType: queryType)
         } else {
-            //do nothing since it hasn't changed
+            if originalQuery != query{
+                meals = []
+                self.originalQuery = query
+                getMealDBMeals(query: query, queryType: queryType)
+            } else {
+                // nothing happens, query and query type didn't change
+            }
         }
+        
     }
     // MARK: - Get MealDBMeals
-    
     func getMealDBMeals(query: String, queryType: QueryType) {
-        
         isLoading = true
         Task {
             do{
@@ -45,6 +52,10 @@ import Foundation
                     
                     
                 case .ingredient:
+                    let modifiedIngredient = query.replacingOccurrences(of: " ", with: "_")
+                    
+                    meals = try await NetworkManager.shared.mealDBQuery(query: modifiedIngredient,
+                                                                        queryType: .ingredient)
                     print("ing")
                 case .history:
                     print("hit")
@@ -55,8 +66,8 @@ import Foundation
                 }
                 isLoading = false
             }catch{
-                if let apError = error as? MIError{
-                    switch apError {
+                if let miError = error as? MIError{
+                    switch miError {
                         //only ones that would come through should be invalidURL or invalid data, but wanted to keep the other cases
                     case .invalidURL:
                         alertItem = AlertContext.invalidURL
@@ -68,56 +79,7 @@ import Foundation
                     alertItem = AlertContext.invalidResponse // generic error would go here
                     isLoading = false
                 }
-
             }
         }
     }
-    
-    
-    /*
-    func getRandomMeals() {
-        
-        isLoading = true
-        Task {
-            do{
-                meals = try await NetworkManager.shared.mealDBRandom()
-                isLoading = false
-            }catch{
-                if let apError = error as? MIError{
-                    switch apError {
-                        //only ones that would come through should be invalidURL or invalid data, but wanted to keep the other cases
-                    case .invalidURL:
-                        alertItem = AlertContext.invalidURL
-                    case .invalidData:
-                        alertItem = AlertContext.invalidData
-                    default: alertItem = AlertContext.invalidResponse // generic error if wanted..
-                    }
-                } else {
-                    alertItem = AlertContext.invalidResponse // generic error would go here
-                    isLoading = false
-                }
-
-            }
-        }
-    }
-    */
-    /*
-     
-     using mock data
-    func getMeals(){
-        do {
-            if let data = MealDBJSON.sample.data(using: .utf8){
-                let results = try JSONDecoder().decode(MealDBResults.Results.self, from: data)
-                self.meals = results.meals
-                for x in self.meals{
-                    print(x.id ?? "")
-                }
-                
-            }
-        }catch let e {
-            print(e)
-        }
-    }
-    */
-    
 }

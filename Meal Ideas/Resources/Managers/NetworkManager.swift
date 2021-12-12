@@ -63,6 +63,15 @@ final class NetworkManager {
   
     func mealDBQuery(query: String, queryType: QueryType) async throws ->[MealDBResults.Meal]{
         switch queryType {
+        case .none:
+            //used for single meal lookup
+            guard let url = URL(string: BaseURL.mealDBIndividual + query) else {
+                throw MIError.invalidURL
+            }
+            print(url)
+            return try await mealDBNetworkCall(url: url)
+            
+            
         case .random:
             guard let url = URL(string: BaseURL.mealDBRandom) else {
                 throw MIError.invalidURL
@@ -70,16 +79,17 @@ final class NetworkManager {
             print(url)
             return try await mealDBNetworkCall(url: url)
             
-        case .category:
             
+        case .category:
             guard let url = URL(string: BaseURL.mealDBCategories + query) else {
                 throw MIError.invalidURL
             }
             print(url)
             return try await mealDBNetworkCall(url: url)
-        case .none:
-            //used for single meal lookup
-            guard let url = URL(string: BaseURL.mealDBIndividual + query) else {
+            
+            
+        case .ingredient:
+            guard let url = URL(string: BaseURL.mealDBIngredient + query) else {
                 throw MIError.invalidURL
             }
             print(url)
