@@ -38,6 +38,7 @@ import Foundation
     // MARK: - Get MealDBMeals
     func getMealDBMeals(query: String, queryType: QueryType) {
         isLoading = true
+        print("Switch statement in get mealdb meals: \(queryType.rawValue)")
         Task {
             do{
                 switch queryType {
@@ -74,6 +75,7 @@ import Foundation
                                                                         queryType: .keyword)
                 }
                 isLoading = false
+
             }catch{
                 if let miError = error as? MIError{
                     switch miError {

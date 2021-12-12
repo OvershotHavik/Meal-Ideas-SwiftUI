@@ -132,13 +132,13 @@ Original random meal
         let (data, response) = try await URLSession.shared.data(from: url)
 
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
-            throw MIError.invalidResponse
+            throw MIError.invalidResponsetest
         }
 
         do{
             let results = try JSONDecoder().decode(MealDBResults.Results.self, from: data)
 
-            return results.meals
+            return results.mealsv
         } catch {
             throw MIError.invalidData
         }

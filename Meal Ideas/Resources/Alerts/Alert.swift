@@ -14,11 +14,11 @@ struct AlertItem: Identifiable {
     let dismissButton: Alert.Button
 }
 
-struct AlertContext {
+struct AlertContext{
     
     // MARK: - Network Alerts
-    static let invalidData       = AlertItem(title: Text("Server Error"),
-                                             message: Text("The data received from the server was invalid. Please contact support."),
+    static let invalidData       = AlertItem(title: Text("No Meals"),
+                                             message: Text("No meals where found for your search."),
                                              dismissButton: .default(Text("OK")))
     
     static let invalidResponse   = AlertItem(title: Text("Server Error"),

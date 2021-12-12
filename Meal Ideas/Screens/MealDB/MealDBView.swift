@@ -21,7 +21,12 @@ struct MealDBView: View {
                     if vm.isLoading{
                         loadingView()
                     }
+
                     ScrollView{
+                        if vm.meals.isEmpty && vm.isLoading == false{
+                            NoResultsView(imageName: "Placeholder",
+                                          message: "No meals found for your search")
+                        }
                         LazyVGrid(columns: columns, alignment: .center) {
                             ForEach(vm.meals, id: \.id) { meal in
                                 NavigationLink(destination: MealDBDetailView(vm: MealDBDetailVM(meal: meal))) {
@@ -38,6 +43,14 @@ struct MealDBView: View {
                     .padding()
 
                 }
+
+                .alert(item: $vm.alertItem) { alertItem in
+                    
+                    Alert(title: alertItem.title,
+                                 message: alertItem.message,
+                          dismissButton: .default(Text("OK"), action: stopLoading))
+                }
+                        
                 .onChange(of: vm.keywordSearchTapped, perform: { newValue in
                     print("Keyword: \(query.keyword)")
                     vm.checkQuery(query: query.keyword, queryType: .keyword)
@@ -51,8 +64,14 @@ struct MealDBView: View {
                 }
 
 
+
+
+
             }
         }
+    }
+    func stopLoading(){
+        vm.isLoading = false
     }
 }
 
