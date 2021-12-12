@@ -97,7 +97,6 @@ struct EditIdeaView: View {
                     .listRowBackground(Color.red)
             }
         }
-        .environmentObject(vm)
         .navigationTitle(vm.meal?.mealName ?? "Create a Meal")
         
         // MARK: - Save alert

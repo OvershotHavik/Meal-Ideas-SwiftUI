@@ -9,11 +9,12 @@ import SwiftUI
 
 struct SpoonView: View {
     @StateObject var vm : SpoonVM
+    @State var keywordSearchTapped = false
     
     var body: some View {
         NavigationView{
             VStack{
-                TopView()
+                TopView(keywordSearchTapped: $keywordSearchTapped)
                 let columns = [GridItem(), GridItem()]
                 ScrollView{
                     LazyVGrid(columns: columns, alignment: .center) {

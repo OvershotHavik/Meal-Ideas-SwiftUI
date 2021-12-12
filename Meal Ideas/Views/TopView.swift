@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct TopView: View {
-    @State var search = ""
     @State private var isActive = false
-    
+    @Binding var keywordSearchTapped: Bool
     var body: some View {
         VStack{
-            SelectedQueryView(isActive: $isActive)
+            SelectedQueryView(isActive: $isActive, keywordSearchTapped: $keywordSearchTapped)
             
             Divider()
             Spacer()
@@ -27,13 +26,14 @@ struct TopView: View {
 
 struct TopView_Previews: PreviewProvider {
     static var previews: some View {
-        TopView()
+        TopView(keywordSearchTapped: .constant(false))
     }
 }
 
 struct SelectedQueryView: View{
     @EnvironmentObject var query: Query
     @Binding var isActive : Bool
+    @Binding var keywordSearchTapped : Bool
     var body: some View{
         switch query.query{
         case .none:
@@ -65,7 +65,7 @@ struct SelectedQueryView: View{
                         .foregroundColor(.primary)
                 }
                 if let safeSelected = query.selected{
-                    Text("Selected: \(safeSelected)")
+                    Text(safeSelected)
                 }
             }
         case .history:
@@ -88,15 +88,17 @@ struct SelectedQueryView: View{
                 }
                 
             }
+        case .keyword:
+            KeywordSearchView(keywordSearchTapped: $keywordSearchTapped)
         }
     }
 }
 
 
 
-
+// MARK: - Top View Buttons
 struct TopViewButtons: View{
-    @EnvironmentObject var query : Query
+//    @EnvironmentObject var query : Query
     //    var query = QueryType.favorite.rawValue
     var body: some View{
         //When button is pressed, transition the top view to show the options available for the respective choice
@@ -107,6 +109,8 @@ struct TopViewButtons: View{
             
             QueryButtonView(title: .ingredient)
             
+            QueryButtonView(title: .keyword)
+            
             QueryImageButtonView(title: .favorite)
                 .foregroundColor(.pink)
             
@@ -116,5 +120,29 @@ struct TopViewButtons: View{
         }
         .padding(.bottom, 5)
         .foregroundColor(.primary)
+    }
+}
+
+
+// MARK: - Keyword Search View
+
+struct KeywordSearchView: View{
+    @EnvironmentObject var query : Query
+    @Binding var keywordSearchTapped : Bool
+    var body: some View{
+        HStack{
+            Spacer()
+            TextField("Keyword Search", text: $query.keyword)
+                .frame(width: 250)
+            Button {
+                keywordSearchTapped.toggle()
+                print("Keyword search: \(query.keyword)")
+            } label: {
+                Image(systemName: "magnifyingglass")
+                    .foregroundColor(.black)
+            }
+
+            Spacer()
+        }
     }
 }

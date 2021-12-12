@@ -8,11 +8,14 @@
 import Foundation
 
 @MainActor final class MealDBVM: ObservableObject{
+    
     @Published var meals : [MealDBResults.Meal] = []
     @Published var alertItem : AlertItem?
     @Published var isLoading = false
     @Published var originalQueryType = QueryType.none
     @Published var originalQuery: String?
+    @Published var keywordSearchTapped = false
+    
     
     func checkQuery(query: String, queryType: QueryType){
         
@@ -63,6 +66,12 @@ import Foundation
                     print("fav")
                 case .none:
                     ()
+                    
+                    
+                case .keyword:
+                    let modifiedKeyword = query.replacingOccurrences(of: " ", with: "%20")
+                    meals = try await NetworkManager.shared.mealDBQuery(query: modifiedKeyword,
+                                                                        queryType: .keyword)
                 }
                 isLoading = false
             }catch{
