@@ -200,8 +200,9 @@ Original random meal
             }
             
                  
+
         default:
-            guard let url = URL(string: BaseURL.spoonRandom) else {
+            guard let url = URL(string: "not Setup In spoon Query") else {
                 throw MIError.invalidURL
             }
             print(url)
@@ -231,6 +232,28 @@ Original random meal
             throw MIError.invalidData
         }
     }
+    
+    // MARK: - Spoon Single Meal
+    func spoonSingleMeal(query: String) async throws -> SpoonacularResults.Recipe{
+        guard let url = URL(string: BaseURL.spoonSingleBase + query + BaseURL.SpoonSingleSuffix) else {
+            throw MIError.invalidURL
+        }
+        print(url)
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+            throw MIError.invalidResponse
+        }
+        
+        do{
+            let results = try JSONDecoder().decode(SpoonacularResults.Recipe.self, from: data)
+            
+            return results
+        } catch {
+            throw MIError.invalidData
+        }
+    }
+    
     // MARK: - Spoon Network Call
     func spoonNetworkCall(url: URL) async throws -> [SpoonacularResults.Recipe]{
         let (data, response) = try await URLSession.shared.data(from: url)

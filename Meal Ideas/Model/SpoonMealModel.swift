@@ -61,9 +61,9 @@ class SpoonacularKeywordResults: Codable{
     class DataResult: Codable{
         var results: [result]
     }
-    class result: Codable{
+    class result: Codable, Identifiable{
         var id: Int
         var title: String
-        var image: URL?
+        var image: String?
     }
 }

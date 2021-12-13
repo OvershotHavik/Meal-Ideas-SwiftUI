@@ -18,15 +18,38 @@ struct SpoonView: View {
                 TopView(keywordSearchTapped: $vm.keywordSearchTapped)
                 let columns = [GridItem(), GridItem()]
                 ScrollView{
-                    LazyVGrid(columns: columns, alignment: .center) {
-                        ForEach(vm.meals) { meal in
-                            NavigationLink(destination: SpoonDetailView(vm: SpoonDetailVM(meal: meal))) {
-                                MealCardView(mealPhoto: meal.image ?? "",
-                                             mealName: meal.title,
-                                             favorited: true,
-                                             inHistory: true)
+                    if vm.isLoading{
+                        loadingView()
+                    }
+                    if vm.meals.isEmpty && vm.keywordResults.isEmpty && vm.isLoading == false{
+                        NoResultsView(imageName: "Placeholder",
+                                      message: "No meals found for your search")
+                    }
+                    if vm.keywordResults.isEmpty{
+                        //Normal run through
+                        LazyVGrid(columns: columns, alignment: .center) {
+                            ForEach(vm.meals) { meal in
+                                NavigationLink(destination: SpoonDetailView(vm: SpoonDetailVM(meal: meal, mealID: nil))) {
+                                    MealCardView(mealPhoto: meal.image ?? "",
+                                                 mealName: meal.title,
+                                                 favorited: true,
+                                                 inHistory: true)
+                                }
+                                .foregroundColor(.primary)
                             }
-                            .foregroundColor(.primary)
+                        }
+                    } else {
+                        //Keyword search, need to fetch the meal on the VM
+                        LazyVGrid(columns: columns, alignment: .center) {
+                            ForEach(vm.keywordResults) { meal in
+                                NavigationLink(destination: SpoonDetailView(vm: SpoonDetailVM(meal: nil, mealID: meal.id))) {
+                                    MealCardView(mealPhoto: meal.image ?? "",
+                                                 mealName: meal.title,
+                                                 favorited: true,
+                                                 inHistory: true)
+                                }
+                                .foregroundColor(.primary)
+                            }
                         }
                     }
                 }
@@ -34,7 +57,9 @@ struct SpoonView: View {
                 .padding()
             }
             .onAppear {
-                vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
+                if query.queryType != .keyword{
+                    vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
+                }
             }
             .alert(item: $vm.alertItem) { alertItem in
                 Alert(title: alertItem.title,

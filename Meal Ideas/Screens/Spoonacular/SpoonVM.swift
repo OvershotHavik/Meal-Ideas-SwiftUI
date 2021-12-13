@@ -16,6 +16,8 @@ import Foundation
     @Published var originalQuery: String?
     @Published var keywordSearchTapped = false
     @Published var offsetBy = 0
+    @Published var keywordResults : [SpoonacularKeywordResults.result] = []
+    @Published var individualMeal: SpoonacularResults.Recipe?
     
     func checkQuery(query: String, queryType: QueryType){
         
@@ -67,8 +69,11 @@ import Foundation
                     print(safeKeyword)
                     print("keyword Offset: \(offsetBy)")
                     
-                    let results = try await NetworkManager.shared.spoonKeywordQuery(query: safeKeyword)
+                    keywordResults = try await NetworkManager.shared.spoonKeywordQuery(query: safeKeyword)
                     
+//                    for meal in keywordResults{
+//                        print(meal.title)
+//                    }
                     // TODO:  figure out how to get the meal card to populate with the results here instead of the meal since it is different
 
                     print("keyword")
@@ -77,8 +82,13 @@ import Foundation
                 case .favorite:
                     print("Favorites")
                 case .none:
-                    print("none")
+                    let meal = try await NetworkManager.shared.spoonQuery(query: query, queryType: .none)
+                    if let safeMeal = meal.first{
+                        individualMeal = safeMeal
+                    }
+                    
                 }
+                isLoading = false
             } catch {
                 if let miError = error as? MIError{
                     isLoading = false
@@ -110,4 +120,14 @@ import Foundation
 //            print(e)
 //        }
 //    }
+    
+    func getMealFromID(mealID: Int) async -> SpoonacularResults.Recipe?{
+        
+        getSpoonMeals(query: "\(mealID)", queryType: .none)
+        if let safeMeal = individualMeal{
+            return safeMeal
+        }
+        return nil
+    }
+    
 }

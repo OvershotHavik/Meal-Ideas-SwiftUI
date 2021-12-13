@@ -6,21 +6,33 @@
 //
 
 import Foundation
+import UIKit
 
-final class SpoonDetailVM: ObservableObject{
-    @Published var meal: SpoonacularResults.Recipe
+@MainActor final class SpoonDetailVM: ObservableObject{
+    @Published var meal: SpoonacularResults.Recipe?
+    @Published var isLoading = false
+    @Published var alertItem : AlertItem?
+    @Published var mealID: Int?
     @Published var ingredients: [String] = []
     @Published var measurements: [String] = []
     @Published var instructions: String = ""
+    @Published var mealPhoto = UIImage()
     
-    init(meal: SpoonacularResults.Recipe){
+    init(meal: SpoonacularResults.Recipe?, mealID: Int?){
+        self.mealID = mealID
         self.meal = meal
         getIngredientsAndMeasurements()
         getInstructions()
+        getMealPhoto()
+        fetchMeal()
     }
     
     func getIngredientsAndMeasurements(){
-        for x in meal.extendedIngredients{
+        guard let safeMeal = meal else {
+            print("meal not set in get ingredients")
+            return
+        }
+        for x in safeMeal.extendedIngredients{
             ingredients.append(x.name ?? "")
             if let safeAmount = x.amount,
                let safeUnit = x.unit{
@@ -47,9 +59,13 @@ final class SpoonDetailVM: ObservableObject{
     }
     
     func getInstructions(){
+        guard let safeMeal = meal else {
+            print("meal not set in get instructions")
+            return
+        }
         //If meal has analyzed instructions, go through the array and add it tot he string
-        if meal.analyzedInstructions.count > 0{
-            for step in meal.analyzedInstructions{
+        if safeMeal.analyzedInstructions.count > 0{
+            for step in safeMeal.analyzedInstructions{
                 for i in step.steps{
                     if let safeNumber = i.number{
                         instructions +=  "Step \(safeNumber):\n"
@@ -72,7 +88,7 @@ final class SpoonDetailVM: ObservableObject{
             }
         } else {
             //If it doesn't have the steps, and just the instructions, apply that
-            if let safeInstructions = meal.instructions{
+            if let safeInstructions = safeMeal.instructions{
                 instructions = "Instructions:\n\(safeInstructions.withoutHtmlTags)"
             }
         }
@@ -81,4 +97,40 @@ final class SpoonDetailVM: ObservableObject{
             instructions = "No instructions provided for this recipe. Please visit the source for more information."
         }
     }
+    
+    func fetchMeal() {
+        guard let safeMealID = mealID else {
+            print("no meal id in fetch meal ")
+            return
+        }
+        print("Spoon meal ID: \(safeMealID)")
+        let mealID = "\(safeMealID)"
+        isLoading = true
+        Task {
+            do {
+                meal = try await NetworkManager.shared.spoonSingleMeal(query: mealID)
+                getIngredientsAndMeasurements()
+                getInstructions()
+                getMealPhoto()
+                isLoading = false
+            } catch let e{
+                print(e.localizedDescription)
+            }
+            
+        }
+            
+        
+    }
+    
+    func getMealPhoto(){
+        if meal != nil{
+            NetworkManager.shared.downloadImage(fromURLString: meal?.image ?? "") { uiImage in
+                guard let uiImage = uiImage else { return }
+                DispatchQueue.main.async {
+                    self.mealPhoto = uiImage
+                }
+            }
+        }
+    }
+
 }

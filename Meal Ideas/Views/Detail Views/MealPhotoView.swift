@@ -15,6 +15,15 @@ struct MealPhotoView: View {
             .clipShape(Circle())
     }
 }
+//Used for Spoon since sometimes we are passing a nil meal initially, the above was failing to load properly
+struct MealPhotoUIImageView: View{
+    var mealPhoto: UIImage
+    var body: some View{
+        Image(uiImage: mealPhoto)
+            .frame(width: 200, height: 200)
+            .clipShape(Circle())
+    }
+}
 // MARK: - Core Data Meal Photo View
 struct CDPhotoView: View{
     var photoData: Data?
