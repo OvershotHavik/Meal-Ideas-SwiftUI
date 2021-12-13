@@ -12,13 +12,13 @@ struct QueryImageButtonView: View {
     var title: QueryType
     var body: some View {
         Button {
-            query.query = title
+            query.queryType = title
             
         } label: {
             Image(systemName: title.rawValue)
                 .padding(.horizontal, 5)
                 .border(Color.black, width: 2)
-                .opacity((query.query.rawValue == title.rawValue) ? 1 : 0.5)
+                .opacity((query.queryType.rawValue == title.rawValue) ? 1 : 0.5)
         }
     }
 }

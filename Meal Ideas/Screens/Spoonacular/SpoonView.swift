@@ -9,12 +9,13 @@ import SwiftUI
 
 struct SpoonView: View {
     @StateObject var vm : SpoonVM
-    @State var keywordSearchTapped = false
+    @EnvironmentObject var query: Query
+
     
     var body: some View {
         NavigationView{
             VStack{
-                TopView(keywordSearchTapped: $keywordSearchTapped)
+                TopView(keywordSearchTapped: $vm.keywordSearchTapped)
                 let columns = [GridItem(), GridItem()]
                 ScrollView{
                     LazyVGrid(columns: columns, alignment: .center) {
@@ -33,9 +34,22 @@ struct SpoonView: View {
                 .padding()
             }
             .onAppear {
-                vm.getMeals()
+                vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
             }
+            .alert(item: $vm.alertItem) { alertItem in
+                Alert(title: alertItem.title,
+                             message: alertItem.message,
+                      dismissButton: .default(Text("OK"), action: stopLoading))
+            }
+            .onChange(of: vm.keywordSearchTapped, perform: { newValue in
+                print("Keyword: \(query.keyword)")
+                vm.checkQuery(query: query.keyword, queryType: .keyword)
+            })
         }
+
+    }
+    func stopLoading(){
+        vm.isLoading = false
     }
 }
 

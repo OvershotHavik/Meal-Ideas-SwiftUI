@@ -159,6 +159,95 @@ Original random meal
             throw MIError.invalidData
         }
     }
-}
+    
+    // MARK: - Spoon Query
+    func spoonQuery(query: String, queryType: QueryType) async throws -> [SpoonacularResults.Recipe]{
+        switch queryType {
+        case .random:
+            guard let url = URL(string: BaseURL.spoonRandom) else {
+                throw MIError.invalidURL
+            }
+            print(url)
+            return try await spoonNetworkCall(url: url)
+            
+            
+        case .category:
+            guard let url = URL(string: BaseURL.spoonCategories + query) else {
+                throw MIError.invalidURL
+            }
+            print(url)
+            return try await spoonNetworkCall(url: url)
+            
+            
+        case .ingredient:
+            guard let url = URL(string: BaseURL.spoonIngredients + query) else {
+                throw MIError.invalidURL
+            }
+            print(url)
+            //Ingredients returns an array of "results" instead of "meals" that's why this is different
+            let (data, response) = try await URLSession.shared.data(from: url)
+            
+            guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+                throw MIError.invalidResponse
+            }
+            
+            do{
+                let results = try JSONDecoder().decode(SpoonacularResults.ResultsFromIngredients.self, from: data)
+                
+                return results.results
+            } catch {
+                throw MIError.invalidData
+            }
+            
+                 
+        default:
+            guard let url = URL(string: BaseURL.spoonRandom) else {
+                throw MIError.invalidURL
+            }
+            print(url)
+            print("Not setup yet in spoon query")
+            return try await spoonNetworkCall(url: url)
+        }
+        
+    }
+    
+    func spoonKeywordQuery(query: String) async throws -> [SpoonacularKeywordResults.result]{
+        guard let url = URL(string: BaseURL.spoonKeyword + query) else {
+            throw MIError.invalidURL
+        }
+        print(url)
+        //Keyword returns an array of "results" instead of "meals" that's why this is different
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+            throw MIError.invalidResponse
+        }
+        
+        do{
+            let results = try JSONDecoder().decode(SpoonacularKeywordResults.DataResult.self, from: data)
+            
+            return results.results
+        } catch {
+            throw MIError.invalidData
+        }
+    }
+    // MARK: - Spoon Network Call
+    func spoonNetworkCall(url: URL) async throws -> [SpoonacularResults.Recipe]{
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+            throw MIError.invalidResponse
+        }
+        
+        do{
+            let results = try JSONDecoder().decode(SpoonacularResults.DataResults.self, from: data)
+            
+            return results.recipes
+        } catch {
+            throw MIError.invalidData
+        }
+    }
 
+
+}
 

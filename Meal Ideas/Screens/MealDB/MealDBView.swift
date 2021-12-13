@@ -45,7 +45,6 @@ struct MealDBView: View {
                 }
 
                 .alert(item: $vm.alertItem) { alertItem in
-                    
                     Alert(title: alertItem.title,
                                  message: alertItem.message,
                           dismissButton: .default(Text("OK"), action: stopLoading))
@@ -60,13 +59,8 @@ struct MealDBView: View {
     //            }
                 //not sure what the difference between these two are.. both work.. need to look into later
                 .task{
-                    vm.checkQuery(query: query.selected ?? "", queryType: query.query)
+                    vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
                 }
-
-
-
-
-
             }
         }
     }

@@ -35,7 +35,7 @@ struct SelectedQueryView: View{
     @Binding var isActive : Bool
     @Binding var keywordSearchTapped : Bool
     var body: some View{
-        switch query.query{
+        switch query.queryType{
         case .none:
             Text("")
         case .random:

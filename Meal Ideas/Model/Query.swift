@@ -26,7 +26,7 @@ enum QueryName: String{
 
 
 final class Query: ObservableObject{
-    @Published var query = QueryType.random
+    @Published var queryType = QueryType.random
     @Published var selected : String?
     @Published var keyword = ""
 }

@@ -28,7 +28,6 @@ struct MyIdeasView: View {
                             }
                             .foregroundColor(.primary)
                         }
-                        // TODO:  If no meals, direct user to click the edit button at the top left to add Ideas
                     }
                 }
                 .padding()
@@ -43,6 +42,10 @@ struct MyIdeasView: View {
                             .foregroundColor(.black)
                     }
                 }
+            }
+            if vm.savedMeals.isEmpty{
+                NoResultsView(imageName: "Placeholder",
+                              message: "No meals found for your search. Create a new one by tapping the edit icon")
             }
         }
     }
