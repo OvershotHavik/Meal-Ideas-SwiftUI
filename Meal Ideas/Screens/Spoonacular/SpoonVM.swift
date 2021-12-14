@@ -15,6 +15,7 @@ import Foundation
     @Published var originalQueryType = QueryType.none
     @Published var originalQuery: String?
     @Published var keywordSearchTapped = false
+    @Published var getMoreMeals = false
     @Published var offsetBy = 0
     @Published var keywordResults : [SpoonacularKeywordResults.result] = []
     @Published var individualMeal: SpoonacularResults.Recipe?

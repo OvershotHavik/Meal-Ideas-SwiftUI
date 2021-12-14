@@ -8,7 +8,7 @@
         <attribute name="favorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="ingredients" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="instructionsPhoto" optional="YES" attributeType="Binary"/>
-        <attribute name="mealName" optional="YES" attributeType="String"/>
+        <attribute name="mealName" attributeType="String" defaultValueString=""/>
         <attribute name="mealPhoto" optional="YES" attributeType="Binary"/>
         <attribute name="measurements" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="recipe" optional="YES" attributeType="String"/>

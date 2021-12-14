@@ -9,16 +9,20 @@ import SwiftUI
 
 struct MyIdeasView: View {
     @ObservedObject var vm = MyIdeasVM()
-    @State var keywordSearchTapped = false
+    @EnvironmentObject var query: Query
     
     var body: some View {
         NavigationView{
             VStack{
-                TopView(keywordSearchTapped: $keywordSearchTapped)
+                TopView(keywordSearchTapped: $vm.keywordSearchTapped, getMoreMeals: $vm.getMoreMeals)
                 let columns = [GridItem(), GridItem()]
+                if vm.meals.isEmpty{
+                    NoResultsView(imageName: "Placeholder",
+                                  message: "No meals found for your search. Create a new one by tapping the edit icon")
+                }
                 ScrollView{
                     LazyVGrid(columns: columns, alignment: .center) {
-                        ForEach(vm.savedMeals) {meal in
+                        ForEach(vm.meals) {meal in
                             NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: meal))) {
                                 MealCardView(mealPhoto: "",
                                              mealPhotoData: meal.mealPhoto,
@@ -32,7 +36,6 @@ struct MyIdeasView: View {
                 }
                 .padding()
             }
-            .onAppear(perform: vm.fetchMeals)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -43,10 +46,23 @@ struct MyIdeasView: View {
                     }
                 }
             }
-            if vm.savedMeals.isEmpty{
-                NoResultsView(imageName: "Placeholder",
-                              message: "No meals found for your search. Create a new one by tapping the edit icon")
+            .onChange(of: vm.keywordSearchTapped, perform: { newValue in
+                print("Keyword: \(query.keyword)")
+                vm.checkQuery(query: query.keyword, queryType: .keyword)
+            })
+            .onChange(of: vm.getMoreMeals, perform: { newValue in
+                print("more meals tapped for: \(query.queryType.rawValue)")
+                vm.checkQuery(query: query.keyword, queryType: query.queryType)
+            })
+            .onAppear {
+                vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
             }
+            //not sure what the difference between these two are.. both work.. need to look into later
+//            .task{
+//                vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
+//            }
+
+
         }
     }
 }

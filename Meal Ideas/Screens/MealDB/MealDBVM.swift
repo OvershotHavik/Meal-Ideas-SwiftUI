@@ -15,7 +15,7 @@ import Foundation
     @Published var originalQueryType = QueryType.none
     @Published var originalQuery: String?
     @Published var keywordSearchTapped = false
-    
+    @Published var getMoreMeals = false
     
     func checkQuery(query: String, queryType: QueryType){
         

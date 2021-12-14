@@ -10,9 +10,11 @@ import SwiftUI
 struct TopView: View {
     @State private var isActive = false
     @Binding var keywordSearchTapped: Bool
+    @Binding var getMoreMeals : Bool
     var body: some View {
         VStack{
-            SelectedQueryView(isActive: $isActive, keywordSearchTapped: $keywordSearchTapped)
+            SelectedQueryView(isActive: $isActive,
+                              keywordSearchTapped: $keywordSearchTapped, getMoreMeals: $getMoreMeals)
             
             Divider()
             Spacer()
@@ -26,7 +28,7 @@ struct TopView: View {
 
 struct TopView_Previews: PreviewProvider {
     static var previews: some View {
-        TopView(keywordSearchTapped: .constant(false))
+        TopView(keywordSearchTapped: .constant(false), getMoreMeals: .constant(false))
     }
 }
 
@@ -34,6 +36,7 @@ struct SelectedQueryView: View{
     @EnvironmentObject var query: Query
     @Binding var isActive : Bool
     @Binding var keywordSearchTapped : Bool
+    @Binding var getMoreMeals : Bool
     var body: some View{
         switch query.queryType{
         case .none:
@@ -41,6 +44,7 @@ struct SelectedQueryView: View{
         case .random:
             Button {
                 //perform network call to get more meals
+                getMoreMeals.toggle()
             } label: {
                 Text("Get more random Meals")
                     .foregroundColor(.primary)
@@ -136,7 +140,7 @@ struct KeywordSearchView: View{
                 .frame(width: 250)
             Button {
                 keywordSearchTapped.toggle()
-                print("Keyword search: \(query.keyword)")
+                print("Top View Keyword search: \(query.keyword)")
             } label: {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(.black)

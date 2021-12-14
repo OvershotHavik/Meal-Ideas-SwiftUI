@@ -18,6 +18,7 @@ import UIKit
     @Published var instructions: String = ""
     @Published var mealPhoto = UIImage()
     
+    
     init(meal: SpoonacularResults.Recipe?, mealID: Int?){
         self.mealID = mealID
         self.meal = meal

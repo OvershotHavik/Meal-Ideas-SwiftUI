@@ -15,7 +15,8 @@ struct SpoonView: View {
     var body: some View {
         NavigationView{
             VStack{
-                TopView(keywordSearchTapped: $vm.keywordSearchTapped)
+                TopView(keywordSearchTapped: $vm.keywordSearchTapped,
+                        getMoreMeals: $vm.getMoreMeals)
                 let columns = [GridItem(), GridItem()]
                 ScrollView{
                     if vm.isLoading{
