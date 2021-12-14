@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MyIdeasView: View {
-    @ObservedObject var vm : MyIdeasVM
+    @StateObject var vm : MyIdeasVM
     @EnvironmentObject var query: Query
     
     var body: some View {
@@ -54,15 +54,15 @@ struct MyIdeasView: View {
                 print("more meals tapped for: \(query.queryType.rawValue)")
                 vm.checkQuery(query: query.keyword, queryType: query.queryType)
             })
-//            .onAppear {
-//                print("on appear")
-//                vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
-//            }
-            //not sure what the difference between these two are.. both work.. need to look into later
-            .task{
-                print("task")
+            .onAppear {
+                print("on appear")
                 vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
             }
+            //not sure what the difference between these two are.. both work.. need to look into later
+//            .task{
+//                print("task")
+//                vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
+//            }
 
 
         }

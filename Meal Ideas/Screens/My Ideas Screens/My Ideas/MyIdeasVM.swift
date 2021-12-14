@@ -26,13 +26,13 @@ import CoreData
         print("My Ideas Query: \(query), queryType: \(queryType.rawValue)")
         // TODO:  Add a check in here to add to the array if the query and query type haven't changed, but also make sure there are unique items still
         if originalQueryType != queryType{
-//            meals = []
+            meals = []
             self.originalQueryType = queryType
             self.originalQuery = query
             filterMeals(query: query, queryType: queryType)
         } else {
             if originalQuery != query{
-//                meals = []
+                meals = []
                 self.originalQuery = query
                 filterMeals(query: query, queryType: queryType)
             } else {
