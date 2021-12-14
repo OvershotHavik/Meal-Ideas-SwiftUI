@@ -12,7 +12,7 @@ struct MealIdeasTabView: View {
     
     var body: some View {
         TabView{
-            MyIdeasView()
+            MyIdeasView(vm: MyIdeasVM())
                 .tabItem {
                     Label("My Ideas", systemImage: "person")
                 }

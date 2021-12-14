@@ -50,3 +50,25 @@ enum Titles: String{
     case multiIngredients = "Select Ingredients"
     case multiSides = "Select Sides"
 }
+
+
+final class BaseURL{
+    static let ingredientsList = "https://www.themealdb.com/api/json/v1/1/list.php?i=list"
+    static let ingredientImage = "https://www.themealdb.com/images/ingredients/"
+    
+    static let mealDBRandom = APIKey.mealDB + "randomselection.php"
+    static let mealDBCategories = APIKey.mealDB + "filter.php?c="
+    static let mealDBIndividual = APIKey.mealDB + "lookup.php?i="
+    static let mealDBIngredient = APIKey.mealDB + "filter.php?i="
+    static let mealDBKeyword = APIKey.mealDB + "search.php?s="
+    
+    static let spoonRandom = "https://api.spoonacular.com/recipes/random?number=10" + APIKey.spoon
+    static let spoonCategories = "https://api.spoonacular.com/recipes/random?" + APIKey.spoon + "&number=10&tags="
+    
+    static let spoonIngredients = "https://api.spoonacular.com/recipes/complexSearch?" + APIKey.spoon + "&number=10&addRecipeInformation=true&fillIngredients=true&includeIngredients="
+    
+    static let spoonKeyword = "https://api.spoonacular.com/recipes/complexSearch?" + APIKey.spoon + "&number=10&titleMatch="
+    static let spoonSingleBase = "https://api.spoonacular.com/recipes/"
+    static let SpoonSingleSuffix = "/information?includeNutrition=false" + APIKey.spoon
+
+}

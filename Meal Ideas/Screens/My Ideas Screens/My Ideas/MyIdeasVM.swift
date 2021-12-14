@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-final class MyIdeasVM: ObservableObject{
+@MainActor final class MyIdeasVM: ObservableObject{
     @Published var meals : [UserMeals] = []
     private let pc = PersistenceController.shared
     @Published var filteredMeals: [UserMeals] = []
@@ -18,21 +18,21 @@ final class MyIdeasVM: ObservableObject{
     @Published var keywordSearchTapped = false
     @Published var getMoreMeals = false
     
-    init(){
-    }
+//    init(){
+//    }
 
     // MARK: - Check Query
     func checkQuery(query: String, queryType: QueryType){
         print("My Ideas Query: \(query), queryType: \(queryType.rawValue)")
         // TODO:  Add a check in here to add to the array if the query and query type haven't changed, but also make sure there are unique items still
         if originalQueryType != queryType{
-            meals = []
+//            meals = []
             self.originalQueryType = queryType
             self.originalQuery = query
             filterMeals(query: query, queryType: queryType)
         } else {
             if originalQuery != query{
-                meals = []
+//                meals = []
                 self.originalQuery = query
                 filterMeals(query: query, queryType: queryType)
             } else {
