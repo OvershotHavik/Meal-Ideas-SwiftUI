@@ -14,14 +14,14 @@ struct MultiIngredientListView: View {
 
     var body: some View {
         
-        List(vm.ingredients){ ingredient in
+        List(vm.searchResults){ ingredient in
             let selected = vm.selectedArray.contains(ingredient.strIngredient)
             IngredientCell(ingredient: ingredient, selected: selected)
                 .onTapGesture {
                     vm.checkArray(item: ingredient.strIngredient)
                 }
         }
-        
+        .searchable(text: $vm.searchText)
         .navigationTitle(Titles.multiIngredients.rawValue)
         .toolbar{ EditButton() }
 

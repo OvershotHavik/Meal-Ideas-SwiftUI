@@ -15,6 +15,14 @@ final class  SingleChoiceListVM: ObservableObject {
     @Published var singleChoiceString: String?
 //    @Published var multi = Set<String>()
     
+    @Published var searchText = ""
+    var searchResults: [String] {
+        if searchText.isEmpty {
+            return listItems
+        } else {
+            return listItems.filter { $0.contains(searchText) }
+        }
+    }
     init(PList: PList){
         self.PList = PList
         fetchPlist()

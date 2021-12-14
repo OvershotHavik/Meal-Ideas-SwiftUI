@@ -15,7 +15,7 @@ struct SingleChoiceListView: View {
 
     var body: some View {
             VStack{
-                List(vm.listItems, id: \.self, selection: $vm.singleChoiceString) {item in
+                List(vm.searchResults, id: \.self, selection: $vm.singleChoiceString) {item in
                     HStack{
                         Text(item)
                         Spacer()
@@ -29,6 +29,7 @@ struct SingleChoiceListView: View {
                     }
                 }
             }
+            .searchable(text: $vm.searchText)
             .navigationTitle(title.rawValue)
             .navigationBarTitleDisplayMode(.inline)
     }

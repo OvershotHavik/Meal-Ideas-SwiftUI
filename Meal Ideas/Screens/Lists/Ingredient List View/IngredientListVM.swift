@@ -15,6 +15,19 @@ import SwiftUI
     @ObservedObject var editVM: EditIdeaVM
     @Published var selectedArray : [String] = []
     
+    @Published var selection: String?
+    @Published var searching = false
+    @Published var mainList : [String] = []
+    
+    @Published var searchText = ""
+    var searchResults: [Ingredients.Meals] {
+        if searchText.isEmpty {
+            return ingredients
+        } else {
+            return ingredients.filter { $0.strIngredient.contains(searchText) }
+        }
+    }
+    
     init(editIdeaVM: EditIdeaVM){
         self.editVM = editIdeaVM
         selectedArray = editIdeaVM.userIngredients.compactMap{$0.name}
@@ -26,6 +39,7 @@ import SwiftUI
             do {
                 ingredients = try await NetworkManager.shared.getIngredients()
                 ingredients = ingredients.sorted {$0.strIngredient < $1.strIngredient}
+                mainList = ingredients.compactMap{$0.strIngredient}
 
             } catch {
                 DispatchQueue.main.async {
@@ -60,4 +74,5 @@ import SwiftUI
         selectedArray = editVM.userIngredients.compactMap{$0.name}
     }
     
+
 }

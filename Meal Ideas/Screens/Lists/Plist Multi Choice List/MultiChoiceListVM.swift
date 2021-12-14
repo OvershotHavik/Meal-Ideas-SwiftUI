@@ -14,6 +14,14 @@ final class  MultiChoiceListVM: ObservableObject {
     @Published var listItems: [String] = []
     @Published var PList: PList
     @Published var selectedArray: [String] = [] // updates based on the plist selected
+    @Published var searchText = ""
+    var searchResults: [String] {
+        if searchText.isEmpty {
+            return listItems
+        } else {
+            return listItems.filter { $0.contains(searchText) }
+        }
+    }
     
     init(PList: PList, editIdeaVM: EditIdeaVM){
         self.PList = PList

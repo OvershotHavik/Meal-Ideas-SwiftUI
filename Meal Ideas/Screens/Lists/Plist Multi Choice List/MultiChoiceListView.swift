@@ -14,7 +14,7 @@ struct MultiChoiceListView: View {
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
-        List(vm.listItems, id: \.self) {item in
+        List(vm.searchResults, id: \.self) {item in
             HStack {
                 Text(item)
                 Spacer()
@@ -26,6 +26,7 @@ struct MultiChoiceListView: View {
                     vm.checkArray(item: item)
                 }
         }
+        .searchable(text: $vm.searchText)
         .navigationTitle(title.rawValue)
         .navigationBarTitleDisplayMode(.inline)
     }
