@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 enum QueryType: String{
     case random = "Random"
     case category = "Category"
@@ -29,4 +30,23 @@ final class Query: ObservableObject{
     @Published var queryType = QueryType.random
     @Published var selected : String?
     @Published var keyword = ""
+    @Published var favoritesArray : [Favorites] = []
+    
+    func getFavorites(){
+        let request = NSFetchRequest<Favorites>(entityName: EntityName.favorites.rawValue)
+        do {
+            favoritesArray = try PersistenceController.shared.container.viewContext.fetch(request)
+            print("favorites count: \(favoritesArray.count)")
+            for x in favoritesArray{
+                print("Meal Name: \(x.mealName ?? "")")
+                print("MealDB ID: \(x.mealDBID ?? "")")
+                print("Spoon ID: \(String(describing: x.spoonID))")
+                print("______________________")
+            }
+        } catch let error {
+            print("error fetching: \(error.localizedDescription)")
+        }
+    }
+    
+
 }

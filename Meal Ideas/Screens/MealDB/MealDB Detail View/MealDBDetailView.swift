@@ -40,6 +40,7 @@ struct MealDBDetailView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     vm.favorited.toggle()
+                    vm.favoriteToggled()
                 } label: {
                     Image(systemName: vm.favorited ? "heart.fill" : "heart")
                         .foregroundColor(.pink)

@@ -51,7 +51,7 @@
 		B3CA2343274808CA00CA9C68 /* CoreDataExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CA2342274808CA00CA9C68 /* CoreDataExample.swift */; };
 		B3CA2345274808D600CA9C68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3CA2344274808D600CA9C68 /* Assets.xcassets */; };
 		B3CA2348274808D600CA9C68 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3CA2347274808D600CA9C68 /* Preview Assets.xcassets */; };
-		B3CA234A274808D600CA9C68 /* UserMealsPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CA2349274808D600CA9C68 /* UserMealsPC.swift */; };
+		B3CA234A274808D600CA9C68 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CA2349274808D600CA9C68 /* PersistenceController.swift */; };
 		B3CA234D274808D600CA9C68 /* Meal_Ideas.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B3CA234B274808D600CA9C68 /* Meal_Ideas.xcdatamodeld */; };
 		B3CA2357274808D600CA9C68 /* Meal_IdeasTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CA2356274808D600CA9C68 /* Meal_IdeasTests.swift */; };
 		B3CA2361274808D600CA9C68 /* Meal_IdeasUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CA2360274808D600CA9C68 /* Meal_IdeasUITests.swift */; };
@@ -145,7 +145,7 @@
 		B3CA2342274808CA00CA9C68 /* CoreDataExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataExample.swift; sourceTree = "<group>"; };
 		B3CA2344274808D600CA9C68 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B3CA2347274808D600CA9C68 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		B3CA2349274808D600CA9C68 /* UserMealsPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMealsPC.swift; sourceTree = "<group>"; };
+		B3CA2349274808D600CA9C68 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		B3CA234C274808D600CA9C68 /* Meal_Ideas.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Meal_Ideas.xcdatamodel; sourceTree = "<group>"; };
 		B3CA2352274808D600CA9C68 /* Meal IdeasTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Meal IdeasTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3CA2356274808D600CA9C68 /* Meal_IdeasTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal_IdeasTests.swift; sourceTree = "<group>"; };
@@ -203,14 +203,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		B328B6DF276A3F1A000C9C3A /* Persistence Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				B3CA2349274808D600CA9C68 /* UserMealsPC.swift */,
-			);
-			path = "Persistence Controllers";
-			sourceTree = "<group>";
-		};
 		B3606D8F2748221E00E61972 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -409,8 +401,8 @@
 		B3C2BDAC2752632300CD5EE0 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				B328B6DF276A3F1A000C9C3A /* Persistence Controllers */,
 				B3CEDDA32756FBFB00BB832B /* ImageLoader.swift */,
+				B3CA2349274808D600CA9C68 /* PersistenceController.swift */,
 				B3CEDDAF2756FDB700BB832B /* NetworkManager.swift */,
 				B375C980276216F10013895F /* PListManager.swift */,
 			);
@@ -701,7 +693,7 @@
 				B3606DB6274D6A4400E61972 /* IngredientVGrid.swift in Sources */,
 				B3CEDDA22756FB4400BB832B /* Double+Ext.swift in Sources */,
 				B3606DB0274D691100E61972 /* LinkView.swift in Sources */,
-				B3CA234A274808D600CA9C68 /* UserMealsPC.swift in Sources */,
+				B3CA234A274808D600CA9C68 /* PersistenceController.swift in Sources */,
 				B375C98927621B380013895F /* MultiChoiceListView.swift in Sources */,
 				B375C98527621B060013895F /* SingleChoiceListView.swift in Sources */,
 				B3CEDDB82756FEA300BB832B /* SpoonServingPrepHStack.swift in Sources */,

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 @MainActor final class MealDBVM: ObservableObject{
     
@@ -16,10 +17,11 @@ import Foundation
     @Published var originalQuery: String?
     @Published var keywordSearchTapped = false
     @Published var getMoreMeals = false
-    @Published var mealDBFavorites : [String: Favorites] = [:]
+    @Published var favoritesArray : [FavoritesModel] = []
     
+    
+    // MARK: - CheckQuery
     func checkQuery(query: String, queryType: QueryType){
-        
         if originalQueryType != queryType{
             meals = []
             self.originalQueryType = queryType
@@ -94,6 +96,35 @@ import Foundation
             }
         }
     }
+    /*
+    // MARK: - Get Favorites
+    func getFavorites(){
+        let request = NSFetchRequest<Favorites>(entityName: EntityName.favorites.rawValue)
+        do {
+            let favoritesCD = try PersistenceController.shared.container.viewContext.fetch(request)
+            if let first = favoritesCD.first{
+                if let data = first.favoritesData{
+                    do {
+                        let results = try JSONDecoder().decode([FavoritesModel].self, from: data)
+                        for x in results{
+                            print("Meal Name: \(x.mealName)")
+                            print("MealDB ID: \(x.mealDBID ?? "")")
+                            print("Spoon ID: \(String(describing: x.spoonID))")
+                        }
+                        favoritesArray = results
+                    }catch let e{
+                        print("error decoding favorite data: \(e.localizedDescription)")
+                    }
+                }
+            }
+
+        } catch let error {
+            print("error fetching: \(error.localizedDescription)")
+        }
+    }
     
-    
+    func saveFavorites(){
+        
+    }
+     */
 }

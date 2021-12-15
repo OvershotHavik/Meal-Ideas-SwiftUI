@@ -8,8 +8,8 @@
 import CoreData
 import SwiftUI
 
-struct UserMealsPC {
-    static let shared = UserMealsPC()
+struct PersistenceController {
+    static let shared = PersistenceController()
 
 
     let container: NSPersistentCloudKitContainer
@@ -60,19 +60,30 @@ struct UserMealsPC {
         }
     }
     
-    func deleteMealInList(indexSet: IndexSet){
-        let request = NSFetchRequest<UserMeals>(entityName: "UserMeals")
-        do {
-            let savedMeals = try container.viewContext.fetch(request)
-            print("Meals Fetched in delete meal")
-            guard let index = indexSet.first else {return}
-            let meal = savedMeals[index]
-            container.viewContext.delete(meal)
-            saveData()
-        } catch let error {
-            print("error fetching: \(error.localizedDescription)")
+    func deleteInList(indexSet: IndexSet, entityName: EntityName){
+        switch entityName {
+        case .userMeals:
+            let request = NSFetchRequest<UserMeals>(entityName: "UserMeals")
+            do {
+                let savedMeals = try container.viewContext.fetch(request)
+                print("Meals Fetched in delete meal")
+                guard let index = indexSet.first else {return}
+                let meal = savedMeals[index]
+                container.viewContext.delete(meal)
+                saveData()
+            } catch let error {
+                print("error fetching: \(error.localizedDescription)")
+            }
+            
+            
+        case .history:
+            print("History not setup in delete in list")
+        case .favorites:
+            print("History not setup in delete in list")
         }
+
     }
+
     func deleteMeal(meal: UserMeals){
         
         container.viewContext.delete(meal)
@@ -92,6 +103,47 @@ struct UserMealsPC {
 
         }
          */
+    }
+    
+    func saveFavorites(mealName: String, mealDBID: String?, spoonID: Int?){
+        let newFavorite = Favorites(context: PersistenceController.shared.container.viewContext)
+        newFavorite.mealName = mealName
+        newFavorite.mealDBID = mealDBID
+        if let safeSpoonID = spoonID{
+            let safeDouble : Double  = Double(safeSpoonID)
+            newFavorite.spoonID = safeDouble
+        }
+        PersistenceController.shared.saveData()
+//        getFavorites() // remove once verified working
+    }
+    
+    func deleteFavorite(source: Source, mealName: String, mealDBID: String?, spoonID: Double?){
+        let request = NSFetchRequest<Favorites>(entityName: EntityName.favorites.rawValue)
+        do {
+            let savedFavorites = try container.viewContext.fetch(request)
+            print("favorites fetched in delete favorite")
+            switch source {
+            case .spoonacular:
+                guard let index = savedFavorites.firstIndex(where: {$0.mealName == mealName && $0.spoonID == spoonID}) else {return}
+                let favorite = savedFavorites[index]
+                container.viewContext.delete(favorite)
+                
+                
+            case .mealDB:
+                guard let index = savedFavorites.firstIndex(where: {$0.mealName == mealName && $0.mealDBID == mealDBID}) else {return}
+                let favorite = savedFavorites[index]
+                container.viewContext.delete(favorite)
+                
+                
+            case .myIdeas:
+                guard let index = savedFavorites.firstIndex(where: {$0.mealName == mealName}) else {return}
+                let favorite = savedFavorites[index]
+                container.viewContext.delete(favorite)
+            }
+            print("removed favorite \(mealName)")
+        }catch let e{
+            print("Error fetching favorites in deleteFavorites \(e.localizedDescription)")
+        }
     }
     
     /*
@@ -123,3 +175,20 @@ struct UserMealsPC {
     }
      */
 }
+
+
+/*
+ func deleteMealInList(indexSet: IndexSet){
+     let request = NSFetchRequest<UserMeals>(entityName: "UserMeals")
+     do {
+         let savedMeals = try container.viewContext.fetch(request)
+         print("Meals Fetched in delete meal")
+         guard let index = indexSet.first else {return}
+         let meal = savedMeals[index]
+         container.viewContext.delete(meal)
+         saveData()
+     } catch let error {
+         print("error fetching: \(error.localizedDescription)")
+     }
+ }
+ */

@@ -37,6 +37,13 @@ enum PList: String{
     case userCat = "UserCategories"
 }
 
+enum EntityName: String{
+    case userMeals = "UserMeals"
+    case history = "History"
+    case favorites = "Favorites"
+}
+
+
 enum Source: String{
     case spoonacular = "Spoonacular"
     case mealDB = "MealDB"

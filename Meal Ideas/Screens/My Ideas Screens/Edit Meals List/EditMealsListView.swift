@@ -53,7 +53,7 @@ struct EditMealsListView: View {
     func deleteMeal(){
         if let safeIndexSet = vm.selectedIndexSet{
             withAnimation {
-                UserMealsPC.shared.deleteMealInList(indexSet: safeIndexSet)
+                PersistenceController.shared.deleteInList(indexSet: safeIndexSet, entityName: .userMeals)
                 vm.fetchMeals()
             }
         }

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="Favorites" representedClassName="Favorites" syncable="YES" codeGenerationType="class">
-        <attribute name="favoritesData" optional="YES" attributeType="Binary"/>
+        <attribute name="mealDBID" optional="YES" attributeType="String"/>
+        <attribute name="mealName" attributeType="String" defaultValueString=""/>
+        <attribute name="spoonID" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
     <entity name="History" representedClassName="History" syncable="YES" codeGenerationType="class">
         <attribute name="historyData" optional="YES" attributeType="Binary"/>
@@ -10,16 +12,16 @@
         <attribute name="category" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="favorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="ingredients" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
-        <attribute name="instructionsPhoto" optional="YES" attributeType="Binary"/>
+        <attribute name="instructionsPhoto" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
         <attribute name="mealName" attributeType="String" defaultValueString=""/>
-        <attribute name="mealPhoto" optional="YES" attributeType="Binary"/>
+        <attribute name="mealPhoto" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
         <attribute name="measurements" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="recipe" optional="YES" attributeType="String"/>
         <attribute name="sides" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="source" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="Favorites" positionX="-63" positionY="-18" width="128" height="44"/>
+        <element name="Favorites" positionX="-63" positionY="-18" width="128" height="14"/>
         <element name="UserMeals" positionX="-54" positionY="0" width="128" height="179"/>
         <element name="History" positionX="-54" positionY="63" width="128" height="44"/>
     </elements>
