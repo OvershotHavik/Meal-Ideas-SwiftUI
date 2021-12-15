@@ -8,8 +8,8 @@
 import CoreData
 import SwiftUI
 
-struct PersistenceController {
-    static let shared = PersistenceController()
+struct UserMealsPC {
+    static let shared = UserMealsPC()
 
 
     let container: NSPersistentCloudKitContainer

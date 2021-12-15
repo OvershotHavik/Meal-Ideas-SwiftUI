@@ -10,7 +10,7 @@ import CoreData
 
 @MainActor final class MyIdeasVM: ObservableObject{
     @Published var meals : [UserMeals] = []
-    private let pc = PersistenceController.shared
+    private let pc = UserMealsPC.shared
     @Published var filteredMeals: [UserMeals] = []
     @Published var originalQueryType = QueryType.none
     @Published var isLoading = false

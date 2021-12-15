@@ -11,12 +11,9 @@ import Foundation
 
 /*
  Search for ToDo's throughout the project, been adding things here and there as well
- 
- - Figure out Search for the list
- 
+  
  - Setup the form for the user to create meals
     - Figure out how to do plists for custom ingredients and sides and categories
- 
  
  get each query to work
  - Favorite

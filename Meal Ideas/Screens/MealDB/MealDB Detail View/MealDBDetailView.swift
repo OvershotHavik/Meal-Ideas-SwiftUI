@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MealDBDetailView: View {
     @StateObject var vm : MealDBDetailVM
+    
 //    var meal: MealDBResults.Meal
     
     var body: some View {
@@ -34,6 +35,17 @@ struct MealDBDetailView: View {
             LinkView(url: vm.meal.strSource ?? "", title: "Visit Source")
                 .navigationTitle(vm.meal.strMeal ?? "")
 
+        }
+        .toolbar{
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    vm.favorited.toggle()
+                } label: {
+                    Image(systemName: vm.favorited ? "heart.fill" : "heart")
+                        .foregroundColor(.pink)
+                }
+
+            }
         }
     }
 }

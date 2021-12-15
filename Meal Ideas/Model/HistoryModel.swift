@@ -7,16 +7,19 @@
 
 import Foundation
 
-class History: Codable{
+class HistoryModel: Codable{
     var mealName = String()
     var mealDBID : String?
     var spoonID: Int?
     var timeStamp : Date?
     var favorited = Bool()
 }
-
+/*
 class UserHistory: Codable{
+    var mealName : String
+
     struct Meal: Codable{
-        var mealName : String
+//        var mealName : String
     }
 }
+*/

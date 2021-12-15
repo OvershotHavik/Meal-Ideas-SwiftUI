@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct Meal_IdeasApp: App {
-    let persistenceController = PersistenceController.shared
+    let persistenceController = UserMealsPC.shared
     let query = Query()
     var body: some Scene {
         WindowGroup {

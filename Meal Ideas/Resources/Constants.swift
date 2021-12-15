@@ -25,13 +25,14 @@ class UI{
 }
 enum PList: String{
     case categories = "Categories"
-    case mealDBFavorites = "mealDBFavorites"
-    case spoonFavorites = "spoonFavorites"
-    case mealDBHistory = "mealDBHistory"
-    case spoonHistory = "spoonHistory"
-    case userSides = "userSides"
-    case userIngredients = "userIngredients"
-    case userHistory = "userHistory"
+    case mealDBFavorites = "MealDBFavorites"
+    case spoonFavorites = "SpoonFavorites"
+    case userFavorites = "UserFavorites"
+    case mealDBHistory = "MealDBHistory"
+    case spoonHistory = "SpoonHistory"
+    case userHistory = "UserHistory"
+    case userSides = "UserSides"
+    case userIngredients = "UserIngredients"
     case sides = "Sides"
     case userCat = "UserCategories"
 }
@@ -39,7 +40,7 @@ enum PList: String{
 enum Source: String{
     case spoonacular = "Spoonacular"
     case mealDB = "MealDB"
-//    case user = "User"
+    case myIdeas = "MyIdeas"
 }
 
 enum Titles: String{

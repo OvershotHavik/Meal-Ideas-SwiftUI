@@ -10,11 +10,13 @@ import Foundation
 @MainActor final class MealDBDetailVM: ObservableObject{
     @Published var meal: MealDBResults.Meal
     @Published var isLoading = false
-    init(meal : MealDBResults.Meal){
+    @Published var favorited : Bool
+    init(meal : MealDBResults.Meal, favorited: Bool){
         self.meal = meal
+        self.favorited = favorited
         fetchMeal()
     }
-    
+    // MARK: - Fetch Meal
     func fetchMeal(){
         let mealID = meal.id
         print("Fetching MealDB Single Named mealID: \(mealID ?? "")")
@@ -28,5 +30,7 @@ import Foundation
             }
         }
     }
+    
+    
 }
 

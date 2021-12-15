@@ -10,7 +10,6 @@ import UIKit
 
 final class PListManager{
     
-    
     //MARK: - Items From User Plist Generic
     static  func loadItemsFromUserPlist<T>(userPlist: PList, classToDecodeTo: T.Type, completionHandler: @escaping (Result <Dictionary<String,T>, Error>) -> Void) where T: Decodable{
         print("In item from user mPlist")
@@ -52,6 +51,11 @@ final class PListManager{
         }
     }
      
+    
+    /*
+     
+     Switched to core data to utilize cloud kit for the favorites and history, keeping these here for now for reference
+    
     //MARK: - Copy from  plist and return the dictionary generic
     static func copyFromPlist<T>(plist: PList, classToDecodeTo: T.Type, completionHandler: @escaping (Result <Dictionary<String,T>, Error>) -> Void) where T: Codable{
         var plistURL: URL {
@@ -131,11 +135,13 @@ final class PListManager{
                 }
         }
     }
-    
+    // MARK: - Add to favorites
     static func addToFavorites(meal: String, source: Source, mealDBID: String?, spoonID: Int?){
         let newFavorite = Favorites()
         newFavorite.mealName = meal
         switch source{
+        case .myIdeas:
+            print("Not setup in add to favorites yet")
         case .mealDB:
             var mealDBFavorites: [String: Favorites] = [:]
             if let safeMealDBID = mealDBID{
@@ -220,6 +226,8 @@ final class PListManager{
         favoriteToRemove.mealName = meal
         
         switch source{
+        case .myIdeas:
+            print("not setup in remove favorite yet")
         case .mealDB:
             var mealDBFavorites: [String: Favorites] = [:]
 
@@ -256,4 +264,5 @@ final class PListManager{
             })
         }
     }
+     */
 }

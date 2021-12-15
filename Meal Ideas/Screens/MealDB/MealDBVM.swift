@@ -16,6 +16,7 @@ import Foundation
     @Published var originalQuery: String?
     @Published var keywordSearchTapped = false
     @Published var getMoreMeals = false
+    @Published var mealDBFavorites : [String: Favorites] = [:]
     
     func checkQuery(query: String, queryType: QueryType){
         
@@ -93,4 +94,6 @@ import Foundation
             }
         }
     }
+    
+    
 }

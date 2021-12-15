@@ -51,7 +51,7 @@ final class EditIdeaVM: ObservableObject{
     @Published var sidesSet = Set<String>()
     
     // MARK: - used for Core Data
-    private let pc = PersistenceController.shared
+    private let pc = UserMealsPC.shared
 
     init(meal: UserMeals?){
         self.meal = meal

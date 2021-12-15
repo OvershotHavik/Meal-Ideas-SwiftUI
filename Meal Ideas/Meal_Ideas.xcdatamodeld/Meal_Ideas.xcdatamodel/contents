@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
-    <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
-        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+    <entity name="Favorites" representedClassName="Favorites" syncable="YES" codeGenerationType="class">
+        <attribute name="favoritesData" optional="YES" attributeType="Binary"/>
+    </entity>
+    <entity name="History" representedClassName="History" syncable="YES" codeGenerationType="class">
+        <attribute name="historyData" optional="YES" attributeType="Binary"/>
     </entity>
     <entity name="UserMeals" representedClassName="UserMeals" syncable="YES" codeGenerationType="class">
         <attribute name="category" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
@@ -16,7 +19,8 @@
         <attribute name="source" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="Item" positionX="-63" positionY="-18" width="128" height="44"/>
+        <element name="Favorites" positionX="-63" positionY="-18" width="128" height="44"/>
         <element name="UserMeals" positionX="-54" positionY="0" width="128" height="179"/>
+        <element name="History" positionX="-54" positionY="63" width="128" height="44"/>
     </elements>
 </model>

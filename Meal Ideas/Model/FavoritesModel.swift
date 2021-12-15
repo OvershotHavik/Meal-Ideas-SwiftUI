@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Favorites: Codable{
+class FavoritesModel: Codable{
 //    var id = UUID() // not sure if I need this yet or not 
     var mealName = String()
     var mealDBID : String?

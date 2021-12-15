@@ -13,7 +13,7 @@ final class EditMealsListVM: ObservableObject{
     @Published var TextFieldText: String = ""
     @Published var showingDeleteAlert = false
     @Published var selectedIndexSet: IndexSet?
-    private let pc = PersistenceController.shared
+    private let pc = UserMealsPC.shared
     init() {
         fetchMeals()
     }
