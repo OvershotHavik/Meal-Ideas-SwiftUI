@@ -10,7 +10,8 @@ import SwiftUI
 struct MyIdeasDetailView: View {
     
     @ObservedObject var vm : MyIdeasDetailVM
-    
+    @EnvironmentObject var query: Query
+
     var body: some View {
         VStack{
             ScrollView{
@@ -32,6 +33,19 @@ struct MyIdeasDetailView: View {
             }
             LinkView(url: vm.meal.source, title: "Visit Source")
                 .navigationTitle(vm.meal.mealName ?? "")
+        }
+        .toolbar{
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    vm.favorited.toggle()
+                    vm.favoriteToggled()
+                    query.getFavorites()
+                } label: {
+                    Image(systemName: vm.favorited ? "heart.fill" : "heart")
+                        .foregroundColor(.pink)
+                }
+
+            }
         }
     }
 }

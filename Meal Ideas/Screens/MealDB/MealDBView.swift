@@ -10,7 +10,6 @@ import SwiftUI
 struct MealDBView: View {
     @StateObject var vm: MealDBVM
     @EnvironmentObject var query: Query
-    var test = true
 
     var body: some View {
         ZStack{
@@ -33,7 +32,7 @@ struct MealDBView: View {
                                 NavigationLink(destination: MealDBDetailView(vm: MealDBDetailVM(meal: meal, favorited: false))) {
                                     MealCardView(mealPhoto: meal.strMealThumb ?? "",
                                                  mealName: meal.strMeal ?? "",
-                                                 favorited: true,
+                                                 favorited: checkForFavorite(id: meal.id),
                                                  inHistory: true)
                                 }
                                 .foregroundColor(.primary)
@@ -67,6 +66,15 @@ struct MealDBView: View {
     }
     func stopLoading(){
         vm.isLoading = false
+    }
+    // MARK: - Check For Favorite
+    func checkForFavorite(id: String?) -> Bool{
+        if query.favoritesArray.contains(where: {$0.mealDBID == id}){
+            print("favorited meal id: \(id ?? "")")
+            return true
+        } else {
+            return false
+        }
     }
 }
 

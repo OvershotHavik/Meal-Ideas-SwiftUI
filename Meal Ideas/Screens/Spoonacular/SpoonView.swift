@@ -10,7 +10,7 @@ import SwiftUI
 struct SpoonView: View {
     @StateObject var vm : SpoonVM
     @EnvironmentObject var query: Query
-
+    
     
     var body: some View {
         NavigationView{
@@ -30,26 +30,30 @@ struct SpoonView: View {
                         //Normal run through
                         LazyVGrid(columns: columns, alignment: .center) {
                             ForEach(vm.meals) { meal in
-                                NavigationLink(destination: SpoonDetailView(vm: SpoonDetailVM(meal: meal, mealID: nil))) {
+                                NavigationLink(destination: SpoonDetailView(vm: SpoonDetailVM(meal: meal,
+                                                                                              mealID: nil,
+                                                                                              favorited: checkForFavorite(id: meal.id)))) {
                                     MealCardView(mealPhoto: meal.image ?? "",
                                                  mealName: meal.title,
-                                                 favorited: true,
+                                                 favorited: checkForFavorite(id: meal.id),
                                                  inHistory: true)
                                 }
-                                .foregroundColor(.primary)
+                                                                                              .foregroundColor(.primary)
                             }
                         }
                     } else {
                         //Keyword search, need to fetch the meal on the VM
                         LazyVGrid(columns: columns, alignment: .center) {
                             ForEach(vm.keywordResults) { meal in
-                                NavigationLink(destination: SpoonDetailView(vm: SpoonDetailVM(meal: nil, mealID: meal.id))) {
+                                NavigationLink(destination: SpoonDetailView(vm: SpoonDetailVM(meal: nil,
+                                                                                              mealID: meal.id,
+                                                                                              favorited: checkForFavorite(id: meal.id)))) {
                                     MealCardView(mealPhoto: meal.image ?? "",
                                                  mealName: meal.title,
-                                                 favorited: true,
+                                                 favorited: checkForFavorite(id: meal.id),
                                                  inHistory: true)
                                 }
-                                .foregroundColor(.primary)
+                                                                                              .foregroundColor(.primary)
                             }
                         }
                     }
@@ -64,7 +68,7 @@ struct SpoonView: View {
             }
             .alert(item: $vm.alertItem) { alertItem in
                 Alert(title: alertItem.title,
-                             message: alertItem.message,
+                      message: alertItem.message,
                       dismissButton: .default(Text("OK"), action: stopLoading))
             }
             .onChange(of: vm.keywordSearchTapped, perform: { newValue in
@@ -72,10 +76,20 @@ struct SpoonView: View {
                 vm.checkQuery(query: query.keyword, queryType: .keyword)
             })
         }
-
+        
     }
+    // MARK: - Stop Loading
     func stopLoading(){
         vm.isLoading = false
+    }
+    // MARK: - Check For Favorite
+    func checkForFavorite(id: Int?) -> Bool{
+        if query.favoritesArray.contains(where: {$0.spoonID == Double(id ?? 0)}){
+            print("favorited meal id: \(id ?? 0)")
+            return true
+        } else {
+            return false
+        }
     }
 }
 

@@ -16,7 +16,7 @@ import Foundation
     - Figure out how to do plists for custom ingredients and sides and categories
  
  get each query to work
- - Favorite
+ - Favorite - using core data now
  - History
  
  - Figure out a better way to do the top view that isn't so buggy

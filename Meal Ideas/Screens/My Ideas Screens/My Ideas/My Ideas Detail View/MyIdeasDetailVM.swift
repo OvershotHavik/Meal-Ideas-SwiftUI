@@ -10,11 +10,32 @@ import SwiftUI
 final class MyIdeasDetailVM: ObservableObject{
     
     @Published var  meal: UserMeals
-    init(meal: UserMeals){
+    @Published var favorited : Bool
+
+    init(meal: UserMeals, favorited: Bool){
         self.meal = meal
+        self.favorited = favorited
 //        convertData()
     }
-    
+    // MARK: - Favorite Toggled
+    func favoriteToggled(){
+        if favorited == true {
+            //add to favorites
+            print("add to favorite")
+            PersistenceController.shared.saveFavorites(mealName: meal.mealName ?? "",
+                                mealDBID: nil,
+                                spoonID: nil)
+            
+        } else {
+            //remove from favorite
+            print("remove from favorites")
+            
+            PersistenceController.shared.deleteFavorite(source: .mealDB,
+                                                        mealName: meal.mealName ?? "",
+                                                        mealDBID: nil,
+                                                        spoonID: nil)
+        }
+    }
 //    func convertData(){
 //        if let safeData = meal.ingredientMealsData{
 //            do {

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MealCardView: View {
-    var mealPhoto: String // will need changed for data once that is setup
+    var mealPhoto: String
     var mealPhotoData: Data?
     var mealName: String
     var favorited: Bool
@@ -59,12 +59,18 @@ struct HistoryFavoriteHStack: View{
     var favorited: Bool
     var body: some View{
         HStack{
-            Image(systemName: inHistory ? "book" : "") // If in history is true, then show book, if not, show nothing
-                .padding([.leading, .top])
+            if inHistory == true {
+                Image(systemName: "book") // If in history is true, then show book, if not, show nothing
+                    .padding([.leading, .top])
+            }
+
             Spacer()
-            Image(systemName: favorited ? "heart.fill" : "") // If favorited is true, then show book, if not, show nothing
-                .foregroundColor(.pink)
-                .padding([.trailing, .top])
+            if favorited == true {
+                Image(systemName:"heart.fill") // If favorited is true, then show book, if not, show nothing
+                    .foregroundColor(.pink)
+                    .padding([.trailing, .top])
+            }
+
         }
     }
 }

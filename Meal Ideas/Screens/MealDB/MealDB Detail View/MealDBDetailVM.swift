@@ -12,8 +12,6 @@ import CoreData
     @Published var meal: MealDBResults.Meal
     @Published var isLoading = false
     @Published var favorited : Bool
-    @Published var favoritesArray : [Favorites] = []
-    @Published var favoriteData: Data?
     
     init(meal : MealDBResults.Meal, favorited: Bool){
         self.meal = meal
@@ -66,6 +64,7 @@ import CoreData
         getFavorites() // remove once verified working
     }
 */
+    // MARK: - Favorite Toggled
     func favoriteToggled(){
         if favorited == true {
             //add to favorites
@@ -82,7 +81,6 @@ import CoreData
                                                         mealName: meal.strMeal ?? "",
                                                         mealDBID: meal.id,
                                                         spoonID: nil)
-//            getFavorites() // remove once verified working
         }
     }
 }

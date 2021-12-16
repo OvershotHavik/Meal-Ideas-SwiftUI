@@ -9,7 +9,8 @@ import SwiftUI
 
 struct SpoonDetailView: View {
     @StateObject var vm: SpoonDetailVM
-    
+    @EnvironmentObject var query: Query
+
     var body: some View {
         VStack{
             ScrollView{
@@ -60,6 +61,19 @@ struct SpoonDetailView: View {
             Alert(title: alertItem.title,
                          message: alertItem.message,
                   dismissButton: .default(Text("OK")))
+        }
+        .toolbar{
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    vm.favorited.toggle()
+                    vm.favoriteToggled()
+                    query.getFavorites()
+                } label: {
+                    Image(systemName: vm.favorited ? "heart.fill" : "heart")
+                        .foregroundColor(.pink)
+                }
+
+            }
         }
         
     }

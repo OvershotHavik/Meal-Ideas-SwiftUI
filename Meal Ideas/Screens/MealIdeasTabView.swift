@@ -25,6 +25,7 @@ struct MealIdeasTabView: View {
                     Label("Spoonacular", systemImage: "fork.knife.circle.fill")
                 }
         }
+        .onAppear(perform:query.getFavorites)
         
     }
 }

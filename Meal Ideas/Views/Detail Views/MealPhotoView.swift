@@ -31,16 +31,15 @@ struct CDPhotoView: View{
         if let safeData = photoData{
             Image(uiImage: (UIImage(data: safeData) ?? UIImage(imageLiteralResourceName: "Placeholder")))
                 .resizable()
-                .frame(width: 200, height: 200)
+//                .frame(width: 200, height: 200)
                 .clipShape(Circle())
         } else {
             Image("Placeholder")
                 .resizable()
-                .frame(width: 200, height: 200)
+//                .frame(width: 200, height: 200)
                 .clipShape(Circle())
         }
     }
-
 }
 
 struct MealPhotoView_Previews: PreviewProvider {

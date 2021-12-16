@@ -9,7 +9,8 @@ import SwiftUI
 
 struct MealDBDetailView: View {
     @StateObject var vm : MealDBDetailVM
-    
+    @EnvironmentObject var query: Query
+
 //    var meal: MealDBResults.Meal
     
     var body: some View {
@@ -41,6 +42,7 @@ struct MealDBDetailView: View {
                 Button {
                     vm.favorited.toggle()
                     vm.favoriteToggled()
+                    query.getFavorites()
                 } label: {
                     Image(systemName: vm.favorited ? "heart.fill" : "heart")
                         .foregroundColor(.pink)

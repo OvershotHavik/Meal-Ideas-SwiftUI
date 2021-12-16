@@ -23,11 +23,12 @@ struct MyIdeasView: View {
                 ScrollView{
                     LazyVGrid(columns: columns, alignment: .center) {
                         ForEach(vm.meals) {meal in
-                            NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: meal))) {
+                            NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: meal,
+                                                                                              favorited: checkForFavorite(id: meal.mealName)))) {
                                 MealCardView(mealPhoto: "",
                                              mealPhotoData: meal.mealPhoto,
                                              mealName: meal.mealName ?? "",
-                                             favorited: true,
+                                             favorited: checkForFavorite(id: meal.mealName),
                                              inHistory: true)
                             }
                             .foregroundColor(.primary)
@@ -65,6 +66,15 @@ struct MyIdeasView: View {
 //            }
 
 
+        }
+    }
+    // MARK: - Check For Favorite
+    func checkForFavorite(id: String?) -> Bool{
+        if query.favoritesArray.contains(where: {$0.mealName == id}){
+            print("favorited meal id: \(id ?? "")")
+            return true
+        } else {
+            return false
         }
     }
 }

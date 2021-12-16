@@ -17,8 +17,8 @@ import CoreData
     @Published var originalQuery: String?
     @Published var keywordSearchTapped = false
     @Published var getMoreMeals = false
-    @Published var favoritesArray : [FavoritesModel] = []
     
+
     
     // MARK: - CheckQuery
     func checkQuery(query: String, queryType: QueryType){
@@ -96,6 +96,21 @@ import CoreData
             }
         }
     }
+    /*
+    // MARK: - Check For Favorite
+    func checkForFavorite(id: String?) -> Bool{
+//        print(id ?? "")
+        
+        if favoritesArray.contains(where: {$0.mealDBID == id}){
+            print("favorited meal id: \(id ?? "")")
+            return true
+        } else {
+            return false
+        }
+        
+//        if favoritesArray.contains(where: {$0.mealDBID == meals[indexSet].id})
+    }
+    */
     /*
     // MARK: - Get Favorites
     func getFavorites(){

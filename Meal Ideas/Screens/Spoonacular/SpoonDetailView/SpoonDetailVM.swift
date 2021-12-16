@@ -17,17 +17,19 @@ import UIKit
     @Published var measurements: [String] = []
     @Published var instructions: String = ""
     @Published var mealPhoto = UIImage()
+    @Published var favorited : Bool
+
     
-    
-    init(meal: SpoonacularResults.Recipe?, mealID: Int?){
+    init(meal: SpoonacularResults.Recipe?, mealID: Int?, favorited: Bool){
         self.mealID = mealID
         self.meal = meal
+        self.favorited = favorited
         getIngredientsAndMeasurements()
         getInstructions()
         getMealPhoto()
         fetchMeal()
     }
-    
+    // MARK: - Get Ingredients and Measurements
     func getIngredientsAndMeasurements(){
         guard let safeMeal = meal else {
             print("meal not set in get ingredients")
@@ -58,7 +60,7 @@ import UIKit
             }
         }
     }
-    
+    // MARK: - Get Instructions
     func getInstructions(){
         guard let safeMeal = meal else {
             print("meal not set in get instructions")
@@ -98,7 +100,7 @@ import UIKit
             instructions = "No instructions provided for this recipe. Please visit the source for more information."
         }
     }
-    
+    // MARK: - Fetch Meal
     func fetchMeal() {
         guard let safeMealID = mealID else {
             print("no meal id in fetch meal ")
@@ -122,7 +124,7 @@ import UIKit
             
         
     }
-    
+    // MARK: - Get Meal Photo
     func getMealPhoto(){
         if meal != nil{
             NetworkManager.shared.downloadImage(fromURLString: meal?.image ?? "") { uiImage in
@@ -134,4 +136,27 @@ import UIKit
         }
     }
 
+    func favoriteToggled(){
+        if favorited == true {
+            //add to favorites
+            print("add to favorite")
+            PersistenceController.shared.saveFavorites(mealName: meal?.title ?? "",
+                                                       mealDBID: nil,
+                                                       spoonID: meal?.id)
+            
+        } else {
+            //remove from favorite
+            print("remove from favorites")
+            PersistenceController.shared.deleteFavorite(source: .spoonacular,
+                                                        mealName: meal?.title ?? "",
+                                                        mealDBID: nil,
+                                                        spoonID: Double(meal?.id ?? 0))
+            
+            
+            PersistenceController.shared.deleteFavorite(source: .spoonacular,
+                                                        mealName: meal?.title ?? "",
+                                                        mealDBID: nil,
+                                                        spoonID: Double(meal?.id ?? 0))
+        }
+    }
 }
