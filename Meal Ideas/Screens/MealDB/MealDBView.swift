@@ -38,9 +38,22 @@ struct MealDBView: View {
                                 .foregroundColor(.primary)
                             }
                         }
+                        
                     }
                     .navigationBarTitleDisplayMode(.inline)
                     .padding()
+                    .toolbar {
+                        ToolbarItemGroup(placement: .navigationBarTrailing) {
+                            NavigationLink(destination: FavoritesListView(vm: FavoritesListVM(), source: .mealDB)) {
+                                Image(systemName: "heart.fill")
+                                    .foregroundColor(.pink)
+                            }
+                            NavigationLink(destination: HistoryListView(vm: HistoryListVM(), source: .mealDB)) {
+                                Image(systemName: "book")
+                                    .foregroundColor(.black)
+                            }
+                        }
+                    }
 
                 }
 
@@ -61,6 +74,7 @@ struct MealDBView: View {
                 .task{
                     vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
                 }
+ 
             }
         }
     }

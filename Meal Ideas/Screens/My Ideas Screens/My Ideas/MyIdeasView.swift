@@ -46,6 +46,17 @@ struct MyIdeasView: View {
                             .foregroundColor(.black)
                     }
                 }
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    NavigationLink(destination: FavoritesListView(vm: FavoritesListVM(), source: .myIdeas)) {
+                        Image(systemName: "heart.fill")
+                            .foregroundColor(.pink)
+                    }
+                    NavigationLink(destination: HistoryListView(vm: HistoryListVM(), source: .myIdeas)) {
+                        Image(systemName: "book")
+                            .foregroundColor(.black)
+                    }
+                }
+
             }
             .onChange(of: vm.keywordSearchTapped, perform: { newValue in
                 print("Keyword: \(query.keyword)")

@@ -28,7 +28,6 @@ struct FavoritesListView: View {
                         Text(favorite.mealName ?? "")
                     }
                 }
-                
             }
         }
     }

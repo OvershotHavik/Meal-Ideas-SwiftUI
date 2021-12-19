@@ -114,13 +114,7 @@ struct TopViewButtons: View{
             QueryButtonView(title: .ingredient)
             
             QueryButtonView(title: .keyword)
-            
-            QueryImageButtonView(title: .favorite)
-                .foregroundColor(.pink)
-            
-            QueryImageButtonView(title: .history)
-            
-            
+                
         }
         .padding(.bottom, 5)
         .foregroundColor(.primary)

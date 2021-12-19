@@ -60,6 +60,18 @@ struct SpoonView: View {
                 }
                 .navigationBarTitleDisplayMode(.inline)
                 .padding()
+                .toolbar {
+                    ToolbarItemGroup(placement: .navigationBarTrailing) {
+                        NavigationLink(destination: FavoritesListView(vm: FavoritesListVM(), source: .spoonacular)) {
+                            Image(systemName: "heart.fill")
+                                .foregroundColor(.pink)
+                        }
+                        NavigationLink(destination: HistoryListView(vm: HistoryListVM(), source: .spoonacular)) {
+                            Image(systemName: "book")
+                                .foregroundColor(.black)
+                        }
+                    }
+                }
             }
             .onAppear {
                 if query.queryType != .keyword{
