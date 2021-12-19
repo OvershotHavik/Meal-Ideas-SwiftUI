@@ -10,19 +10,21 @@
     </entity>
     <entity name="UserMeals" representedClassName="UserMeals" syncable="YES" codeGenerationType="class">
         <attribute name="category" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
+        <attribute name="created" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="favorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="ingredients" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="instructionsPhoto" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
         <attribute name="mealName" attributeType="String" defaultValueString=""/>
         <attribute name="mealPhoto" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
         <attribute name="measurements" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
+        <attribute name="modified" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="recipe" optional="YES" attributeType="String"/>
         <attribute name="sides" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="source" optional="YES" attributeType="String"/>
     </entity>
     <elements>
         <element name="Favorites" positionX="-63" positionY="-18" width="128" height="14"/>
-        <element name="UserMeals" positionX="-54" positionY="0" width="128" height="179"/>
         <element name="History" positionX="-54" positionY="63" width="128" height="44"/>
+        <element name="UserMeals" positionX="-54" positionY="0" width="128" height="209"/>
     </elements>
 </model>

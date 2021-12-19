@@ -11,42 +11,46 @@ struct MyIdeasDetailView: View {
     
     @ObservedObject var vm : MyIdeasDetailVM
     @EnvironmentObject var query: Query
-
+    
     var body: some View {
-        VStack{
-            ScrollView{
-                CDPhotoView(photoData: vm.meal.mealPhoto)
-                
-                MealNameView(name: vm.meal.mealName ?? "No Name Provided")
-                
-                BadgesHStack(title: "Categories",
-                             items: vm.meal.category as! [String],
-                             topColor: .blue,
-                             bottomColor: .black)
-                
-                IngredientVGrid(ingredients: vm.meal.ingredients as! [String],
-                                measurements: vm.meal.measurements as! [String?])
-                
-                CDPhotoView(photoData: vm.meal.instructionsPhoto)
-                
-                RecipeView(recipe: vm.meal.recipe ?? "No recipe Provided")
-            }
-            LinkView(url: vm.meal.source, title: "Visit Source")
-                .navigationTitle(vm.meal.mealName ?? "")
-        }
-        .toolbar{
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    vm.favorited.toggle()
-                    vm.favoriteToggled()
-                    query.getFavorites()
-                } label: {
-                    Image(systemName: vm.favorited ? "heart.fill" : "heart")
-                        .foregroundColor(.pink)
+        if let safeMeal = vm.meal{
+            VStack{
+                ScrollView{
+                    CDPhotoView(photoData: safeMeal.mealPhoto)
+                    
+                    MealNameView(name: safeMeal.mealName ?? "No Name Provided")
+                    
+                    BadgesHStack(title: "Categories",
+                                 items: safeMeal.category as! [String],
+                                 topColor: .blue,
+                                 bottomColor: .black)
+                    
+                    IngredientVGrid(ingredients: safeMeal.ingredients as! [String],
+                                    measurements: safeMeal.measurements as! [String?])
+                    
+                    CDPhotoView(photoData: safeMeal.instructionsPhoto)
+                    
+                    RecipeView(recipe: safeMeal.recipe ?? "No recipe Provided")
                 }
-
+                
+                LinkView(url: safeMeal.source, title: "Visit Source")
+                    .navigationTitle(safeMeal.mealName ?? "")
+            }
+            .toolbar{
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        vm.favorited.toggle()
+                        vm.favoriteToggled()
+                        query.getFavorites()
+                    } label: {
+                        Image(systemName: vm.favorited ? "heart.fill" : "heart")
+                            .foregroundColor(.pink)
+                    }
+                    
+                }
             }
         }
+        
     }
 }
 

@@ -11,15 +11,22 @@ struct QueryImageButtonView: View {
     @EnvironmentObject var query : Query
     var title: QueryType
     var body: some View {
-        Button {
-            query.queryType = title
-            
+        NavigationLink {
+//            query.queryType = title
+            FavoritesListView(vm: FavoritesListVM(), source: .mealDB)
         } label: {
             Image(systemName: title.rawValue)
                 .padding(.horizontal, 5)
                 .border(Color.black, width: 2)
                 .opacity((query.queryType.rawValue == title.rawValue) ? 1 : 0.5)
         }
+
+//        Button {
+//            query.queryType = title
+//
+//        } label: {
+//
+//        }
     }
 }
 
