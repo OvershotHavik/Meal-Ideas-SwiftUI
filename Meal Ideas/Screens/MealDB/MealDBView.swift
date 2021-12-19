@@ -29,7 +29,9 @@ struct MealDBView: View {
                         }
                         LazyVGrid(columns: columns, alignment: .center) {
                             ForEach(vm.meals, id: \.id) { meal in
-                                NavigationLink(destination: MealDBDetailView(vm: MealDBDetailVM(meal: meal, favorited: false))) {
+                                NavigationLink(destination: MealDBDetailView(vm: MealDBDetailVM(meal: meal,
+                                                                                                favorited: checkForFavorite(id: meal.id),
+                                                                                                mealID: meal.id ?? ""))) {
                                     MealCardView(mealPhoto: meal.strMealThumb ?? "",
                                                  mealName: meal.strMeal ?? "",
                                                  favorited: checkForFavorite(id: meal.id),

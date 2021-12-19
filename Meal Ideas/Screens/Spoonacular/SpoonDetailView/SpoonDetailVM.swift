@@ -5,7 +5,6 @@
 //  Created by Steve Plavetzky on 11/30/21.
 //
 
-import Foundation
 import UIKit
 
 @MainActor final class SpoonDetailVM: ObservableObject{
@@ -119,10 +118,7 @@ import UIKit
             } catch let e{
                 print(e.localizedDescription)
             }
-            
         }
-            
-        
     }
     // MARK: - Get Meal Photo
     func getMealPhoto(){
@@ -136,6 +132,7 @@ import UIKit
         }
     }
 
+    // MARK: - Favorite Toggled
     func favoriteToggled(){
         if favorited == true {
             //add to favorites

@@ -18,14 +18,21 @@ struct FavoritesListView: View {
                                       source: source)) {favorite in
                 switch source {
                 case .spoonacular:
-                    Text(favorite.mealName ?? "")
-                    //                    NavigationLink(destination: <#T##() -> _#>, label: <#T##() -> _#>)
+                    NavigationLink(destination: SpoonDetailView(vm: SpoonDetailVM(meal: vm.fetchSpoonFavorite(spoonID: favorite.spoonID),
+                                                                                  mealID: Int(favorite.spoonID),
+                                                                                                                                                                    favorited: true))) {
+                        FavoriteCell(mealName: favorite.mealName)
+                    }
+
                 case .mealDB:
-                    Text(favorite.mealName ?? "")
+                    NavigationLink(destination: MealDBDetailView(vm: MealDBDetailVM(meal: vm.fetchMealDBFavorite(mealDBID: favorite.mealDBID),
+                                                                                    favorited: true, mealID: favorite.mealDBID ?? ""))) {
+                        FavoriteCell(mealName: favorite.mealName)
+                    }
                 case .myIdeas:
-                    NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: vm.fetchFavorite(name: favorite.mealName),
+                    NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: vm.fetchUserFavorite(name: favorite.mealName),
                                                                                       favorited: true))) {
-                        Text(favorite.mealName ?? "")
+                        FavoriteCell(mealName: favorite.mealName)
                     }
                 }
             }
