@@ -46,8 +46,8 @@
 		B37E360A27481DC900687A8C /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37E360927481DC900687A8C /* APIKey.swift */; };
 		B3A668C0276F9CA600533988 /* FavoritesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A668BF276F9CA600533988 /* FavoritesListView.swift */; };
 		B3A668C2276F9CB700533988 /* FavoritesListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A668C1276F9CB700533988 /* FavoritesListVM.swift */; };
-		B3A668C5276FA6C100533988 /* HistoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A668C4276FA6C100533988 /* HistoryListView.swift */; };
 		B3A668C7276FA6E200533988 /* HistoryListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A668C6276FA6E200533988 /* HistoryListVM.swift */; };
+		B3A668C9276FA9D400533988 /* HistoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A668C8276FA9D400533988 /* HistoryListView.swift */; };
 		B3A75CB527668ED90062C8B4 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A75CB427668ED90062C8B4 /* LoadingView.swift */; };
 		B3A75CB7276699B30062C8B4 /* NoResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A75CB6276699B30062C8B4 /* NoResultsView.swift */; };
 		B3AE0A182756D109001EAD15 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE0A172756D109001EAD15 /* Alert.swift */; };
@@ -142,8 +142,8 @@
 		B37E360927481DC900687A8C /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		B3A668BF276F9CA600533988 /* FavoritesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesListView.swift; sourceTree = "<group>"; };
 		B3A668C1276F9CB700533988 /* FavoritesListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesListVM.swift; sourceTree = "<group>"; };
-		B3A668C4276FA6C100533988 /* HistoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListView.swift; sourceTree = "<group>"; };
 		B3A668C6276FA6E200533988 /* HistoryListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListVM.swift; sourceTree = "<group>"; };
+		B3A668C8276FA9D400533988 /* HistoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListView.swift; sourceTree = "<group>"; };
 		B3A75CB427668ED90062C8B4 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		B3A75CB6276699B30062C8B4 /* NoResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoResultsView.swift; sourceTree = "<group>"; };
 		B3AE0A172756D109001EAD15 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
@@ -417,8 +417,8 @@
 		B3A668C3276FA6A100533988 /* History List */ = {
 			isa = PBXGroup;
 			children = (
-				B3A668C4276FA6C100533988 /* HistoryListView.swift */,
 				B3A668C6276FA6E200533988 /* HistoryListVM.swift */,
+				B3A668C8276FA9D400533988 /* HistoryListView.swift */,
 			);
 			path = "History List";
 			sourceTree = "<group>";
@@ -714,6 +714,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3A668C9276FA9D400533988 /* HistoryListView.swift in Sources */,
 				B3606D97274C1F6E00E61972 /* MyMealModel.swift in Sources */,
 				B3606DB6274D6A4400E61972 /* IngredientVGrid.swift in Sources */,
 				B3CEDDA22756FB4400BB832B /* Double+Ext.swift in Sources */,
@@ -773,7 +774,6 @@
 				B3606DAB274D5E4A00E61972 /* MyIdeasDetailView.swift in Sources */,
 				B375C99B2764FE4A0013895F /* SpoonFunctions.swift in Sources */,
 				B3CEDDAA2756FCE700BB832B /* IngredientListVM.swift in Sources */,
-				B3A668C5276FA6C100533988 /* HistoryListView.swift in Sources */,
 				B3606DA1274C217700E61972 /* IngredientsModel.swift in Sources */,
 				B375C981276216F10013895F /* PListManager.swift in Sources */,
 				B375C98B27621B4B0013895F /* MultiChoiceListVM.swift in Sources */,
