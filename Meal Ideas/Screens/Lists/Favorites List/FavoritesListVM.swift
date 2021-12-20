@@ -10,7 +10,14 @@ import CoreData
 
 final class FavoritesListVM: ObservableObject{
     @Published var favoritesArray : [Favorites] = []
-    
+    @Published var searchText = ""
+    var searchResults: [Favorites] {
+        if searchText.isEmpty {
+            return favoritesArray
+        } else {
+            return favoritesArray.filter { $0.mealName!.contains(searchText) }
+        }
+    }
     // MARK: - Fetch User Favorite
     func fetchUserFavorite(name: String?) -> UserMeals?{
         if let safeName = name{
@@ -58,7 +65,6 @@ final class FavoritesListVM: ObservableObject{
             do {
                 let results = try await NetworkManager.shared.mealDBQuery(query: mealDBID ?? "", queryType: .none)
                 if let safeResults = results.first{
-                    print("safe result: \(safeResults.strMeal)")
                     return safeResults
                 }
             } catch let e{
@@ -68,13 +74,34 @@ final class FavoritesListVM: ObservableObject{
             return nil
         }
         return nil
-
     }
     // MARK: - Filtered Favorites by source
+    
+    func filteredFavorites(favorites: [Favorites], source: Source){
+        switch source {
+        case .spoonacular:
+            let spoonFavorites = favorites.filter{$0.spoonID != 0}.sorted{$0.mealName ?? "" < $1.mealName ?? ""}
+            print("Spoon Favorites: ")
+            print(spoonFavorites)
+            favoritesArray = spoonFavorites
+        case .mealDB:
+            let mealDBFavorites = favorites.filter {$0.mealDBID != nil}.sorted{$0.mealName ?? "" < $1.mealName ?? ""}
+            print("MealDB Favorites: ")
+            print(mealDBFavorites)
+            favoritesArray = mealDBFavorites
+        case .myIdeas:
+            let myFavorites = favorites.filter{$0.spoonID == 0 && $0.mealDBID == nil}.sorted{$0.mealName ?? "" < $1.mealName ?? ""}
+            print("My Favorites")
+            print(myFavorites)
+            favoritesArray = myFavorites
+        }
+    }
+     
+    /*
     func filteredFavorites(favorites: [Favorites], source: Source) -> [Favorites]{
         switch source {
         case .spoonacular:
-            let spoonFavorites = favorites.filter{$0.spoonID != 0}
+            let spoonFavorites = favorites.filter{$0.spoonID != 0}.sorted{$0.mealName ?? "" < $1.mealName ?? ""}
             print("Spoon Favorites: ")
             print(spoonFavorites)
             return spoonFavorites
@@ -90,4 +117,5 @@ final class FavoritesListVM: ObservableObject{
             return myFavorites
         }
     }
+    */
 }

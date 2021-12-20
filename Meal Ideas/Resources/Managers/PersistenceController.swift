@@ -112,6 +112,7 @@ struct PersistenceController {
         if let safeSpoonID = spoonID{
             let safeDouble : Double  = Double(safeSpoonID)
             newFavorite.spoonID = safeDouble
+            newFavorite.dateAdded = Date()
         }
         PersistenceController.shared.saveData()
 //        getFavorites() // remove once verified working

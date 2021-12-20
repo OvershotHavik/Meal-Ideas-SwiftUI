@@ -21,8 +21,10 @@ import CoreData
         self.favorited = favorited
         self.mealID = mealID
         fetchMeal()
+        getMealPhoto()
     }
     // MARK: - Fetch Meal
+    
     func fetchMeal(){
         if meal == nil || meal?.ingredientsArray == []{
             print("No Meal Provided, Fetching MealDB Single Named mealID: \(mealID)")
@@ -50,37 +52,6 @@ import CoreData
             }
         }
     }
-    /*
-    // MARK: - Get Favorites
-    func getFavorites(){
-        let request = NSFetchRequest<Favorites>(entityName: EntityName.favorites.rawValue)
-        do {
-            favoritesArray = try PersistenceController.shared.container.viewContext.fetch(request)
-            print("favorites count: \(favoritesArray.count)")
-            for x in favoritesArray{
-                print("Meal Name: \(x.mealName ?? "")")
-                print("MealDB ID: \(x.mealDBID ?? "")")
-                print("Spoon ID: \(String(describing: x.spoonID))")
-                print("______________________")
-            }
-        } catch let error {
-            print("error fetching: \(error.localizedDescription)")
-        }
-    }
-    
-    func saveFavorites(){
-        
-        let newFavorite = Favorites(context: PersistenceController.shared.container.viewContext)
-        newFavorite.mealDBID = meal.id
-
-        if let safeName = meal.strMeal{
-            newFavorite.mealName = safeName
-            print("Added \(safeName) to favorites")
-        }
-        PersistenceController.shared.saveData()
-        getFavorites() // remove once verified working
-    }
-*/
     // MARK: - Favorite Toggled
     func favoriteToggled(){
         if let safeMeal = meal{

@@ -109,6 +109,7 @@ final class EditIdeaVM: ObservableObject{
             safeMeal.recipe = recipe
             safeMeal.favorite = favorited
             safeMeal.measurements = measurements as NSObject
+            safeMeal.modified = Date()
         } else {
             let newMealCD = UserMeals(context: pc.container.viewContext)
             newMealCD.mealName = mealName
@@ -121,6 +122,7 @@ final class EditIdeaVM: ObservableObject{
             newMealCD.recipe = recipe
             newMealCD.favorite = favorited
             newMealCD.measurements = measurements as NSObject
+            newMealCD.created = Date()
         }
 
         

@@ -87,6 +87,17 @@ struct EditIdeaView: View {
             Section(header: Text("Source")){
                 TextField("Website", text: $vm.source)
             }
+            if vm.meal != nil{
+                // TODO:  Fix the date formatting
+                Section(header: Text("Modified Dates")){
+                    if let safeCreated = vm.meal?.created{
+                        Text("Created on \(safeCreated)")
+                    }
+                    if let safeModified = vm.meal?.modified{
+                        Text("Last Modified on \(safeModified)")
+                    }
+                }
+            }
             SaveButtonView(vm: vm)
                 .listRowBackground(Color.green)
             

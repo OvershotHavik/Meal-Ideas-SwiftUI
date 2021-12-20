@@ -20,6 +20,7 @@ struct MealPhotoUIImageView: View{
     var mealPhoto: UIImage
     var body: some View{
         Image(uiImage: mealPhoto)
+            .resizable()
             .frame(width: 200, height: 200)
             .clipShape(Circle())
     }
