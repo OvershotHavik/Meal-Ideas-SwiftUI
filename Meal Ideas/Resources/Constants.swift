@@ -57,6 +57,10 @@ enum Titles: String{
     case multiCategory = "Select Categories"
     case multiIngredients = "Select Ingredients"
     case multiSides = "Select Sides"
+    
+    case spoonFavorite = "Favorites from Spoonacular"
+    case mealDBFavorite = "Favorites from The Meal DB"
+    case myIdeasFavorite = "Favorites from My Ideas"
 }
 
 

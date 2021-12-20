@@ -32,6 +32,7 @@ import CoreData
                     let results = try await NetworkManager.shared.mealDBQuery(query: mealID, queryType: .none)
                     if let safeResults = results.first{
                         meal = safeResults
+                        getMealPhoto()
                     }
                 }
             }

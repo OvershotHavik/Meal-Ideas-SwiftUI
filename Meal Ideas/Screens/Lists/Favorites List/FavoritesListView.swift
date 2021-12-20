@@ -13,6 +13,7 @@ struct FavoritesListView: View {
     var source: Source
     
     var body: some View {
+        
         List {
             ForEach(vm.filteredFavorites(favorites: query.favoritesArray,
                                       source: source)) {favorite in
@@ -23,20 +24,29 @@ struct FavoritesListView: View {
                                                                                                                                                                     favorited: true))) {
                         FavoriteCell(mealName: favorite.mealName)
                     }
+                                                                                                                                                                    .navigationTitle(Titles.spoonFavorite.rawValue)
+
 
                 case .mealDB:
                     NavigationLink(destination: MealDBDetailView(vm: MealDBDetailVM(meal: vm.fetchMealDBFavorite(mealDBID: favorite.mealDBID),
                                                                                     favorited: true, mealID: favorite.mealDBID ?? ""))) {
                         FavoriteCell(mealName: favorite.mealName)
                     }
+                                                                                    .navigationTitle(Titles.mealDBFavorite.rawValue)
+
                 case .myIdeas:
                     NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: vm.fetchUserFavorite(name: favorite.mealName),
                                                                                       favorited: true))) {
                         FavoriteCell(mealName: favorite.mealName)
+                            .navigationTitle(Titles.myIdeasFavorite.rawValue)
+
                     }
                 }
             }
+                                      .listStyle(.plain)
         }
+
+
     }
 
 
