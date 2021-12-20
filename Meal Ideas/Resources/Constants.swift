@@ -61,6 +61,10 @@ enum Titles: String{
     case spoonFavorite = "Favorites from Spoonacular"
     case mealDBFavorite = "Favorites from The Meal DB"
     case myIdeasFavorite = "Favorites from My Ideas"
+    
+    case spoonHistory = "History from Spoonacular"
+    case mealDBHistory = "History from The Meal DB"
+    case myIdeasHistory = "History from My Ideas"
 }
 
 

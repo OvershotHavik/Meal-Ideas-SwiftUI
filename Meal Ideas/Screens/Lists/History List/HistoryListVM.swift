@@ -100,5 +100,34 @@ final class HistoryListVM: ObservableObject{
         return nil
     }
     
+    // MARK: - Check For Favorite
+    func checkForFavorite(favoritesArray: [Favorites], id: String?) -> Bool{
+        switch source {
+        case .spoonacular:
+            if let safeDouble: Double = Double(id ?? ""){
+                if favoritesArray.contains(where: {$0.spoonID == safeDouble}){
+                    print("favorited meal id: \(id ?? "")")
+                    return true
+                } else {
+                    return false
+                }
+            }
+        case .mealDB:
+            if favoritesArray.contains(where: {$0.mealDBID == id}){
+                print("favorited meal id: \(id ?? "")")
+                return true
+            } else {
+                return false
+            }
+        case .myIdeas:
+            if favoritesArray.contains(where: {$0.mealName == id}){
+                print("favorited meal id: \(id ?? "")")
+                return true
+            } else {
+                return false
+            }
+        }
 
+        return false
+    }
 }

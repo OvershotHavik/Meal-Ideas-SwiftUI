@@ -18,13 +18,17 @@ struct HistoryListView: View {
                 case .spoonacular:
                     Text(vm.source.rawValue)
                 case .mealDB:
-                    // TODO:  Fix the favorited to check
                     NavigationLink(destination: MealDBDetailView(vm: MealDBDetailVM(meal: vm.fetchMealDBMeal(mealDBID: history.mealDBID),
-                                                                                    favorited: false,
+                                                                                    favorited: vm.checkForFavorite(favoritesArray: query.favoritesArray,
+                                                                                                                   id: history.mealDBID),
                                                                                     mealID: history.mealDBID ?? "",
                                                                                     showingHistory: true))) {
-                        Text(history.mealName ?? "")
+                        HistoryCell(mealName: history.mealName ?? "",
+                                    timeStamp: history.timeStamp,
+                                    favorited: vm.checkForFavorite(favoritesArray: query.favoritesArray,
+                                                                   id: history.mealDBID))
                     }
+                                                                                    .navigationTitle(Titles.mealDBHistory.rawValue)
                 case .myIdeas:
                     Text(vm.source.rawValue)
                 }
@@ -33,7 +37,9 @@ struct HistoryListView: View {
         .onAppear {
             vm.filteredHistory(history: query.historyArray)
         }
+        
     }
+
 }
 
 struct HistoryListView_Previews: PreviewProvider {
