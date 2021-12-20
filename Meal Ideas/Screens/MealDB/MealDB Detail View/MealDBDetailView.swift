@@ -34,10 +34,11 @@ struct MealDBDetailView: View {
                     
                     LinkView(url: vm.meal?.strYoutube ?? "", title: "Visit Youtube Link")
                 }
-                
+
                 LinkView(url: vm.meal?.strSource ?? "", title: "Visit Source")
                     .navigationTitle(vm.meal?.strMeal ?? "")
             }
+            
             .toolbar{
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
@@ -50,7 +51,6 @@ struct MealDBDetailView: View {
                     }
                 }
             }
-        
     }
 }
 

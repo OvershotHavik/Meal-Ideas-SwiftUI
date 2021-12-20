@@ -59,7 +59,7 @@ struct PersistenceController {
             print("error saving meals to core data: \(error.localizedDescription)")
         }
     }
-    
+    // MARK: - Delete In List
     func deleteInList(indexSet: IndexSet, entityName: EntityName){
         switch entityName {
         case .userMeals:
@@ -83,41 +83,27 @@ struct PersistenceController {
         }
 
     }
-
+// MARK: - Delete Meal
     func deleteMeal(meal: UserMeals){
-        
         container.viewContext.delete(meal)
         print("meal deleted")
-        
-        
-        // TODO:  change to completion once verified working
-//        let request = NSFetchRequest<UserMeals>(entityName: "UserMeals")
-        /*
-        do {
-//            let savedMeals = try container.viewContext.fetch(request)
-            container.viewContext.delete(meal)
-            print("meal deleted")
-        }
-        catch let error{
-            print("error fetching: \(error.localizedDescription)")
-
-        }
-         */
+        // TODO:  change to completion once verified working?
     }
     
+    
+    // MARK: - Save Favorites
     func saveFavorites(mealName: String, mealDBID: String?, spoonID: Int?){
-        let newFavorite = Favorites(context: PersistenceController.shared.container.viewContext)
+        let newFavorite = Favorites(context: container.viewContext)
         newFavorite.mealName = mealName
         newFavorite.mealDBID = mealDBID
         if let safeSpoonID = spoonID{
             let safeDouble : Double  = Double(safeSpoonID)
             newFavorite.spoonID = safeDouble
-            newFavorite.dateAdded = Date()
         }
-        PersistenceController.shared.saveData()
-//        getFavorites() // remove once verified working
+        newFavorite.dateAdded = Date()
+        saveData()
     }
-    
+    // MARK: - Delete Favorites
     func deleteFavorite(source: Source, mealName: String, mealDBID: String?, spoonID: Double?){
         let request = NSFetchRequest<Favorites>(entityName: EntityName.favorites.rawValue)
         do {
@@ -126,24 +112,61 @@ struct PersistenceController {
             switch source {
             case .spoonacular:
                 guard let index = savedFavorites.firstIndex(where: {$0.mealName == mealName && $0.spoonID == spoonID}) else {return}
-                let favorite = savedFavorites[index]
-                container.viewContext.delete(favorite)
+                let favoriteToDelete = savedFavorites[index]
+                container.viewContext.delete(favoriteToDelete)
                 
                 
             case .mealDB:
                 guard let index = savedFavorites.firstIndex(where: {$0.mealName == mealName && $0.mealDBID == mealDBID}) else {return}
-                let favorite = savedFavorites[index]
-                container.viewContext.delete(favorite)
+                let favoriteToDelete = savedFavorites[index]
+                container.viewContext.delete(favoriteToDelete)
                 
                 
             case .myIdeas:
                 guard let index = savedFavorites.firstIndex(where: {$0.mealName == mealName}) else {return}
-                let favorite = savedFavorites[index]
-                container.viewContext.delete(favorite)
+                let favoriteToDelete = savedFavorites[index]
+                container.viewContext.delete(favoriteToDelete)
             }
             print("removed favorite \(mealName)")
         }catch let e{
             print("Error fetching favorites in deleteFavorites \(e.localizedDescription)")
+        }
+    }
+    // MARK: - Add To History
+    func addToHistory(mealName: String, mealDBID: String?, spoonID: Int?){
+        let newHistory = History(context: container.viewContext)
+        newHistory.mealName = mealName
+        newHistory.mealDBID = mealDBID
+        if let safeSpoonID = spoonID{
+            let safeDouble: Double = Double(safeSpoonID)
+            newHistory.spoonID = safeDouble
+        }
+        newHistory.timeStamp = Date()
+        saveData()
+    }
+    
+    // MARK: - Delete History
+    func deleteHistory(source: Source, mealName: String, mealDBID: String?, spoonID: Double?){
+        //not sure if this is needed, maybe just for list delete
+        let request = NSFetchRequest<History>(entityName: EntityName.history.rawValue)
+        do {
+            let savedHistory = try container.viewContext.fetch(request)
+            switch source {
+            case .spoonacular:
+                guard let index = savedHistory.firstIndex(where: {$0.mealName == mealName && $0.spoonID == spoonID}) else {return}
+                let historyToDelete = savedHistory[index]
+                container.viewContext.delete(historyToDelete)
+            case .mealDB:
+                guard let index = savedHistory.firstIndex(where: {$0.mealName == mealName && $0.mealDBID == mealDBID}) else {return}
+                let historyToDelete = savedHistory[index]
+                container.viewContext.delete(historyToDelete)
+            case .myIdeas:
+                guard let index = savedHistory.firstIndex(where: {$0.mealName == mealName}) else {return}
+                let historyToDelete = savedHistory[index]
+                container.viewContext.delete(historyToDelete)
+            }
+        } catch let e {
+            print("Error fetching history in Delete History: \(e.localizedDescription)")
         }
     }
     

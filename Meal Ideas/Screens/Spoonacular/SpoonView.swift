@@ -62,11 +62,11 @@ struct SpoonView: View {
                 .padding()
                 .toolbar {
                     ToolbarItemGroup(placement: .navigationBarTrailing) {
-                        NavigationLink(destination: FavoritesListView(vm: FavoritesListVM(), source: .spoonacular)) {
+                        NavigationLink(destination: FavoritesListView(vm: FavoritesListVM(source: .spoonacular))) {
                             Image(systemName: "heart.fill")
                                 .foregroundColor(.pink)
                         }
-                        NavigationLink(destination: HistoryListView(vm: HistoryListVM(), source: .spoonacular)) {
+                        NavigationLink(destination: HistoryListView(vm: HistoryListVM(source: .spoonacular))) {
                             Image(systemName: "book")
                                 .foregroundColor(.black)
                         }

@@ -26,7 +26,7 @@ struct MealIdeasTabView: View {
                 }
         }
         .onAppear(perform:query.getFavorites)
-        
+        .onAppear(perform: query.getHistory)
     }
 }
 

@@ -9,6 +9,7 @@ import Foundation
 import CoreData
 
 final class FavoritesListVM: ObservableObject{
+    @Published var source: Source
     @Published var favoritesArray : [Favorites] = []
     @Published var searchText = ""
     var searchResults: [Favorites] {
@@ -18,8 +19,28 @@ final class FavoritesListVM: ObservableObject{
             return favoritesArray.filter { $0.mealName!.contains(searchText) }
         }
     }
-    // MARK: - Fetch User Favorite
-    func fetchUserFavorite(name: String?) -> UserMeals?{
+    init(source: Source){
+        self.source = source
+    }
+    // MARK: - Filtered Favorites by source
+    func filteredFavorites(favorites: [Favorites]){
+        switch source {
+        case .spoonacular:
+            let spoonFavorites = favorites.filter{$0.spoonID != 0}.sorted{$0.mealName ?? "" < $1.mealName ?? ""}
+            print("Spoon Favorites: ")
+            favoritesArray = spoonFavorites
+        case .mealDB:
+            let mealDBFavorites = favorites.filter {$0.mealDBID != nil}.sorted{$0.mealName ?? "" < $1.mealName ?? ""}
+            print("MealDB Favorites: ")
+            favoritesArray = mealDBFavorites
+        case .myIdeas:
+            let myFavorites = favorites.filter{$0.spoonID == 0 && $0.mealDBID == nil}.sorted{$0.mealName ?? "" < $1.mealName ?? ""}
+            print("My Favorites")
+            favoritesArray = myFavorites
+        }
+    }
+    // MARK: - Fetch User Meal
+    func fetchUserMeal(name: String?) -> UserMeals?{
         if let safeName = name{
             let request = NSFetchRequest<UserMeals>(entityName: EntityName.userMeals.rawValue)
             var allMeals: [UserMeals] = []
@@ -39,7 +60,7 @@ final class FavoritesListVM: ObservableObject{
         return nil
     }
     // MARK: - Fetch Spoon Favorite
-    func fetchSpoonFavorite(spoonID: Double) ->  SpoonacularResults.Recipe?{
+    func fetchSpoonMeal(spoonID: Double) ->  SpoonacularResults.Recipe?{
         let mealIDInt: Int = Int(spoonID)
         print("Spoon meal ID: \(mealIDInt)")
         let mealID = "\(mealIDInt)"
@@ -57,7 +78,7 @@ final class FavoritesListVM: ObservableObject{
     }
     
     // MARK: - Fetch MealDB Favorite
-    func fetchMealDBFavorite(mealDBID: String?) -> MealDBResults.Meal?{
+    func fetchMealDBMeal(mealDBID: String?) -> MealDBResults.Meal?{
 
         print("Fetching MealDB Single Named mealID: \(mealDBID ?? "")")
 //        isLoading = false
@@ -75,27 +96,7 @@ final class FavoritesListVM: ObservableObject{
         }
         return nil
     }
-    // MARK: - Filtered Favorites by source
-    
-    func filteredFavorites(favorites: [Favorites], source: Source){
-        switch source {
-        case .spoonacular:
-            let spoonFavorites = favorites.filter{$0.spoonID != 0}.sorted{$0.mealName ?? "" < $1.mealName ?? ""}
-            print("Spoon Favorites: ")
-            print(spoonFavorites)
-            favoritesArray = spoonFavorites
-        case .mealDB:
-            let mealDBFavorites = favorites.filter {$0.mealDBID != nil}.sorted{$0.mealName ?? "" < $1.mealName ?? ""}
-            print("MealDB Favorites: ")
-            print(mealDBFavorites)
-            favoritesArray = mealDBFavorites
-        case .myIdeas:
-            let myFavorites = favorites.filter{$0.spoonID == 0 && $0.mealDBID == nil}.sorted{$0.mealName ?? "" < $1.mealName ?? ""}
-            print("My Favorites")
-            print(myFavorites)
-            favoritesArray = myFavorites
-        }
-    }
+
      
     /*
     func filteredFavorites(favorites: [Favorites], source: Source) -> [Favorites]{

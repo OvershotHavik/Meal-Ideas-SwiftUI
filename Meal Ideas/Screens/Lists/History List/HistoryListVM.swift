@@ -6,7 +6,99 @@
 //
 
 import Foundation
+import CoreData
 
 final class HistoryListVM: ObservableObject{
+    @Published var source: Source
+    @Published var historyArray : [History] = []
+    @Published var searchText = ""
+    var searchResults: [History] {
+        if searchText.isEmpty {
+            return historyArray
+        } else {
+            return historyArray.filter { $0.mealName!.contains(searchText) }
+        }
+    }
     
+    init(source: Source){
+        self.source = source
+    }
+    
+    // MARK: - Filtered History by source
+    func filteredHistory(history: [History]){
+        switch source {
+        case .spoonacular:
+            let spoonHistory = history.filter{$0.spoonID != 0}.sorted{$0.mealName ?? "" < $1.mealName ?? ""}
+            print("Spoon History Count: \(spoonHistory.count) ")
+            historyArray = spoonHistory
+        case .mealDB:
+            let mealDBHistory = history.filter {$0.mealDBID != nil}.sorted{$0.mealName ?? "" < $1.mealName ?? ""}
+            print("MealDB History Count: \(mealDBHistory.count)")
+            historyArray = mealDBHistory
+        case .myIdeas:
+            let myIdeasHistory = history.filter{$0.spoonID == 0 && $0.mealDBID == nil}.sorted{$0.mealName ?? "" < $1.mealName ?? ""}
+            print("My Ideas history count: \(myIdeasHistory.count)")
+            historyArray = myIdeasHistory
+        }
+    }
+    // MARK: - Fetch User Meal
+    func fetchUserMeal(name: String?) -> UserMeals?{
+        if let safeName = name{
+            let request = NSFetchRequest<UserMeals>(entityName: EntityName.userMeals.rawValue)
+            var allMeals: [UserMeals] = []
+            
+            do {
+                allMeals = try PersistenceController.shared.container.viewContext.fetch(request)
+                print("Meals Fetched in Fetch Favorite")
+            }catch let e{
+                print("error fetching meal in fetch Favorites: \(e.localizedDescription)")
+            }
+            for meal in allMeals{
+                if meal.mealName == safeName{
+                    return meal
+                }
+            }
+        }
+        return nil
+    }
+    
+    // MARK: - Fetch Spoon Meal
+    func fetchSpoonMeal(spoonID: Double) ->  SpoonacularResults.Recipe?{
+        let mealIDInt: Int = Int(spoonID)
+        print("Spoon meal ID: \(mealIDInt)")
+        let mealID = "\(mealIDInt)"
+//        isLoading = true
+        Task { () -> SpoonacularResults.Recipe? in
+            do {
+                let meal = try await NetworkManager.shared.spoonSingleMeal(query: mealID)
+                return meal
+            } catch let e{
+                print(e.localizedDescription)
+                return nil
+            }
+        }
+        return nil
+    }
+    
+    // MARK: - Fetch MealDB Meal
+    func fetchMealDBMeal(mealDBID: String?) -> MealDBResults.Meal?{
+
+        print("Fetching MealDB Single Named mealID: \(mealDBID ?? "")")
+//        isLoading = false
+        Task { () -> MealDBResults.Meal? in
+            do {
+                let results = try await NetworkManager.shared.mealDBQuery(query: mealDBID ?? "", queryType: .none)
+                if let safeResults = results.first{
+                    return safeResults
+                }
+            } catch let e{
+                print("Error loading mealdb favorite: \(e.localizedDescription)")
+                return nil
+            }
+            return nil
+        }
+        return nil
+    }
+    
+
 }

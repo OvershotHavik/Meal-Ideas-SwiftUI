@@ -31,11 +31,12 @@ struct MealDBView: View {
                             ForEach(vm.meals, id: \.id) { meal in
                                 NavigationLink(destination: MealDBDetailView(vm: MealDBDetailVM(meal: meal,
                                                                                                 favorited: checkForFavorite(id: meal.id),
-                                                                                                mealID: meal.id ?? ""))) {
+                                                                                                mealID: meal.id ?? "",
+                                                                                                showingHistory: false))) {
                                     MealCardView(mealPhoto: meal.strMealThumb ?? "",
                                                  mealName: meal.strMeal ?? "",
                                                  favorited: checkForFavorite(id: meal.id),
-                                                 inHistory: true)
+                                                 inHistory: checkForHistory(id: meal.id))
                                 }
                                 .foregroundColor(.primary)
                             }
@@ -46,11 +47,11 @@ struct MealDBView: View {
                     .padding()
                     .toolbar {
                         ToolbarItemGroup(placement: .navigationBarTrailing) {
-                            NavigationLink(destination: FavoritesListView(vm: FavoritesListVM(), source: .mealDB)) {
+                            NavigationLink(destination: FavoritesListView(vm: FavoritesListVM(source: .mealDB))) {
                                 Image(systemName: "heart.fill")
                                     .foregroundColor(.pink)
                             }
-                            NavigationLink(destination: HistoryListView(vm: HistoryListVM(), source: .mealDB)) {
+                            NavigationLink(destination: HistoryListView(vm: HistoryListVM(source: .mealDB))) {
                                 Image(systemName: "book")
                                     .foregroundColor(.black)
                             }
@@ -76,10 +77,11 @@ struct MealDBView: View {
                 .task{
                     vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
                 }
- 
+                .onAppear(perform: query.getHistory)
             }
         }
     }
+    // MARK: - Stop Loading
     func stopLoading(){
         vm.isLoading = false
     }
@@ -87,6 +89,15 @@ struct MealDBView: View {
     func checkForFavorite(id: String?) -> Bool{
         if query.favoritesArray.contains(where: {$0.mealDBID == id}){
             print("favorited meal id: \(id ?? "")")
+            return true
+        } else {
+            return false
+        }
+    }
+    // MARK: - Check FOr History
+    func checkForHistory(id: String?) -> Bool{
+        if query.historyArray.contains(where: {$0.mealDBID == id}){
+            print("History meal id: \(id ?? "")")
             return true
         } else {
             return false

@@ -62,6 +62,7 @@ struct HistoryFavoriteHStack: View{
             if inHistory == true {
                 Image(systemName: "book") // If in history is true, then show book, if not, show nothing
                     .padding([.leading, .top])
+                    .opacity(0.50)
             }
 
             Spacer()

@@ -30,6 +30,7 @@ import Foundation
  - History
     - Add the book icon on each source and list them in a list view, then have them go to the meal when clicked.
     - Offer the option to delete per row, and to delete groups like All, older than 90 days, 60, 30, 7
+    - Filter the history so it only shows the most recent? or leave it alone.. not sure yet. 
  
  - Figure out a better way to do the top view that isn't so buggy
     - Maybe figure out an actual tab view instead of the one I made? not sure if they can be up in the app view like that

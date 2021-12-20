@@ -14,17 +14,19 @@ import CoreData
     @Published var favorited : Bool
     @Published var mealID: String
     @Published var mealPhoto = UIImage()
+    @Published var showingHistory : Bool
 
     
-    init(meal : MealDBResults.Meal?, favorited: Bool, mealID: String){
+    init(meal : MealDBResults.Meal?, favorited: Bool, mealID: String, showingHistory: Bool){
         self.meal = meal
         self.favorited = favorited
         self.mealID = mealID
+        self.showingHistory = showingHistory
         fetchMeal()
         getMealPhoto()
+        addToHistory()
     }
     // MARK: - Fetch Meal
-    
     func fetchMeal(){
         if meal == nil || meal?.ingredientsArray == []{
             print("No Meal Provided, Fetching MealDB Single Named mealID: \(mealID)")
@@ -35,6 +37,7 @@ import CoreData
                     if let safeResults = results.first{
                         meal = safeResults
                         getMealPhoto()
+                        addToHistory()
                     }
                 }
             }
@@ -72,7 +75,20 @@ import CoreData
                                                             spoonID: nil)
             }
         }
-
     }
+    // MARK: - Add To History
+    func addToHistory(){
+        //Only add to history if not already showing the meal in history list
+        if showingHistory == false{
+            if meal != nil{
+                //only add it once the meal is set, otherwise it's just a blank name and id
+                print("Added meal to history: \(meal?.strMeal ?? ""), id: \(meal?.id ?? "")")
+                PersistenceController.shared.addToHistory(mealName: meal?.strMeal ?? "",
+                                                          mealDBID: meal?.id,
+                                                          spoonID: nil)
+            }
+        }
+    }
+    
 }
 

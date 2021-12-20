@@ -47,11 +47,11 @@ struct MyIdeasView: View {
                     }
                 }
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: FavoritesListView(vm: FavoritesListVM(), source: .myIdeas)) {
+                    NavigationLink(destination: FavoritesListView(vm: FavoritesListVM(source: .myIdeas))) {
                         Image(systemName: "heart.fill")
                             .foregroundColor(.pink)
                     }
-                    NavigationLink(destination: HistoryListView(vm: HistoryListVM(), source: .myIdeas)) {
+                    NavigationLink(destination: HistoryListView(vm: HistoryListVM(source: .myIdeas))) {
                         Image(systemName: "book")
                             .foregroundColor(.black)
                     }
