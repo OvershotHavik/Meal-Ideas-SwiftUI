@@ -146,6 +146,7 @@ struct PersistenceController {
     }
     
     // MARK: - Delete History
+    /*
     func deleteHistory(source: Source, mealName: String, mealDBID: String?, spoonID: Double?){
         //not sure if this is needed, maybe just for list delete
         let request = NSFetchRequest<History>(entityName: EntityName.history.rawValue)
@@ -169,50 +170,45 @@ struct PersistenceController {
             print("Error fetching history in Delete History: \(e.localizedDescription)")
         }
     }
-    
-    /*
-    // MARK: - Save
-    func save(completion: @escaping (Error?) -> () = { _ in }) {
-        withAnimation {
-            let context = container.viewContext
-            if context.hasChanges{
-                do {
-                    try context.save()
-                    completion(nil)
-                }catch {
-                    completion(error)
+    */
+    // MARK: - Delete History
+    func deleteHistory(source: Source, deleteOption: Date, completed: () -> Void){
+        
+        let request = NSFetchRequest<History>(entityName: EntityName.history.rawValue)
+        do {
+            let savedHistory = try container.viewContext.fetch(request)
+            switch source {
+            case .spoonacular:
+                let filtered = savedHistory.filter({$0.timeStamp! < deleteOption && $0.mealDBID == nil})
+
+                for meal in filtered{
+                    print("Meal name: \(meal.mealName ?? "") to be deleted from history")
+                    container.viewContext.delete(meal)
                 }
+                saveData()
+                completed()
+                
+            case .mealDB:
+                let filtered = savedHistory.filter({$0.timeStamp! < deleteOption && $0.mealDBID != nil})
+                for meal in filtered{
+                    print("Meal name: \(meal.mealName ?? "") to be deleted from history")
+                    container.viewContext.delete(meal)
+                }
+                saveData()
+                completed()
+                
+            case .myIdeas:
+                let filtered = savedHistory.filter({$0.timeStamp! < deleteOption && $0.mealDBID == nil && $0.spoonID == 0})
+                for meal in filtered{
+                    print("Meal name: \(meal.mealName ?? "") to be deleted from history")
+                    container.viewContext.delete(meal)
+                }
+                saveData()
+                completed()
             }
+        } catch let e {
+            print("Error fetching history in Delete History: \(e.localizedDescription)")
         }
-
     }
-    
-// MARK: - Delete
-    func delete(_ object: NSManagedObject, completion: @escaping (Error?) -> () = { _ in }) {
-        withAnimation {
-            let context = container.viewContext
-            
-            context.delete(object)
-            save(completion: completion)
-        }
 
-    }
-     */
 }
-
-
-/*
- func deleteMealInList(indexSet: IndexSet){
-     let request = NSFetchRequest<UserMeals>(entityName: "UserMeals")
-     do {
-         let savedMeals = try container.viewContext.fetch(request)
-         print("Meals Fetched in delete meal")
-         guard let index = indexSet.first else {return}
-         let meal = savedMeals[index]
-         container.viewContext.delete(meal)
-         saveData()
-     } catch let error {
-         print("error fetching: \(error.localizedDescription)")
-     }
- }
- */

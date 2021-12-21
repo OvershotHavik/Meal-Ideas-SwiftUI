@@ -24,12 +24,16 @@ struct MyIdeasView: View {
                     LazyVGrid(columns: columns, alignment: .center) {
                         ForEach(vm.meals) {meal in
                             NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: meal,
-                                                                                              favorited: checkForFavorite(id: meal.mealName)))) {
+                                                                                              favorited: vm.checkForFavorite(id: meal.mealName,
+                                                                                                                             favoriteArray: query.favoritesArray),
+                                                                                              showingHistory: false))) {
                                 MealCardView(mealPhoto: "",
                                              mealPhotoData: meal.mealPhoto,
                                              mealName: meal.mealName ?? "",
-                                             favorited: checkForFavorite(id: meal.mealName),
-                                             inHistory: true)
+                                             favorited: vm.checkForFavorite(id: meal.mealName,
+                                                                            favoriteArray: query.favoritesArray),
+                                             inHistory: vm.checkForHistory(id: meal.mealName,
+                                                                           historyArray: query.historyArray))
                             }
                             .foregroundColor(.primary)
                         }
@@ -67,25 +71,9 @@ struct MyIdeasView: View {
                 vm.checkQuery(query: query.keyword, queryType: query.queryType)
             })
             .onAppear {
-                print("on appear")
                 vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
             }
-            //not sure what the difference between these two are.. both work.. need to look into later
-//            .task{
-//                print("task")
-//                vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
-//            }
-
-
-        }
-    }
-    // MARK: - Check For Favorite
-    func checkForFavorite(id: String?) -> Bool{
-        if query.favoritesArray.contains(where: {$0.mealName == id}){
-            print("favorited meal id: \(id ?? "")")
-            return true
-        } else {
-            return false
+            .onAppear(perform: query.getHistory)
         }
     }
 }

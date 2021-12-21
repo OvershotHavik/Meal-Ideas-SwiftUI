@@ -11,11 +11,12 @@ final class MyIdeasDetailVM: ObservableObject{
     
     @Published var  meal: UserMeals?
     @Published var favorited : Bool
+    @Published var showingHistory : Bool
 
-    init(meal: UserMeals?, favorited: Bool){
+    init(meal: UserMeals?, favorited: Bool, showingHistory: Bool){
         self.meal = meal
         self.favorited = favorited
-//        convertData()
+        self.showingHistory = showingHistory
     }
     // MARK: - Favorite Toggled
     func favoriteToggled(){
@@ -41,18 +42,18 @@ final class MyIdeasDetailVM: ObservableObject{
 
         }
     }
-//    func convertData(){
-//        if let safeData = meal.ingredientMealsData{
-//            do {
-//                let results = try JSONDecoder().decode([Ingredients.Meals].self, from: safeData)
-//                for x in results {
-//                    ingredients.append(x.strIngredient)
-//                    measurements.append(x.strMeasurement)
-//                }
-//
-//            } catch let e {
-//                print("error decoding from core data meal: \(e.localizedDescription)")
-//            }
-//        }
-//    }
+    // MARK: - Add To History
+    func addToHistory(){
+        //Only add to history if not already showing the meal in history list
+        if showingHistory == false{
+            if meal != nil{
+                //only add it once the meal is set, otherwise it's just a blank name and id
+                print("Added meal to history: \(meal?.mealName ?? "")")
+                PersistenceController.shared.addToHistory(mealName: meal?.mealName ?? "",
+                                                          mealDBID: nil,
+                                                          spoonID: 0)
+            }
+        }
+    }
+
 }

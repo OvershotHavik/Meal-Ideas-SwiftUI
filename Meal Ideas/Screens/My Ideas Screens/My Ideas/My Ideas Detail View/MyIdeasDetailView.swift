@@ -9,32 +9,33 @@ import SwiftUI
 
 struct MyIdeasDetailView: View {
     
-    @ObservedObject var vm : MyIdeasDetailVM
+    @StateObject var vm : MyIdeasDetailVM
     @EnvironmentObject var query: Query
     
     var body: some View {
-        if let safeMeal = vm.meal{
+
             VStack{
                 ScrollView{
-                    CDPhotoView(photoData: safeMeal.mealPhoto)
+                    CDPhotoView(photoData: vm.meal?.mealPhoto)
+                        .frame(width: 200, height: 200)
                     
-                    MealNameView(name: safeMeal.mealName ?? "No Name Provided")
+                    MealNameView(name: vm.meal?.mealName ?? "No Name Provided")
                     
                     BadgesHStack(title: "Categories",
-                                 items: safeMeal.category as! [String],
+                                 items: vm.meal?.category as! [String],
                                  topColor: .blue,
                                  bottomColor: .black)
                     
-                    IngredientVGrid(ingredients: safeMeal.ingredients as! [String],
-                                    measurements: safeMeal.measurements as! [String?])
+                    IngredientVGrid(ingredients: vm.meal?.ingredients as! [String],
+                                    measurements: vm.meal?.measurements as! [String?])
                     
-                    CDPhotoView(photoData: safeMeal.instructionsPhoto)
-                    
-                    RecipeView(recipe: safeMeal.recipe ?? "No recipe Provided")
+                    CDPhotoView(photoData: vm.meal?.instructionsPhoto)
+                        .frame(width: 200, height: 200)
+                    RecipeView(recipe: vm.meal?.recipe ?? "No recipe Provided")
                 }
                 
-                LinkView(url: safeMeal.source, title: "Visit Source")
-                    .navigationTitle(safeMeal.mealName ?? "")
+                LinkView(url: vm.meal?.source, title: "Visit Source")
+                    .navigationTitle(vm.meal?.mealName ?? "")
             }
             .toolbar{
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -49,7 +50,7 @@ struct MyIdeasDetailView: View {
                     
                 }
             }
-        }
+            .onAppear(perform: vm.addToHistory)
         
     }
 }

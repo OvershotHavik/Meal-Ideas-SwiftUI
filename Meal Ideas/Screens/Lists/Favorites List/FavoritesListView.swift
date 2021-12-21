@@ -38,7 +38,7 @@ struct FavoritesListView: View {
 
                 case .myIdeas:
                     NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: vm.fetchUserMeal(name: favorite.mealName),
-                                                                                      favorited: true))) {
+                                                                                      favorited: true, showingHistory: false))) {
                         FavoriteCell(mealName: favorite.mealName)
                             .navigationTitle(Titles.myIdeasFavorite.rawValue)
                             .searchable(text: $vm.searchText)

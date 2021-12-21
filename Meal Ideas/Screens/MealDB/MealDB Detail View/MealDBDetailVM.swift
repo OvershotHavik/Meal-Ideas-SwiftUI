@@ -91,7 +91,7 @@ import CoreData
                 print("Added meal to history: \(meal?.strMeal ?? ""), id: \(meal?.id ?? "")")
                 PersistenceController.shared.addToHistory(mealName: meal?.strMeal ?? "",
                                                           mealDBID: meal?.id,
-                                                          spoonID: nil)
+                                                          spoonID: 0)
             }
         }
     }

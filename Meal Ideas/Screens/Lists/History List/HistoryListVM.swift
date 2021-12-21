@@ -12,6 +12,7 @@ final class HistoryListVM: ObservableObject{
     @Published var source: Source
     @Published var historyArray : [History] = []
     @Published var searchText = ""
+    @Published var deleteASPresented = false
     var searchResults: [History] {
         if searchText.isEmpty {
             return historyArray
@@ -49,12 +50,13 @@ final class HistoryListVM: ObservableObject{
             
             do {
                 allMeals = try PersistenceController.shared.container.viewContext.fetch(request)
-                print("Meals Fetched in Fetch Favorite")
+//                print("Meals Fetched in Fetch Favorite")
             }catch let e{
                 print("error fetching meal in fetch Favorites: \(e.localizedDescription)")
             }
             for meal in allMeals{
                 if meal.mealName == safeName{
+                    print("Safe meal name: \(safeName)")
                     return meal
                 }
             }
@@ -106,7 +108,7 @@ final class HistoryListVM: ObservableObject{
         case .spoonacular:
             if let safeDouble: Double = Double(id ?? ""){
                 if favoritesArray.contains(where: {$0.spoonID == safeDouble}){
-                    print("favorited meal id: \(id ?? "")")
+//                    print("favorited meal id: \(id ?? "")")
                     return true
                 } else {
                     return false
@@ -114,14 +116,14 @@ final class HistoryListVM: ObservableObject{
             }
         case .mealDB:
             if favoritesArray.contains(where: {$0.mealDBID == id}){
-                print("favorited meal id: \(id ?? "")")
+//                print("favorited meal id: \(id ?? "")")
                 return true
             } else {
                 return false
             }
         case .myIdeas:
             if favoritesArray.contains(where: {$0.mealName == id}){
-                print("favorited meal id: \(id ?? "")")
+//                print("favorited meal id: \(id ?? "")")
                 return true
             } else {
                 return false
@@ -130,4 +132,6 @@ final class HistoryListVM: ObservableObject{
 
         return false
     }
+    
+
 }
