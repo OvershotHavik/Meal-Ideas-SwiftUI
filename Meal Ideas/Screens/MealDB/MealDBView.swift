@@ -30,13 +30,16 @@ struct MealDBView: View {
                         LazyVGrid(columns: columns, alignment: .center) {
                             ForEach(vm.meals, id: \.id) { meal in
                                 NavigationLink(destination: MealDBDetailView(vm: MealDBDetailVM(meal: meal,
-                                                                                                favorited: checkForFavorite(id: meal.id),
+                                                                                                favorited: vm.checkForFavorite(id: meal.id,
+                                                                                                                               favoriteArray: query.favoritesArray),
                                                                                                 mealID: meal.id ?? "",
                                                                                                 showingHistory: false))) {
                                     MealCardView(mealPhoto: meal.strMealThumb ?? "",
                                                  mealName: meal.strMeal ?? "",
-                                                 favorited: checkForFavorite(id: meal.id),
-                                                 inHistory: checkForHistory(id: meal.id))
+                                                 favorited: vm.checkForFavorite(id: meal.id,
+                                                                                favoriteArray: query.favoritesArray),
+                                                 inHistory: vm.checkForHistory(id: meal.id,
+                                                                               historyArray: query.historyArray))
                                 }
                                 .foregroundColor(.primary)
                             }
@@ -85,24 +88,7 @@ struct MealDBView: View {
     func stopLoading(){
         vm.isLoading = false
     }
-    // MARK: - Check For Favorite
-    func checkForFavorite(id: String?) -> Bool{
-        if query.favoritesArray.contains(where: {$0.mealDBID == id}){
-            print("favorited meal id: \(id ?? "")")
-            return true
-        } else {
-            return false
-        }
-    }
-    // MARK: - Check FOr History
-    func checkForHistory(id: String?) -> Bool{
-        if query.historyArray.contains(where: {$0.mealDBID == id}){
-            print("History meal id: \(id ?? "")")
-            return true
-        } else {
-            return false
-        }
-    }
+
 }
 
 struct MealDBView_Previews: PreviewProvider {

@@ -96,6 +96,25 @@ import CoreData
             }
         }
     }
+    
+    // MARK: - Check For Favorite
+    func checkForFavorite(id: String?, favoriteArray: [Favorites]) -> Bool{
+        if favoriteArray.contains(where: {$0.mealDBID == id}){
+            print("favorited meal id: \(id ?? "")")
+            return true
+        } else {
+            return false
+        }
+    }
+    // MARK: - Check For History
+    func checkForHistory(id: String?, historyArray: [History]) -> Bool{
+        if historyArray.contains(where: {$0.mealDBID == id}){
+            print("History meal id: \(id ?? "")")
+            return true
+        } else {
+            return false
+        }
+    }
     /*
     // MARK: - Check For Favorite
     func checkForFavorite(id: String?) -> Bool{

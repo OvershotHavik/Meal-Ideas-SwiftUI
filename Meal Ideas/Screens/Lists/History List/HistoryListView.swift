@@ -16,7 +16,17 @@ struct HistoryListView: View {
             ForEach(vm.searchResults) {history in
                 switch vm.source{
                 case .spoonacular:
-                    Text(vm.source.rawValue)
+                    NavigationLink(destination: SpoonDetailView(vm: SpoonDetailVM(meal: vm.fetchSpoonMeal(spoonID: history.spoonID),
+                                                                                  mealID: Int(history.spoonID),
+                                                                                  favorited: vm.checkForFavorite(favoritesArray: query.favoritesArray,
+                                                                                                                 id: "\(history.spoonID)"),
+                                                                                  showingHistory: true))) {
+                        HistoryCell(mealName: history.mealName ?? "",
+                                    timeStamp: history.timeStamp,
+                                    favorited: vm.checkForFavorite(favoritesArray: query.favoritesArray,
+                                                                   id: "\(history.spoonID)"))
+                    }
+                                                                                  .navigationTitle(Titles.spoonHistory.rawValue)
                 case .mealDB:
                     NavigationLink(destination: MealDBDetailView(vm: MealDBDetailVM(meal: vm.fetchMealDBMeal(mealDBID: history.mealDBID),
                                                                                     favorited: vm.checkForFavorite(favoritesArray: query.favoritesArray,

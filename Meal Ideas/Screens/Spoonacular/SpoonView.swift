@@ -32,11 +32,15 @@ struct SpoonView: View {
                             ForEach(vm.meals) { meal in
                                 NavigationLink(destination: SpoonDetailView(vm: SpoonDetailVM(meal: meal,
                                                                                               mealID: nil,
-                                                                                              favorited: checkForFavorite(id: meal.id)))) {
+                                                                                              favorited: vm.checkForFavorite(id: meal.id,
+                                                                                                                             favoriteArray: query.favoritesArray),
+                                                                                              showingHistory: false))) {
                                     MealCardView(mealPhoto: meal.image ?? "",
                                                  mealName: meal.title,
-                                                 favorited: checkForFavorite(id: meal.id),
-                                                 inHistory: true)
+                                                 favorited: vm.checkForFavorite(id: meal.id,
+                                                                                favoriteArray: query.favoritesArray),
+                                                 inHistory: vm.checkForHistory(id: meal.id,
+                                                                               historyArray: query.historyArray))
                                 }
                                                                                               .foregroundColor(.primary)
                             }
@@ -47,11 +51,15 @@ struct SpoonView: View {
                             ForEach(vm.keywordResults) { meal in
                                 NavigationLink(destination: SpoonDetailView(vm: SpoonDetailVM(meal: nil,
                                                                                               mealID: meal.id,
-                                                                                              favorited: checkForFavorite(id: meal.id)))) {
+                                                                                              favorited: vm.checkForFavorite(id: meal.id,
+                                                                                                                             favoriteArray: query.favoritesArray),
+                                                                                              showingHistory: false))) {
                                     MealCardView(mealPhoto: meal.image ?? "",
                                                  mealName: meal.title,
-                                                 favorited: checkForFavorite(id: meal.id),
-                                                 inHistory: true)
+                                                 favorited: vm.checkForFavorite(id: meal.id,
+                                                                                favoriteArray: query.favoritesArray),
+                                                 inHistory: vm.checkForHistory(id: meal.id,
+                                                                               historyArray: query.historyArray))
                                 }
                                                                                               .foregroundColor(.primary)
                             }
@@ -78,6 +86,7 @@ struct SpoonView: View {
                     vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
                 }
             }
+            .onAppear(perform: query.getHistory)
             .alert(item: $vm.alertItem) { alertItem in
                 Alert(title: alertItem.title,
                       message: alertItem.message,
@@ -94,15 +103,7 @@ struct SpoonView: View {
     func stopLoading(){
         vm.isLoading = false
     }
-    // MARK: - Check For Favorite
-    func checkForFavorite(id: Int?) -> Bool{
-        if query.favoritesArray.contains(where: {$0.spoonID == Double(id ?? 0)}){
-            print("favorited meal id: \(id ?? 0)")
-            return true
-        } else {
-            return false
-        }
-    }
+
 }
 
 struct SpoonView_Previews: PreviewProvider {

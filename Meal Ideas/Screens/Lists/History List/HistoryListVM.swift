@@ -28,15 +28,15 @@ final class HistoryListVM: ObservableObject{
     func filteredHistory(history: [History]){
         switch source {
         case .spoonacular:
-            let spoonHistory = history.filter{$0.spoonID != 0}.sorted{$0.mealName ?? "" < $1.mealName ?? ""}
+            let spoonHistory = history.filter{$0.spoonID != 0}.sorted{$0.timeStamp ?? Date() > $1.timeStamp ?? Date()}
             print("Spoon History Count: \(spoonHistory.count) ")
             historyArray = spoonHistory
         case .mealDB:
-            let mealDBHistory = history.filter {$0.mealDBID != nil}.sorted{$0.mealName ?? "" < $1.mealName ?? ""}
+            let mealDBHistory = history.filter {$0.mealDBID != nil}.sorted{$0.timeStamp ?? Date() > $1.timeStamp ?? Date()}
             print("MealDB History Count: \(mealDBHistory.count)")
             historyArray = mealDBHistory
         case .myIdeas:
-            let myIdeasHistory = history.filter{$0.spoonID == 0 && $0.mealDBID == nil}.sorted{$0.mealName ?? "" < $1.mealName ?? ""}
+            let myIdeasHistory = history.filter{$0.spoonID == 0 && $0.mealDBID == nil}.sorted{$0.timeStamp ?? Date() > $1.timeStamp ?? Date()}
             print("My Ideas history count: \(myIdeasHistory.count)")
             historyArray = myIdeasHistory
         }

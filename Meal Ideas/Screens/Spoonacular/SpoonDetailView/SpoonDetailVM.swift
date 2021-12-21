@@ -17,12 +17,19 @@ import UIKit
     @Published var instructions: String = ""
     @Published var mealPhoto = UIImage()
     @Published var favorited : Bool
-
+    @Published var showingHistory : Bool = false{
+        didSet{
+            if showingHistory == false {
+                addToHistory()
+            }
+        }
+    }
     
-    init(meal: SpoonacularResults.Recipe?, mealID: Int?, favorited: Bool){
+    init(meal: SpoonacularResults.Recipe?, mealID: Int?, favorited: Bool, showingHistory: Bool){
         self.mealID = mealID
         self.meal = meal
         self.favorited = favorited
+        self.showingHistory = showingHistory
         getIngredientsAndMeasurements()
         getInstructions()
         getMealPhoto()
@@ -154,6 +161,19 @@ import UIKit
                                                         mealName: meal?.title ?? "",
                                                         mealDBID: nil,
                                                         spoonID: Double(meal?.id ?? 0))
+        }
+    }
+    // MARK: - Add To History
+    func addToHistory(){
+        //Only add to history if not already showing the meal in history list
+        if showingHistory == false{
+            if meal != nil{
+                //only add it once the meal is set, otherwise it's just a blank name and id
+                print("Added meal to history: \(meal?.title ?? ""), id: \(meal?.id ?? 0)")
+                PersistenceController.shared.addToHistory(mealName: meal?.title ?? "",
+                                                          mealDBID: nil,
+                                                          spoonID: meal?.id)
+            }
         }
     }
 }

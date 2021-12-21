@@ -19,7 +19,8 @@ struct FavoritesListView: View {
                 case .spoonacular:
                     NavigationLink(destination: SpoonDetailView(vm: SpoonDetailVM(meal: vm.fetchSpoonMeal(spoonID: favorite.spoonID),
                                                                                   mealID: Int(favorite.spoonID),
-                                                                                                                                                                    favorited: true))) {
+                                                                                  favorited: true,
+                                                                                  showingHistory: false))) {
                         FavoriteCell(mealName: favorite.mealName)
                     }
                                                                                                                                                                     .navigationTitle(Titles.spoonFavorite.rawValue)

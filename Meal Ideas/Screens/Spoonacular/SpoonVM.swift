@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 @MainActor final class SpoonVM: ObservableObject{
     @Published var meals: [SpoonacularResults.Recipe] = []
@@ -20,8 +21,8 @@ import Foundation
     @Published var keywordResults : [SpoonacularKeywordResults.result] = []
     @Published var individualMeal: SpoonacularResults.Recipe?
     
+    // MARK: - Check Query
     func checkQuery(query: String, queryType: QueryType){
-        
         if originalQueryType != queryType{
             meals = []
             self.originalQueryType = queryType
@@ -36,11 +37,10 @@ import Foundation
                 // nothing happens, query and query type didn't change
             }
         }
-        
     }
     
     
-    
+    // MARK: - Get Spoon Meals
     func getSpoonMeals(query: String, queryType: QueryType){
         isLoading = true
         print("Spoon query: \(query) Type: \(queryType.rawValue)")
@@ -71,12 +71,6 @@ import Foundation
                     print("keyword Offset: \(offsetBy)")
                     
                     keywordResults = try await NetworkManager.shared.spoonKeywordQuery(query: safeKeyword)
-                    
-//                    for meal in keywordResults{
-//                        print(meal.title)
-//                    }
-                    // TODO:  figure out how to get the meal card to populate with the results here instead of the meal since it is different
-
                     print("keyword")
                 case .history:
                     print("History")
@@ -121,7 +115,7 @@ import Foundation
 //            print(e)
 //        }
 //    }
-    
+    // MARK: - Get Meal From ID
     func getMealFromID(mealID: Int) async -> SpoonacularResults.Recipe?{
         
         getSpoonMeals(query: "\(mealID)", queryType: .none)
@@ -131,4 +125,23 @@ import Foundation
         return nil
     }
     
+
+    // MARK: - Check For History
+    func checkForHistory(id: Int?, historyArray: [History]) -> Bool{
+        if historyArray.contains(where: {$0.spoonID == Double(id ?? 0)}){
+            print("History meal id: \(id ?? 0)")
+            return true
+        } else {
+            return false
+        }
+    }
+    // MARK: - Check For Favorite
+    func checkForFavorite(id: Int?, favoriteArray: [Favorites]) -> Bool{
+        if favoriteArray.contains(where: {$0.spoonID == Double(id ?? 0)}){
+            print("favorited meal id: \(id ?? 0)")
+            return true
+        } else {
+            return false
+        }
+    }
 }

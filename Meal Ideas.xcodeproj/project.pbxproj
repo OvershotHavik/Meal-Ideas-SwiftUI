@@ -421,8 +421,8 @@
 		B3A668C3276FA6A100533988 /* History List */ = {
 			isa = PBXGroup;
 			children = (
-				B3A668C6276FA6E200533988 /* HistoryListVM.swift */,
 				B3A668C8276FA9D400533988 /* HistoryListView.swift */,
+				B3A668C6276FA6E200533988 /* HistoryListVM.swift */,
 			);
 			path = "History List";
 			sourceTree = "<group>";
