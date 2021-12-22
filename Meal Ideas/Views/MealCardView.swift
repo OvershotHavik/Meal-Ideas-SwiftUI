@@ -22,9 +22,12 @@ struct MealCardView: View {
                 HistoryFavoriteHStack(inHistory: inHistory,
                                       favorited: favorited)
                 if mealPhotoData != nil{
-                    // TODO:  Make sure this works once photo data is saving correctly to see if this works
-                    CDPhotoView(photoData: mealPhotoData)
-                        .frame(width: 100, height: 100, alignment: .center)
+                    if let safeData = mealPhotoData{
+                        Image(uiImage: (UIImage(data: safeData) ?? UIImage(imageLiteralResourceName: "Placeholder")))
+                            .resizable()
+                            .frame(width: 100, height: 100, alignment: .center)
+                            .clipShape(Circle())
+                    }
                 } else {
                     LoadRemoteImageView(urlString: mealPhoto)
                         .frame(width: 100, height: 100, alignment: .center)
@@ -51,7 +54,7 @@ struct MealCardView_Previews: PreviewProvider {
                      inHistory: true)
     }
 }
-
+// MARK: - History Favorites H Stack
 struct HistoryFavoriteHStack: View{
     
     //need to change accordingly

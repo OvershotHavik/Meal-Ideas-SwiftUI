@@ -18,6 +18,7 @@ struct MyIdeasDetailView: View {
                 ScrollView{
                     CDPhotoView(photoData: vm.meal?.mealPhoto)
                         .frame(width: 200, height: 200)
+                        .clipShape(Circle())
                     
                     MealNameView(name: vm.meal?.mealName ?? "No Name Provided")
                     

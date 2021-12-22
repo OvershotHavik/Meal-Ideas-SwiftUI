@@ -60,7 +60,6 @@ struct MyIdeasView: View {
                             .foregroundColor(.black)
                     }
                 }
-
             }
             .onChange(of: vm.keywordSearchTapped, perform: { newValue in
                 print("Keyword: \(query.keyword)")
