@@ -74,7 +74,7 @@ final class EditIdeaVM: ObservableObject{
     
     // MARK: - Check if name is already in use
     func checkNameAlreadyInUse() -> Bool{
-        let request = NSFetchRequest<UserMeals>(entityName: "UserMeals")
+        let request = NSFetchRequest<UserMeals>(entityName: EntityName.userMeals.rawValue)
         var allMeals : [UserMeals] = []
         do {
             allMeals = try pc.container.viewContext.fetch(request)
@@ -96,8 +96,30 @@ final class EditIdeaVM: ObservableObject{
         } else {
             return false
         }
-        
     }
+    
+    // MARK: - UpdateFavorite
+    func updateFavorites(){
+        //Update the favorites so the favorites list doesn't try to access a meal that doesn't exist
+        let request = NSFetchRequest<Favorites>(entityName: EntityName.favorites.rawValue)
+        var allFavorites : [Favorites] = []
+        do {
+            allFavorites = try pc.container.viewContext.fetch(request)
+            print("Favorites Fetched")
+            if let safeMeal = self.meal{
+                guard let index = allFavorites.firstIndex(where: {$0.mealName == safeMeal.mealName}) else {return}
+                let favoriteToUpdate = allFavorites[index]
+                favoriteToUpdate.mealName = mealName
+                print("Updated favorites for \(mealName)")
+                try pc.container.viewContext.save()
+            }
+
+        } catch let error {
+            print("error fetching: \(error.localizedDescription)")
+        }
+    }
+
+    
     // MARK: - Save Meal
     func saveMeal(){
         if mealName == ""{
@@ -133,6 +155,10 @@ final class EditIdeaVM: ObservableObject{
         
         //Update existing meal, or create a new one
         if let safeMeal = meal{
+            if safeMeal.mealName != mealName{
+                updateFavorites()
+                pc.clearHistory(meal: safeMeal)
+            }
             safeMeal.mealName = mealName
             safeMeal.mealPhoto = mealPhotoData
             safeMeal.category = categories as NSObject
@@ -144,6 +170,8 @@ final class EditIdeaVM: ObservableObject{
             safeMeal.favorite = favorited
             safeMeal.measurements = measurements as NSObject
             safeMeal.modified = Date()
+            
+            
         } else {
             let newMealCD = UserMeals(context: pc.container.viewContext)
             newMealCD.mealName = mealName
@@ -178,9 +206,17 @@ final class EditIdeaVM: ObservableObject{
     func deleteMeal(){
         print("Delete meal...")
         if let safeMeal = meal{
+//            pc.deleteMeal(meal: safeMeal)
+            pc.clearHistory(meal: safeMeal)
+                PersistenceController.shared.deleteFavorite(source: .mealDB,
+                                                            mealName: safeMeal.mealName ?? "",
+                                                            mealDBID: nil,
+                                                            spoonID: nil)
             pc.deleteMeal(meal: safeMeal)
+            pc.saveData()
         }
     }
+    
     
     // MARK: - Convert meal to values to be able to modify it
     func convertMeal(){
@@ -222,112 +258,3 @@ final class EditIdeaVM: ObservableObject{
         return "\(time)\n\(day)"
     }
 }
-
-/*
-//Original before changing to use Core Data
-final class EditIdeaVM: ObservableObject{
-    @Published var meal : UserMealModel?
-    @Published var alertItem: AlertItem?
-    
-    @Published var mealPhoto : UIImage?
-    @Published var mealName = ""
-    @Published var categories: [String] = []
-    @Published var userIngredients : [UserIngredient] = []
-    @Published var recipe = ""
-    @Published var instructionsPhoto : UIImage?
-    @Published var sides : [String] = []
-    @Published var source = ""
-    @Published var favorited = false
-    
-
-    init(meal: UserMealModel?){
-        self.meal = meal
-    }
-    
-    // MARK: - Remove Category
-    func deleteCat(at offsets: IndexSet){
-        categories.remove(atOffsets: offsets)
-    }
-    // MARK: - Remove Ingredient
-    func deleteIngredient(at offsets: IndexSet){
-        userIngredients.remove(atOffsets: offsets)
-    }
-    // MARK: - Remove Sides
-    func deleteSide(at offsets: IndexSet){
-        sides.remove(atOffsets: offsets)
-    }
-    
-    
-    
-    // MARK: - Save Meal
-    func saveMeal(){
-        print("Save meal...")
-        var mealPhotoData: Data?
-        if let safePhoto = mealPhoto{
-            mealPhotoData = safePhoto.jpegData(compressionQuality: 1.0)
-        }
-        
-        var instructionsPhotoData: Data?
-        if let safePhoto = instructionsPhoto{
-            instructionsPhotoData = safePhoto.jpegData(compressionQuality: 1.0)
-        }
-        
-        var ingredients : [String] = []
-        var measurements : [String] = []
-        
-        userIngredients = userIngredients.sorted {$0.name < $1.name}
-        for x in userIngredients{
-            ingredients.append(x.name)
-            measurements.append(x.measurement)
-        }
-        
-        
-        let newMeal = UserMealModel(mealName: mealName,
-                                    mealPhoto: mealPhotoData,
-                                    category: categories,
-                                    ingredients: ingredients,
-                                    sides: sides,
-                                    source: source,
-                                    instructionsPhoto: instructionsPhotoData,
-                                    recipe: recipe,
-                                    favorite: favorited,
-                                    measurements: measurements)
-        print(newMeal)
-        // TODO:  save meal to core data
-    }
-    // MARK: - Delete Meal
-    func deleteMeal(){
-        print("Delete meal...")
-        // TODO:  delete the meal from core data
-    }
-    
-    // MARK: - Convert meal to values to be able to modify it
-    func convertMeal(){
-        guard let safeMeal = meal else {
-            return
-        }
-        self.mealName = safeMeal.mealName
-        
-        if let safeMealPhotoData = safeMeal.mealPhoto{
-            self.mealPhoto = UIImage(data: safeMealPhotoData)
-        }
-        
-        self.categories = safeMeal.category
-        
-        for (index, _) in safeMeal.ingredients.enumerated(){
-            let UserIngredient = UserIngredient(name: safeMeal.ingredients[index],
-                                                measurement: safeMeal.measurements[index])
-            self.userIngredients.append(UserIngredient)
-        }
-        
-        if let safeInstructionsData = safeMeal.instructionsPhoto{
-            self.instructionsPhoto = UIImage(data: safeInstructionsData)
-        }
-        self.recipe = safeMeal.recipe
-        
-        self.sides = safeMeal.sides
-        self.source = safeMeal.source
-        
-    }
-}
-*/

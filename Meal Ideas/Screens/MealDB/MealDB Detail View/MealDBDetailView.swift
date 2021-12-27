@@ -25,7 +25,7 @@ struct MealDBDetailView: View {
                     BadgesHStack(title: "Category",
                                  items: [vm.meal?.strCategory ?? ""],
                                  topColor: .blue,
-                                 bottomColor: .black)
+                                 bottomColor: .blue)
                     
                     IngredientVGrid(ingredients: vm.meal?.ingredientsArray ?? [],
                                     measurements: vm.meal?.measurementsArray ?? [])

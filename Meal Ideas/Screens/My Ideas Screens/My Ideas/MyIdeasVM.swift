@@ -17,13 +17,26 @@ import CoreData
     @Published var originalQuery: String?
     @Published var keywordSearchTapped = false
     @Published var getMoreMeals = false
+    @Published var allMeals : [UserMeals] = []
     
-
+// MARK: - get All Meals
+    func getAllMeals(){
+        //used to get all meals, runs on on appear of the view, and if all meals changes, goes through check query
+        let request = NSFetchRequest<UserMeals>(entityName: "UserMeals")
+        do {
+            allMeals = try pc.container.viewContext.fetch(request)
+            print("Meals Fetched")
+        } catch let error {
+            print("error fetching: \(error.localizedDescription)")
+        }
+    }
     // MARK: - Check Query
     func checkQuery(query: String, queryType: QueryType){
         print("My Ideas Query: \(query), queryType: \(queryType.rawValue)")
         // TODO:  Add a check in here to add to the array if the query and query type haven't changed, but also make sure there are unique items still
-        if originalQueryType != queryType || getMoreMeals == true{
+        if originalQueryType != queryType ||
+            getMoreMeals == true ||
+            allMeals.count != meals.count{
             getMoreMeals = false
             meals = []
             self.originalQueryType = queryType
@@ -41,15 +54,7 @@ import CoreData
     }
     // MARK: - Filter Meals
     func filterMeals(query: String, queryType: QueryType){
-        let request = NSFetchRequest<UserMeals>(entityName: "UserMeals")
-        var allMeals : [UserMeals] = []
-        do {
-            allMeals = try pc.container.viewContext.fetch(request)
-            print("Meals Fetched")
-        } catch let error {
-            print("error fetching: \(error.localizedDescription)")
-        }
-        
+        getAllMeals()
         switch queryType {
         case .random:
             print("My Ideas Random")

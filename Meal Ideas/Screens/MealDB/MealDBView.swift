@@ -24,8 +24,7 @@ struct MealDBView: View {
 
                     ScrollView{
                         if vm.meals.isEmpty && vm.isLoading == false{
-                            NoResultsView(imageName: "Placeholder",
-                                          message: "No meals found for your search")
+                            NoResultsView(message: "No meals found for your search")
                         }
                         LazyVGrid(columns: columns, alignment: .center) {
                             ForEach(vm.meals, id: \.id) { meal in

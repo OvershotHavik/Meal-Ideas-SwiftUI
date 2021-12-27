@@ -13,9 +13,8 @@ struct HistoryListView: View {
     
     var body: some View {
         if vm.searchResults.isEmpty{
-            NoResultsView(imageName: "Placeholder",
-                          message: "No meals viewed")
-                    .navigationBarTitle("No history")
+            NoResultsView(message: "No meals viewed")
+                    .navigationBarTitle("History")
         }
         List {
             ForEach(vm.searchResults) {history in

@@ -14,11 +14,19 @@ final class EditMealsListVM: ObservableObject{
     @Published var showingDeleteAlert = false
     @Published var selectedIndexSet: IndexSet?
     private let pc = PersistenceController.shared
+    @Published var searchText = ""
+    var searchResults: [UserMeals] {
+        if searchText.isEmpty {
+            return savedMeals
+        } else {
+            return savedMeals.filter { $0.mealName!.contains(searchText) }
+        }
+    }
     init() {
         fetchMeals()
     }
     
-    
+    // MARK: - Fetch Meals
     func fetchMeals(){
         let request = NSFetchRequest<UserMeals>(entityName: "UserMeals")
         do {
@@ -28,5 +36,7 @@ final class EditMealsListVM: ObservableObject{
             print("error fetching: \(error.localizedDescription)")
         }
     }
+    
+    // MARK: - Convert To Favorite
     
 }

@@ -17,8 +17,7 @@ struct MyIdeasView: View {
                 TopView(keywordSearchTapped: $vm.keywordSearchTapped, getMoreMeals: $vm.getMoreMeals)
                 let columns = [GridItem(), GridItem()]
                 if vm.meals.isEmpty{
-                    NoResultsView(imageName: "Placeholder",
-                                  message: "No meals found for your search. Create a new one by tapping the edit icon")
+                    NoResultsView(message: "No meals found for your search. \nCreate a new one by tapping the edit icon")
                 }
                 ScrollView{
                     LazyVGrid(columns: columns, alignment: .center) {
@@ -69,12 +68,18 @@ struct MyIdeasView: View {
                 print("more meals tapped for: \(query.queryType.rawValue)")
                 vm.checkQuery(query: query.keyword, queryType: query.queryType)
             })
+            .onChange(of: vm.allMeals, perform: { newValue in
+                //if user changed the meals, run it again
+                vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
+            })
             .onAppear {
+                vm.getAllMeals()
                 if query.queryType != .keyword{
                     vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
                 }
+                query.getHistory()
+                query.getFavorites()
             }
-            .onAppear(perform: query.getHistory)
         }
     }
 }

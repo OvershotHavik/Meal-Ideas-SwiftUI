@@ -12,22 +12,25 @@ struct EditMealsListView: View {
     
     var body: some View {
         VStack(spacing: 20) {
+
             List {
-                ForEach(vm.savedMeals) {meal in
+                if vm.savedMeals.isEmpty{
+                    NoResultsView(message: "Tap the + to create a meal")
+                }
+                ForEach(vm.searchResults) {meal in
                     NavigationLink(destination: EditIdeaView(vm: EditIdeaVM(meal: meal))) {
                         Text(meal.mealName ?? "No name")
-                            .onTapGesture {
-                            }
                     }
                 }
-                // TODO:  If no meals, show a view to advise them to click the + to create a new meal
                 .onDelete { IndexSet in
                     vm.showingDeleteAlert.toggle()
                     vm.selectedIndexSet = IndexSet
                 }
             }
             .listStyle(PlainListStyle())
+            .searchable(text: $vm.searchText)
         }
+        
         .navigationTitle("Edit Your Ideas")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -53,7 +56,8 @@ struct EditMealsListView: View {
     func deleteMeal(){
         if let safeIndexSet = vm.selectedIndexSet{
             withAnimation {
-                PersistenceController.shared.deleteInList(indexSet: safeIndexSet, entityName: .userMeals)
+                PersistenceController.shared.deleteInList(indexSet: safeIndexSet,
+                                                          entityName: .userMeals)
                 vm.fetchMeals()
             }
         }

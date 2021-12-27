@@ -15,7 +15,6 @@ import Foundation
  - Setup the form for the user to create meals
     - Figure out how to do core data for custom ingredients and sides and categories
     - make meal name required, and put a check in to verify the name doesn't exist already, and modify favorites accordingly, pass in favorite when editing the meal for easier access
-    - Add Date Created and Last Modified on fields to the form
  
 
  Favorites -

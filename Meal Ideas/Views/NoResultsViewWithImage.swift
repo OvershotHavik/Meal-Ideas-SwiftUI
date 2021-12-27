@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NoResultsView: View {
+struct NoResultsViewWithImage: View {
     let imageName : String
     let message: String
     var body: some View {
@@ -33,8 +33,27 @@ struct NoResultsView: View {
     }
 }
 
+struct NoResultsView: View {
+    let message: String
+    var body: some View{
+        ZStack{
+            Color(UIColor.systemBackground)
+                .ignoresSafeArea()
+            VStack{
+                Spacer()
+                Text(message)
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.secondary)
+                    .padding()
+                Spacer()
+            }
+        }
+    }
+}
 struct NoResultsView_Previews: PreviewProvider {
     static var previews: some View {
-        NoResultsView(imageName: "Placeholder", message: "no meals found")
+        NoResultsViewWithImage(imageName: "Placeholder", message: "no meals found")
     }
 }

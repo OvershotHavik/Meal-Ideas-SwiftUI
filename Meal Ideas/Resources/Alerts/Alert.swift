@@ -22,7 +22,7 @@ struct AlertContext{
                                              dismissButton: .default(Text("OK")))
     
     static let invalidResponse   = AlertItem(title: Text("Server Error"),
-                                             message: Text("Invalid response from the server. Please try again later or contact support."),
+                                             message: Text("Invalid response from the server. \nPlease try again later or contact support."),
                                              dismissButton: .default(Text("OK")))
     
     // TODO:  Fix errors to make more sense for end user
@@ -31,17 +31,18 @@ struct AlertContext{
                                               dismissButton: .default(Text("OK")))
     
     static let unableToComplete   = AlertItem(title: Text("Server Error"),
-                                              message: Text("Unable to complete your request at this time. Please check your internet connection."),
+                                              message: Text("Unable to complete your request at this time. \nPlease check your internet connection."),
                                               dismissButton: .default(Text("OK")))
     
     // MARK: - Core Data
     static let unableToSave      = AlertItem(title: Text("Save Error"),
-                                              message: Text("Unable to save to device. Please try closing the app and starting again"),
+                                              message: Text("Unable to save to device. \nPlease try closing the app and starting again"),
                                               dismissButton: .default(Text("OK")))
     
     static let nameInUse         = AlertItem(title: Text("Meal name already in use"),
-                                              message: Text("The name provided is already in use. Please choose a different name."),
+                                              message: Text("The name provided is already in use.\nPlease choose a different name."),
                                               dismissButton: .default(Text("OK")))
+    
     static let blankMealName      = AlertItem(title: Text("Meal name missing"),
                                               message: Text("Please enter a name for your meal."),
                                               dismissButton: .default(Text("OK")))

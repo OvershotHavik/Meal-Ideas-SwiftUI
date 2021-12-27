@@ -12,6 +12,10 @@ struct FavoritesListView: View {
     @EnvironmentObject var query: Query
     
     var body: some View {
+        if vm.searchResults.isEmpty{
+            NoResultsView(message: "No favorites saved yet")
+                .navigationTitle("Favorites")
+        }
         
         List {
             ForEach(vm.searchResults) {favorite in

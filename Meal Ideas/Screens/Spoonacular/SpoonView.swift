@@ -23,8 +23,7 @@ struct SpoonView: View {
                         loadingView()
                     }
                     if vm.meals.isEmpty && vm.keywordResults.isEmpty && vm.isLoading == false{
-                        NoResultsView(imageName: "Placeholder",
-                                      message: "No meals found for your search")
+                        NoResultsView(message: "No meals found for your search")
                     }
                     if vm.keywordResults.isEmpty{
                         //Normal run through
