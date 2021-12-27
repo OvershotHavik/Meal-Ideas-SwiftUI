@@ -10,10 +10,12 @@ import SwiftUI
 struct FavoriteCell: View {
     var mealName: String?
     var body: some View {
-        Text(mealName ?? "")
-        Spacer()
-        Image(systemName: "heart.fill")
-            .foregroundColor(.pink)
+        HStack{
+            Text(mealName ?? "")
+            Spacer()
+            Image(systemName: "heart.fill")
+                .foregroundColor(.pink)
+        }
     }
 }
 
