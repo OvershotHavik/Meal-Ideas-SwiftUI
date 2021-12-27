@@ -38,7 +38,7 @@ struct MealDBDetailView: View {
                 LinkView(url: vm.meal?.strSource ?? "", title: "Visit Source")
                     .navigationTitle(vm.meal?.strMeal ?? "")
             }
-            
+            .padding(.horizontal)
             .toolbar{
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {

@@ -30,21 +30,21 @@ struct SpoonDetailView: View {
                     BadgesHStack(title: "Category",
                                  items: vm.meal?.dishTypes ?? [],
                                  topColor: .blue,
-                                 bottomColor: .black)
+                                 bottomColor: .blue)
                 }
                 
                 if vm.meal?.diets?.count ?? 0 > 0{
                     BadgesHStack(title: "Diet",
                                  items: vm.meal?.diets ?? [],
                                  topColor: .yellow,
-                                 bottomColor: .black)
+                                 bottomColor: .yellow)
                 }
 
                 if vm.meal?.occasions?.count ?? 0 > 0{
                     BadgesHStack(title: "Occasion",
                                  items: vm.meal?.occasions ?? [],
                                  topColor: .pink,
-                                 bottomColor: .black)
+                                 bottomColor: .pink)
                 }
 
                 IngredientVGrid(ingredients: vm.ingredients,
@@ -57,6 +57,8 @@ struct SpoonDetailView: View {
                 .navigationTitle(vm.meal?.title ?? "")
 
         }
+        .padding(.horizontal)
+
         .alert(item: $vm.alertItem) { alertItem in
             Alert(title: alertItem.title,
                          message: alertItem.message,

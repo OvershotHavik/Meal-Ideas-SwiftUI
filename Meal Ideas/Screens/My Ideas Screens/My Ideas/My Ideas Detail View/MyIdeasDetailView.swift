@@ -38,6 +38,7 @@ struct MyIdeasDetailView: View {
                 LinkView(url: vm.meal?.source, title: "Visit Source")
                     .navigationTitle(vm.meal?.mealName ?? "")
             }
+            .padding(.horizontal)
             .toolbar{
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {

@@ -14,13 +14,7 @@ import CoreData
     @Published var favorited : Bool
     @Published var mealID: String
     @Published var mealPhoto = UIImage()
-    @Published var showingHistory : Bool = false {
-        didSet{
-            if showingHistory == false {
-                addToHistory()
-            }
-        }
-    }
+    @Published var showingHistory : Bool
 
     
     init(meal : MealDBResults.Meal?, favorited: Bool, mealID: String, showingHistory: Bool){

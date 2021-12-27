@@ -17,13 +17,7 @@ import UIKit
     @Published var instructions: String = ""
     @Published var mealPhoto = UIImage()
     @Published var favorited : Bool
-    @Published var showingHistory : Bool = false{
-        didSet{
-            if showingHistory == false {
-                addToHistory()
-            }
-        }
-    }
+    @Published var showingHistory : Bool
     
     init(meal: SpoonacularResults.Recipe?, mealID: Int?, favorited: Bool, showingHistory: Bool){
         self.mealID = mealID
@@ -34,6 +28,7 @@ import UIKit
         getInstructions()
         getMealPhoto()
         fetchMeal()
+        addToHistory()
     }
     // MARK: - Get Ingredients and Measurements
     func getIngredientsAndMeasurements(){
@@ -98,12 +93,12 @@ import UIKit
         } else {
             //If it doesn't have the steps, and just the instructions, apply that
             if let safeInstructions = safeMeal.instructions{
-                instructions = "Instructions:\n\(safeInstructions.withoutHtmlTags)"
+                if safeInstructions == ""{
+                    instructions = "No instructions provided for this recipe. Please visit the source for more information."
+                } else {
+                    instructions = "Instructions:\n\(safeInstructions.withoutHtmlTags)"
+                }
             }
-        }
-        
-        if instructions == ""{
-            instructions = "No instructions provided for this recipe. Please visit the source for more information."
         }
     }
     // MARK: - Fetch Meal
@@ -122,6 +117,7 @@ import UIKit
                 getInstructions()
                 getMealPhoto()
                 isLoading = false
+                addToHistory()
             } catch let e{
                 print(e.localizedDescription)
             }

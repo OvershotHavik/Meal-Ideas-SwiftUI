@@ -77,8 +77,10 @@ struct MealDBView: View {
     //                vm.checkQuery(query: query.selected ?? "", queryType: query.query)
     //            }
                 //not sure what the difference between these two are.. both work.. need to look into later
-                .task{
-                    vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
+                .onAppear{
+                    if query.queryType != .keyword{
+                        vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
+                    }
                 }
                 .onAppear(perform: query.getHistory)
             }

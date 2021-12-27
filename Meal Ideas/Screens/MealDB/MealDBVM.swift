@@ -28,7 +28,7 @@ import CoreData
             self.originalQuery = query
             getMealDBMeals(query: query, queryType: queryType)
         } else {
-            if originalQuery != query{
+            if originalQuery != query {
                 meals = []
                 self.originalQuery = query
                 getMealDBMeals(query: query, queryType: queryType)
@@ -36,7 +36,6 @@ import CoreData
                 // nothing happens, query and query type didn't change
             }
         }
-        
     }
     // MARK: - Get MealDBMeals
     func getMealDBMeals(query: String, queryType: QueryType) {
