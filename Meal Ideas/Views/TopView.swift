@@ -16,7 +16,6 @@ struct TopView: View {
             SelectedQueryView(isActive: $isActive,
                               keywordSearchTapped: $keywordSearchTapped, getMoreMeals: $getMoreMeals)
             
-            Divider()
             Spacer()
             
             TopViewButtons()

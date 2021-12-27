@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AlertItem: Identifiable {
     let id = UUID()
-    let title: Text
+    var title: Text
     let message: Text
     let dismissButton: Alert.Button
 }
@@ -35,7 +35,14 @@ struct AlertContext{
                                               dismissButton: .default(Text("OK")))
     
     // MARK: - Core Data
-    static let unableToSave   = AlertItem(title: Text("Save Error"),
+    static let unableToSave      = AlertItem(title: Text("Save Error"),
                                               message: Text("Unable to save to device. Please try closing the app and starting again"),
+                                              dismissButton: .default(Text("OK")))
+    
+    static let nameInUse         = AlertItem(title: Text("Meal name already in use"),
+                                              message: Text("The name provided is already in use. Please choose a different name."),
+                                              dismissButton: .default(Text("OK")))
+    static let blankMealName      = AlertItem(title: Text("Meal name missing"),
+                                              message: Text("Please enter a name for your meal."),
                                               dismissButton: .default(Text("OK")))
 }

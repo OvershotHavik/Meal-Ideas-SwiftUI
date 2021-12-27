@@ -70,7 +70,9 @@ struct MyIdeasView: View {
                 vm.checkQuery(query: query.keyword, queryType: query.queryType)
             })
             .onAppear {
-                vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
+                if query.queryType != .keyword{
+                    vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
+                }
             }
             .onAppear(perform: query.getHistory)
         }

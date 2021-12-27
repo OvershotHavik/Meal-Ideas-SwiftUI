@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import CoreData
 
 enum ImagePickerSelection: Identifiable {
     case mealPhoto, instructions
@@ -72,10 +72,44 @@ final class EditIdeaVM: ObservableObject{
     }
     
     
-    
+    // MARK: - Check if name is already in use
+    func checkNameAlreadyInUse() -> Bool{
+        let request = NSFetchRequest<UserMeals>(entityName: "UserMeals")
+        var allMeals : [UserMeals] = []
+        do {
+            allMeals = try pc.container.viewContext.fetch(request)
+            print("Meals Fetched")
+        } catch let error {
+            print("error fetching: \(error.localizedDescription)")
+        }
+        
+        if allMeals.contains(where: {$0.mealName == mealName}){
+            //If the meal name already exists, return true so user will need to change it
+            if meal != nil {
+                if meal?.mealName == mealName{
+                    //if the name is already in use by this meal, return false since it's already named this and is OK
+                    return false
+                }
+            }
+            self.alertItem = AlertContext.nameInUse
+            return true
+        } else {
+            return false
+        }
+        
+    }
     // MARK: - Save Meal
     func saveMeal(){
-        
+        if mealName == ""{
+            //if nothing was entered for meal name, alert that it is needed
+            self.alertItem = AlertContext.blankMealName
+            return
+        }
+        if checkNameAlreadyInUse(){
+            //if true, return
+            return
+        }
+
         print("Save meal...")
         var mealPhotoData: Data?
         
@@ -177,6 +211,15 @@ final class EditIdeaVM: ObservableObject{
         self.sides = safeMeal.sides as? [String] ?? []
         self.source = safeMeal.source ?? ""
         
+    }
+    // MARK: - Convert Date
+    func convertDate(date:Date)->String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mma"
+        let time = dateFormatter.string(from: date)
+        dateFormatter.dateFormat = "E, MMM d"
+        let day = dateFormatter.string(from: date)
+        return "\(time)\n\(day)"
     }
 }
 

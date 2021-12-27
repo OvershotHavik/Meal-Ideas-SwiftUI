@@ -22,18 +22,28 @@ struct EditIdeaView: View {
     var body: some View {
         Form{
             Section(header: Text("Meal Information")) {
+                TextField(vm.meal?.mealName ?? "Meal Name*", text: $vm.mealName)
+                    
                 MealPhotoButtonView(vm: vm)
                     .modifier(MealPhotoActionSheet(vm: vm))
                 if vm.mealPhoto != UIImage(){
                     if let safeImage = vm.mealPhoto{
-                        Image(uiImage: safeImage)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 100)
+                        HStack{
+                            Image(uiImage: safeImage)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 100)
+                            Button {
+                                vm.mealPhoto = UIImage()
+                            } label: {
+                                Text("Remove Photo")
+                            }
+                            .buttonStyle(.bordered)
+                            .accentColor(.red)
+                        }
                     }
                 }
                 
-                TextField(vm.meal?.mealName ?? "Meal Name", text: $vm.mealName)
             }
             
             Section(header: Text("Category")){
@@ -73,10 +83,19 @@ struct EditIdeaView: View {
                     .modifier(MealInstructionsActionSheet(vm: vm))
                 if vm.instructionsPhoto != UIImage(){
                     if let safeImage = vm.instructionsPhoto{
-                        Image(uiImage: safeImage)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 100)
+                        HStack{
+                            Image(uiImage: safeImage)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 100)
+                            Button {
+                                vm.instructionsPhoto = UIImage()
+                            } label: {
+                                Text("Remove Photo")
+                            }
+                            .buttonStyle(.bordered)
+                            .accentColor(.red)
+                        }
                     }
                 }
                 Text("And/Or type in below:")
@@ -88,13 +107,12 @@ struct EditIdeaView: View {
                 TextField("Website", text: $vm.source)
             }
             if vm.meal != nil{
-                // TODO:  Fix the date formatting
                 Section(header: Text("Modified Dates")){
-                    if let safeCreated = vm.meal?.created{
-                        Text("Created on \(safeCreated)")
-                    }
                     if let safeModified = vm.meal?.modified{
-                        Text("Last Modified on \(safeModified)")
+                        Text("Last Modified on: \(vm.convertDate(date:safeModified))")
+                    }
+                    if let safeCreated = vm.meal?.created{
+                        Text("Created on: \(vm.convertDate(date: safeCreated))")
                     }
                 }
             }
@@ -114,8 +132,15 @@ struct EditIdeaView: View {
         .alert(item: $vm.alertItem) { alertItem in
             Alert(title: alertItem.title,
                   message: alertItem.message,
-                  dismissButton: .default(Text("OK"), action: popView))
-            
+                  dismissButton: .default(Text("OK"), action: {
+                if alertItem.title == AlertContext.nameInUse.title ||
+                    alertItem.title == AlertContext.blankMealName.title{
+                    //do nothing since user needs to change the meal name to save
+                } else {
+                    //if all is good then pop view back to the list
+                    popView()
+                }
+            }))
         }
         // MARK: - Delete Alert
         .alert("Delete Meal", isPresented: $vm.showingDeleteAlert) {

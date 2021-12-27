@@ -10,8 +10,13 @@ import SwiftUI
 struct RecipeView: View {
     var recipe: String
     var body: some View {
-        Text(recipe)
-            .font(.body)
+        if recipe == ""{
+            Text("No recipe Provided")
+                .font(.body)
+        } else {
+            Text(recipe)
+                .font(.body)
+        }
     }
 }
 

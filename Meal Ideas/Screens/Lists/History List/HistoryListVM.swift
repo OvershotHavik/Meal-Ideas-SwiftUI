@@ -94,7 +94,7 @@ final class HistoryListVM: ObservableObject{
                     return safeResults
                 }
             } catch let e{
-                print("Error loading mealdb favorite: \(e.localizedDescription)")
+                print("Error loading meal db favorite: \(e.localizedDescription)")
                 return nil
             }
             return nil

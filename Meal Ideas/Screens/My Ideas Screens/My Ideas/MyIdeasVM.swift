@@ -18,14 +18,13 @@ import CoreData
     @Published var keywordSearchTapped = false
     @Published var getMoreMeals = false
     
-//    init(){
-//    }
 
     // MARK: - Check Query
     func checkQuery(query: String, queryType: QueryType){
         print("My Ideas Query: \(query), queryType: \(queryType.rawValue)")
         // TODO:  Add a check in here to add to the array if the query and query type haven't changed, but also make sure there are unique items still
-        if originalQueryType != queryType{
+        if originalQueryType != queryType || getMoreMeals == true{
+            getMoreMeals = false
             meals = []
             self.originalQueryType = queryType
             self.originalQuery = query

@@ -96,6 +96,10 @@ struct SpoonView: View {
                 print("Keyword: \(query.keyword)")
                 vm.checkQuery(query: query.keyword, queryType: .keyword)
             })
+            .onChange(of: vm.getMoreMeals, perform: { newValue in
+                print("More meals tapped in spoon: \(query.queryType)")
+                vm.checkQuery(query: query.keyword, queryType: query.queryType)
+            })
         }
         
     }

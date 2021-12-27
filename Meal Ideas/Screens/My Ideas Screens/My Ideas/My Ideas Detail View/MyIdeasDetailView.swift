@@ -13,7 +13,6 @@ struct MyIdeasDetailView: View {
     @EnvironmentObject var query: Query
     
     var body: some View {
-
             VStack{
                 ScrollView{
                     CDPhotoView(photoData: vm.meal?.mealPhoto)
@@ -22,16 +21,23 @@ struct MyIdeasDetailView: View {
                     
                     MealNameView(name: vm.meal?.mealName ?? "No Name Provided")
                     
-                    BadgesHStack(title: "Categories",
-                                 items: vm.meal?.category as! [String],
-                                 topColor: .blue,
-                                 bottomColor: .black)
+                    if let safeCategories = vm.meal?.category as? [String]{
+                        if safeCategories.count != 0{
+                            BadgesHStack(title: "Categories",
+                                         items: safeCategories,
+                                         topColor: .blue,
+                                         bottomColor: .blue)
+                        }
+                    }
+
                     
                     IngredientVGrid(ingredients: vm.meal?.ingredients as! [String],
                                     measurements: vm.meal?.measurements as! [String?])
-                    
-                    CDPhotoView(photoData: vm.meal?.instructionsPhoto)
-                        .frame(width: 200, height: 200)
+                    if vm.meal?.instructionsPhoto != nil{
+                        CDPhotoView(photoData: vm.meal?.instructionsPhoto)
+                            .frame(width: 200, height: 200)
+                    }
+
                     RecipeView(recipe: vm.meal?.recipe ?? "No recipe Provided")
                 }
                 
@@ -53,7 +59,6 @@ struct MyIdeasDetailView: View {
                 }
             }
             .onAppear(perform: vm.addToHistory)
-        
     }
 }
 
