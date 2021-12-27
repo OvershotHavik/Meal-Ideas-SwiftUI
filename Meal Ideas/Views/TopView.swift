@@ -12,15 +12,18 @@ struct TopView: View {
     @Binding var keywordSearchTapped: Bool
     @Binding var getMoreMeals : Bool
     var body: some View {
-        VStack{
-            SelectedQueryView(isActive: $isActive,
-                              keywordSearchTapped: $keywordSearchTapped, getMoreMeals: $getMoreMeals)
-            
-            Spacer()
-            
-            TopViewButtons()
+        ZStack{
+            Color.blue
+                .ignoresSafeArea()
+            VStack{
+                SelectedQueryView(isActive: $isActive,
+                                  keywordSearchTapped: $keywordSearchTapped, getMoreMeals: $getMoreMeals)
+                
+                Spacer()
+                
+                TopViewButtons()
+            }
         }
-        .background(Color.blue)
         .frame(height: 75)
     }
 }
