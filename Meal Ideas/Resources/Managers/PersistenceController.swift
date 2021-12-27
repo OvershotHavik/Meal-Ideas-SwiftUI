@@ -75,24 +75,40 @@ struct PersistenceController {
                                mealDBID: nil,
                                spoonID: nil)
                 container.viewContext.delete(meal)
-                saveData()
             } catch let error {
                 print("error fetching: \(error.localizedDescription)")
             }
             
             
         case .history:
-            print("History not setup in delete in list")
+            let request = NSFetchRequest<History>(entityName: EntityName.history.rawValue)
+            do{
+                let savedHistory = try container.viewContext.fetch(request).sorted{$0.timeStamp ?? Date() > $1.timeStamp ?? Date()}
+                guard let index = indexSet.first else {return}
+                let history = savedHistory[index]
+                print(history)
+                container.viewContext.delete(history)
+            } catch let e{
+                print("Error fetching history: \(e.localizedDescription)")
+            }
         case .favorites:
-            print("favorites  not setup in delete in list")
+            let request = NSFetchRequest<Favorites>(entityName: EntityName.favorites.rawValue)
+            do {
+                let savedFavorites = try container.viewContext.fetch(request)
+                guard let index = indexSet.first else {return}
+                let favorite = savedFavorites[index]
+                container.viewContext.delete(favorite)
+            } catch let e{
+                print("Error fetching favorites: \(e.localizedDescription)")
+            }
         }
+        saveData()
 
     }
 // MARK: - Delete Meal
     func deleteMeal(meal: UserMeals){
         container.viewContext.delete(meal)
         print("meal deleted")
-        // TODO:  change to completion once verified working?
     }
     
     

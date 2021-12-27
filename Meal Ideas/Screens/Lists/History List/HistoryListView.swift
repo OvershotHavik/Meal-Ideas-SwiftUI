@@ -8,15 +8,16 @@
 import SwiftUI
 
 struct HistoryListView: View {
-    @ObservedObject var vm: HistoryListVM
+    @StateObject var vm: HistoryListVM
     @EnvironmentObject var query: Query
     
     var body: some View {
-        if vm.searchResults.isEmpty{
-            NoResultsView(message: "No meals viewed")
-                    .navigationBarTitle("History")
-        }
+        
         List {
+            if vm.searchResults.isEmpty{
+                NoResultsView(message: "No meals viewed")
+                        .navigationBarTitle("History")
+            }
             ForEach(vm.searchResults) {history in
                 switch vm.source{
                 case .spoonacular:
@@ -58,8 +59,17 @@ struct HistoryListView: View {
                                                                                       .navigationBarTitle(Titles.myIdeasHistory.rawValue)
                                                                                       .searchable(text: $vm.searchText)
                 }
+
+            }
+            .onDelete{ IndexSet in
+                PersistenceController.shared.deleteInList(indexSet: IndexSet,
+                                                          entityName: .history)
+                query.getHistory()
+                vm.searchText = ""
+                vm.filteredHistory(history: query.historyArray)
             }
         }
+        
         .toolbar{
             ToolbarItem(placement: .navigationBarTrailing){
                 Button{
@@ -72,6 +82,7 @@ struct HistoryListView: View {
                 .modifier(DeleteActionSheet(vm: vm))
             }
         }
+        
         .onAppear {
             vm.filteredHistory(history: query.historyArray)
             // TODO:  Find out how to fix the list from showing blank cells when deleted via the trash can

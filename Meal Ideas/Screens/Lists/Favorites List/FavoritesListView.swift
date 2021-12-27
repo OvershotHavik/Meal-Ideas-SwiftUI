@@ -46,15 +46,23 @@ struct FavoritesListView: View {
                         FavoriteCell(mealName: favorite.mealName)
                             .navigationTitle(Titles.myIdeasFavorite.rawValue)
                             .searchable(text: $vm.searchText)
+ 
                     }
-                    
                 }
             }
+            .onDelete{ IndexSet in
+                PersistenceController.shared.deleteInList(indexSet: IndexSet,
+                                                          entityName: .favorites)
+                query.getFavorites()
+                vm.filteredFavorites(favorites: query.favoritesArray)
+            }
                                       .listStyle(.plain)
+
         }
         .onAppear {
             vm.filteredFavorites(favorites: query.favoritesArray)
         }
+        
     }
 }
 
