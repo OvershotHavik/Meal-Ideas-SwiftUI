@@ -17,13 +17,17 @@ import CoreData
     @Published var originalQuery: String?
     @Published var keywordSearchTapped = false
     @Published var getMoreMeals = false
-    @Published var offsetBy = 0
+    @Published var offsetBy = 0 // changes by 10 for ingredients and keyword each time get more meals is tapped, since it will always start with the same meals, this would give the user an option to get more, may end up doing a random number or something for this later, but it is working for now.
     @Published var keywordResults : [SpoonacularKeywordResults.result] = []
     @Published var individualMeal: SpoonacularResults.Recipe?
+    @Published var source: Source = .spoonacular
     
     // MARK: - Check Query
     func checkQuery(query: String, queryType: QueryType){
         if originalQueryType != queryType || getMoreMeals == true{
+            if getMoreMeals == true{
+                offsetBy += 10
+            }
             getMoreMeals = false
             meals = []
             self.originalQueryType = queryType
@@ -60,18 +64,16 @@ import CoreData
                    
                     
                 case .ingredient:
-//                    print("Ingredient Offset: \(String(describing: self.offsetBy))")
-                    meals = try await NetworkManager.shared.spoonQuery(query: query.lowercased(), queryType: .ingredient)
-                    
-                    
+                    let modified = query.lowercased() + "&offset=\(offsetBy)"
+                    meals = try await NetworkManager.shared.spoonQuery(query: modified, queryType: .ingredient)
                     print("ingredient")
                 case .keyword:
                     var safeKeyword = query.lowercased()
                     safeKeyword = safeKeyword.replacingOccurrences(of: " ", with: "%20")
                     print(safeKeyword)
                     print("keyword Offset: \(offsetBy)")
-                    
-                    keywordResults = try await NetworkManager.shared.spoonKeywordQuery(query: safeKeyword)
+                    let modified = safeKeyword + "&offset=\(offsetBy)"
+                    keywordResults = try await NetworkManager.shared.spoonKeywordQuery(query: modified)
                     print("keyword")
                 case .history:
                     print("History")
@@ -82,7 +84,6 @@ import CoreData
                     if let safeMeal = meal.first{
                         individualMeal = safeMeal
                     }
-                    
                 }
                 isLoading = false
             } catch {
@@ -104,18 +105,7 @@ import CoreData
             }
         }
     }
-//        do{
-//            if let data = SpoonJSON.sample.data(using: .utf8){
-//                let results = try JSONDecoder().decode(SpoonacularResults.DataResults.self, from: data)
-//                self.meals = results.recipes
-//                for x in results.recipes{
-//                    print(x.title)
-//                }
-//            }
-//        }catch let e{
-//            print(e)
-//        }
-//    }
+
     // MARK: - Get Meal From ID
     func getMealFromID(mealID: Int) async -> SpoonacularResults.Recipe?{
         

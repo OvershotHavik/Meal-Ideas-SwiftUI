@@ -11,13 +11,16 @@ struct TopView: View {
     @State private var isActive = false
     @Binding var keywordSearchTapped: Bool
     @Binding var getMoreMeals : Bool
+    @Binding var source: Source
     var body: some View {
         ZStack{
             Color.blue
                 .ignoresSafeArea()
             VStack{
                 SelectedQueryView(isActive: $isActive,
-                                  keywordSearchTapped: $keywordSearchTapped, getMoreMeals: $getMoreMeals)
+                                  keywordSearchTapped: $keywordSearchTapped,
+                                  getMoreMeals: $getMoreMeals,
+                                  source: $source)
                 
                 Spacer()
                 
@@ -30,7 +33,7 @@ struct TopView: View {
 
 struct TopView_Previews: PreviewProvider {
     static var previews: some View {
-        TopView(keywordSearchTapped: .constant(false), getMoreMeals: .constant(false))
+        TopView(keywordSearchTapped: .constant(false), getMoreMeals: .constant(false), source: .constant(.spoonacular))
     }
 }
 
@@ -39,19 +42,13 @@ struct SelectedQueryView: View{
     @Binding var isActive : Bool
     @Binding var keywordSearchTapped : Bool
     @Binding var getMoreMeals : Bool
+    @Binding var source: Source
     var body: some View{
         switch query.queryType{
         case .none:
             Text("")
         case .random:
-            Button {
-                //perform network call to get more meals
-                getMoreMeals.toggle()
-            } label: {
-                Text("Get more random Meals")
-                    .foregroundColor(.primary)
-            }
-            
+            GetMoreMealsButton(getMoreMeals: $getMoreMeals)
         case .category:
             HStack{
                 NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: .categories), title: .oneCategory)) {
@@ -65,13 +62,15 @@ struct SelectedQueryView: View{
             
         case .ingredient:
             HStack{
-                
                 NavigationLink(destination: SingleIngredientListView(vm: IngredientListVM(editIdeaVM: EditIdeaVM(meal: nil)))) {
                     Text("Select an ingredient")
                         .foregroundColor(.primary)
                 }
                 if let safeSelected = query.selected{
                     Text(safeSelected)
+                }
+                if source == .spoonacular && query.selected != nil{
+                    GetMoreMealsButton(getMoreMeals: $getMoreMeals)
                 }
             }
         case .history:
@@ -95,7 +94,9 @@ struct SelectedQueryView: View{
                 
             }
         case .keyword:
-            KeywordSearchView(keywordSearchTapped: $keywordSearchTapped)
+            KeywordSearchView(keywordSearchTapped: $keywordSearchTapped,
+                              source: $source,
+                              getMoreMeals: $getMoreMeals)
         }
     }
 }
@@ -129,12 +130,17 @@ struct TopViewButtons: View{
 struct KeywordSearchView: View{
     @EnvironmentObject var query : Query
     @Binding var keywordSearchTapped : Bool
+    @Binding var source: Source
+    @Binding var getMoreMeals : Bool
+    @State var searchTapped = false
     var body: some View{
         HStack{
             Spacer()
             TextField("Keyword Search", text: $query.keyword)
                 .frame(width: 250)
             Button {
+                query.selected = nil
+                searchTapped = true
                 keywordSearchTapped.toggle()
                 print("Top View Keyword search: \(query.keyword)")
             } label: {
@@ -143,6 +149,25 @@ struct KeywordSearchView: View{
             }
 
             Spacer()
+            
+            if source == .spoonacular && searchTapped == true{
+                GetMoreMealsButton(getMoreMeals: $getMoreMeals)
+            }
+        }
+    }
+}
+
+
+// MARK: - Get More Meals Button
+struct GetMoreMealsButton: View{
+    @Binding var getMoreMeals: Bool
+    var body: some View{
+        Button {
+            //perform network call to get more meals
+            getMoreMeals.toggle()
+        } label: {
+            Text("Get More Meals")
+                .foregroundColor(.primary)
         }
     }
 }

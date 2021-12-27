@@ -14,6 +14,7 @@ struct QueryButtonView: View {
     var body: some View {
         Button {
             query.queryType = title
+            query.selected = nil
         } label: {
             Text(title.rawValue)
                 .padding(.horizontal)

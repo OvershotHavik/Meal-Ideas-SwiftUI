@@ -16,7 +16,8 @@ struct MealDBView: View {
             NavigationView{
                 VStack{
                     TopView(keywordSearchTapped: $vm.keywordSearchTapped,
-                            getMoreMeals: $vm.getMoreMeals)
+                            getMoreMeals: $vm.getMoreMeals,
+                            source: $vm.source)
                     let columns = [GridItem(), GridItem()]
                     if vm.isLoading{
                         loadingView()

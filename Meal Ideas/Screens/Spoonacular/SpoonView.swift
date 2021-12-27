@@ -16,7 +16,8 @@ struct SpoonView: View {
         NavigationView{
             VStack{
                 TopView(keywordSearchTapped: $vm.keywordSearchTapped,
-                        getMoreMeals: $vm.getMoreMeals)
+                        getMoreMeals: $vm.getMoreMeals,
+                        source: $vm.source)
                 let columns = [GridItem(), GridItem()]
                 ScrollView{
                     if vm.isLoading{
@@ -82,6 +83,7 @@ struct SpoonView: View {
             }
             .onAppear {
                 if query.queryType != .keyword{
+                    vm.offsetBy = 0 // may need changed to somewhere else
                     vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
                 }
             }

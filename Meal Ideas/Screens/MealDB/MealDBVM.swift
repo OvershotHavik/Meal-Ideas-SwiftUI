@@ -17,7 +17,7 @@ import CoreData
     @Published var originalQuery: String?
     @Published var keywordSearchTapped = false
     @Published var getMoreMeals = false
-    
+    @Published var source: Source = .mealDB
 
     
     // MARK: - CheckQuery

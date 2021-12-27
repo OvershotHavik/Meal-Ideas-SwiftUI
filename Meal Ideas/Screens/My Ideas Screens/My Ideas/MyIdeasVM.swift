@@ -18,6 +18,7 @@ import CoreData
     @Published var keywordSearchTapped = false
     @Published var getMoreMeals = false
     @Published var allMeals : [UserMeals] = []
+    @Published var source: Source = .myIdeas
     
 // MARK: - get All Meals
     func getAllMeals(){

@@ -14,7 +14,9 @@ struct MyIdeasView: View {
     var body: some View {
         NavigationView{
             VStack{
-                TopView(keywordSearchTapped: $vm.keywordSearchTapped, getMoreMeals: $vm.getMoreMeals)
+                TopView(keywordSearchTapped: $vm.keywordSearchTapped,
+                        getMoreMeals: $vm.getMoreMeals,
+                        source: $vm.source)
                 let columns = [GridItem(), GridItem()]
                 if vm.meals.isEmpty{
                     NoResultsView(message: "No meals found for your search. \nCreate a new one by tapping the edit icon")
