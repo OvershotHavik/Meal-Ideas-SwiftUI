@@ -22,10 +22,9 @@ struct SingleIngredientListView: View {
                     query.selected = ingredient.strIngredient
                     dismiss()
                 }
-                .searchable(text: $vm.searchText)
         }
+        .searchable(text: $vm.searchText)
         .navigationTitle(Titles.oneIngredient.rawValue)
-        .toolbar{ EditButton() }
         .alert(item: $vm.alertItem) { alertItem in
             Alert(title: alertItem.title,
                   message: alertItem.message,
