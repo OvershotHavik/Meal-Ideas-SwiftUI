@@ -51,17 +51,23 @@ struct SelectedQueryView: View{
             GetMoreMealsButton(getMoreMeals: $getMoreMeals)
         case .category:
             HStack{
+                Spacer()
                 NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: .categories), title: .oneCategory)) {
                     Text("Select a category")
                         .foregroundColor(.primary)
                 }
+                Spacer()
+
                 if let safeSelected = query.selected{
                     Text(safeSelected)
+                    GetMoreMealsButton(getMoreMeals: $getMoreMeals)
+                    Spacer()
                 }
             }
             
         case .ingredient:
             HStack{
+                Spacer()
                 NavigationLink(destination: SingleIngredientListView(vm: IngredientListVM(editIdeaVM: EditIdeaVM(meal: nil)))) {
                     Text("Select an ingredient")
                         .foregroundColor(.primary)
@@ -69,8 +75,11 @@ struct SelectedQueryView: View{
                 if let safeSelected = query.selected{
                     Text(safeSelected)
                 }
+                Spacer()
+
                 if source == .spoonacular && query.selected != nil{
                     GetMoreMealsButton(getMoreMeals: $getMoreMeals)
+                    Spacer()
                 }
             }
         case .history:
@@ -152,6 +161,8 @@ struct KeywordSearchView: View{
             
             if source == .spoonacular && searchTapped == true{
                 GetMoreMealsButton(getMoreMeals: $getMoreMeals)
+                Spacer()
+
             }
         }
     }
@@ -166,7 +177,7 @@ struct GetMoreMealsButton: View{
             //perform network call to get more meals
             getMoreMeals.toggle()
         } label: {
-            Text("Get More Meals")
+            Image(systemName: "arrow.triangle.2.circlepath")
                 .foregroundColor(.primary)
         }
     }

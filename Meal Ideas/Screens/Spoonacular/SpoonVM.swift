@@ -64,7 +64,8 @@ import CoreData
                    
                     
                 case .ingredient:
-                    let modified = query.lowercased() + "&offset=\(offsetBy)"
+                    let modifiedIngredient = query.replacingOccurrences(of: " ", with: "%20").lowercased()
+                    let modified = modifiedIngredient.lowercased() + "&offset=\(offsetBy)"
                     meals = try await NetworkManager.shared.spoonQuery(query: modified, queryType: .ingredient)
                     print("ingredient")
                 case .keyword:
