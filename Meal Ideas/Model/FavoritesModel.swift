@@ -7,8 +7,8 @@
 
 import Foundation
 
-class FavoritesModel: Codable{
-    var mealName = String()
-    var mealDBID : String?
-    var spoonID: Int?
-}
+//class FavoritesModel: Codable{
+//    var mealName = String()
+//    var mealDBID : String?
+//    var spoonID: Int?
+//}

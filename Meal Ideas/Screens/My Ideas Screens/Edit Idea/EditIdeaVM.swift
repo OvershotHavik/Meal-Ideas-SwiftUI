@@ -45,6 +45,14 @@ final class EditIdeaVM: ObservableObject{
     @Published var source = ""
     @Published var favorited = false
     
+    // MARK: - Prep Time
+    @Published var hourSelection = 0
+    @Published var minuteSelection = 0
+    @Published var secondSelection = 0
+    @Published var hours = [Int](0..<25)
+    @Published var minutes = [Int](0..<60)
+    @Published var seconds = [Int](0..<60)
+    
     // MARK: - Sets for selections
     @Published var ingredientSet = Set<String>()
     @Published var categorySet = Set<String>()
@@ -122,6 +130,7 @@ final class EditIdeaVM: ObservableObject{
     
     // MARK: - Save Meal
     func saveMeal(){
+        
         if mealName == ""{
             //if nothing was entered for meal name, alert that it is needed
             self.alertItem = AlertContext.blankMealName
@@ -169,6 +178,9 @@ final class EditIdeaVM: ObservableObject{
             safeMeal.recipe = recipe
             safeMeal.favorite = favorited
             safeMeal.measurements = measurements as NSObject
+            safeMeal.prepHour = Int16(hourSelection)
+            safeMeal.prepMinute = Int16(minuteSelection)
+            safeMeal.prepSecond = Int16(secondSelection)
             safeMeal.modified = Date()
             
             
@@ -184,6 +196,9 @@ final class EditIdeaVM: ObservableObject{
             newMealCD.recipe = recipe
             newMealCD.favorite = favorited
             newMealCD.measurements = measurements as NSObject
+            newMealCD.prepHour = Int16(hourSelection)
+            newMealCD.prepMinute = Int16(minuteSelection)
+            newMealCD.prepSecond = Int16(secondSelection)
             newMealCD.created = Date()
         }
 
@@ -199,7 +214,9 @@ final class EditIdeaVM: ObservableObject{
             case .failure(_):
                 self.alertItem = AlertContext.unableToSave
             }
+         
         }
+         
     }
 
     // MARK: - Delete Meal
@@ -238,6 +255,11 @@ final class EditIdeaVM: ObservableObject{
                                                 measurement: measurements[index])
             self.userIngredients.append(UserIngredient)
         }
+        
+        
+        self.hourSelection = Int(safeMeal.prepHour)
+        self.minuteSelection = Int(safeMeal.prepMinute)
+        self.secondSelection = Int(safeMeal.prepSecond)
         
         if let safeInstructionsData = safeMeal.instructionsPhoto{
             self.instructionsPhoto = UIImage(data: safeInstructionsData) ?? UIImage()

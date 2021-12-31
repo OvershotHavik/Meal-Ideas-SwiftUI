@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		B32D0308275E6C91003ACE14 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32D0307275E6C91003ACE14 /* Constants.swift */; };
+		B345CC48277F64420065B78A /* MultiWheelPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B345CC47277F64420065B78A /* MultiWheelPicker.swift */; };
+		B345CC4A277F6F470065B78A /* UserPrepHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B345CC49277F6F470065B78A /* UserPrepHStack.swift */; };
 		B3606D932748224800E61972 /* Color+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3606D922748224800E61972 /* Color+Ext.swift */; };
 		B3606D97274C1F6E00E61972 /* MyMealModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3606D96274C1F6E00E61972 /* MyMealModel.swift */; };
 		B3606D99274C1FB600E61972 /* MealDBModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3606D98274C1FB500E61972 /* MealDBModel.swift */; };
@@ -107,6 +109,8 @@
 
 /* Begin PBXFileReference section */
 		B32D0307275E6C91003ACE14 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		B345CC47277F64420065B78A /* MultiWheelPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiWheelPicker.swift; sourceTree = "<group>"; };
+		B345CC49277F6F470065B78A /* UserPrepHStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPrepHStack.swift; sourceTree = "<group>"; };
 		B3606D922748224800E61972 /* Color+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Ext.swift"; sourceTree = "<group>"; };
 		B3606D96274C1F6E00E61972 /* MyMealModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMealModel.swift; sourceTree = "<group>"; };
 		B3606D98274C1FB500E61972 /* MealDBModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDBModel.swift; sourceTree = "<group>"; };
@@ -286,6 +290,7 @@
 				B3606DB1274D696700E61972 /* RecipeView.swift */,
 				B3606DAF274D691100E61972 /* LinkView.swift */,
 				B3CEDDB72756FEA300BB832B /* SpoonServingPrepHStack.swift */,
+				B345CC49277F6F470065B78A /* UserPrepHStack.swift */,
 			);
 			path = "Detail Views";
 			sourceTree = "<group>";
@@ -356,7 +361,6 @@
 			isa = PBXGroup;
 			children = (
 				B3CA2374274810D100CA9C68 /* My Ideas */,
-				B3627BF7275F754B004A6519 /* Edit Meals List */,
 				B3C37AF027566F4800D0E841 /* Edit Idea */,
 			);
 			path = "My Ideas Screens";
@@ -365,6 +369,7 @@
 		B375C98D276255B00013895F /* Lists */ = {
 			isa = PBXGroup;
 			children = (
+				B3627BF7275F754B004A6519 /* Edit Meals List */,
 				B3A668C3276FA6A100533988 /* History List */,
 				B3A668BE276F9C7F00533988 /* Favorites List */,
 				B3C2BDC92755170A00CD5EE0 /* Ingredient List View */,
@@ -394,6 +399,7 @@
 			isa = PBXGroup;
 			children = (
 				B37C63242760F3DB00DF3934 /* ImagePicker.swift */,
+				B345CC47277F64420065B78A /* MultiWheelPicker.swift */,
 			);
 			path = "UIKit COmponents";
 			sourceTree = "<group>";
@@ -772,6 +778,7 @@
 				B3606D9F274C210700E61972 /* FavoritesModel.swift in Sources */,
 				B3CEDDC4275700E300BB832B /* ThingsToDo.swift in Sources */,
 				B3627BF9275F756B004A6519 /* EditMealsListView.swift in Sources */,
+				B345CC4A277F6F470065B78A /* UserPrepHStack.swift in Sources */,
 				B3CEDDA82756FCB800BB832B /* SingleIngredientListView.swift in Sources */,
 				B3CA23722748108C00CA9C68 /* MealIdeasTabView.swift in Sources */,
 				B3606D9B274C201200E61972 /* SpoonMealModel.swift in Sources */,
@@ -790,6 +797,7 @@
 				B37C63252760F3DB00DF3934 /* ImagePicker.swift in Sources */,
 				B3CEDDC22757008800BB832B /* String+Ext.swift in Sources */,
 				B3CEDDAC2756FD3800BB832B /* MealDBDetailVM.swift in Sources */,
+				B345CC48277F64420065B78A /* MultiWheelPicker.swift in Sources */,
 				B3CEDDA62756FC7700BB832B /* IngredientCell.swift in Sources */,
 				B3606DAB274D5E4A00E61972 /* MyIdeasDetailView.swift in Sources */,
 				B375C99B2764FE4A0013895F /* SpoonFunctions.swift in Sources */,

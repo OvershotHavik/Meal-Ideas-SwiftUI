@@ -43,7 +43,6 @@ struct EditIdeaView: View {
                         }
                     }
                 }
-                
             }
             
             Section(header: Text("Category")){
@@ -76,6 +75,10 @@ struct EditIdeaView: View {
                     Text(side)
                 }
                 .onDelete(perform: vm.deleteSide)
+            }
+            
+            Section(header: Text("Prep Time")){
+                PrepTimePickerView(vm: vm)
             }
             
             Section(header: Text("Instructions")){
@@ -336,4 +339,72 @@ struct MealInstructionsActionSheet: ViewModifier{
             })
     }
 }
+struct PrepTimePickerView: View{
+    @StateObject var vm: EditIdeaVM
+    var body: some View{
+        HStack {
+            GeometryReader { geometry in
+                HStack(spacing: 0){
+//                    MultiWheelPicker(selections: $vm.hourSelection, data: vm.hours)
+                    BasePicker(selecting: $vm.hourSelection, data: vm.hours, label: "h")
+                        .frame(width: geometry.size.width/3, height: geometry.size.height, alignment: .center)
 
+                    BasePicker(selecting: $vm.minuteSelection, data: vm.minutes, label: "m")
+                        .frame(width: geometry.size.width/3, height: geometry.size.height, alignment: .center)
+                    
+                    BasePicker(selecting: $vm.secondSelection, data: vm.seconds, label: "s")
+                        .frame(width: geometry.size.width/3, height: geometry.size.height, alignment: .center)
+                }
+            }
+        }
+    }
+}
+
+
+/*
+//This "works" but due to an ios 15 bug the pickers aren't picking up correctly
+
+// MARK: - Prep Time Picker View
+struct PrepTimePickerView: View{
+    @StateObject var vm: EditIdeaVM
+    var body: some View{
+        GeometryReader { geometry in
+            HStack(spacing: 10){
+                Picker(selection: $vm.hourSelection, label: Text("Hours")){
+                    ForEach(0 ..< vm.hours.count) { index in
+                        Text("\(vm.hours[index]) h").tag(index)
+                    }
+                }
+                .pickerStyle(.wheel)
+                .frame(width: geometry.size.width/3, height: geometry.size.height, alignment: .center)
+                .compositingGroup()
+                .clipped(antialiased: false)
+                
+
+                Picker(selection: $vm.minuteSelection, label: Text("Minutes")){
+                    ForEach(0 ..< vm.minutes.count) { index in
+                        Text("\(vm.minutes[index]) m").tag(index)
+                    }
+                }
+                .pickerStyle(.wheel)
+                .frame(width: geometry.size.width/3, height: geometry.size.height, alignment: .center)
+                .compositingGroup()
+                .clipped(antialiased: false)
+                
+                
+                Picker(selection: $vm.secondSelection, label: Text("Seconds")){
+                    ForEach(0 ..< vm.seconds.count) { index in
+                        Text("\(vm.seconds[index]) s").tag(index)
+                    }
+                }
+                .pickerStyle(.wheel)
+                .frame(width: geometry.size.width/3, height: geometry.size.height, alignment: .center)
+                .compositingGroup()
+                .clipped(antialiased: false)
+                
+            }
+        }
+
+    }
+}
+*/

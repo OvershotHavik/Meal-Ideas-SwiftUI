@@ -20,7 +20,9 @@ struct MyIdeasDetailView: View {
                         .clipShape(Circle())
                     
                     MealNameView(name: vm.meal?.mealName ?? "No Name Provided")
-                    
+                    UserPrepHStack(hour: vm.meal?.prepHour,
+                                   minute: vm.meal?.prepMinute,
+                                   second: vm.meal?.prepSecond)
                     if let safeCategories = vm.meal?.category as? [String]{
                         if safeCategories.count != 0{
                             BadgesHStack(title: "Categories",
