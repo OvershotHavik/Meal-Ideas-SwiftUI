@@ -127,7 +127,9 @@ import UIKit
     func getMealPhoto(){
         if meal != nil{
             NetworkManager.shared.downloadImage(fromURLString: meal?.image ?? "") { uiImage in
-                guard let uiImage = uiImage else { return }
+                guard let uiImage = uiImage else {
+                    self.mealPhoto = UIImage(imageLiteralResourceName: UI.placeholderMeal)
+                    return }
                 DispatchQueue.main.async {
                     self.mealPhoto = uiImage
                 }

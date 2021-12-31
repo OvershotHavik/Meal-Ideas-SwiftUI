@@ -54,6 +54,6 @@ struct NoResultsView: View {
 }
 struct NoResultsView_Previews: PreviewProvider {
     static var previews: some View {
-        NoResultsViewWithImage(imageName: "Placeholder", message: "no meals found")
+        NoResultsViewWithImage(imageName: UI.placeholderMeal, message: "no meals found")
     }
 }

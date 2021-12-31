@@ -55,13 +55,13 @@ struct CDPhotoView: View{
         
         if let safeData = photoData{
             
-            NavigationLink(destination: ZoomImageView(image: (UIImage(data: safeData) ?? UIImage(imageLiteralResourceName: "Placeholder")))) {
+            NavigationLink(destination: ZoomImageView(image: (UIImage(data: safeData) ?? UIImage(imageLiteralResourceName: UI.placeholderMeal)))) {
 
-                Image(uiImage: (UIImage(data: safeData) ?? UIImage(imageLiteralResourceName: "Placeholder")))
+                Image(uiImage: (UIImage(data: safeData) ?? UIImage(imageLiteralResourceName: UI.placeholderMeal)))
                     .resizable()
             }
         } else {
-            Image("Placeholder")
+            Image(UI.placeholderMeal)
                 .resizable()
         }
     }

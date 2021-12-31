@@ -53,10 +53,6 @@ final class EditIdeaVM: ObservableObject{
     @Published var minutes = [Int](0..<60)
     @Published var seconds = [Int](0..<60)
     
-    // MARK: - Sets for selections
-    @Published var ingredientSet = Set<String>()
-    @Published var categorySet = Set<String>()
-    @Published var sidesSet = Set<String>()
     
     // MARK: - used for Core Data
     private let pc = PersistenceController.shared
@@ -183,7 +179,7 @@ final class EditIdeaVM: ObservableObject{
             safeMeal.prepSecond = Int16(secondSelection)
             safeMeal.modified = Date()
             
-            
+
         } else {
             let newMealCD = UserMeals(context: pc.container.viewContext)
             newMealCD.mealName = mealName
@@ -214,9 +210,7 @@ final class EditIdeaVM: ObservableObject{
             case .failure(_):
                 self.alertItem = AlertContext.unableToSave
             }
-         
         }
-         
     }
 
     // MARK: - Delete Meal

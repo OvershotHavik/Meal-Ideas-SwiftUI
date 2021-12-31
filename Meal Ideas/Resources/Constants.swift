@@ -21,6 +21,7 @@ class UI{
     static let largeConfig = UIImage.SymbolConfiguration(pointSize: 25, weight: .bold, scale: .large)
     static let mediumConfig = UIImage.SymbolConfiguration(pointSize: 25, weight: .medium, scale: .medium)
     static let createImagePlaceholder = UIImage(systemName: "camera.on.rectangle")
+    static let placeholderMeal = "Placeholder"
 
 }
 enum PList: String{

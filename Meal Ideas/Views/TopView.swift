@@ -177,7 +177,8 @@ struct GetMoreMealsButton: View{
             //perform network call to get more meals
             getMoreMeals.toggle()
         } label: {
-            Image(systemName: "arrow.triangle.2.circlepath")
+//            Image(systemName: "arrow.triangle.2.circlepath")
+            Image(systemName: "shuffle")
                 .foregroundColor(.primary)
         }
     }

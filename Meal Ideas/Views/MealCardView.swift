@@ -23,7 +23,7 @@ struct MealCardView: View {
                                       favorited: favorited)
                 if mealPhotoData != nil{
                     if let safeData = mealPhotoData{
-                        Image(uiImage: (UIImage(data: safeData) ?? UIImage(imageLiteralResourceName: "Placeholder")))
+                        Image(uiImage: (UIImage(data: safeData) ?? UIImage(imageLiteralResourceName: UI.placeholderMeal)))
                             .resizable()
                             .frame(width: 100, height: 100, alignment: .center)
                             .clipShape(Circle())
