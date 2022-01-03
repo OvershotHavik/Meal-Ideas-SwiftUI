@@ -87,6 +87,8 @@
 		B3CEDDC22757008800BB832B /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CEDDC12757008800BB832B /* String+Ext.swift */; };
 		B3CEDDC4275700E300BB832B /* ThingsToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CEDDC3275700E300BB832B /* ThingsToDo.swift */; };
 		B3D32CD8277FAA0E00FA4ACA /* BackgroundGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D32CD7277FAA0E00FA4ACA /* BackgroundGradientView.swift */; };
+		B3D32CDA2783992500FA4ACA /* DetailViewIngredientListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D32CD92783992500FA4ACA /* DetailViewIngredientListView.swift */; };
+		B3D32CDC278399E300FA4ACA /* DVIngredientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D32CDB278399E300FA4ACA /* DVIngredientCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -190,6 +192,8 @@
 		B3CEDDC12757008800BB832B /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		B3CEDDC3275700E300BB832B /* ThingsToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThingsToDo.swift; sourceTree = "<group>"; };
 		B3D32CD7277FAA0E00FA4ACA /* BackgroundGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundGradientView.swift; sourceTree = "<group>"; };
+		B3D32CD92783992500FA4ACA /* DetailViewIngredientListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewIngredientListView.swift; sourceTree = "<group>"; };
+		B3D32CDB278399E300FA4ACA /* DVIngredientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVIngredientCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -289,6 +293,7 @@
 				B3606DB1274D696700E61972 /* RecipeView.swift */,
 				B3606DAF274D691100E61972 /* LinkView.swift */,
 				B3CEDDB72756FEA300BB832B /* SpoonServingPrepHStack.swift */,
+				B3D32CD92783992500FA4ACA /* DetailViewIngredientListView.swift */,
 			);
 			path = "Detail Views";
 			sourceTree = "<group>";
@@ -485,6 +490,7 @@
 				B3CEDDA52756FC7700BB832B /* IngredientCell.swift */,
 				B3A668CA276FB8C900533988 /* FavoriteCell.swift */,
 				B3A668CC2771042A00533988 /* HistoryCell.swift */,
+				B3D32CDB278399E300FA4ACA /* DVIngredientCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -740,6 +746,7 @@
 				B3CEDDA22756FB4400BB832B /* Double+Ext.swift in Sources */,
 				B3606DB0274D691100E61972 /* LinkView.swift in Sources */,
 				B3CA234A274808D600CA9C68 /* PersistenceController.swift in Sources */,
+				B3D32CDC278399E300FA4ACA /* DVIngredientCell.swift in Sources */,
 				B375C98927621B380013895F /* MultiChoiceListView.swift in Sources */,
 				B3A668C2276F9CB700533988 /* FavoritesListVM.swift in Sources */,
 				B375C98527621B060013895F /* SingleChoiceListView.swift in Sources */,
@@ -755,6 +762,7 @@
 				B3606DBF274D7A9800E61972 /* MealDBJSON.swift in Sources */,
 				B3CA2343274808CA00CA9C68 /* CoreDataExample.swift in Sources */,
 				B3A75CB7276699B30062C8B4 /* NoResultsViewWithImage.swift in Sources */,
+				B3D32CDA2783992500FA4ACA /* DetailViewIngredientListView.swift in Sources */,
 				B3CEDDB02756FDB700BB832B /* NetworkManager.swift in Sources */,
 				B3CEDD9E2756F9D200BB832B /* EditIdeaView.swift in Sources */,
 				B3CA237A2748114000CA9C68 /* MealDBView.swift in Sources */,

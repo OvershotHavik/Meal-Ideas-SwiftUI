@@ -20,7 +20,6 @@ struct IngredientVGrid: View {
                                image: "Pizza")
             }
         }
-
     }
 }
 

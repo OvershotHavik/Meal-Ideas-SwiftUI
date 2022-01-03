@@ -27,8 +27,10 @@ struct MealDBDetailView: View {
                                  topColor: .blue,
                                  bottomColor: .blue)
                     
-                    IngredientVGrid(ingredients: vm.meal?.ingredientsArray ?? [],
-                                    measurements: vm.meal?.measurementsArray ?? [])
+//                    IngredientVGrid(ingredients: vm.meal?.ingredientsArray ?? [],
+//                                    measurements: vm.meal?.measurementsArray ?? [])
+                    DetailViewIngredientListView(ingredients: vm.meal?.ingredientsArray ?? [],
+                                                 measurements: vm.meal?.measurementsArray ?? [])
                     
                     RecipeView(recipe: vm.meal?.strInstructions ?? "")
                     
