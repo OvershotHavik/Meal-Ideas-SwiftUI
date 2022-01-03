@@ -25,7 +25,7 @@
 		B3606DB6274D6A4400E61972 /* IngredientVGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3606DB5274D6A4400E61972 /* IngredientVGrid.swift */; };
 		B3606DB8274D6AEA00E61972 /* MealNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3606DB7274D6AEA00E61972 /* MealNameView.swift */; };
 		B3606DBA274D6B3400E61972 /* MealPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3606DB9274D6B3400E61972 /* MealPhotoView.swift */; };
-		B3606DBC274D6C8900E61972 /* IngredientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3606DBB274D6C8900E61972 /* IngredientView.swift */; };
+		B3606DBC274D6C8900E61972 /* IngredientGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3606DBB274D6C8900E61972 /* IngredientGridCell.swift */; };
 		B3606DBF274D7A9800E61972 /* MealDBJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3606DBE274D7A9800E61972 /* MealDBJSON.swift */; };
 		B3606DC1274D7B0900E61972 /* MealDBVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3606DC0274D7B0900E61972 /* MealDBVM.swift */; };
 		B3606DC4274D8E7C00E61972 /* MealDBDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3606DC3274D8E7C00E61972 /* MealDBDetailView.swift */; };
@@ -127,7 +127,7 @@
 		B3606DB5274D6A4400E61972 /* IngredientVGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientVGrid.swift; sourceTree = "<group>"; };
 		B3606DB7274D6AEA00E61972 /* MealNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealNameView.swift; sourceTree = "<group>"; };
 		B3606DB9274D6B3400E61972 /* MealPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealPhotoView.swift; sourceTree = "<group>"; };
-		B3606DBB274D6C8900E61972 /* IngredientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientView.swift; sourceTree = "<group>"; };
+		B3606DBB274D6C8900E61972 /* IngredientGridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientGridCell.swift; sourceTree = "<group>"; };
 		B3606DBE274D7A9800E61972 /* MealDBJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDBJSON.swift; sourceTree = "<group>"; };
 		B3606DC0274D7B0900E61972 /* MealDBVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDBVM.swift; sourceTree = "<group>"; };
 		B3606DC3274D8E7C00E61972 /* MealDBDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDBDetailView.swift; sourceTree = "<group>"; };
@@ -229,7 +229,6 @@
 				B3606DAC274D5E8000E61972 /* Detail Views */,
 				B3606DA2274C2A8F00E61972 /* MealCardView.swift */,
 				B3606DA4274C446900E61972 /* TopView.swift */,
-				B3606DBB274D6C8900E61972 /* IngredientView.swift */,
 				B3CEDDB32756FE1D00BB832B /* QueryButtonView.swift */,
 				B3A75CB427668ED90062C8B4 /* LoadingView.swift */,
 				B3A75CB6276699B30062C8B4 /* NoResultsViewWithImage.swift */,
@@ -491,6 +490,7 @@
 				B3A668CA276FB8C900533988 /* FavoriteCell.swift */,
 				B3A668CC2771042A00533988 /* HistoryCell.swift */,
 				B3D32CDB278399E300FA4ACA /* DVIngredientCell.swift */,
+				B3606DBB274D6C8900E61972 /* IngredientGridCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -771,7 +771,7 @@
 				B375C9992764FE170013895F /* MealDBFunctions.swift in Sources */,
 				B3CEDDB42756FE1D00BB832B /* QueryButtonView.swift in Sources */,
 				B3CA237C2748115D00CA9C68 /* SpoonView.swift in Sources */,
-				B3606DBC274D6C8900E61972 /* IngredientView.swift in Sources */,
+				B3606DBC274D6C8900E61972 /* IngredientGridCell.swift in Sources */,
 				B3CEDDBA2756FFB900BB832B /* SpoonDetailView.swift in Sources */,
 				B3CA2341274808CA00CA9C68 /* Meal_IdeasApp.swift in Sources */,
 				B3606DB8274D6AEA00E61972 /* MealNameView.swift in Sources */,

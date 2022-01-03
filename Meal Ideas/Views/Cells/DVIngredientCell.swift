@@ -11,14 +11,16 @@ struct DetailViewIngredientCell: View {
     var ingredient: String
     var measurement: String
     var selected: Bool
+    @State var image : UIImage?
+    
     var body: some View {
-        let modifiedMealDB = ingredient.replacingOccurrences(of: " ", with: "%20")
-        if let mealDBImages = URL(string: "\(BaseURL.ingredientImage)\(modifiedMealDB).png"){
             ZStack(alignment: .leading){
-//                Color.blue // only applies to the cell, not the list
-                
                 HStack{
-                    LoadRemoteImageView(urlString: mealDBImages.absoluteString)
+                    NavigationLink(destination: ZoomImageView(image: image ?? UIImage(imageLiteralResourceName: "Placeholder"))){
+                        
+                        Image(uiImage: image ?? UIImage(imageLiteralResourceName: "Placeholder"))
+                            .resizable()
+                    }
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 50)
                     VStack(alignment: .leading){
@@ -36,8 +38,24 @@ struct DetailViewIngredientCell: View {
                     }
                 }
             }
+            .onAppear{
+                getImage(ingredientName: ingredient)
+            }
+            
+        
+            
+    }
+    func getImage(ingredientName: String){
+        let modifiedMealDB = ingredientName.replacingOccurrences(of: " ", with: "%20")
+        let mealDBImages = "\(BaseURL.ingredientImage)\(modifiedMealDB).png"
+        NetworkManager.shared.downloadImage(fromURLString: mealDBImages) { uiImage in
+            guard let uiImage = uiImage else { return }
+            DispatchQueue.main.async {
+                self.image = uiImage
+            }
         }
     }
+
 }
 /*
 struct DVIngredientCell_Previews: PreviewProvider {
