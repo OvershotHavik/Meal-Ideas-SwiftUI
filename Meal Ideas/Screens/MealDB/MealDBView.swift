@@ -10,7 +10,8 @@ import SwiftUI
 struct MealDBView: View {
     @StateObject var vm: MealDBVM
     @EnvironmentObject var query: Query
-
+    let columns = [GridItem(), GridItem()]
+    
     var body: some View {
         ZStack{
             NavigationView{
@@ -18,15 +19,20 @@ struct MealDBView: View {
                     TopView(keywordSearchTapped: $vm.keywordSearchTapped,
                             getMoreMeals: $vm.getMoreMeals,
                             source: $vm.source)
-                    let columns = [GridItem(), GridItem()]
+                    Spacer(minLength: 75)
+                    
                     if vm.isLoading{
                         loadingView()
-                    }
+                            .offset(y: UI.verticalSpacing)
 
+                    }
+                    if vm.meals.isEmpty && vm.isLoading == false{
+                        NoResultsView(message: "No meals found for your search")
+                            .offset(y: UI.verticalSpacing)
+
+                    }
                     ScrollView{
-                        if vm.meals.isEmpty && vm.isLoading == false{
-                            NoResultsView(message: "No meals found for your search")
-                        }
+
                         LazyVGrid(columns: columns, alignment: .center) {
                             ForEach(vm.meals, id: \.id) { meal in
                                 NavigationLink(destination: MealDBDetailView(vm: MealDBDetailVM(meal: meal,
@@ -44,10 +50,12 @@ struct MealDBView: View {
                                 .foregroundColor(.primary)
                             }
                         }
+                        .offset(y: UI.verticalSpacing )
+                        
                         
                     }
                     .navigationBarTitleDisplayMode(.inline)
-                    .padding()
+                    .padding(.horizontal)
                     .toolbar {
                         ToolbarItemGroup(placement: .navigationBarTrailing) {
                             NavigationLink(destination: FavoritesListView(vm: FavoritesListVM(source: .mealDB))) {

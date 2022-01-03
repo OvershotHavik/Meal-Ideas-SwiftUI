@@ -10,16 +10,19 @@ import SwiftUI
 struct MyIdeasView: View {
     @StateObject var vm : MyIdeasVM
     @EnvironmentObject var query: Query
-    
+    let columns = [GridItem(), GridItem()]
     var body: some View {
         NavigationView{
             VStack{
                 TopView(keywordSearchTapped: $vm.keywordSearchTapped,
                         getMoreMeals: $vm.getMoreMeals,
                         source: $vm.source)
-                let columns = [GridItem(), GridItem()]
+                
+                Spacer(minLength: 75)
+                
                 if vm.meals.isEmpty{
                     NoResultsView(message: "No meals found for your search. \nCreate a new one by tapping the edit icon")
+                        .offset(y: UI.verticalSpacing)
                 }
                 ScrollView{
                     LazyVGrid(columns: columns, alignment: .center) {
@@ -39,8 +42,10 @@ struct MyIdeasView: View {
                             .foregroundColor(.primary)
                         }
                     }
+                    .offset(y: UI.verticalSpacing)
                 }
-                .padding()
+                
+                .padding(.horizontal)
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

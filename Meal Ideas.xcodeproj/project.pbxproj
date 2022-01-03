@@ -86,6 +86,7 @@
 		B3CEDDC02757005800BB832B /* SpoonVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CEDDBF2757005800BB832B /* SpoonVM.swift */; };
 		B3CEDDC22757008800BB832B /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CEDDC12757008800BB832B /* String+Ext.swift */; };
 		B3CEDDC4275700E300BB832B /* ThingsToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CEDDC3275700E300BB832B /* ThingsToDo.swift */; };
+		B3D32CD8277FAA0E00FA4ACA /* BackgroundGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D32CD7277FAA0E00FA4ACA /* BackgroundGradientView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -188,6 +189,7 @@
 		B3CEDDBF2757005800BB832B /* SpoonVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpoonVM.swift; sourceTree = "<group>"; };
 		B3CEDDC12757008800BB832B /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		B3CEDDC3275700E300BB832B /* ThingsToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThingsToDo.swift; sourceTree = "<group>"; };
+		B3D32CD7277FAA0E00FA4ACA /* BackgroundGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundGradientView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,6 +229,7 @@
 				B3CEDDB32756FE1D00BB832B /* QueryButtonView.swift */,
 				B3A75CB427668ED90062C8B4 /* LoadingView.swift */,
 				B3A75CB6276699B30062C8B4 /* NoResultsViewWithImage.swift */,
+				B3D32CD7277FAA0E00FA4ACA /* BackgroundGradientView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -398,7 +401,7 @@
 			path = "UIKit COmponents";
 			sourceTree = "<group>";
 		};
-		B37E360827481DB500687A8C /* Resources */ = {
+		B37E360827481DB500687A8C /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
 				B3C2BDB1275264B800CD5EE0 /* Alerts */,
@@ -408,7 +411,7 @@
 				B3CEDDC3275700E300BB832B /* ThingsToDo.swift */,
 				B32D0307275E6C91003ACE14 /* Constants.swift */,
 			);
-			path = Resources;
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		B3859936277358700046AE4D /* Magnify Image */ = {
@@ -520,7 +523,7 @@
 			children = (
 				B3606D94274C1BD900E61972 /* Model */,
 				B3606D8F2748221E00E61972 /* Views */,
-				B37E360827481DB500687A8C /* Resources */,
+				B37E360827481DB500687A8C /* Utilities */,
 				B3CA2373274810C900CA9C68 /* Screens */,
 				B3CA2340274808CA00CA9C68 /* Meal_IdeasApp.swift */,
 				B3627BF6275F6CFF004A6519 /* Core Data Example */,
@@ -791,6 +794,7 @@
 				B3CEDDC22757008800BB832B /* String+Ext.swift in Sources */,
 				B3CEDDAC2756FD3800BB832B /* MealDBDetailVM.swift in Sources */,
 				B3CEDDA62756FC7700BB832B /* IngredientCell.swift in Sources */,
+				B3D32CD8277FAA0E00FA4ACA /* BackgroundGradientView.swift in Sources */,
 				B3606DAB274D5E4A00E61972 /* MyIdeasDetailView.swift in Sources */,
 				B375C99B2764FE4A0013895F /* SpoonFunctions.swift in Sources */,
 				B3CEDDAA2756FCE700BB832B /* IngredientListVM.swift in Sources */,

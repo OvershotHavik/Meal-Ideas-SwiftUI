@@ -10,7 +10,7 @@ import SwiftUI
 struct SpoonView: View {
     @StateObject var vm : SpoonVM
     @EnvironmentObject var query: Query
-    
+    let columns = [GridItem(), GridItem()]
     
     var body: some View {
         NavigationView{
@@ -18,13 +18,15 @@ struct SpoonView: View {
                 TopView(keywordSearchTapped: $vm.keywordSearchTapped,
                         getMoreMeals: $vm.getMoreMeals,
                         source: $vm.source)
-                let columns = [GridItem(), GridItem()]
+                Spacer(minLength: 75)
                 ScrollView{
                     if vm.isLoading{
                         loadingView()
+                            .offset(y: UI.verticalSpacing)
                     }
                     if vm.meals.isEmpty && vm.keywordResults.isEmpty && vm.isLoading == false{
                         NoResultsView(message: "No meals found for your search")
+                            .offset(y: UI.verticalSpacing)
                     }
                     if vm.keywordResults.isEmpty{
                         //Normal run through
@@ -45,6 +47,8 @@ struct SpoonView: View {
                                                                                               .foregroundColor(.primary)
                             }
                         }
+                        .offset(y: UI.verticalSpacing)
+
                     } else {
                         //Keyword search, need to fetch the meal on the VM
                         LazyVGrid(columns: columns, alignment: .center) {
@@ -64,10 +68,12 @@ struct SpoonView: View {
                                                                                               .foregroundColor(.primary)
                             }
                         }
+                        .offset(y: UI.verticalSpacing)
+
                     }
                 }
                 .navigationBarTitleDisplayMode(.inline)
-                .padding()
+                .padding(.horizontal)
                 .toolbar {
                     ToolbarItemGroup(placement: .navigationBarTrailing) {
                         NavigationLink(destination: FavoritesListView(vm: FavoritesListVM(source: .spoonacular))) {

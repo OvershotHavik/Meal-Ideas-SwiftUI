@@ -7,26 +7,89 @@
 
 import SwiftUI
 
-struct QueryButtonView: View {
-    var title: QueryType
-    @EnvironmentObject var query : Query
-
-    var body: some View {
+// MARK: - Random Query Button
+struct RandomQueryButtonView: View{
+    @Binding var getMoreMeals: Bool
+    @EnvironmentObject var query: Query
+    var body: some View{
         Button {
-            query.queryType = title
+            query.queryType = .random
             query.selected = nil
-        } label: {
-            Text(title.rawValue)
-                .padding(.horizontal)
-                .border(Color.black, width: 2)
-                .opacity((query.queryType.rawValue == title.rawValue) ? 1 : 0.5)
-        }
+            getMoreMeals.toggle()
 
+        } label: {
+            VStack{
+                Image(systemName: "arrow.triangle.2.circlepath")
+                    .foregroundColor(.primary)
+                    .frame(width: 30, height: 30)
+                Text(QueryType.random.rawValue)
+                    .foregroundColor(.primary)
+            }
+            
+        }
+        .modifier(QueryButtonModifier(title: .random))
     }
 }
 
-struct QueryButtonView_Previews: PreviewProvider {
-    static var previews: some View {
-        QueryButtonView(title: .category)
+// MARK: - Category Query Button
+struct CategoryQueryButtonView: View{
+    @EnvironmentObject var query: Query
+    var body: some View{
+        
+        NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: .categories), title: .oneCategory)) {
+            VStack(spacing: 5){
+                if query.queryType == .category{
+                    if let safeSelected = query.selected{
+                        Text(safeSelected)
+                            .foregroundColor(.primary)
+                            .offset(y: 5)
+                    }
+                }
+                Image(systemName: "c.circle")
+                    .foregroundColor(.primary)
+                    .frame(width: 30, height: 30)
+                Text(QueryType.category.rawValue)
+                    .foregroundColor(.primary)
+                    .offset(y: (query.queryType == .category) ? -5 : 0)
+            }
+        }
+        .modifier(QueryButtonModifier(title: .category))
+    }
+}
+
+// MARK: - Ingredient Query Button
+struct IngredientQueryButtonView : View{
+    @EnvironmentObject var query: Query
+    var body: some View{
+        NavigationLink(destination: SingleIngredientListView(vm: IngredientListVM(editIdeaVM: EditIdeaVM(meal: nil)))) {
+            VStack(spacing: 5){
+                if query.queryType == .ingredient{
+                    if let safeSelected = query.selected{
+                        Text(safeSelected)
+                            .offset(y: 5)
+                    }
+                }
+                Image(systemName: "i.circle")
+                    .frame(width: 30, height: 30)
+                Text(QueryType.ingredient.rawValue)
+                    .foregroundColor(.primary)
+                    .offset(y: (query.queryType == .ingredient) ? -5 : 0)
+            }
+            .modifier(QueryButtonModifier(title: .ingredient))
+        }
+    }
+}
+
+// MARK: - Query Button Modifier
+struct QueryButtonModifier: ViewModifier{
+    var title: QueryType
+    @EnvironmentObject var query : Query
+    func body(content: Content) -> some View{
+        content
+            .frame(width: 90, height: 90)
+            .background(LinearGradient(gradient: Gradient(colors: [Color(uiColor: .systemGray6), Color(uiColor: .systemGray2)]), startPoint: .top, endPoint: .bottom))
+            .cornerRadius(20)
+            .offset(y: 45)
+            .opacity((query.queryType.rawValue == title.rawValue) ? 1 : 0.5)
     }
 }

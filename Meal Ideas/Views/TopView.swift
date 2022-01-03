@@ -14,20 +14,26 @@ struct TopView: View {
     @Binding var source: Source
     var body: some View {
         ZStack{
-            Color.blue
-                .ignoresSafeArea()
+            BackgroundGradientView()
             VStack{
-                SelectedQueryView(isActive: $isActive,
-                                  keywordSearchTapped: $keywordSearchTapped,
-                                  getMoreMeals: $getMoreMeals,
-                                  source: $source)
+                Spacer(minLength: 20)
+                Text("Meal Ideas")
+                    .font(.title)
+//                Spacer()
+//                SelectedQueryView(isActive: $isActive,
+//                                  keywordSearchTapped: $keywordSearchTapped,
+//                                  getMoreMeals: $getMoreMeals,
+//                                  source: $source)
+
+                KeywordSearchView(keywordSearchTapped: $keywordSearchTapped,
+                                  source: $source,
+                                  getMoreMeals: $getMoreMeals)
+
                 
-                Spacer()
-                
-                TopViewButtons()
+                TopViewButtons(getMoreMeals: $getMoreMeals)
             }
         }
-        .frame(height: 75)
+        .frame(height: 100)
     }
 }
 
@@ -36,7 +42,7 @@ struct TopView_Previews: PreviewProvider {
         TopView(keywordSearchTapped: .constant(false), getMoreMeals: .constant(false), source: .constant(.spoonacular))
     }
 }
-
+/*
 struct SelectedQueryView: View{
     @EnvironmentObject var query: Query
     @Binding var isActive : Bool
@@ -109,27 +115,29 @@ struct SelectedQueryView: View{
         }
     }
 }
-
+*/
 
 
 // MARK: - Top View Buttons
 struct TopViewButtons: View{
-//    @EnvironmentObject var query : Query
-    //    var query = QueryType.favorite.rawValue
+    @Binding var getMoreMeals: Bool
+
     var body: some View{
-        //When button is pressed, transition the top view to show the options available for the respective choice
-        HStack(spacing: 0){
-            QueryButtonView(title: .random)
+        HStack{
+            Spacer()
+            RandomQueryButtonView(getMoreMeals: $getMoreMeals)
             
-            QueryButtonView(title: .category)
+            Spacer()
             
-            QueryButtonView(title: .ingredient)
+            CategoryQueryButtonView()
             
-            QueryButtonView(title: .keyword)
-                
+            Spacer()
+            
+            IngredientQueryButtonView()
+            
+            Spacer()
         }
         .padding(.bottom, 5)
-        .foregroundColor(.primary)
     }
 }
 
@@ -158,12 +166,12 @@ struct KeywordSearchView: View{
             }
 
             Spacer()
-            
-            if source == .spoonacular && searchTapped == true{
-                GetMoreMealsButton(getMoreMeals: $getMoreMeals)
-                Spacer()
-
-            }
+//
+//            if source == .spoonacular && searchTapped == true{
+//                GetMoreMealsButton(getMoreMeals: $getMoreMeals)
+//                Spacer()
+//
+//            }
         }
     }
 }

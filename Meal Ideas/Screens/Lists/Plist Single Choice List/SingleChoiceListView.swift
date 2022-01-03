@@ -29,6 +29,9 @@ struct SingleChoiceListView: View {
                     }
                 }
             }
+            .onAppear{
+                query.queryType = .category
+            }
             .searchable(text: $vm.searchText)
             .navigationTitle(title.rawValue)
             .navigationBarTitleDisplayMode(.inline)
