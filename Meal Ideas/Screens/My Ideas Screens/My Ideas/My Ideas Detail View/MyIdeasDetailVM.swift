@@ -25,10 +25,11 @@ final class MyIdeasDetailVM: ObservableObject{
             print("add to favorite")
             if let safeMeal = meal{
                 PersistenceController.shared.saveFavorites(mealName: safeMeal.mealName ?? "",
-                                    mealDBID: nil,
-                                    spoonID: nil)
+                                                           mealDBID: nil,
+                                                           spoonID: nil,
+                                                           userMealID: safeMeal.userMealID)
             }
-
+            
             
         } else {
             //remove from favorite
@@ -37,7 +38,8 @@ final class MyIdeasDetailVM: ObservableObject{
                 PersistenceController.shared.deleteFavorite(source: .mealDB,
                                                             mealName: safeMeal.mealName ?? "",
                                                             mealDBID: nil,
-                                                            spoonID: nil)
+                                                            spoonID: nil,
+                                                            userMealID: safeMeal.userMealID)
             }
 
         }

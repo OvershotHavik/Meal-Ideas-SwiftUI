@@ -65,7 +65,8 @@ import CoreData
                 print("add to favorite")
                 PersistenceController.shared.saveFavorites(mealName: safeMeal.strMeal ?? "",
                                     mealDBID: safeMeal.id,
-                                    spoonID: nil)
+                                                           spoonID: nil,
+                                                           userMealID: nil)
                 
             } else {
                 //remove from favorite
@@ -74,7 +75,8 @@ import CoreData
                 PersistenceController.shared.deleteFavorite(source: .mealDB,
                                                             mealName: safeMeal.strMeal ?? "",
                                                             mealDBID: safeMeal.id,
-                                                            spoonID: nil)
+                                                            spoonID: nil,
+                                                            userMealID: nil)
             }
         }
     }

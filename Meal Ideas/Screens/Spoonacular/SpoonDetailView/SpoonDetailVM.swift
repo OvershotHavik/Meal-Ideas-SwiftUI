@@ -144,7 +144,8 @@ import UIKit
             print("add to favorite")
             PersistenceController.shared.saveFavorites(mealName: meal?.title ?? "",
                                                        mealDBID: nil,
-                                                       spoonID: meal?.id)
+                                                       spoonID: meal?.id,
+                                                       userMealID: nil)
             
         } else {
             //remove from favorite
@@ -152,13 +153,15 @@ import UIKit
             PersistenceController.shared.deleteFavorite(source: .spoonacular,
                                                         mealName: meal?.title ?? "",
                                                         mealDBID: nil,
-                                                        spoonID: Double(meal?.id ?? 0))
+                                                        spoonID: Double(meal?.id ?? 0),
+                                                        userMealID: nil)
             
             
             PersistenceController.shared.deleteFavorite(source: .spoonacular,
                                                         mealName: meal?.title ?? "",
                                                         mealDBID: nil,
-                                                        spoonID: Double(meal?.id ?? 0))
+                                                        spoonID: Double(meal?.id ?? 0),
+                                                        userMealID: nil)
         }
     }
     // MARK: - Add To History

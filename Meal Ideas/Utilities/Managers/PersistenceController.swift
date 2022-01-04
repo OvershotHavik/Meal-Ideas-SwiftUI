@@ -73,7 +73,8 @@ struct PersistenceController {
                 deleteFavorite(source: .myIdeas,
                                mealName: meal.mealName ?? "",
                                mealDBID: nil,
-                               spoonID: nil)
+                               spoonID: nil,
+                               userMealID: meal.userMealID)
                 container.viewContext.delete(meal)
             } catch let error {
                 print("error fetching: \(error.localizedDescription)")
@@ -113,10 +114,11 @@ struct PersistenceController {
     
     
     // MARK: - Save Favorites
-    func saveFavorites(mealName: String, mealDBID: String?, spoonID: Int?){
+    func saveFavorites(mealName: String, mealDBID: String?, spoonID: Int?, userMealID: UUID?){
         let newFavorite = Favorites(context: container.viewContext)
         newFavorite.mealName = mealName
         newFavorite.mealDBID = mealDBID
+        newFavorite.userMealID = userMealID
         if let safeSpoonID = spoonID{
             let safeDouble : Double  = Double(safeSpoonID)
             newFavorite.spoonID = safeDouble
@@ -125,7 +127,7 @@ struct PersistenceController {
         saveData()
     }
     // MARK: - Delete Favorites
-    func deleteFavorite(source: Source, mealName: String, mealDBID: String?, spoonID: Double?){
+    func deleteFavorite(source: Source, mealName: String, mealDBID: String?, spoonID: Double?, userMealID: UUID?){
         let request = NSFetchRequest<Favorites>(entityName: EntityName.favorites.rawValue)
         do {
             let savedFavorites = try container.viewContext.fetch(request)
@@ -144,7 +146,7 @@ struct PersistenceController {
                 
                 
             case .myIdeas:
-                guard let index = savedFavorites.firstIndex(where: {$0.mealName == mealName}) else {return}
+                guard let index = savedFavorites.firstIndex(where: {$0.mealName == mealName && $0.userMealID == userMealID}) else {return}
                 let favoriteToDelete = savedFavorites[index]
                 
                 container.viewContext.delete(favoriteToDelete)

@@ -226,7 +226,8 @@ final class EditIdeaVM: ObservableObject{
                 PersistenceController.shared.deleteFavorite(source: .mealDB,
                                                             mealName: safeMeal.mealName ?? "",
                                                             mealDBID: nil,
-                                                            spoonID: nil)
+                                                            spoonID: nil,
+                                                            userMealID: safeMeal.userMealID)
             pc.deleteMeal(meal: safeMeal)
             pc.saveData()
         }
