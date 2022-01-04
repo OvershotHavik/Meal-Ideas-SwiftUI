@@ -18,7 +18,7 @@ enum ImagePickerSelection: Identifiable {
 
 final class EditIdeaVM: ObservableObject{
 
-    
+    @Published var allMeals: [UserMeals] = []
     @Published var meal : UserMeals?
     @Published var alertItem: AlertItem?
     
@@ -61,6 +61,7 @@ final class EditIdeaVM: ObservableObject{
     init(meal: UserMeals?){
         self.meal = meal
         convertMeal()
+        getAllMeals()
     }
     
     // MARK: - Remove Category
@@ -76,18 +77,31 @@ final class EditIdeaVM: ObservableObject{
         sides.remove(atOffsets: offsets)
     }
     
-    
-    // MARK: - Check if name is already in use
-    func checkNameAlreadyInUse() -> Bool{
+    // MARK: - Get All Meals
+    func getAllMeals(){
         let request = NSFetchRequest<UserMeals>(entityName: EntityName.userMeals.rawValue)
-        var allMeals : [UserMeals] = []
         do {
-            allMeals = try pc.container.viewContext.fetch(request)
+            self.allMeals = try pc.container.viewContext.fetch(request)
             print("Meals Fetched")
         } catch let error {
             print("error fetching: \(error.localizedDescription)")
         }
-        
+    }
+    
+    // MARK: - Check if name is already in use
+    func checkNameAlreadyInUse(){
+        if allMeals.contains(where: {$0.mealName == mealName}){
+            //If the meal name already exists, return true so user will need to change it
+            if meal != nil {
+                if meal?.mealName == mealName{
+                    //if the name is already in use by this meal, return false since it's already named this and is OK
+                }
+            }
+            self.alertItem = AlertContext.nameInUse
+        }
+    }
+    /*
+    func checkNameAlreadyInUse() -> Bool{
         if allMeals.contains(where: {$0.mealName == mealName}){
             //If the meal name already exists, return true so user will need to change it
             if meal != nil {
@@ -102,6 +116,7 @@ final class EditIdeaVM: ObservableObject{
             return false
         }
     }
+    */
     
     // MARK: - UpdateFavorite
     func updateFavorites(){

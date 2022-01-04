@@ -22,6 +22,9 @@ struct EditIdeaView: View {
         Form{
             Section(header: Text("Meal Information")) {
                 TextField(vm.meal?.mealName ?? "Meal Name*", text: $vm.mealName)
+                    .onSubmit {
+                        vm.checkNameAlreadyInUse()
+                    }
                     
                 MealPhotoButtonView(vm: vm)
                     .modifier(MealPhotoActionSheet(vm: vm))
