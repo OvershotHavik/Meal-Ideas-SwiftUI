@@ -31,6 +31,14 @@ struct MyIdeasDetailView: View {
                                          bottomColor: .blue)
                         }
                     }
+                    if let safeSides = vm.meal?.sides as? [String]{
+                        if safeSides.count != 0{
+                            BadgesHStack(title: "Sides",
+                                         items: safeSides,
+                                         topColor: .green,
+                                         bottomColor: .green)
+                        }
+                    }
 
                     
 //                    IngredientVGrid(ingredients: vm.meal?.ingredients as! [String],

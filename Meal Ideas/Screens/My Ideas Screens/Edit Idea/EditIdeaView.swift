@@ -64,8 +64,8 @@ struct EditIdeaView: View {
                         Text(ing.name)
                         Spacer()
                         TextField("Measurement", text: $ing.measurement)
-                            .background(.green)
-                            .frame(width: 100)
+                            .background(.gray)
+                            .frame(width: 150)
                     }
                 }
                 .onDelete(perform: vm.deleteIngredient)
@@ -106,6 +106,7 @@ struct EditIdeaView: View {
                 Text("And/Or type in below:")
                 TextEditor(text: $vm.recipe)
                     .frame(height: 150)
+                // TODO:  Disable the keyboard once done typing, add a done button or something
             }
             
             Section(header: Text("Source")){
@@ -352,7 +353,8 @@ struct PrepTimePickerView: View{
         HStack {
             GeometryReader { geometry in
                 HStack(spacing: 0){
-//                    MultiWheelPicker(selections: $vm.hourSelection, data: vm.hours)
+
+                    // TODO:  Disable keyboard when selecting picker
                     BasePicker(selecting: $vm.hourSelection, data: vm.hours, label: "h")
                         .frame(width: geometry.size.width/3, height: geometry.size.height, alignment: .center)
 
