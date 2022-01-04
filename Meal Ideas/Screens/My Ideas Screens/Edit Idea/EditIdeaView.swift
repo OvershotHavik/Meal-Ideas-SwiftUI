@@ -18,7 +18,9 @@ struct EditIdeaView: View {
     enum FormTextField{ // will need changed to match this form
         case firstName, lastName, email
     }
-    
+//    init(vm: EditIdeaVM){
+//        self.vm = vm
+//    }
     var body: some View {
         Form{
             Section(header: Text("Meal Information")) {
@@ -130,7 +132,11 @@ struct EditIdeaView: View {
             }
         }
         .navigationTitle(vm.meal?.mealName ?? "Create a Meal")
-        
+
+        .onAppear{
+            // TODO:  Change the background to the background gradient?
+//            UITableView.appearance().backgroundColor = .clear
+        }
         // MARK: - Save alert
         .alert(item: $vm.alertItem) { alertItem in
             Alert(title: alertItem.title,
@@ -179,6 +185,7 @@ struct EditIdeaView: View {
     }
 }
 // MARK: - Preview
+
 struct CreateIdeaView_Previews: PreviewProvider {
     static var previews: some View {
         EditIdeaView(vm: EditIdeaVM(meal: nil))
@@ -355,7 +362,9 @@ struct PrepTimePickerView: View{
                     BasePicker(selecting: $vm.secondSelection, data: vm.seconds, label: "s")
                         .frame(width: geometry.size.width/3, height: geometry.size.height, alignment: .center)
                 }
+                
             }
+            .frame(height: 75)
         }
     }
 }
