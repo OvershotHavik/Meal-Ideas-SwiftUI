@@ -5,12 +5,14 @@
         <attribute name="mealDBID" optional="YES" attributeType="String"/>
         <attribute name="mealName" attributeType="String" defaultValueString=""/>
         <attribute name="spoonID" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="userMealID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
     </entity>
     <entity name="History" representedClassName="History" syncable="YES" codeGenerationType="class">
         <attribute name="mealDBID" optional="YES" attributeType="String"/>
         <attribute name="mealName" attributeType="String" defaultValueString="&quot;&quot;"/>
         <attribute name="spoonID" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="timeStamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="userMealID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
     </entity>
     <entity name="UserMeals" representedClassName="UserMeals" syncable="YES" codeGenerationType="class">
         <attribute name="category" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
@@ -28,10 +30,11 @@
         <attribute name="recipe" optional="YES" attributeType="String"/>
         <attribute name="sides" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="source" optional="YES" attributeType="String"/>
+        <attribute name="userMealID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
     </entity>
     <elements>
-        <element name="Favorites" positionX="-63" positionY="-18" width="128" height="89"/>
-        <element name="History" positionX="-54" positionY="63" width="128" height="89"/>
-        <element name="UserMeals" positionX="-54" positionY="0" width="128" height="254"/>
+        <element name="Favorites" positionX="-63" positionY="-18" width="128" height="104"/>
+        <element name="History" positionX="-54" positionY="63" width="128" height="104"/>
+        <element name="UserMeals" positionX="-54" positionY="0" width="128" height="269"/>
     </elements>
 </model>
