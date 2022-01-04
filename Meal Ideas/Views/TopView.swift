@@ -84,6 +84,7 @@ struct KeywordSearchView: View{
             Spacer()
             TextField("Keyword Search", text: $query.keyword)
                 .frame(width: 250)
+                // TODO:  figure out a good background color, and round the text field 
             Button {
                 query.selected = nil
                 searchTapped = true

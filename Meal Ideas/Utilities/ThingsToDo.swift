@@ -12,37 +12,33 @@ import Foundation
 /*
  Search for ToDo's throughout the project, been adding things here and there as well
   
- - Setup the form for the user to create meals
-    - Figure out how to do core data for custom ingredients and sides and categories
-    - make meal name required, and put a check in to verify the name doesn't exist already, and modify favorites accordingly, pass in favorite when editing the meal for easier access
  
 
  Favorites -
  Figure out why when unfavorited it bounces right back to the list, I thought it would at least stay there and then when user hit back it would go back to the list where it is no longer listed..
  
- - Favorite - using core data now
-    - Add a heart icon in the tool bar for each source, and list them in a list view, then have them go to the meal when clicked. Will need to create a new list view for that since navigating away instead of back like the rest are .
-    - Modify the favorites when editing the meal, if the name changes or deletes correct it in the favorites array as well
-    - Add a date to the favorite so that I may eventually ad an option to sort by date added
-    - Add a favorite heart next to the meal name for user meals list when they go to edit it a swell.
  
- - History
-    - Add the book icon on each source and list them in a list view, then have them go to the meal when clicked.
-    - Offer the option to delete per row, and to delete groups like All, older than 90 days, 60, 30, 7
-    - Filter the history so it only shows the most recent? or leave it alone.. not sure yet. Maybe give it an option in the settings section to filter history to only show the most recent viewing of the meal
- 
- - Figure out a better way to do the top view that isn't so buggy
-    - Maybe figure out an actual tab view instead of the one I made? not sure if they can be up in the app view like that
- 
- - Figure out text fields background so it stays white in dark mode
+ - [ ] Have Query clear the selected whenever a query type is changed to resolve the issue where the buttons show the previous query selection as soon as you tap on it
+ - [ ] Add a website verification to source for my meals
 
-  
- - Figure out the "large picture view" when user clicks on the meal photo
-  
- - maybe change the background color of the top view depending on which source? orange for meal db and green for spoon?
-  
- - Add an "OffSet" value for spoon so it will get additional meals after first 10 are shown.
+ - [ ] Only allow x amount of meals to be stored then offer the pro version which will block adds and unlock unlimited meal storage
+
  */
 // TODO:  make a list
 
 //FIXME: fix this
+
+
+/*
+ Future relese plans:
+ - Figure out how to do core data for custom ingredients and sides and categories
+ 
+ 
+ - Filter the history so it only shows the most recent? or leave it alone.. not sure yet. Maybe give it an option in the settings section to filter history to only show the most recent viewing of the meal
+ 
+ - [ ] Figure out how to get the amount of times a meal has been favorites in CloudKit and display it under an open heart on the meal card. For future release
+ - [ ] Add ability for user to add their own categories, ingredients, and sides
+     - [ ] Like cookies or frozen meal
+ - [ ] Offer the ability to share user meals?
+ - [ ] Offer a filter button to offer the user to specify multiple query at once. Could include name, category, ingredient, prep time, servings.. would only apply where the source provides that info though
+ */
