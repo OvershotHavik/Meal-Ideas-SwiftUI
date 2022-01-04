@@ -18,7 +18,7 @@ struct MyIdeasView: View {
                         getMoreMeals: $vm.getMoreMeals,
                         source: $vm.source)
                 
-                Spacer(minLength: 75)
+                Spacer(minLength: UI.topViewOffsetSpacing)
                 
                 if vm.meals.isEmpty{
                     NoResultsView(message: "No meals found for your search. \nCreate a new one by tapping the edit icon")
@@ -45,7 +45,7 @@ struct MyIdeasView: View {
                     .offset(y: UI.verticalSpacing)
                 }
                 
-                .padding(.horizontal)
+                .padding()
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

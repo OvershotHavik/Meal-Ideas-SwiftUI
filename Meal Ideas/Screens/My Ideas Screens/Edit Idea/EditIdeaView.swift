@@ -18,6 +18,7 @@ struct EditIdeaView: View {
     enum FormTextField{ // will need changed to match this form
         case firstName, lastName, email
     }
+    // TODO:  Figure this part out again for the form text fields to get the curser to bounce around, and to dismiss the keyboard
     var body: some View {
         Form{
             Section(header: Text("Meal Information")) {

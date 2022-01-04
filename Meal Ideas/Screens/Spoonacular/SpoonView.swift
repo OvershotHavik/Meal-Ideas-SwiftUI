@@ -18,7 +18,7 @@ struct SpoonView: View {
                 TopView(keywordSearchTapped: $vm.keywordSearchTapped,
                         getMoreMeals: $vm.getMoreMeals,
                         source: $vm.source)
-                Spacer(minLength: 75)
+                Spacer(minLength: UI.topViewOffsetSpacing)
                 ScrollView{
                     if vm.isLoading{
                         loadingView()
@@ -69,11 +69,13 @@ struct SpoonView: View {
                             }
                         }
                         .offset(y: UI.verticalSpacing)
-
+                    }
+                    if vm.isLoading == false{
+                        SpoonMoreMealsButton(vm: vm)
                     }
                 }
                 .navigationBarTitleDisplayMode(.inline)
-                .padding(.horizontal)
+                .padding()
                 .toolbar {
                     ToolbarItemGroup(placement: .navigationBarTrailing) {
                         NavigationLink(destination: FavoritesListView(vm: FavoritesListVM(source: .spoonacular))) {
@@ -116,9 +118,26 @@ struct SpoonView: View {
     }
 
 }
-
+// MARK: - Preview
 struct SpoonView_Previews: PreviewProvider {
     static var previews: some View {
         SpoonView(vm: SpoonVM())
+    }
+}
+// MARK: - More Meals Button
+struct SpoonMoreMealsButton: View{
+    @StateObject var vm: SpoonVM
+    var body: some View{
+        Button {
+            // TODO:  Add to the array of meals instead of clearing when this is tapped
+            vm.getMoreMeals.toggle()
+            
+        } label: {
+            Text("Get more meals")
+        }
+        .buttonStyle(.bordered)
+        .padding(25)
+
+
     }
 }

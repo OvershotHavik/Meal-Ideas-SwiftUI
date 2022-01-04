@@ -67,7 +67,8 @@ struct HistoryFavoriteHStack: View{
                     .padding([.leading, .top])
                     .opacity(0.50)
             }
-
+            Spacer()
+            Text("")
             Spacer()
             if favorited == true {
                 Image(systemName:"heart.fill") // If favorited is true, then show book, if not, show nothing

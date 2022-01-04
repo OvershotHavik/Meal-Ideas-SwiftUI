@@ -100,45 +100,6 @@ final class EditIdeaVM: ObservableObject{
             self.alertItem = AlertContext.nameInUse
         }
     }
-    /*
-    func checkNameAlreadyInUse() -> Bool{
-        if allMeals.contains(where: {$0.mealName == mealName}){
-            //If the meal name already exists, return true so user will need to change it
-            if meal != nil {
-                if meal?.mealName == mealName{
-                    //if the name is already in use by this meal, return false since it's already named this and is OK
-                    return false
-                }
-            }
-            self.alertItem = AlertContext.nameInUse
-            return true
-        } else {
-            return false
-        }
-    }
-    */
-    
-    // MARK: - UpdateFavorite
-    func updateFavorites(){
-        //Update the favorites so the favorites list doesn't try to access a meal that doesn't exist
-        let request = NSFetchRequest<Favorites>(entityName: EntityName.favorites.rawValue)
-        var allFavorites : [Favorites] = []
-        do {
-            allFavorites = try pc.container.viewContext.fetch(request)
-            print("Favorites Fetched")
-            if let safeMeal = self.meal{
-                guard let index = allFavorites.firstIndex(where: {$0.mealName == safeMeal.mealName}) else {return}
-                let favoriteToUpdate = allFavorites[index]
-                favoriteToUpdate.mealName = mealName
-                print("Updated favorites for \(mealName)")
-                try pc.container.viewContext.save()
-            }
-
-        } catch let error {
-            print("error fetching: \(error.localizedDescription)")
-        }
-    }
-
     
     // MARK: - Save Meal
     func saveMeal(){
@@ -148,10 +109,10 @@ final class EditIdeaVM: ObservableObject{
             self.alertItem = AlertContext.blankMealName
             return
         }
-//        if checkNameAlreadyInUse(){
-//            //if true, return
-//            return
-//        }
+        if checkNameAlreadyInUseSave(){
+            //if true, return
+            return
+        }
 
         print("Save meal...")
         var mealPhotoData: Data?
@@ -232,6 +193,45 @@ final class EditIdeaVM: ObservableObject{
         }
     }
 
+    // MARK: - Check name Before Save
+    func checkNameAlreadyInUseSave() -> Bool{
+        if allMeals.contains(where: {$0.mealName == mealName}){
+            //If the meal name already exists, return true so user will need to change it
+            if meal != nil {
+                if meal?.mealName == mealName{
+                    //if the name is already in use by this meal, return false since it's already named this and is OK
+                    return false
+                }
+            }
+            self.alertItem = AlertContext.nameInUse
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    
+    // MARK: - UpdateFavorite
+    func updateFavorites(){
+        //Update the favorites so the favorites list doesn't try to access a meal that doesn't exist
+        let request = NSFetchRequest<Favorites>(entityName: EntityName.favorites.rawValue)
+        var allFavorites : [Favorites] = []
+        do {
+            allFavorites = try pc.container.viewContext.fetch(request)
+            print("Favorites Fetched")
+            if let safeMeal = self.meal{
+                guard let index = allFavorites.firstIndex(where: {$0.mealName == safeMeal.mealName}) else {return}
+                let favoriteToUpdate = allFavorites[index]
+                favoriteToUpdate.mealName = mealName
+                print("Updated favorites for \(mealName)")
+                try pc.container.viewContext.save()
+            }
+
+        } catch let error {
+            print("error fetching: \(error.localizedDescription)")
+        }
+    }
+    
     // MARK: - Delete Meal
     func deleteMeal(){
         print("Delete meal...")
