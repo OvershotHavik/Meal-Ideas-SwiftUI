@@ -44,6 +44,7 @@ final class EditIdeaVM: ObservableObject{
     @Published var sides : [String] = []
     @Published var source = ""
     @Published var favorited = false
+    @Published var userMealID: UUID?
     
     // MARK: - Prep Time
     @Published var hourSelection = 0
@@ -178,7 +179,8 @@ final class EditIdeaVM: ObservableObject{
             safeMeal.prepMinute = Int16(minuteSelection)
             safeMeal.prepSecond = Int16(secondSelection)
             safeMeal.modified = Date()
-            
+            safeMeal.userMealID = userMealID
+            print("usermealID: \(String(describing: safeMeal.userMealID))")
 
         } else {
             let newMealCD = UserMeals(context: pc.container.viewContext)
@@ -196,6 +198,8 @@ final class EditIdeaVM: ObservableObject{
             newMealCD.prepMinute = Int16(minuteSelection)
             newMealCD.prepSecond = Int16(secondSelection)
             newMealCD.created = Date()
+            newMealCD.userMealID = UUID()
+            print("usermealID: \(String(describing: newMealCD.userMealID))")
         }
 
         
@@ -262,6 +266,7 @@ final class EditIdeaVM: ObservableObject{
         
         self.sides = safeMeal.sides as? [String] ?? []
         self.source = safeMeal.source ?? ""
+        self.userMealID = safeMeal.userMealID
         
     }
     // MARK: - Convert Date
