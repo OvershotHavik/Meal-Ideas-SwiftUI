@@ -159,10 +159,11 @@ struct PersistenceController {
         }
     }
     // MARK: - Add To History
-    func addToHistory(mealName: String, mealDBID: String?, spoonID: Int?){
+    func addToHistory(mealName: String, mealDBID: String?, spoonID: Int?, userMealID: UUID?){
         let newHistory = History(context: container.viewContext)
         newHistory.mealName = mealName
         newHistory.mealDBID = mealDBID
+        newHistory.userMealID = userMealID
         if let safeSpoonID = spoonID{
             let safeDouble: Double = Double(safeSpoonID)
             newHistory.spoonID = safeDouble

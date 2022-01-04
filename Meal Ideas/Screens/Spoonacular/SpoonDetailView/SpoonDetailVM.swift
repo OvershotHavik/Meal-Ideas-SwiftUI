@@ -173,7 +173,8 @@ import UIKit
                 print("Added meal to history: \(meal?.title ?? ""), id: \(meal?.id ?? 0)")
                 PersistenceController.shared.addToHistory(mealName: meal?.title ?? "",
                                                           mealDBID: nil,
-                                                          spoonID: meal?.id)
+                                                          spoonID: meal?.id,
+                                                          userMealID: nil)
             }
         }
     }

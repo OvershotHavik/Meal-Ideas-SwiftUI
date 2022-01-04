@@ -37,6 +37,7 @@
 		B374E7DA278496C800422E9C /* MealDBFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B374E7D7278496C800422E9C /* MealDBFunctions.swift */; };
 		B374E7DB278496C800422E9C /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = B374E7D8278496C800422E9C /* APIKey.swift */; };
 		B374E7DC278496C800422E9C /* SpoonFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B374E7D9278496C800422E9C /* SpoonFunctions.swift */; };
+		B374E7DE2784B02100422E9C /* View+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B374E7DD2784B02100422E9C /* View+Ext.swift */; };
 		B375C97B2762140C0013895F /* Sides.plist in Resources */ = {isa = PBXBuildFile; fileRef = B375C97A2762140C0013895F /* Sides.plist */; };
 		B375C97D276214580013895F /* Categories.plist in Resources */ = {isa = PBXBuildFile; fileRef = B375C97C276214580013895F /* Categories.plist */; };
 		B375C981276216F10013895F /* PListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B375C980276216F10013895F /* PListManager.swift */; };
@@ -141,6 +142,7 @@
 		B374E7D7278496C800422E9C /* MealDBFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealDBFunctions.swift; sourceTree = "<group>"; };
 		B374E7D8278496C800422E9C /* APIKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		B374E7D9278496C800422E9C /* SpoonFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpoonFunctions.swift; sourceTree = "<group>"; };
+		B374E7DD2784B02100422E9C /* View+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Ext.swift"; sourceTree = "<group>"; };
 		B375C97A2762140C0013895F /* Sides.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Sides.plist; sourceTree = "<group>"; };
 		B375C97C276214580013895F /* Categories.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Categories.plist; sourceTree = "<group>"; };
 		B375C980276216F10013895F /* PListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PListManager.swift; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 				B3606D922748224800E61972 /* Color+Ext.swift */,
 				B3CEDDA12756FB4400BB832B /* Double+Ext.swift */,
 				B3CEDDC12757008800BB832B /* String+Ext.swift */,
+				B374E7DD2784B02100422E9C /* View+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -797,6 +800,7 @@
 				B3606D9B274C201200E61972 /* SpoonMealModel.swift in Sources */,
 				B374E7DB278496C800422E9C /* APIKey.swift in Sources */,
 				B385993A27736A1B0046AE4D /* ZoomImageView.swift in Sources */,
+				B374E7DE2784B02100422E9C /* View+Ext.swift in Sources */,
 				B375C98727621B170013895F /* SingleChoiceListVM.swift in Sources */,
 				B3CEDDA42756FBFB00BB832B /* ImageLoader.swift in Sources */,
 				B3A668CD2771042A00533988 /* HistoryCell.swift in Sources */,

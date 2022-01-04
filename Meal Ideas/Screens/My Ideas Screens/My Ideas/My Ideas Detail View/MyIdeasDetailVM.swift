@@ -53,7 +53,8 @@ final class MyIdeasDetailVM: ObservableObject{
                 print("Added meal to history: \(meal?.mealName ?? "")")
                 PersistenceController.shared.addToHistory(mealName: meal?.mealName ?? "",
                                                           mealDBID: nil,
-                                                          spoonID: 0)
+                                                          spoonID: 0,
+                                                          userMealID: meal?.userMealID)
             }
         }
     }

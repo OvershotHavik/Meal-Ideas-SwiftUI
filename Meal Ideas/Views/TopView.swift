@@ -34,6 +34,7 @@ struct TopView: View {
             }
         }
         .frame(height: 100)
+        
     }
 }
 
@@ -42,80 +43,7 @@ struct TopView_Previews: PreviewProvider {
         TopView(keywordSearchTapped: .constant(false), getMoreMeals: .constant(false), source: .constant(.spoonacular))
     }
 }
-/*
-struct SelectedQueryView: View{
-    @EnvironmentObject var query: Query
-    @Binding var isActive : Bool
-    @Binding var keywordSearchTapped : Bool
-    @Binding var getMoreMeals : Bool
-    @Binding var source: Source
-    var body: some View{
-        switch query.queryType{
-        case .none:
-            Text("")
-        case .random:
-            GetMoreMealsButton(getMoreMeals: $getMoreMeals)
-        case .category:
-            HStack{
-                Spacer()
-                NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: .categories), title: .oneCategory)) {
-                    Text("Select a category")
-                        .foregroundColor(.primary)
-                }
-                Spacer()
 
-                if let safeSelected = query.selected{
-                    Text(safeSelected)
-                    GetMoreMealsButton(getMoreMeals: $getMoreMeals)
-                    Spacer()
-                }
-            }
-            
-        case .ingredient:
-            HStack{
-                Spacer()
-                NavigationLink(destination: SingleIngredientListView(vm: IngredientListVM(editIdeaVM: EditIdeaVM(meal: nil)))) {
-                    Text("Select an ingredient")
-                        .foregroundColor(.primary)
-                }
-                if let safeSelected = query.selected{
-                    Text(safeSelected)
-                }
-                Spacer()
-
-                if source == .spoonacular && query.selected != nil{
-                    GetMoreMealsButton(getMoreMeals: $getMoreMeals)
-                    Spacer()
-                }
-            }
-        case .history:
-            HStack{
-                Button {
-                    //bring up list view of history
-                } label: {
-                    Text("View History") // or maybe just change the bottom view to the list..? not sure yet
-                        .foregroundColor(.primary)
-                }
-                
-            }
-        case .favorite:
-            HStack{
-                Button {
-                    //bring up list view of favorites
-                } label: {
-                    Text("View Favorites") // or maybe just change the bottom view to the list..? not sure yet
-                        .foregroundColor(.primary)
-                }
-                
-            }
-        case .keyword:
-            KeywordSearchView(keywordSearchTapped: $keywordSearchTapped,
-                              source: $source,
-                              getMoreMeals: $getMoreMeals)
-        }
-    }
-}
-*/
 
 
 // MARK: - Top View Buttons
@@ -138,6 +66,7 @@ struct TopViewButtons: View{
             Spacer()
         }
         .padding(.bottom, 5)
+        
     }
 }
 
