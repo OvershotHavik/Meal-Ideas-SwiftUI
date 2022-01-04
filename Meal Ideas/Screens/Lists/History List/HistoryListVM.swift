@@ -37,14 +37,15 @@ final class HistoryListVM: ObservableObject{
             print("MealDB History Count: \(mealDBHistory.count)")
             historyArray = mealDBHistory
         case .myIdeas:
-            let myIdeasHistory = history.filter{$0.spoonID == 0 && $0.mealDBID == nil}.sorted{$0.timeStamp ?? Date() > $1.timeStamp ?? Date()}
+//            let myIdeasHistory = history.filter{$0.spoonID == 0 && $0.mealDBID == nil}.sorted{$0.timeStamp ?? Date() > $1.timeStamp ?? Date()}
+            let myIdeasHistory = history.filter{$0.userMealID != nil}.sorted{$0.timeStamp ?? Date() > $1.timeStamp ?? Date()}
             print("My Ideas history count: \(myIdeasHistory.count)")
             historyArray = myIdeasHistory
         }
     }
     // MARK: - Fetch User Meal
-    func fetchUserMeal(name: String?) -> UserMeals?{
-        if let safeName = name{
+    func fetchUserMeal(userMealID: UUID?) -> UserMeals?{
+        if let safeID = userMealID{
             let request = NSFetchRequest<UserMeals>(entityName: EntityName.userMeals.rawValue)
             var allMeals: [UserMeals] = []
             
@@ -55,8 +56,8 @@ final class HistoryListVM: ObservableObject{
                 print("error fetching meal in fetch Favorites: \(e.localizedDescription)")
             }
             for meal in allMeals{
-                if meal.mealName == safeName{
-                    print("Safe meal name: \(safeName)")
+                if meal.userMealID == safeID{
+                    print("Safe meal name: \(safeID)")
                     return meal
                 }
             }
@@ -103,7 +104,7 @@ final class HistoryListVM: ObservableObject{
     }
     
     // MARK: - Check For Favorite
-    func checkForFavorite(favoritesArray: [Favorites], id: String?) -> Bool{
+    func checkForFavorite(favoritesArray: [Favorites], id: String?, userMealID: UUID?) -> Bool{
         switch source {
         case .spoonacular:
             if let safeDouble: Double = Double(id ?? ""){
@@ -122,9 +123,17 @@ final class HistoryListVM: ObservableObject{
                 return false
             }
         case .myIdeas:
-            if favoritesArray.contains(where: {$0.mealName == id}){
-//                print("favorited meal id: \(id ?? "")")
+
+            if favoritesArray.contains(where: {$0.userMealID == userMealID}){
+                //                        print("Favorite meal id: \(safeUUID)")
                 return true
+                
+            
+                
+//            if favoritesArray.contains(where: {$0.mealName == id}){
+//                print("favorited meal id: \(id ?? "")")
+//                return true
+                
             } else {
                 return false
             }

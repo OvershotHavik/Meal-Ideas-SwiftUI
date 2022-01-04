@@ -26,27 +26,28 @@ struct FavoritesListView: View {
                                                                                   favorited: true,
                                                                                   showingHistory: false))) {
                         FavoriteCell(mealName: favorite.mealName)
+                            .navigationTitle(Titles.spoonFavorite.rawValue)
+                            .searchable(text: $vm.searchText)
                     }
-                                                                                                                                                                    .navigationTitle(Titles.spoonFavorite.rawValue)
-                                                                                                                                                                    .searchable(text: $vm.searchText)
-
-
+                                                                                  
+                    
+                    
                 case .mealDB:
                     NavigationLink(destination: MealDBDetailView(vm: MealDBDetailVM(meal: vm.fetchMealDBMeal(mealDBID: favorite.mealDBID),
                                                                                     favorited: true, mealID: favorite.mealDBID ?? "",
                                                                                     showingHistory: false))) {
                         FavoriteCell(mealName: favorite.mealName)
+                            .navigationTitle(Titles.mealDBFavorite.rawValue)
+                            .searchable(text: $vm.searchText)
                     }
-                                                                                    .navigationTitle(Titles.mealDBFavorite.rawValue)
-                                                                                    .searchable(text: $vm.searchText)
-
+                                                                                    
+                    
                 case .myIdeas:
-                    NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: vm.fetchUserMeal(name: favorite.mealName),
+                    NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: vm.fetchUserMeal(userMealID: favorite.userMealID),
                                                                                       favorited: true, showingHistory: false))) {
                         FavoriteCell(mealName: favorite.mealName)
                             .navigationTitle(Titles.myIdeasFavorite.rawValue)
                             .searchable(text: $vm.searchText)
- 
                     }
                 }
             }
@@ -56,8 +57,8 @@ struct FavoritesListView: View {
                 query.getFavorites()
                 vm.filteredFavorites(favorites: query.favoritesArray)
             }
-                                      .listStyle(.plain)
-
+            .listStyle(.plain)
+            
         }
         .onAppear {
             vm.filteredFavorites(favorites: query.favoritesArray)

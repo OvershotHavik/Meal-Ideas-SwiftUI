@@ -133,10 +133,10 @@ final class EditIdeaVM: ObservableObject{
             self.alertItem = AlertContext.blankMealName
             return
         }
-        if checkNameAlreadyInUse(){
-            //if true, return
-            return
-        }
+//        if checkNameAlreadyInUse(){
+//            //if true, return
+//            return
+//        }
 
         print("Save meal...")
         var mealPhotoData: Data?

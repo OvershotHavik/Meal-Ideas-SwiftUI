@@ -28,13 +28,13 @@ struct MyIdeasView: View {
                     LazyVGrid(columns: columns, alignment: .center) {
                         ForEach(vm.meals) {meal in
                             NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: meal,
-                                                                                              favorited: vm.checkForFavorite(id: meal.mealName,
+                                                                                              favorited: vm.checkForFavorite(id: meal.userMealID,
                                                                                                                              favoriteArray: query.favoritesArray),
                                                                                               showingHistory: false))) {
                                 MealCardView(mealPhoto: "",
                                              mealPhotoData: meal.mealPhoto,
                                              mealName: meal.mealName ?? "",
-                                             favorited: vm.checkForFavorite(id: meal.mealName,
+                                             favorited: vm.checkForFavorite(id: meal.userMealID,
                                                                             favoriteArray: query.favoritesArray),
                                              inHistory: vm.checkForHistory(id: meal.mealName,
                                                                            historyArray: query.historyArray))

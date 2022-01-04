@@ -40,8 +40,8 @@ final class FavoritesListVM: ObservableObject{
         }
     }
     // MARK: - Fetch User Meal
-    func fetchUserMeal(name: String?) -> UserMeals?{
-        if let safeName = name{
+    func fetchUserMeal(userMealID: UUID?) -> UserMeals?{
+        if let safeID = userMealID{
             let request = NSFetchRequest<UserMeals>(entityName: EntityName.userMeals.rawValue)
             var allMeals: [UserMeals] = []
             
@@ -52,7 +52,7 @@ final class FavoritesListVM: ObservableObject{
                 print("error fetching meal in fetch Favorites: \(e.localizedDescription)")
             }
             for meal in allMeals{
-                if meal.mealName == safeName{
+                if meal.userMealID == safeID{
                     return meal
                 }
             }

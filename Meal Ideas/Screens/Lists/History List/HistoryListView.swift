@@ -16,7 +16,7 @@ struct HistoryListView: View {
         List {
             if vm.searchResults.isEmpty{
                 NoResultsView(message: "No meals viewed")
-                        .navigationBarTitle("History")
+                    .navigationBarTitle("History")
             }
             ForEach(vm.searchResults) {history in
                 switch vm.source{
@@ -24,42 +24,47 @@ struct HistoryListView: View {
                     NavigationLink(destination: SpoonDetailView(vm: SpoonDetailVM(meal: vm.fetchSpoonMeal(spoonID: history.spoonID),
                                                                                   mealID: Int(history.spoonID),
                                                                                   favorited: vm.checkForFavorite(favoritesArray: query.favoritesArray,
-                                                                                                                 id: "\(history.spoonID)"),
+                                                                                                                 id: "\(history.spoonID)",
+                                                                                                                 userMealID: nil),
                                                                                   showingHistory: true))) {
                         HistoryCell(mealName: history.mealName ?? "",
                                     timeStamp: history.timeStamp,
                                     favorited: vm.checkForFavorite(favoritesArray: query.favoritesArray,
-                                                                   id: "\(history.spoonID)"))
+                                                                   id: "\(history.spoonID)",
+                                                                   userMealID: nil))
                     }
                                                                                   .navigationBarTitle(Titles.spoonHistory.rawValue)
                                                                                   .searchable(text: $vm.searchText)
                 case .mealDB:
                     NavigationLink(destination: MealDBDetailView(vm: MealDBDetailVM(meal: vm.fetchMealDBMeal(mealDBID: history.mealDBID),
                                                                                     favorited: vm.checkForFavorite(favoritesArray: query.favoritesArray,
-                                                                                                                   id: history.mealDBID),
+                                                                                                                   id: history.mealDBID,
+                                                                                                                   userMealID: nil),
                                                                                     mealID: history.mealDBID ?? "",
                                                                                     showingHistory: true))) {
                         HistoryCell(mealName: history.mealName ?? "",
                                     timeStamp: history.timeStamp,
                                     favorited: vm.checkForFavorite(favoritesArray: query.favoritesArray,
-                                                                   id: history.mealDBID))
+                                                                   id: history.mealDBID,
+                                                                   userMealID: nil))
                     }
                                                                                     .navigationBarTitle(Titles.mealDBHistory.rawValue)
                                                                                     .searchable(text: $vm.searchText)
                 case .myIdeas:
-                    NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: vm.fetchUserMeal(name: history.mealName),
+                    NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: vm.fetchUserMeal(userMealID: history.userMealID),
                                                                                       favorited: vm.checkForFavorite(favoritesArray: query.favoritesArray,
-                                                                                                                     id: history.mealName),
+                                                                                                                     id: history.mealName,
+                                                                                                                     userMealID: history.userMealID),
                                                                                       showingHistory: true))) {
                         HistoryCell(mealName: history.mealName ?? "",
                                     timeStamp: history.timeStamp,
                                     favorited: vm.checkForFavorite(favoritesArray: query.favoritesArray,
-                                                                   id: history.mealName))
+                                                                   id: history.mealName,
+                                                                   userMealID: history.userMealID))
                     }
                                                                                       .navigationBarTitle(Titles.myIdeasHistory.rawValue)
                                                                                       .searchable(text: $vm.searchText)
                 }
-
             }
             .onDelete{ IndexSet in
                 PersistenceController.shared.deleteInList(indexSet: IndexSet,
@@ -88,7 +93,7 @@ struct HistoryListView: View {
             // TODO:  Find out how to fix the list from showing blank cells when deleted via the trash can
         }
     }
-
+    
 }
 
 struct HistoryListView_Previews: PreviewProvider {
@@ -106,7 +111,7 @@ struct DeleteActionSheet: ViewModifier{
     let oneWeekAgoDate = Calendar.current.date(byAdding: .day, value: -7, to: Date())!
     let thirtyDaysAgo = Calendar.current.date(byAdding: .day, value: -30, to: Date())!
     let sixtyDaysAgo = Calendar.current.date(byAdding: .day, value: -60, to: Date())!
-
+    
     func body(content: Content) -> some View{
         content
             .actionSheet(isPresented: $vm.deleteASPresented) {
@@ -165,7 +170,7 @@ struct DeleteActionSheet: ViewModifier{
                 }
                 buttons.append(deleteAll)
                 
-            
+                
                 buttons.append(.cancel())
                 return ActionSheet(title: Text("Delete History for this source: "),
                                    message: nil,

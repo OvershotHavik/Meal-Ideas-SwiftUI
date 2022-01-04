@@ -18,9 +18,6 @@ struct EditIdeaView: View {
     enum FormTextField{ // will need changed to match this form
         case firstName, lastName, email
     }
-//    init(vm: EditIdeaVM){
-//        self.vm = vm
-//    }
     var body: some View {
         Form{
             Section(header: Text("Meal Information")) {

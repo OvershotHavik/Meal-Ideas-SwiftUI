@@ -103,9 +103,12 @@ import CoreData
     }
 
     // MARK: - Check For Favorite
-    func checkForFavorite(id: String?, favoriteArray: [Favorites]) -> Bool{
-        if favoriteArray.contains(where: {$0.mealName == id && $0.spoonID == 0 && $0.mealDBID == nil}){
-            print("favorited meal id: \(id ?? "")")
+    func checkForFavorite(id: UUID?, favoriteArray: [Favorites]) -> Bool{
+        if favoriteArray.contains(where: {$0.userMealID == id} ){
+            
+//        }
+//        if favoriteArray.contains(where: {$0.mealName == id && $0.spoonID == 0 && $0.mealDBID == nil}){
+            print("favorited meal id: \(String(describing: id))")
             return true
         } else {
             return false
