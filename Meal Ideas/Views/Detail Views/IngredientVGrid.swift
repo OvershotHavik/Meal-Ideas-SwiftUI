@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+/*
 struct IngredientVGrid: View {
     var ingredients : [String]
     var measurements: [String?]
@@ -15,12 +15,11 @@ struct IngredientVGrid: View {
     var body: some View {
         LazyVGrid(columns: columns, alignment: .center){
             ForEach(ingredients.indices, id: \.self) { i in
-                IngredientView(name: ingredients[i],
+                IngredientGridCell(name: ingredients[i],
                                value: measurements[i],
                                image: "Pizza")
             }
         }
-
     }
 }
 
@@ -31,3 +30,4 @@ struct IngredientVGrid_Previews: PreviewProvider {
         IngredientVGrid(ingredients: ["Cheese", "Pepperoni"], measurements: ["2 cups", "15"])
     }
 }
+*/

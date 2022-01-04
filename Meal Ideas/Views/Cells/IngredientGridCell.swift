@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-
-struct IngredientView: View {
+/*
+struct IngredientGridCell: View {
     var name: String
     var value: String?
     var image: String // will need to be changed to the core data image eventually
@@ -38,11 +38,11 @@ struct IngredientView: View {
 
 struct IngredientView_Previews: PreviewProvider {
     static var previews: some View {
-        IngredientView(name: "Pizza", value: "1", image: "Pizza")
+        IngredientGridCell(name: "Pizza", value: "1", image: "Pizza")
     }
 }
 
-
+*/
 
 /*
 if let safeIngredient = ingredient{

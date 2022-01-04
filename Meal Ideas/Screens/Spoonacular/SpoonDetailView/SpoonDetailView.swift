@@ -36,8 +36,8 @@ struct SpoonDetailView: View {
                 if vm.meal?.diets?.count ?? 0 > 0{
                     BadgesHStack(title: "Diet",
                                  items: vm.meal?.diets ?? [],
-                                 topColor: .yellow,
-                                 bottomColor: .yellow)
+                                 topColor: .green,
+                                 bottomColor: .green)
                 }
 
                 if vm.meal?.occasions?.count ?? 0 > 0{
@@ -47,8 +47,10 @@ struct SpoonDetailView: View {
                                  bottomColor: .pink)
                 }
 
-                IngredientVGrid(ingredients: vm.ingredients,
-                                measurements: vm.measurements)
+//                IngredientVGrid(ingredients: vm.ingredients,
+//                                measurements: vm.measurements)
+                DetailViewIngredientListView(ingredients: vm.ingredients,
+                                             measurements: vm.measurements)
 
                 
                 RecipeView(recipe: vm.instructions)

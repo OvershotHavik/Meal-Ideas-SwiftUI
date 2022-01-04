@@ -23,6 +23,9 @@ struct SingleIngredientListView: View {
                     dismiss()
                 }
         }
+        .onAppear{
+            query.queryType = .ingredient
+        }
         .searchable(text: $vm.searchText)
         .navigationTitle(Titles.oneIngredient.rawValue)
         .alert(item: $vm.alertItem) { alertItem in

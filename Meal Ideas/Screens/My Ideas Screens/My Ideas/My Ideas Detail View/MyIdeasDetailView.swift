@@ -33,8 +33,10 @@ struct MyIdeasDetailView: View {
                     }
 
                     
-                    IngredientVGrid(ingredients: vm.meal?.ingredients as! [String],
-                                    measurements: vm.meal?.measurements as! [String?])
+//                    IngredientVGrid(ingredients: vm.meal?.ingredients as! [String],
+//                                    measurements: vm.meal?.measurements as! [String?])
+                    DetailViewIngredientListView(ingredients: vm.meal?.ingredients as! [String],
+                                                 measurements: vm.meal?.measurements as! [String])
                     if vm.meal?.instructionsPhoto != nil{
                         CDPhotoView(photoData: vm.meal?.instructionsPhoto)
                             .frame(width: 200, height: 200)
