@@ -24,6 +24,7 @@ struct EditIdeaView: View {
         Form{
             Section(header: Text("Meal Information")) {
                 TextField(vm.meal?.mealName ?? "Meal Name*", text: $vm.mealName)
+                    .textFieldStyle(CustomRoundedCornerTextField())
                     .overlay{
                         Rectangle()
                             .stroke(vm.mealName == "" ? Color.red : Color.clear)
@@ -72,7 +73,7 @@ struct EditIdeaView: View {
                         Text(ing.name)
                         Spacer()
                         TextField("Measurement", text: $ing.measurement)
-                            .textFieldStyle(.roundedBorder)
+                            .textFieldStyle(CustomRoundedCornerTextField())
                             .frame(width: 150)
                     }
                 }
@@ -90,6 +91,7 @@ struct EditIdeaView: View {
             Section(header: Text("Prep Time")){
                 PrepTimePickerView(vm: vm)
             }
+            
             
             Section(header: Text("Instructions")){
                 MealInstructionsButtonView(vm: vm)
@@ -113,12 +115,14 @@ struct EditIdeaView: View {
                 }
                 Text("And/Or type in below:")
                 TextEditor(text: $vm.recipe)
+                    .background(RoundedRectangle(cornerRadius: 10)
+                                    .fill(Color(.systemGray3)))
                     .frame(height: 150)
-                // TODO:  Disable the keyboard once done typing, add a done button or something
             }
-            
+           
             Section(header: Text("Source")){
                 TextField("Website", text: $vm.source)
+                    .textFieldStyle(CustomRoundedCornerTextField())
             }
             if vm.meal != nil{
                 Section(header: Text("Modified Dates")){

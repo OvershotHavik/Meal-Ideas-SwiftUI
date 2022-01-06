@@ -71,13 +71,14 @@ struct MyIdeasView: View {
                 print("Keyword: \(query.keyword)")
                 vm.checkQuery(query: query.keyword, queryType: .keyword)
             })
-            .onChange(of: vm.getMoreMeals, perform: { newValue in
-                print("more meals tapped for: \(query.queryType.rawValue)")
-                vm.checkQuery(query: query.keyword, queryType: query.queryType)
-            })
+
             .onChange(of: vm.allMeals, perform: { newValue in
                 //if user changed the meals, run it again
                 vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
+            })
+            .onChange(of: vm.getRandomMeals, perform: { newValue in
+                print("Random tapped in User Meals")
+                vm.filterMeals(query: "", queryType: .random)
             })
             .onAppear {
                 vm.getAllMeals()

@@ -14,15 +14,23 @@ struct SingleIngredientListView: View {
     @Environment(\.dismiss) var dismiss
     
     
-    var body: some View {      
-        List(vm.searchResults, selection: $vm.selection){ ingredient in
-            let selected = ingredient.strIngredient == vm.selection
-            IngredientCell(ingredient: ingredient, selected: selected)
-                .onTapGesture {
-                    query.selected = ingredient.strIngredient
-                    dismiss()
-                }
+    var body: some View {
+        ZStack{
+            if vm.isLoading{
+                loadingView()
+                    .offset(y: UI.verticalSpacing)
+            }
+            List(vm.searchResults, selection: $vm.selection){ ingredient in
+
+                let selected = ingredient.strIngredient == vm.selection
+                IngredientCell(ingredient: ingredient, selected: selected)
+                    .onTapGesture {
+                        query.selected = ingredient.strIngredient
+                        dismiss()
+                    }
+            }
         }
+
         .onAppear{
             query.queryType = .ingredient
         }

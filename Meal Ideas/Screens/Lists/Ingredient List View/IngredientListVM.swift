@@ -17,7 +17,6 @@ import SwiftUI
     
     @Published var selection: String?
     @Published var searching = false
-    @Published var mainList : [String] = []
     
     @Published var searchText = ""
     var searchResults: [Ingredients.Meals] {
@@ -35,12 +34,12 @@ import SwiftUI
     }
     
     func getIngredients(){
+        self.isLoading = true
         Task(priority: .userInitiated) {
             do {
-                ingredients = try await NetworkManager.shared.getIngredients()
-                ingredients = ingredients.sorted {$0.strIngredient < $1.strIngredient}
-                mainList = ingredients.compactMap{$0.strIngredient}
-
+                let allIngredients = try await NetworkManager.shared.getIngredients()
+                ingredients = allIngredients.sorted {$0.strIngredient < $1.strIngredient}
+                self.isLoading = false
             } catch {
                 DispatchQueue.main.async {
                     if let MIError = error as? MIError{

@@ -15,6 +15,11 @@ struct MultiIngredientListView: View {
     var body: some View {
         
         List(vm.searchResults){ ingredient in
+            if vm.isLoading{
+                loadingView()
+                    .offset(y: UI.verticalSpacing)
+
+            }
             let selected = vm.selectedArray.contains(ingredient.strIngredient)
             IngredientCell(ingredient: ingredient, selected: selected)
                 .onTapGesture {

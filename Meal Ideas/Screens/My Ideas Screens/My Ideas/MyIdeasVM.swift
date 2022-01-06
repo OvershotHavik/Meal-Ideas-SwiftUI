@@ -59,7 +59,7 @@ import CoreData
         switch queryType {
         case .random:
             print("My Ideas Random")
-            meals = allMeals
+            meals = allMeals.shuffled()
         case .category:
             print("My Ideas category")
             for meal in allMeals{

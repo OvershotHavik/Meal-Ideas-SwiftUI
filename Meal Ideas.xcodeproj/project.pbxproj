@@ -39,6 +39,7 @@
 		B374E7DC278496C800422E9C /* SpoonFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B374E7D9278496C800422E9C /* SpoonFunctions.swift */; };
 		B374E7DE2784B02100422E9C /* View+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B374E7DD2784B02100422E9C /* View+Ext.swift */; };
 		B374E7E22787839D00422E9C /* BaseVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B374E7E12787839D00422E9C /* BaseVM.swift */; };
+		B374E7E527878F8C00422E9C /* CustomRoundedTextFIeldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B374E7E427878F8C00422E9C /* CustomRoundedTextFIeldStyle.swift */; };
 		B375C97B2762140C0013895F /* Sides.plist in Resources */ = {isa = PBXBuildFile; fileRef = B375C97A2762140C0013895F /* Sides.plist */; };
 		B375C97D276214580013895F /* Categories.plist in Resources */ = {isa = PBXBuildFile; fileRef = B375C97C276214580013895F /* Categories.plist */; };
 		B375C981276216F10013895F /* PListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B375C980276216F10013895F /* PListManager.swift */; };
@@ -145,6 +146,7 @@
 		B374E7D9278496C800422E9C /* SpoonFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpoonFunctions.swift; sourceTree = "<group>"; };
 		B374E7DD2784B02100422E9C /* View+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Ext.swift"; sourceTree = "<group>"; };
 		B374E7E12787839D00422E9C /* BaseVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVM.swift; sourceTree = "<group>"; };
+		B374E7E427878F8C00422E9C /* CustomRoundedTextFIeldStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRoundedTextFIeldStyle.swift; sourceTree = "<group>"; };
 		B375C97A2762140C0013895F /* Sides.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Sides.plist; sourceTree = "<group>"; };
 		B375C97C276214580013895F /* Categories.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Categories.plist; sourceTree = "<group>"; };
 		B375C980276216F10013895F /* PListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PListManager.swift; sourceTree = "<group>"; };
@@ -343,6 +345,14 @@
 			path = ../../../../../Desktop/Ignored;
 			sourceTree = "<group>";
 		};
+		B374E7E327878F6500422E9C /* Modifiers */ = {
+			isa = PBXGroup;
+			children = (
+				B374E7E427878F8C00422E9C /* CustomRoundedTextFIeldStyle.swift */,
+			);
+			path = Modifiers;
+			sourceTree = "<group>";
+		};
 		B375C979276213E30013895F /* PLists */ = {
 			isa = PBXGroup;
 			children = (
@@ -420,6 +430,7 @@
 		B37E360827481DB500687A8C /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				B374E7E327878F6500422E9C /* Modifiers */,
 				B374E7D6278496C800422E9C /* Ignored */,
 				B3C2BDB1275264B800CD5EE0 /* Alerts */,
 				B3C2BDAC2752632300CD5EE0 /* Managers */,
@@ -807,6 +818,7 @@
 				B375C98727621B170013895F /* SingleChoiceListVM.swift in Sources */,
 				B3CEDDA42756FBFB00BB832B /* ImageLoader.swift in Sources */,
 				B3A668CD2771042A00533988 /* HistoryCell.swift in Sources */,
+				B374E7E527878F8C00422E9C /* CustomRoundedTextFIeldStyle.swift in Sources */,
 				B375C99327629F140013895F /* MultiIngredientListView.swift in Sources */,
 				B3CA23782748112500CA9C68 /* MyIdeasView.swift in Sources */,
 				B3627BFB275F75C8004A6519 /* EditMealsListVM.swift in Sources */,

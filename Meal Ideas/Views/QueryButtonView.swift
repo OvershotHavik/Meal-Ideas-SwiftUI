@@ -50,7 +50,7 @@ struct CategoryQueryButtonView: View{
                     .frame(width: 30, height: 30)
                 Text(QueryType.category.rawValue)
                     .foregroundColor(.primary)
-                    .offset(y: (query.queryType == .category) ? -5 : 0)
+                    .offset(y: (query.queryType == .category) ? -7 : 0)
             }
         }
         .modifier(QueryButtonModifier(title: .category))
@@ -66,14 +66,16 @@ struct IngredientQueryButtonView : View{
                 if query.queryType == .ingredient{
                     if let safeSelected = query.selected{
                         Text(safeSelected)
+                            .foregroundColor(.primary)
                             .offset(y: 5)
                     }
                 }
                 Image(systemName: "i.circle")
                     .frame(width: 30, height: 30)
+                    .foregroundColor(.primary)
                 Text(QueryType.ingredient.rawValue)
                     .foregroundColor(.primary)
-                    .offset(y: (query.queryType == .ingredient) ? -5 : 0)
+                    .offset(y: (query.queryType == .ingredient) ? -7 : 0)
             }
             .modifier(QueryButtonModifier(title: .ingredient))
         }

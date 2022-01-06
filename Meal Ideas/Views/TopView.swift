@@ -75,8 +75,8 @@ struct KeywordSearchView: View{
             Spacer()
             Image(systemName: "magnifyingglass")
                 .foregroundColor(.gray)
-            TextField("Keyword Search", text: $query.keyword)
-                .textFieldStyle(.roundedBorder)
+            TextField("Search...", text: $query.keyword)
+                .textFieldStyle(CustomRoundedCornerTextField())
                 .frame(width: 250)
                 .onSubmit {
                     query.selected = nil
@@ -90,17 +90,3 @@ struct KeywordSearchView: View{
 }
 
 
-// MARK: - Get More Meals Button
-struct GetMoreMealsButton: View{
-    @Binding var getMoreMeals: Bool
-    var body: some View{
-        Button {
-            //perform network call to get more meals
-            getMoreMeals.toggle()
-        } label: {
-//            Image(systemName: "arrow.triangle.2.circlepath")
-            Image(systemName: "shuffle")
-                .foregroundColor(.primary)
-        }
-    }
-}

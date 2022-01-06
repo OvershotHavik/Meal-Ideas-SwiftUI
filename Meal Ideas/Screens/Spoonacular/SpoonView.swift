@@ -110,7 +110,7 @@ struct SpoonView: View {
                 vm.getMoreTapped()
             })
             .onChange(of: vm.getRandomMeals, perform: { newValue in
-                print("Random tapped in mealDB")
+                print("Random tapped in Spoon")
                 vm.checkQuery(query: "", queryType: .random)
             })
         }
