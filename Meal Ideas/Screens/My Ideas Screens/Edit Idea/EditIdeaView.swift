@@ -18,7 +18,7 @@ struct EditIdeaView: View {
     enum FormTextField{ // will need changed to match this form
         case firstName, lastName, email
     }
-    // TODO:  Figure this part out again for the form text fields to get the curser to bounce around, and to dismiss the keyboard
+    // TODO:  Figure this part out again for the form text fields to get the curser to bounce around, and to dismiss the keyboardb
     var body: some View {
         Form{
             Section(header: Text("Meal Information")) {
@@ -65,8 +65,9 @@ struct EditIdeaView: View {
                         Text(ing.name)
                         Spacer()
                         TextField("Measurement", text: $ing.measurement)
-                            .background(.gray)
+                            .textFieldStyle(.roundedBorder)
                             .frame(width: 150)
+                        
                     }
                 }
                 .onDelete(perform: vm.deleteIngredient)
@@ -145,7 +146,8 @@ struct EditIdeaView: View {
                   message: alertItem.message,
                   dismissButton: .default(Text("OK"), action: {
                 if alertItem.title == AlertContext.nameInUse.title ||
-                    alertItem.title == AlertContext.blankMealName.title{
+                    alertItem.title == AlertContext.blankMealName.title ||
+                    alertItem.title == AlertContext.invalidSourceURL.title{
                     //do nothing since user needs to change the meal name to save
                 } else {
                     //if all is good then pop view back to the list

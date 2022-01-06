@@ -46,4 +46,8 @@ struct AlertContext{
     static let blankMealName      = AlertItem(title: Text("Meal name missing"),
                                               message: Text("Please enter a name for your meal."),
                                               dismissButton: .default(Text("OK")))
+    
+    static let invalidSourceURL      = AlertItem(title: Text("Invalid Source"),
+                                              message: Text("The source provided is not a valid URL. \nPlease correct."),
+                                              dismissButton: .default(Text("OK")))
 }

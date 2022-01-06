@@ -82,26 +82,18 @@ struct KeywordSearchView: View{
     var body: some View{
         HStack{
             Spacer()
+            Image(systemName: "magnifyingglass")
+                .foregroundColor(.gray)
             TextField("Keyword Search", text: $query.keyword)
+                .textFieldStyle(.roundedBorder)
                 .frame(width: 250)
-                // TODO:  figure out a good background color, and round the text field 
-            Button {
-                query.selected = nil
-                searchTapped = true
-                keywordSearchTapped.toggle()
-                print("Top View Keyword search: \(query.keyword)")
-            } label: {
-                Image(systemName: "magnifyingglass")
-                    .foregroundColor(.black)
-            }
-
+                .onSubmit {
+                    query.selected = nil
+                    searchTapped = true
+                    keywordSearchTapped.toggle()
+                    print("Top View Keyword search: \(query.keyword)")
+                }
             Spacer()
-//
-//            if source == .spoonacular && searchTapped == true{
-//                GetMoreMealsButton(getMoreMeals: $getMoreMeals)
-//                Spacer()
-//
-//            }
         }
     }
 }

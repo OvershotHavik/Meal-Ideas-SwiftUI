@@ -135,6 +135,12 @@ final class EditIdeaVM: ObservableObject{
             measurements.append(x.measurement)
         }
         
+        if source != ""{
+            if verifyUrl(urlString: source) == false {
+                self.alertItem = AlertContext.invalidSourceURL
+                return
+            }
+        }
         //Update existing meal, or create a new one
         if let safeMeal = meal{
             if safeMeal.mealName != mealName{
@@ -210,6 +216,15 @@ final class EditIdeaVM: ObservableObject{
         }
     }
     
+    // MARK: - Verify URL
+    func verifyUrl (urlString: String?) -> Bool {
+        if let urlString = urlString {
+            if let url = NSURL(string: urlString) {
+                return UIApplication.shared.canOpenURL(url as URL)
+            }
+        }
+        return false
+    }
     
     // MARK: - UpdateFavorite
     func updateFavorites(){
