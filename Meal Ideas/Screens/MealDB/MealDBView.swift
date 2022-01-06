@@ -75,7 +75,6 @@ struct MealDBView: View {
                             }
                         }
                     }
-
                 }
 
                 .alert(item: $vm.alertItem) { alertItem in
