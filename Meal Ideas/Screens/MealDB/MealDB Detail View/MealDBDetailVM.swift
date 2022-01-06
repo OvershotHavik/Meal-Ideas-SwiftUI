@@ -8,19 +8,17 @@
 import UIKit
 import CoreData
 
-@MainActor final class MealDBDetailVM: ObservableObject{
+@MainActor final class MealDBDetailVM: DetailBaseVM, ObservableObject{
+    
     @Published var meal: MealDBResults.Meal?
-    @Published var isLoading = false
-    @Published var favorited : Bool
     @Published var mealID: String
-    @Published var mealPhoto = UIImage()
-    @Published var showingHistory : Bool
 
     
     init(meal : MealDBResults.Meal?, favorited: Bool, mealID: String, showingHistory: Bool){
+        self.mealID = mealID
+        super.init()
         self.meal = meal
         self.favorited = favorited
-        self.mealID = mealID
         self.showingHistory = showingHistory
         fetchMeal()
         getMealPhoto()

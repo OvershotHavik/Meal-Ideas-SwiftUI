@@ -7,14 +7,13 @@
 
 import SwiftUI
 
-final class MyIdeasDetailVM: ObservableObject{
+final class MyIdeasDetailVM: DetailBaseVM, ObservableObject{
     
     @Published var  meal: UserMeals?
-    @Published var favorited : Bool
-    @Published var showingHistory : Bool
 
     init(meal: UserMeals?, favorited: Bool, showingHistory: Bool){
         self.meal = meal
+        super.init()
         self.favorited = favorited
         self.showingHistory = showingHistory
     }

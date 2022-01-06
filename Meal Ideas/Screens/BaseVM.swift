@@ -5,7 +5,7 @@
 //  Created by Steve Plavetzky on 1/6/22.
 //
 
-import Foundation
+import SwiftUI
 
 class BaseVM{
     @Published var alertItem : AlertItem?
@@ -15,4 +15,16 @@ class BaseVM{
     @Published var keywordSearchTapped = false
     @Published var getMoreMeals = false
     @Published var getRandomMeals = false
+}
+
+
+class DetailBaseVM{
+    @Published var isLoading = false
+    @Published var alertItem : AlertItem?
+    @Published var ingredients: [String] = []
+    @Published var measurements: [String] = []
+    @Published var instructions: String = ""
+    @Published var mealPhoto = UIImage()
+    @Published var favorited = false
+    @Published var showingHistory =  false
 }

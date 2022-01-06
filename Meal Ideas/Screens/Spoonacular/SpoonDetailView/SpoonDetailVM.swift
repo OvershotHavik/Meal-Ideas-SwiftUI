@@ -7,19 +7,12 @@
 
 import UIKit
 
-@MainActor final class SpoonDetailVM: ObservableObject{
+@MainActor final class SpoonDetailVM: DetailBaseVM, ObservableObject{
     @Published var meal: SpoonacularResults.Recipe?
-    @Published var isLoading = false
-    @Published var alertItem : AlertItem?
     @Published var mealID: Int?
-    @Published var ingredients: [String] = []
-    @Published var measurements: [String] = []
-    @Published var instructions: String = ""
-    @Published var mealPhoto = UIImage()
-    @Published var favorited : Bool
-    @Published var showingHistory : Bool
-    
+
     init(meal: SpoonacularResults.Recipe?, mealID: Int?, favorited: Bool, showingHistory: Bool){
+        super.init()
         self.mealID = mealID
         self.meal = meal
         self.favorited = favorited
@@ -29,6 +22,7 @@ import UIKit
         getMealPhoto()
         fetchMeal()
         addToHistory()
+        
     }
     // MARK: - Get Ingredients and Measurements
     func getIngredientsAndMeasurements(){
