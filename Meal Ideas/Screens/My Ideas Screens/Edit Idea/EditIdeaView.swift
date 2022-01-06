@@ -14,15 +14,18 @@ struct EditIdeaView: View {
     
     @Environment(\.dismiss) var dismiss
     
-    
+//    @FocusState private var nameIsFocused: Bool
+    @FocusState private var focusedTextField: FormTextField?
+
     enum FormTextField{ // will need changed to match this form
-        case firstName, lastName, email
+        case mealName
     }
-    // TODO:  Figure this part out again for the form text fields to get the curser to bounce around, and to dismiss the keyboardb
+    // TODO:  Figure this part out again for the form text fields to get the curser to bounce around, and to dismiss the keyboard
     var body: some View {
         Form{
             Section(header: Text("Meal Information")) {
                 TextField(vm.meal?.mealName ?? "Meal Name*", text: $vm.mealName)
+                    .focused($focusedTextField, equals: .mealName)
                     .onSubmit {
                         vm.checkNameAlreadyInUse()
                     }
@@ -67,7 +70,6 @@ struct EditIdeaView: View {
                         TextField("Measurement", text: $ing.measurement)
                             .textFieldStyle(.roundedBorder)
                             .frame(width: 150)
-                        
                     }
                 }
                 .onDelete(perform: vm.deleteIngredient)
@@ -124,8 +126,24 @@ struct EditIdeaView: View {
                     }
                 }
             }
-            SaveButtonView(vm: vm)
-                .listRowBackground(Color.green)
+            
+            // MARK: - Save Button
+            Button {
+                if vm.mealName.isEmpty{
+                    focusedTextField = .mealName
+                    return
+                }
+//                nameIsFocused = vm.mealName.isEmpty
+                vm.saveMeal()
+            } label: {
+                Text("Save Meal")
+                    .padding()
+                    .foregroundColor(.white)
+            }
+            .listRowBackground(Color.green)
+
+//            SaveButtonView(vm: vm, nameIsFocused: $nameIsFocused)
+            
             
             if vm.meal != nil{
                 //Only show and add space if the meal was passed in
@@ -135,7 +153,16 @@ struct EditIdeaView: View {
             }
         }
         .navigationTitle(vm.meal?.mealName ?? "Create a Meal")
-
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                HStack{
+                    Spacer()
+                    Button("Done"){hideKeyboard()}
+                    .foregroundColor(.primary)
+                }
+                
+            }
+        }
         .onAppear{
             // TODO:  Change the background to the background gradient?
 //            UITableView.appearance().backgroundColor = .clear
@@ -253,8 +280,10 @@ struct MealInstructionsButtonView: View{
 // MARK: - Save Button
 struct SaveButtonView: View{
     var vm: EditIdeaVM
+    @Binding var nameIsFocused: Bool
     var body: some View{
         Button {
+            nameIsFocused = vm.mealName.isEmpty
             vm.saveMeal()
         } label: {
             Text("Save Meal")

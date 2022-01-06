@@ -53,7 +53,7 @@ final class EditIdeaVM: ObservableObject{
     @Published var hours = [Int](0..<25)
     @Published var minutes = [Int](0..<60)
     @Published var seconds = [Int](0..<60)
-    
+  
     
     // MARK: - used for Core Data
     private let pc = PersistenceController.shared
