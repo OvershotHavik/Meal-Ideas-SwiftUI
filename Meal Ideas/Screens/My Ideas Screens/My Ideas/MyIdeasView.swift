@@ -15,7 +15,7 @@ struct MyIdeasView: View {
         NavigationView{
             VStack{
                 TopView(keywordSearchTapped: $vm.keywordSearchTapped,
-                        getMoreMeals: $vm.getMoreMeals,
+                        getRandomMeals: $vm.getRandomMeals,
                         source: $vm.source)
                 
                 Spacer(minLength: UI.topViewOffsetSpacing)

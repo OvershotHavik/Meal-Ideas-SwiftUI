@@ -8,22 +8,27 @@
 import Foundation
 import CoreData
 
-@MainActor final class MealDBVM: ObservableObject{
+
+@MainActor final class MealDBVM: BaseVM, ObservableObject{
     
     @Published var meals : [MealDBResults.Meal] = []
-    @Published var alertItem : AlertItem?
-    @Published var isLoading = false
-    @Published var originalQueryType = QueryType.none
-    @Published var originalQuery: String?
-    @Published var keywordSearchTapped = false
-    @Published var getMoreMeals = false
     @Published var source: Source = .mealDB
 
+    // MARK: - Get More Tapped
+    func getMoreTapped(){
+        getMoreMeals = false
+        if let safeQuery = self.originalQuery{
+            getMealDBMeals(query: safeQuery,
+                           queryType: self.originalQueryType)
+        }
+    }
     
     // MARK: - CheckQuery
     func checkQuery(query: String, queryType: QueryType){
-        if originalQueryType != queryType || getMoreMeals == true{
-            getMoreMeals = false
+        if originalQueryType != queryType {
+            if getRandomMeals == true{
+                self.getRandomMeals = false
+            }
             meals = []
             self.originalQueryType = queryType
             self.originalQuery = query
@@ -47,7 +52,8 @@ import CoreData
                 switch queryType {
                 case .random:
                     print("random")
-                    meals = try await NetworkManager.shared.mealDBQuery(query: "", queryType: .random)
+                    let newMeals = try await NetworkManager.shared.mealDBQuery(query: "", queryType: .random)
+                    meals.append(contentsOf: newMeals)
 
                 case .category:
                     print("Fetching MealDB Category: \(query)")
@@ -115,50 +121,5 @@ import CoreData
             return false
         }
     }
-    /*
-    // MARK: - Check For Favorite
-    func checkForFavorite(id: String?) -> Bool{
-//        print(id ?? "")
-        
-        if favoritesArray.contains(where: {$0.mealDBID == id}){
-            print("favorited meal id: \(id ?? "")")
-            return true
-        } else {
-            return false
-        }
-        
-//        if favoritesArray.contains(where: {$0.mealDBID == meals[indexSet].id})
-    }
-    */
-    /*
-    // MARK: - Get Favorites
-    func getFavorites(){
-        let request = NSFetchRequest<Favorites>(entityName: EntityName.favorites.rawValue)
-        do {
-            let favoritesCD = try PersistenceController.shared.container.viewContext.fetch(request)
-            if let first = favoritesCD.first{
-                if let data = first.favoritesData{
-                    do {
-                        let results = try JSONDecoder().decode([FavoritesModel].self, from: data)
-                        for x in results{
-                            print("Meal Name: \(x.mealName)")
-                            print("MealDB ID: \(x.mealDBID ?? "")")
-                            print("Spoon ID: \(String(describing: x.spoonID))")
-                        }
-                        favoritesArray = results
-                    }catch let e{
-                        print("error decoding favorite data: \(e.localizedDescription)")
-                    }
-                }
-            }
-
-        } catch let error {
-            print("error fetching: \(error.localizedDescription)")
-        }
-    }
-    
-    func saveFavorites(){
-        
-    }
-     */
+   
 }

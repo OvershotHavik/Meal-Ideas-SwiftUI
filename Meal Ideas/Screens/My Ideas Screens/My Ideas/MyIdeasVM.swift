@@ -8,15 +8,15 @@
 import SwiftUI
 import CoreData
 
-@MainActor final class MyIdeasVM: ObservableObject{
+@MainActor final class MyIdeasVM: BaseVM, ObservableObject{
     @Published var meals : [UserMeals] = []
     private let pc = PersistenceController.shared
     @Published var filteredMeals: [UserMeals] = []
-    @Published var originalQueryType = QueryType.none
-    @Published var isLoading = false
-    @Published var originalQuery: String?
-    @Published var keywordSearchTapped = false
-    @Published var getMoreMeals = false
+//    @Published var originalQueryType = QueryType.none
+//    @Published var isLoading = false
+//    @Published var originalQuery: String?
+//    @Published var keywordSearchTapped = false
+//    @Published var getMoreMeals = false
     @Published var allMeals : [UserMeals] = []
     @Published var source: Source = .myIdeas
     

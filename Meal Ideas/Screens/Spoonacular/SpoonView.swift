@@ -16,7 +16,7 @@ struct SpoonView: View {
         NavigationView{
             VStack{
                 TopView(keywordSearchTapped: $vm.keywordSearchTapped,
-                        getMoreMeals: $vm.getMoreMeals,
+                        getRandomMeals: $vm.getRandomMeals,
                         source: $vm.source)
                 Spacer(minLength: UI.topViewOffsetSpacing)
                 ScrollView{
@@ -107,7 +107,11 @@ struct SpoonView: View {
             })
             .onChange(of: vm.getMoreMeals, perform: { newValue in
                 print("More meals tapped in spoon: \(query.queryType)")
-                vm.checkQuery(query: query.keyword, queryType: query.queryType)
+                vm.getMoreTapped()
+            })
+            .onChange(of: vm.getRandomMeals, perform: { newValue in
+                print("Random tapped in mealDB")
+                vm.checkQuery(query: "", queryType: .random)
             })
         }
         

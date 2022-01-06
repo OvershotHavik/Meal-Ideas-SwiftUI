@@ -9,13 +9,13 @@ import SwiftUI
 
 // MARK: - Random Query Button
 struct RandomQueryButtonView: View{
-    @Binding var getMoreMeals: Bool
+    @Binding var getRandomMeals: Bool
     @EnvironmentObject var query: Query
     var body: some View{
         Button {
             query.queryType = .random
             query.selected = nil
-            getMoreMeals.toggle()
+            getRandomMeals.toggle()
 
         } label: {
             VStack{

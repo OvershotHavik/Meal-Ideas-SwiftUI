@@ -10,7 +10,7 @@ import SwiftUI
 struct TopView: View {
     @State private var isActive = false
     @Binding var keywordSearchTapped: Bool
-    @Binding var getMoreMeals : Bool
+    @Binding var getRandomMeals : Bool
     @Binding var source: Source
     var body: some View {
         ZStack{
@@ -20,12 +20,10 @@ struct TopView: View {
                 Text("Meal Ideas")
                     .font(.title)
                 
-                KeywordSearchView(keywordSearchTapped: $keywordSearchTapped,
-                                  source: $source,
-                                  getMoreMeals: $getMoreMeals)
+                KeywordSearchView(keywordSearchTapped: $keywordSearchTapped)
 
                 
-                TopViewButtons(getMoreMeals: $getMoreMeals)
+                TopViewButtons(getRandomMeals: $getRandomMeals)
             }
         }
         .frame(height: 100)
@@ -35,7 +33,7 @@ struct TopView: View {
 
 struct TopView_Previews: PreviewProvider {
     static var previews: some View {
-        TopView(keywordSearchTapped: .constant(false), getMoreMeals: .constant(false), source: .constant(.spoonacular))
+        TopView(keywordSearchTapped: .constant(false), getRandomMeals: .constant(false), source: .constant(.spoonacular))
     }
 }
 
@@ -43,12 +41,12 @@ struct TopView_Previews: PreviewProvider {
 
 // MARK: - Top View Buttons
 struct TopViewButtons: View{
-    @Binding var getMoreMeals: Bool
+    @Binding var getRandomMeals: Bool
 
     var body: some View{
         HStack{
             Spacer()
-            RandomQueryButtonView(getMoreMeals: $getMoreMeals)
+            RandomQueryButtonView(getRandomMeals: $getRandomMeals)
             
             Spacer()
             
@@ -71,8 +69,6 @@ struct TopViewButtons: View{
 struct KeywordSearchView: View{
     @EnvironmentObject var query : Query
     @Binding var keywordSearchTapped : Bool
-    @Binding var source: Source
-    @Binding var getMoreMeals : Bool
     @State var searchTapped = false
     var body: some View{
         HStack{
