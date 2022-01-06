@@ -19,12 +19,7 @@ struct TopView: View {
                 Spacer(minLength: 20)
                 Text("Meal Ideas")
                     .font(.title)
-//                Spacer()
-//                SelectedQueryView(isActive: $isActive,
-//                                  keywordSearchTapped: $keywordSearchTapped,
-//                                  getMoreMeals: $getMoreMeals,
-//                                  source: $source)
-
+                
                 KeywordSearchView(keywordSearchTapped: $keywordSearchTapped,
                                   source: $source,
                                   getMoreMeals: $getMoreMeals)

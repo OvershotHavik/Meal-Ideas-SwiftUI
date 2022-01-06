@@ -7,24 +7,28 @@
 
 import SwiftUI
 
-
+enum FormTextField{ // will need changed to match this form
+    case mealName
+}
 
 struct EditIdeaView: View {
     @StateObject var vm: EditIdeaVM
     
     @Environment(\.dismiss) var dismiss
     
-//    @FocusState private var nameIsFocused: Bool
     @FocusState private var focusedTextField: FormTextField?
 
-    enum FormTextField{ // will need changed to match this form
-        case mealName
-    }
-    // TODO:  Figure this part out again for the form text fields to get the curser to bounce around, and to dismiss the keyboard
+
+
     var body: some View {
         Form{
             Section(header: Text("Meal Information")) {
                 TextField(vm.meal?.mealName ?? "Meal Name*", text: $vm.mealName)
+                    .overlay{
+                        Rectangle()
+                            .stroke(vm.mealName == "" ? Color.red : Color.clear)
+                    }
+                    .font(.title)
                     .focused($focusedTextField, equals: .mealName)
                     .onSubmit {
                         vm.checkNameAlreadyInUse()
@@ -128,22 +132,8 @@ struct EditIdeaView: View {
             }
             
             // MARK: - Save Button
-            Button {
-                if vm.mealName.isEmpty{
-                    focusedTextField = .mealName
-                    return
-                }
-//                nameIsFocused = vm.mealName.isEmpty
-                vm.saveMeal()
-            } label: {
-                Text("Save Meal")
-                    .padding()
-                    .foregroundColor(.white)
-            }
-            .listRowBackground(Color.green)
-
-//            SaveButtonView(vm: vm, nameIsFocused: $nameIsFocused)
-            
+            SaveButtonView(vm: vm)
+                .listRowBackground(Color.green)
             
             if vm.meal != nil{
                 //Only show and add space if the meal was passed in
@@ -160,10 +150,12 @@ struct EditIdeaView: View {
                     Button("Done"){hideKeyboard()}
                     .foregroundColor(.primary)
                 }
-                
             }
         }
         .onAppear{
+            if vm.mealName.isEmpty{
+                focusedTextField = .mealName
+            }
             // TODO:  Change the background to the background gradient?
 //            UITableView.appearance().backgroundColor = .clear
         }
@@ -280,10 +272,8 @@ struct MealInstructionsButtonView: View{
 // MARK: - Save Button
 struct SaveButtonView: View{
     var vm: EditIdeaVM
-    @Binding var nameIsFocused: Bool
     var body: some View{
         Button {
-            nameIsFocused = vm.mealName.isEmpty
             vm.saveMeal()
         } label: {
             Text("Save Meal")
@@ -451,3 +441,4 @@ struct PrepTimePickerView: View{
     }
 }
 */
+
