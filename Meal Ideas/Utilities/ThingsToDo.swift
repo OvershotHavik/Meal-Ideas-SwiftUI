@@ -12,14 +12,10 @@ import Foundation
 /*
  Search for ToDo's throughout the project, been adding things here and there as well
   
- 
 
  Favorites -
  Figure out why when unfavorited it bounces right back to the list, I thought it would at least stay there and then when user hit back it would go back to the list where it is no longer listed..
- 
- 
- - [ ] Have Query clear the selected whenever a query type is changed to resolve the issue where the buttons show the previous query selection as soon as you tap on it
- - [ ] Add a website verification to source for my meals
+  
 
  - [ ] Only allow x amount of meals to be stored then offer the pro version which will block adds and unlock unlimited meal storage
 

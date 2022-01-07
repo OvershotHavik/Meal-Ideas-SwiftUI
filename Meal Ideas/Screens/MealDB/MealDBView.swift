@@ -107,6 +107,7 @@ struct MealDBView: View {
                 }
                 .onAppear(perform: query.getHistory)
             }
+            .navigationViewStyle(.stack)
         }
     }
     // MARK: - Stop Loading

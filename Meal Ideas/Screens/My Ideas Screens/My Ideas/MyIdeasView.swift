@@ -89,6 +89,8 @@ struct MyIdeasView: View {
                 query.getFavorites()
             }
         }
+        .navigationViewStyle(.stack)
+
     }
 }
 /*

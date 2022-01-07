@@ -114,6 +114,8 @@ struct SpoonView: View {
                 vm.checkQuery(query: "", queryType: .random)
             })
         }
+        .navigationViewStyle(.stack)
+
         
     }
     // MARK: - Stop Loading
