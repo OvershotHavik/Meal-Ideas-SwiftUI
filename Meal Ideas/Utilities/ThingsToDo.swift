@@ -13,12 +13,17 @@ import Foundation
  Search for ToDo's throughout the project, been adding things here and there as well
   
 
- Favorites -
- Figure out why when unfavorited it bounces right back to the list, I thought it would at least stay there and then when user hit back it would go back to the list where it is no longer listed..
   
 
  - [ ] Only allow x amount of meals to be stored then offer the pro version which will block adds and unlock unlimited meal storage
 
+ - [ ] Adds for mealdb and spoon to help cover the api costs
+ - [ ] Change the meal cards back to clear out the previous meals once get more is tapped
+ - [ ] Animate the meal cards appearing /disappearing
+ - [ ] Add haptics when meal card appear? So the phone vibrates when they come in? Just a subtle one to go with the animation?
+ - [ ] Try moving the function to add/remove the meal from favorites to the on disappear from the detail view instead of running when it is tapped
+ - [ ] Change background color of all three detail views to the same background as the meal cards. Secondary background or whatever it’s called
+ - [ ] Add this Same color to the background of text fields if they still stand out
  */
 // TODO:  make a list
 

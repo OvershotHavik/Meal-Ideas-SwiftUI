@@ -11,13 +11,15 @@ struct MealDBDetailView: View {
     @StateObject var vm : MealDBDetailVM
     @EnvironmentObject var query: Query
     var body: some View {
-
+        ZStack{
+            vm.backgroundColor
+                .ignoresSafeArea()
             VStack{
                 ScrollView{
                     if vm.isLoading{
                         loadingView()
                     }
-//                    MealPhotoView(mealPhoto: vm.meal?.strMealThumb ?? "")
+                    //                    MealPhotoView(mealPhoto: vm.meal?.strMealThumb ?? "")
                     MealPhotoUIImageView(mealPhoto: vm.mealPhoto)
                     
                     MealNameView(name: vm.meal?.strMeal ?? "")
@@ -27,8 +29,8 @@ struct MealDBDetailView: View {
                                  topColor: .blue,
                                  bottomColor: .blue)
                     
-//                    IngredientVGrid(ingredients: vm.meal?.ingredientsArray ?? [],
-//                                    measurements: vm.meal?.measurementsArray ?? [])
+                    //                    IngredientVGrid(ingredients: vm.meal?.ingredientsArray ?? [],
+                    //                                    measurements: vm.meal?.measurementsArray ?? [])
                     DetailViewIngredientListView(ingredients: vm.meal?.ingredientsArray ?? [],
                                                  measurements: vm.meal?.measurementsArray ?? [])
                     
@@ -36,7 +38,7 @@ struct MealDBDetailView: View {
                     
                     LinkView(url: vm.meal?.strYoutube ?? "", title: "Visit Youtube Link")
                 }
-
+                
                 LinkView(url: vm.meal?.strSource ?? "", title: "Visit Source")
                     .navigationTitle(vm.meal?.strMeal ?? "")
             }
@@ -53,13 +55,15 @@ struct MealDBDetailView: View {
                     }
                 }
             }
+        }
+        
     }
 }
 
 /*
-struct MealDBDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        MealDBDetailView(meal: MealDBResults.Meal())
-    }
-}
-*/
+ struct MealDBDetailView_Previews: PreviewProvider {
+ static var previews: some View {
+ MealDBDetailView(meal: MealDBResults.Meal())
+ }
+ }
+ */

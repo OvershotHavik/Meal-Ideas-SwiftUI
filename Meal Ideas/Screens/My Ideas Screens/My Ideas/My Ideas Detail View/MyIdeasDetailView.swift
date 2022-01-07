@@ -13,6 +13,10 @@ struct MyIdeasDetailView: View {
     @EnvironmentObject var query: Query
     
     var body: some View {
+        ZStack{
+            vm.backgroundColor
+                .ignoresSafeArea()
+
             VStack{
                 ScrollView{
                     CDPhotoView(photoData: vm.meal?.mealPhoto)
@@ -56,6 +60,8 @@ struct MyIdeasDetailView: View {
                 LinkView(url: vm.meal?.source, title: "Visit Source")
                     .navigationTitle(vm.meal?.mealName ?? "")
             }
+        
+            
             .padding(.horizontal)
             .toolbar{
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -71,6 +77,7 @@ struct MyIdeasDetailView: View {
                 }
             }
             .onAppear(perform: vm.addToHistory)
+        }
     }
 }
 

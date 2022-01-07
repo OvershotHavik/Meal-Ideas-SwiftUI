@@ -27,4 +27,5 @@ class DetailBaseVM{
     @Published var mealPhoto = UIImage()
     @Published var favorited = false
     @Published var showingHistory =  false
+    @Published var backgroundColor = Color(UIColor.secondarySystemBackground)
 }
