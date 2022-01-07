@@ -16,14 +16,20 @@ import CoreData
     @Published var source: Source = .spoonacular
     @Published var lessThanTen = false
     
+    // MARK: - Get Random Meals
+    func getRandomMeals(){
+        getRandomMeals = false
+        meals = []
+        getSpoonMeals(query: "", queryType: .random)
+    }
+    
     // MARK: - Check Query
     func checkQuery(query: String, queryType: QueryType){
-        if originalQueryType != queryType || getMoreMeals == true || getRandomMeals == true{
+        if originalQueryType != queryType || getMoreMeals == true {
             if getMoreMeals == true{
                 offsetBy += 10
             }
             getMoreMeals = false
-            getRandomMeals = false
             meals = []
             self.originalQueryType = queryType
             self.originalQuery = query
@@ -78,7 +84,7 @@ import CoreData
                     let modified = safeKeyword + "&offset=\(offsetBy)"
                     keywordResults = try await NetworkManager.shared.spoonKeywordQuery(query: modified)
                     print("keyword")
-                    if keywordResults.count < 10{
+                    if keywordResults.count < 11{
                         if keywordResults.count != 0{
                             lessThanTen = true
                         }
@@ -128,7 +134,7 @@ import CoreData
     // MARK: - Check For History
     func checkForHistory(id: Int?, historyArray: [History]) -> Bool{
         if historyArray.contains(where: {$0.spoonID == Double(id ?? 0)}){
-            print("History meal id: \(id ?? 0)")
+//            print("History meal id: \(id ?? 0)")
             return true
         } else {
             return false
@@ -137,7 +143,7 @@ import CoreData
     // MARK: - Check For Favorite
     func checkForFavorite(id: Int?, favoriteArray: [Favorites]) -> Bool{
         if favoriteArray.contains(where: {$0.spoonID == Double(id ?? 0)}){
-            print("favorited meal id: \(id ?? 0)")
+//            print("favorited meal id: \(id ?? 0)")
             return true
         } else {
             return false

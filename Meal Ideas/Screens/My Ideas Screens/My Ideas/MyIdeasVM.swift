@@ -26,7 +26,7 @@ import CoreData
         let request = NSFetchRequest<UserMeals>(entityName: "UserMeals")
         do {
             allMeals = try pc.container.viewContext.fetch(request)
-            print("Meals Fetched")
+//            print("Meals Fetched")
         } catch let error {
             print("error fetching: \(error.localizedDescription)")
         }
@@ -108,7 +108,7 @@ import CoreData
             
 //        }
 //        if favoriteArray.contains(where: {$0.mealName == id && $0.spoonID == 0 && $0.mealDBID == nil}){
-            print("favorited meal id: \(String(describing: id))")
+//            print("favorited meal id: \(String(describing: id))")
             return true
         } else {
             return false
@@ -117,7 +117,7 @@ import CoreData
     // MARK: - Check For History
     func checkForHistory(id: String?, historyArray: [History]) -> Bool{
         if historyArray.contains(where: {$0.mealName == id && $0.spoonID == 0 && $0.mealDBID == nil}){
-            print("History meal id: \(id ?? "")")
+//            print("History meal id: \(id ?? "")")
             return true
         } else {
             return false

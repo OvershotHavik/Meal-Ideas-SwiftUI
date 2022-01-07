@@ -91,12 +91,19 @@ struct SpoonView: View {
                 }
             }
             .onAppear {
+                if query.queryType == .category ||
+                    query.queryType == .ingredient{
+                    if query.selected == nil{
+                        vm.alertItem = AlertContext.noSelection
+                        return
+                    }
+                }
                 if query.queryType != .keyword{
                     vm.offsetBy = 0 // may need changed to somewhere else
                     vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
                 }
+                query.getHistory()
             }
-            .onAppear(perform: query.getHistory)
             .alert(item: $vm.alertItem) { alertItem in
                 Alert(title: alertItem.title,
                       message: alertItem.message,
@@ -106,19 +113,19 @@ struct SpoonView: View {
                 print("Keyword: \(query.keyword)")
                 vm.checkQuery(query: query.keyword, queryType: .keyword)
             })
+            .onChange(of: vm.getRandomMeals, perform: { newValue in
+                print("Random tapped in Spoon")
+                vm.getRandomMeals()
+            })
             .onChange(of: vm.getMoreMeals, perform: { newValue in
                 print("More meals tapped in spoon: \(query.queryType)")
-//                vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
                 if query.queryType == .keyword{
-                    vm.checkQuery(query: query.keyword, queryType: query.queryType)
+                    vm.checkQuery(query: query.keyword, queryType: .keyword)
                 } else {
                     vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
                 }
             })
-            .onChange(of: vm.getRandomMeals, perform: { newValue in
-                print("Random tapped in Spoon")
-                vm.checkQuery(query: "", queryType: .random)
-            })
+
         }
         .navigationViewStyle(.stack)
 

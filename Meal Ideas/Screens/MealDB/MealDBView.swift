@@ -94,7 +94,7 @@ struct MealDBView: View {
                 print("More meals tapped in mealDB: \(query.queryType)")
                 //                    vm.getMoreTapped()
                 if query.queryType == .keyword{
-                    vm.checkQuery(query: query.keyword, queryType: query.queryType)
+                    vm.checkQuery(query: query.keyword, queryType: .keyword)
                 } else {
                     vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
                 }
@@ -105,11 +105,19 @@ struct MealDBView: View {
             //            }
             //not sure what the difference between these two are.. both work.. need to look into later
             .onAppear{
+                if query.queryType == .category ||
+                    query.queryType == .ingredient{
+                    if query.selected == nil{
+                        vm.alertItem = AlertContext.noSelection
+                        return
+                    }
+                }
                 if query.queryType != .keyword{
                     vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
                 }
+                query.getHistory()
             }
-            .onAppear(perform: query.getHistory)
+            
         }
         .navigationViewStyle(.stack)
         

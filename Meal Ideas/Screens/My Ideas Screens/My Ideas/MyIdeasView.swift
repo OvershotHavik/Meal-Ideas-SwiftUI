@@ -81,12 +81,24 @@ struct MyIdeasView: View {
                 vm.filterMeals(query: "", queryType: .random)
             })
             .onAppear {
+                if query.queryType == .category ||
+                    query.queryType == .ingredient{
+                    if query.selected == nil{
+                        vm.alertItem = AlertContext.noSelection
+                        return
+                    }
+                }
                 vm.getAllMeals()
                 if query.queryType != .keyword{
                     vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
                 }
                 query.getHistory()
                 query.getFavorites()
+            }
+            .alert(item: $vm.alertItem) { alertItem in
+                Alert(title: alertItem.title,
+                      message: alertItem.message,
+                      dismissButton: .default(Text("OK")))
             }
         }
         .navigationViewStyle(.stack)

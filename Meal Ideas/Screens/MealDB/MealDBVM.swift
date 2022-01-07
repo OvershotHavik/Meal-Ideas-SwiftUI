@@ -14,14 +14,6 @@ import CoreData
     @Published var meals : [MealDBResults.Meal] = []
     @Published var source: Source = .mealDB
 
-    // MARK: - Get More Tapped
-//    func getMoreTapped(){
-//        getMoreMeals = false
-//        if let safeQuery = self.originalQuery{
-//            getMealDBMeals(query: safeQuery,
-//                           queryType: self.originalQueryType)
-//        }
-//    }
     
     // MARK: - CheckQuery
     func checkQuery(query: String, queryType: QueryType){
@@ -108,7 +100,7 @@ import CoreData
     // MARK: - Check For Favorite
     func checkForFavorite(id: String?, favoriteArray: [Favorites]) -> Bool{
         if favoriteArray.contains(where: {$0.mealDBID == id}){
-            print("favorited meal id: \(id ?? "")")
+//            print("favorited meal id: \(id ?? "")")
             return true
         } else {
             return false
@@ -117,7 +109,7 @@ import CoreData
     // MARK: - Check For History
     func checkForHistory(id: String?, historyArray: [History]) -> Bool{
         if historyArray.contains(where: {$0.mealDBID == id}){
-            print("History meal id: \(id ?? "")")
+//            print("History meal id: \(id ?? "")")
             return true
         } else {
             return false
