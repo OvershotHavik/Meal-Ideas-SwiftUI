@@ -25,11 +25,12 @@ import CoreData
     
     // MARK: - CheckQuery
     func checkQuery(query: String, queryType: QueryType){
-        if originalQueryType != queryType || getMoreMeals == true{
+        if originalQueryType != queryType || getMoreMeals == true || getRandomMeals == true{
             if getRandomMeals == true{
                 self.getRandomMeals = false
             }
             getMoreMeals = false
+            getRandomMeals = false
             meals = []
             self.originalQueryType = queryType
             self.originalQuery = query

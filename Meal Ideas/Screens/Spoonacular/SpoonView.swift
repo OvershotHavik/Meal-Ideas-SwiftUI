@@ -70,13 +70,9 @@ struct SpoonView: View {
                         }
                         .offset(y: UI.verticalSpacing)
                     }
-                    if vm.isLoading == false{
-                        if vm.meals.count < 11{
-                            // less than 10, no more are available
-                        } else {
-                            //more than 10, show the button
+                    if vm.isLoading == false && vm.lessThanTen == false{
                             SpoonMoreMealsButton(vm: vm)
-                        }
+                        
                     }
                 }
                 .navigationBarTitleDisplayMode(.inline)

@@ -14,14 +14,16 @@ import CoreData
     @Published var keywordResults : [SpoonacularKeywordResults.result] = []
     @Published var individualMeal: SpoonacularResults.Recipe?
     @Published var source: Source = .spoonacular
+    @Published var lessThanTen = false
     
     // MARK: - Check Query
     func checkQuery(query: String, queryType: QueryType){
-        if originalQueryType != queryType || getMoreMeals == true{
+        if originalQueryType != queryType || getMoreMeals == true || getRandomMeals == true{
             if getMoreMeals == true{
                 offsetBy += 10
             }
             getMoreMeals = false
+            getRandomMeals = false
             meals = []
             self.originalQueryType = queryType
             self.originalQuery = query
@@ -47,20 +49,27 @@ import CoreData
                 switch queryType{
                 case .random:
                     meals = try await NetworkManager.shared.spoonQuery(query: query, queryType: queryType)
-                    
+                    if meals.count < 10{
+                        lessThanTen = true
+                    }
                     
                 case .category:
                     let modifiedCategory = query.replacingOccurrences(of: " ", with: "%20").lowercased()
                     print(modifiedCategory)
                     meals = try await NetworkManager.shared
                         .spoonQuery(query: modifiedCategory, queryType: .category)
-                   
+                    if meals.count < 10{
+                        lessThanTen = true
+                    }
                     
                 case .ingredient:
                     let modifiedIngredient = query.replacingOccurrences(of: " ", with: "%20").lowercased()
                     let modified = modifiedIngredient.lowercased() + "&offset=\(offsetBy)"
                     meals = try await NetworkManager.shared.spoonQuery(query: modified, queryType: .ingredient)
                     print("ingredient")
+                    if meals.count < 10{
+                        lessThanTen = true
+                    }
                 case .keyword:
                     var safeKeyword = query.lowercased()
                     safeKeyword = safeKeyword.replacingOccurrences(of: " ", with: "%20")
@@ -69,6 +78,9 @@ import CoreData
                     let modified = safeKeyword + "&offset=\(offsetBy)"
                     keywordResults = try await NetworkManager.shared.spoonKeywordQuery(query: modified)
                     print("keyword")
+                    if keywordResults.count < 10{
+                        lessThanTen = true
+                    }
                 case .history:
                     print("History")
                 case .favorite:
