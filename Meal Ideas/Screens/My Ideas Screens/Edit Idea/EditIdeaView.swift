@@ -18,16 +18,14 @@ struct EditIdeaView: View {
     
     @FocusState private var focusedTextField: FormTextField?
 
-
-
     var body: some View {
         Form{
             Section(header: Text("Meal Information")) {
                 TextField(vm.meal?.mealName ?? "Meal Name*", text: $vm.mealName)
                     .textFieldStyle(CustomRoundedCornerTextField())
                     .overlay{
-                        Rectangle()
-                            .stroke(vm.mealName == "" ? Color.red : Color.clear)
+                        Rectangle().frame(height: 2).padding(.top, 35)
+                            .foregroundColor(vm.mealName == "" ? Color.red : Color.clear)
                     }
                     .font(.title)
                     .focused($focusedTextField, equals: .mealName)
