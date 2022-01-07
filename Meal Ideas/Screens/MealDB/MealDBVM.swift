@@ -15,20 +15,21 @@ import CoreData
     @Published var source: Source = .mealDB
 
     // MARK: - Get More Tapped
-    func getMoreTapped(){
-        getMoreMeals = false
-        if let safeQuery = self.originalQuery{
-            getMealDBMeals(query: safeQuery,
-                           queryType: self.originalQueryType)
-        }
-    }
+//    func getMoreTapped(){
+//        getMoreMeals = false
+//        if let safeQuery = self.originalQuery{
+//            getMealDBMeals(query: safeQuery,
+//                           queryType: self.originalQueryType)
+//        }
+//    }
     
     // MARK: - CheckQuery
     func checkQuery(query: String, queryType: QueryType){
-        if originalQueryType != queryType {
+        if originalQueryType != queryType || getMoreMeals == true{
             if getRandomMeals == true{
                 self.getRandomMeals = false
             }
+            getMoreMeals = false
             meals = []
             self.originalQueryType = queryType
             self.originalQuery = query

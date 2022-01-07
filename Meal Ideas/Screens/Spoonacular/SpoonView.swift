@@ -71,7 +71,12 @@ struct SpoonView: View {
                         .offset(y: UI.verticalSpacing)
                     }
                     if vm.isLoading == false{
-                        SpoonMoreMealsButton(vm: vm)
+                        if vm.meals.count < 11{
+                            // less than 10, no more are available
+                        } else {
+                            //more than 10, show the button
+                            SpoonMoreMealsButton(vm: vm)
+                        }
                     }
                 }
                 .navigationBarTitleDisplayMode(.inline)
@@ -107,7 +112,12 @@ struct SpoonView: View {
             })
             .onChange(of: vm.getMoreMeals, perform: { newValue in
                 print("More meals tapped in spoon: \(query.queryType)")
-                vm.getMoreTapped()
+//                vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
+                if query.queryType == .keyword{
+                    vm.checkQuery(query: query.keyword, queryType: query.queryType)
+                } else {
+                    vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
+                }
             })
             .onChange(of: vm.getRandomMeals, perform: { newValue in
                 print("Random tapped in Spoon")

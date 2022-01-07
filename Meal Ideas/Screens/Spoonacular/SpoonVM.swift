@@ -15,21 +15,13 @@ import CoreData
     @Published var individualMeal: SpoonacularResults.Recipe?
     @Published var source: Source = .spoonacular
     
-    // MARK: - Get More Tapped
-    func getMoreTapped(){
-        getMoreMeals = false
-        if let safeQuery = self.originalQuery{
-            getSpoonMeals(query: safeQuery,
-                           queryType: self.originalQueryType)
-        }
-    }
-    
     // MARK: - Check Query
     func checkQuery(query: String, queryType: QueryType){
-        if originalQueryType != queryType {
+        if originalQueryType != queryType || getMoreMeals == true{
             if getMoreMeals == true{
                 offsetBy += 10
             }
+            getMoreMeals = false
             meals = []
             self.originalQueryType = queryType
             self.originalQuery = query
@@ -54,34 +46,28 @@ import CoreData
             do {
                 switch queryType{
                 case .random:
-                    let newMeals = try await NetworkManager.shared.spoonQuery(query: query, queryType: queryType)
-                    meals.append(contentsOf: newMeals)
+                    meals = try await NetworkManager.shared.spoonQuery(query: query, queryType: queryType)
+                    
                     
                 case .category:
                     let modifiedCategory = query.replacingOccurrences(of: " ", with: "%20").lowercased()
                     print(modifiedCategory)
-                    let newMeals = try await NetworkManager.shared
+                    meals = try await NetworkManager.shared
                         .spoonQuery(query: modifiedCategory, queryType: .category)
-                    meals.append(contentsOf: newMeals)
-
+                   
                     
                 case .ingredient:
                     let modifiedIngredient = query.replacingOccurrences(of: " ", with: "%20").lowercased()
                     let modified = modifiedIngredient.lowercased() + "&offset=\(offsetBy)"
-                    let newMeals = try await NetworkManager.shared.spoonQuery(query: modified, queryType: .ingredient)
-                    meals.append(contentsOf: newMeals)
+                    meals = try await NetworkManager.shared.spoonQuery(query: modified, queryType: .ingredient)
                     print("ingredient")
-                    
-                    
                 case .keyword:
                     var safeKeyword = query.lowercased()
                     safeKeyword = safeKeyword.replacingOccurrences(of: " ", with: "%20")
                     print(safeKeyword)
                     print("keyword Offset: \(offsetBy)")
                     let modified = safeKeyword + "&offset=\(offsetBy)"
-                    let newKeywordResults = try await NetworkManager.shared.spoonKeywordQuery(query: modified)
-                    keywordResults.append(contentsOf: newKeywordResults)
-
+                    keywordResults = try await NetworkManager.shared.spoonKeywordQuery(query: modified)
                     print("keyword")
                 case .history:
                     print("History")

@@ -93,7 +93,12 @@ struct MealDBView: View {
                 })
                 .onChange(of: vm.getMoreMeals, perform: { newValue in
                     print("More meals tapped in mealDB: \(query.queryType)")
-                    vm.getMoreTapped()
+//                    vm.getMoreTapped()
+                    if query.queryType == .keyword{
+                        vm.checkQuery(query: query.keyword, queryType: query.queryType)
+                    } else {
+                        vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
+                    }
 //                    vm.checkQuery(query: query.keyword, queryType: query.queryType)
                 })
     //            .onAppear {
