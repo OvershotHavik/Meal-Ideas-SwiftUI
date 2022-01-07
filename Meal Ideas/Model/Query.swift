@@ -30,7 +30,9 @@ final class Query: ObservableObject{
     @Published var queryType = QueryType.random{
         didSet{
             selected = nil
-            keyword = ""
+            if queryType != .keyword{
+                keyword = ""
+            }
         }
     }
     

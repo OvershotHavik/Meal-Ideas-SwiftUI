@@ -72,8 +72,8 @@ struct SpoonView: View {
                     }
                     if vm.isLoading == false && vm.lessThanTen == false{
                             SpoonMoreMealsButton(vm: vm)
-                        
                     }
+                    
                 }
                 .navigationBarTitleDisplayMode(.inline)
                 .padding()

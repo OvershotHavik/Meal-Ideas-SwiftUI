@@ -79,7 +79,9 @@ import CoreData
                     keywordResults = try await NetworkManager.shared.spoonKeywordQuery(query: modified)
                     print("keyword")
                     if keywordResults.count < 10{
-                        lessThanTen = true
+                        if keywordResults.count != 0{
+                            lessThanTen = true
+                        }
                     }
                 case .history:
                     print("History")

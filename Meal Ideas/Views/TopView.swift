@@ -69,7 +69,6 @@ struct TopViewButtons: View{
 struct KeywordSearchView: View{
     @EnvironmentObject var query : Query
     @Binding var keywordSearchTapped : Bool
-    @State var searchTapped = false
     var body: some View{
         HStack{
             Spacer()
@@ -80,7 +79,7 @@ struct KeywordSearchView: View{
                 .frame(width: 250)
                 .onSubmit {
                     query.selected = nil
-                    searchTapped = true
+                    query.queryType = .keyword
                     keywordSearchTapped.toggle()
                     print("Top View Keyword search: \(query.keyword)")
                 }
