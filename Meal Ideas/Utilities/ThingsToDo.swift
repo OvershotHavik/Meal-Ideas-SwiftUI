@@ -12,15 +12,18 @@ import Foundation
 /*
  Search for ToDo's throughout the project, been adding things here and there as well
   
-
+ - [ ] Add a confirmation alert when user hits back when editing a meal. Save, discard or cancel
+ - [ ] Add some form of statement that we are not responsible for the pictures stored in the app
+ - [ ] Check to see what can be done to prevent duplicate API calls to spoon when it is fetching meals. Maybe check to see if is loading is running then to return out of the function. Trying to prevent unnecessary API calls since we have to pay for each one
+ - [ ] only include spoon for subscription for $1 a month or something? This would cover the API cost, and could keep the free package, and hopefully would offset the usage count
   
 
  - [ ] Only allow x amount of meals to be stored then offer the pro version which will block adds and unlock unlimited meal storage
 
- - [ ] Adds for mealdb and spoon to help cover the api costs
+ 
+ 
  - [ ] Animate the meal cards appearing /disappearing
  - [ ] Add haptics when meal card appear? So the phone vibrates when they come in? Just a subtle one to go with the animation?
- - [ ] Add this Same color to the background of text fields if they still stand out
  */
 // TODO:  make a list
 

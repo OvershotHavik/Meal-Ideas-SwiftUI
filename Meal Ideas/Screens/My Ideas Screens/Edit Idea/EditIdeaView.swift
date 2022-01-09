@@ -56,12 +56,19 @@ struct EditIdeaView: View {
             
             Section(header: Text("Category")){
                 CategorySelectView(vm: vm)
-                
-                ForEach(vm.categories, id: \.self){ cat in
-                    Text(cat)
+                if !vm.categories.isEmpty{
+                    BadgesHStack(title: "Categories",
+                                 items: vm.categories,
+                                 topColor: .blue,
+                                 bottomColor: .blue)
                 }
-                .onDelete(perform: vm.deleteCat)
+//                ForEach(vm.categories, id: \.self){ cat in
+//                    Text(cat)
+//                }
+//                .onDelete(perform: vm.deleteCat)
             }
+
+            
             
             Section(header: Text("Ingredients")){
                 IngredientSelectView(vm: vm)
@@ -80,17 +87,22 @@ struct EditIdeaView: View {
             
             Section(header: Text("Sides")){
                 SidesButtonView(vm: vm)
-                ForEach(vm.sides, id: \.self) {side in
-                    Text(side)
+                if !vm.sides.isEmpty{
+                    BadgesHStack(title: "Possible Sides",
+                                 items: vm.sides,
+                                 topColor: .green,
+                                 bottomColor: .green)
                 }
-                .onDelete(perform: vm.deleteSide)
+//                ForEach(vm.sides, id: \.self) {side in
+//                    Text(side)
+//                }
+//                .onDelete(perform: vm.deleteSide)
             }
+            
             
             Section(header: Text("Prep Time")){
                 PrepTimePickerView(vm: vm)
             }
-            
-            
             Section(header: Text("Instructions")){
                 MealInstructionsButtonView(vm: vm)
                     .modifier(MealInstructionsActionSheet(vm: vm))
@@ -117,7 +129,6 @@ struct EditIdeaView: View {
                                     .fill(Color(.systemGray3)))
                     .frame(height: 150)
             }
-           
             Section(header: Text("Source")){
                 TextField("Website", text: $vm.source)
                     .textFieldStyle(CustomRoundedCornerTextField())
@@ -176,6 +187,7 @@ struct EditIdeaView: View {
                 }
             }))
         }
+
         // MARK: - Delete Alert
         .alert("Delete Meal", isPresented: $vm.showingDeleteAlert) {
             Button("Delete", role: .destructive, action: deleteMeal)
@@ -254,7 +266,7 @@ struct SidesButtonView: View{
     var body: some View{
         NavigationLink(destination: MultiChoiceListView(vm: MultiChoiceListVM(PList: .sides,
                                                                               editIdeaVM: vm), title: .multiSides)) {
-            Text("Select Sides")
+            Text("Select Possible Sides")
         }
     }
 }

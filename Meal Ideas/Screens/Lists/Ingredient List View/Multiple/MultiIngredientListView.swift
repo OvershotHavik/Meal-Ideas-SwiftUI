@@ -28,7 +28,6 @@ struct MultiIngredientListView: View {
         }
         .searchable(text: $vm.searchText)
         .navigationTitle(Titles.multiIngredients.rawValue)
-        .toolbar{ EditButton() }
         .alert(item: $vm.alertItem) { alertItem in
             Alert(title: alertItem.title,
                   message: alertItem.message,

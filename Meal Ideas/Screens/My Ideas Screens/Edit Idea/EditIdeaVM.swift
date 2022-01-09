@@ -64,18 +64,12 @@ final class EditIdeaVM: ObservableObject{
         getAllMeals()
     }
     
-    // MARK: - Remove Category
-    func deleteCat(at offsets: IndexSet){
-        categories.remove(atOffsets: offsets)
-    }
+    
     // MARK: - Remove Ingredient
     func deleteIngredient(at offsets: IndexSet){
         userIngredients.remove(atOffsets: offsets)
     }
-    // MARK: - Remove Sides
-    func deleteSide(at offsets: IndexSet){
-        sides.remove(atOffsets: offsets)
-    }
+
     
     // MARK: - Get All Meals
     func getAllMeals(){
@@ -251,7 +245,6 @@ final class EditIdeaVM: ObservableObject{
     func deleteMeal(){
         print("Delete meal...")
         if let safeMeal = meal{
-//            pc.deleteMeal(meal: safeMeal)
             pc.clearHistory(meal: safeMeal)
                 PersistenceController.shared.deleteFavorite(source: .mealDB,
                                                             mealName: safeMeal.mealName ?? "",
