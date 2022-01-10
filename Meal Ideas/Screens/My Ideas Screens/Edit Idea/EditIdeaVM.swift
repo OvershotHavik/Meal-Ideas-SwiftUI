@@ -27,6 +27,7 @@ final class EditIdeaVM: ObservableObject{
     @Published var isMPActionSheetPresented = false
     @Published var isMIActionSheetPresented = false
     @Published var showingDeleteAlert = false
+    @Published var showingBackAlert = false
     
     // MARK: - For Image Picker
     @Published var isShowPhotoLibrary = false

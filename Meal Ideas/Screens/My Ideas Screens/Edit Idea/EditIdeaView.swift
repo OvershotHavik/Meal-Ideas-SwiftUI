@@ -62,10 +62,6 @@ struct EditIdeaView: View {
                                  topColor: .blue,
                                  bottomColor: .blue)
                 }
-//                ForEach(vm.categories, id: \.self){ cat in
-//                    Text(cat)
-//                }
-//                .onDelete(perform: vm.deleteCat)
             }
 
             
@@ -93,10 +89,6 @@ struct EditIdeaView: View {
                                  topColor: .green,
                                  bottomColor: .green)
                 }
-//                ForEach(vm.sides, id: \.self) {side in
-//                    Text(side)
-//                }
-//                .onDelete(perform: vm.deleteSide)
             }
             
             
@@ -156,6 +148,18 @@ struct EditIdeaView: View {
             }
         }
         .navigationTitle(vm.meal?.mealName ?? "Create a Meal")
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading:
+                                Button {
+            vm.showingBackAlert = true
+        } label: {
+            HStack{
+                Image(systemName: "chevron.left")
+                Text("Back")
+            }
+            .font(.body)
+        }
+        )
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
                 HStack{
@@ -187,6 +191,12 @@ struct EditIdeaView: View {
                 }
             }))
         }
+        // MARK: - Alert when back is pressed
+        .alert("Unsaved information will be lost", isPresented: $vm.showingBackAlert){
+            Button("Save Changes", action: vm.saveMeal)
+            Button("Discard changes and go back", role: .destructive, action: popView)
+            //cancel is added automatically and stops the back process
+        }
 
         // MARK: - Delete Alert
         .alert("Delete Meal", isPresented: $vm.showingDeleteAlert) {
@@ -210,6 +220,7 @@ struct EditIdeaView: View {
                 }
             }
         }
+        
     }
     // MARK: - Delete meal from VM and dismiss the view
     func deleteMeal(){
