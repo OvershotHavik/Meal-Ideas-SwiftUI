@@ -70,8 +70,8 @@ struct SpoonView: View {
                         }
                         .offset(y: UI.verticalSpacing)
                     }
-                    if vm.isLoading == false && vm.lessThanTen == false{
-                            SpoonMoreMealsButton(vm: vm)
+                    if vm.isLoading == false && vm.lessThanTen == true{
+                        MoreMealsButton(vm: vm)
                     }
                     
                 }
@@ -143,20 +143,4 @@ struct SpoonView_Previews: PreviewProvider {
         SpoonView(vm: SpoonVM())
     }
 }
-// MARK: - More Meals Button
-struct SpoonMoreMealsButton: View{
-    @StateObject var vm: SpoonVM
-    var body: some View{
-        Button {
-            // TODO:  Add to the array of meals instead of clearing when this is tapped
-            vm.getMoreMeals.toggle()
-            
-        } label: {
-            Text("Get more meals")
-        }
-        .buttonStyle(.bordered)
-        .padding(25)
 
-
-    }
-}

@@ -192,7 +192,7 @@ struct EditIdeaView: View {
             }))
         }
         // MARK: - Alert when back is pressed
-        .alert("Unsaved information will be lost", isPresented: $vm.showingBackAlert){
+        .alert("Any unsaved information will be lost", isPresented: $vm.showingBackAlert){
             Button("Save Changes", action: vm.saveMeal)
             Button("Discard changes and go back", role: .destructive, action: popView)
             //cancel is added automatically and stops the back process

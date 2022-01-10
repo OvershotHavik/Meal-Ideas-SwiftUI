@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-@MainActor final class MealDBDetailVM: DetailBaseVM, ObservableObject{
+@MainActor final class MealDBDetailVM: DetailBaseVM{
     
     @Published var meal: MealDBResults.Meal?
     @Published var mealID: String

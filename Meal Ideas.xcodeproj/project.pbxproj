@@ -59,6 +59,7 @@
 		B3A75CB527668ED90062C8B4 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A75CB427668ED90062C8B4 /* LoadingView.swift */; };
 		B3A75CB7276699B30062C8B4 /* NoResultsViewWithImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A75CB6276699B30062C8B4 /* NoResultsViewWithImage.swift */; };
 		B3AE0A182756D109001EAD15 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE0A172756D109001EAD15 /* Alert.swift */; };
+		B3B6CB44278C93DF00D3E5C5 /* MoreMealsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B6CB43278C93DF00D3E5C5 /* MoreMealsButton.swift */; };
 		B3CA2341274808CA00CA9C68 /* Meal_IdeasApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CA2340274808CA00CA9C68 /* Meal_IdeasApp.swift */; };
 		B3CA2343274808CA00CA9C68 /* CoreDataExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CA2342274808CA00CA9C68 /* CoreDataExample.swift */; };
 		B3CA2345274808D600CA9C68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3CA2344274808D600CA9C68 /* Assets.xcassets */; };
@@ -166,6 +167,7 @@
 		B3A75CB427668ED90062C8B4 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		B3A75CB6276699B30062C8B4 /* NoResultsViewWithImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoResultsViewWithImage.swift; sourceTree = "<group>"; };
 		B3AE0A172756D109001EAD15 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		B3B6CB43278C93DF00D3E5C5 /* MoreMealsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreMealsButton.swift; sourceTree = "<group>"; };
 		B3CA233D274808CA00CA9C68 /* Meal Ideas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Meal Ideas.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3CA2340274808CA00CA9C68 /* Meal_IdeasApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal_IdeasApp.swift; sourceTree = "<group>"; };
 		B3CA2342274808CA00CA9C68 /* CoreDataExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataExample.swift; sourceTree = "<group>"; };
@@ -234,12 +236,11 @@
 		B3606D8F2748221E00E61972 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B3B6CB42278C93BF00D3E5C5 /* Buttons */,
 				B37C63232760F3B500DF3934 /* UIKit COmponents */,
 				B3C2BDCE27552FFC00CD5EE0 /* Cells */,
 				B3606DAC274D5E8000E61972 /* Detail Views */,
-				B3606DA2274C2A8F00E61972 /* MealCardView.swift */,
 				B3606DA4274C446900E61972 /* TopView.swift */,
-				B3CEDDB32756FE1D00BB832B /* QueryButtonView.swift */,
 				B3A75CB427668ED90062C8B4 /* LoadingView.swift */,
 				B3A75CB6276699B30062C8B4 /* NoResultsViewWithImage.swift */,
 				B3D32CD7277FAA0E00FA4ACA /* BackgroundGradientView.swift */,
@@ -467,6 +468,15 @@
 			path = "History List";
 			sourceTree = "<group>";
 		};
+		B3B6CB42278C93BF00D3E5C5 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				B3B6CB43278C93DF00D3E5C5 /* MoreMealsButton.swift */,
+				B3CEDDB32756FE1D00BB832B /* QueryButtonView.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
 		B3C2BDAC2752632300CD5EE0 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
@@ -509,6 +519,7 @@
 		B3C2BDCE27552FFC00CD5EE0 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				B3606DA2274C2A8F00E61972 /* MealCardView.swift */,
 				B3CEDDA52756FC7700BB832B /* IngredientCell.swift */,
 				B3A668CA276FB8C900533988 /* FavoriteCell.swift */,
 				B3A668CC2771042A00533988 /* HistoryCell.swift */,
@@ -840,6 +851,7 @@
 				B375C98B27621B4B0013895F /* MultiChoiceListVM.swift in Sources */,
 				B3606DA5274C446900E61972 /* TopView.swift in Sources */,
 				B3A668C0276F9CA600533988 /* FavoritesListView.swift in Sources */,
+				B3B6CB44278C93DF00D3E5C5 /* MoreMealsButton.swift in Sources */,
 				B3606DAE274D5EC900E61972 /* MyIdeasDetailVM.swift in Sources */,
 				B3AE0A182756D109001EAD15 /* Alert.swift in Sources */,
 				B3A75CB527668ED90062C8B4 /* LoadingView.swift in Sources */,

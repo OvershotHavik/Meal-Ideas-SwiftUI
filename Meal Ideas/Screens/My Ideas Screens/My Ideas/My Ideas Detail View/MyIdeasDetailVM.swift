@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-final class MyIdeasDetailVM: DetailBaseVM, ObservableObject{
+final class MyIdeasDetailVM: DetailBaseVM{
     
     @Published var  meal: UserMeals?
 

@@ -42,7 +42,13 @@ struct MyIdeasView: View {
                             .foregroundColor(.primary)
                         }
                     }
+
                     .offset(y: UI.verticalSpacing)
+                    if vm.lessThanTen == false {
+                        MoreMealsButton(vm: vm)
+                    }
+
+
                 }
                 
                 .padding()

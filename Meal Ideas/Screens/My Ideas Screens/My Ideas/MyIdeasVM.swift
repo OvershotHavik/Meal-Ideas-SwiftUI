@@ -8,15 +8,10 @@
 import SwiftUI
 import CoreData
 
-@MainActor final class MyIdeasVM: BaseVM, ObservableObject{
+@MainActor final class MyIdeasVM: BaseVM{
     @Published var meals : [UserMeals] = []
     private let pc = PersistenceController.shared
     @Published var filteredMeals: [UserMeals] = []
-//    @Published var originalQueryType = QueryType.none
-//    @Published var isLoading = false
-//    @Published var originalQuery: String?
-//    @Published var keywordSearchTapped = false
-//    @Published var getMoreMeals = false
     @Published var allMeals : [UserMeals] = []
     @Published var source: Source = .myIdeas
     
@@ -33,11 +28,17 @@ import CoreData
     }
     // MARK: - Check Query
     func checkQuery(query: String, queryType: QueryType){
+        if offsetBy == 0{
+            offsetBy += 10
+        }
         print("My Ideas Query: \(query), queryType: \(queryType.rawValue)")
         // TODO:  Add a check in here to add to the array if the query and query type haven't changed, but also make sure there are unique items still
         if originalQueryType != queryType ||
             getMoreMeals == true ||
             allMeals.count != meals.count{
+            if getMoreMeals == true {
+                offsetBy += 10
+            }
             getMoreMeals = false
             meals = []
             self.originalQueryType = queryType
@@ -59,38 +60,50 @@ import CoreData
         switch queryType {
         case .random:
             print("My Ideas Random")
-            meals = allMeals.shuffled()
+            
+            let offsetMeals = allMeals.prefix(offsetBy)
+            meals = offsetMeals.shuffled()
+            
+            
         case .category:
             print("My Ideas category")
+            var catMeals : [UserMeals] = []
             for meal in allMeals{
                 if let safeCategories = meal.category as? [String]{
                     if safeCategories.contains(query){
-                        meals.append(meal)
+                        catMeals.append(meal)
                     }
                 }
             }
-            
+            let offsetMeals = catMeals.prefix(offsetBy)
+            meals = offsetMeals.shuffled()
             
         case .ingredient:
             print("My Ideas ingredients")
+            var ingMeals : [UserMeals] = []
             for meal in allMeals{
                 if let safeIngredients = meal.ingredients as? [String]{
                     if safeIngredients.contains(query){
-                        meals.append(meal)
+                        ingMeals.append(meal)
                     }
                 }
             }
+            let offsetMeals = ingMeals.prefix(offsetBy)
+            meals = offsetMeals.shuffled()
+            
         case .keyword:
             print("My Ideas keyword")
+            var keyMeals : [UserMeals] = []
             for meal in allMeals{
                 if let safeName = meal.mealName{
                     if safeName.containsIgnoringCase(find: query){
                         print("meal matches query: \(meal.mealName ?? "")")
-                        meals.append(meal)
+                        keyMeals.append(meal)
                     }
                 }
             }
-
+            let offsetMeals = keyMeals.prefix(offsetBy)
+            meals = offsetMeals.shuffled()
             
             
         case .history:
@@ -99,6 +112,10 @@ import CoreData
             print("My Ideas Favorite")
         case .none:
             print("My Ideas none")
+        }
+        
+        if meals.count < 11{
+            lessThanTen = true
         }
     }
 

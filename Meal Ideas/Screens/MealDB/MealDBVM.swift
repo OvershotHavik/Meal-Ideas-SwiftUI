@@ -9,7 +9,7 @@ import Foundation
 import CoreData
 
 
-@MainActor final class MealDBVM: BaseVM, ObservableObject{
+@MainActor final class MealDBVM: BaseVM{
     
     @Published var meals : [MealDBResults.Meal] = []
     @Published var source: Source = .mealDB

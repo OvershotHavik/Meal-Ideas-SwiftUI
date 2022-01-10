@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class BaseVM{
+class BaseVM: ObservableObject{
     @Published var alertItem : AlertItem?
     @Published var isLoading = false
     @Published var originalQueryType = QueryType.none
@@ -15,10 +15,12 @@ class BaseVM{
     @Published var keywordSearchTapped = false
     @Published var getMoreMeals = false
     @Published var getRandomMeals = false
+    @Published var lessThanTen = false
+    @Published var offsetBy: Int = 0 // changes by 10  each time get more meals is tapped
 }
 
 
-class DetailBaseVM{
+class DetailBaseVM: ObservableObject{
     @Published var isLoading = false
     @Published var alertItem : AlertItem?
     @Published var ingredients: [String] = []

@@ -8,16 +8,18 @@
 import Foundation
 import CoreData
 
-@MainActor final class SpoonVM: BaseVM, ObservableObject{
+@MainActor final class SpoonVM: BaseVM{
     @Published var meals: [SpoonacularResults.Recipe] = []
-    @Published var offsetBy = 0 // changes by 10 for ingredients and keyword each time get more meals is tapped, since it will always start with the same meals, this would give the user an option to get more, may end up doing a random number or something for this later, but it is working for now.
     @Published var keywordResults : [SpoonacularKeywordResults.result] = []
     @Published var individualMeal: SpoonacularResults.Recipe?
     @Published var source: Source = .spoonacular
-    @Published var lessThanTen = false
+
     
     // MARK: - Get Random Meals
     func getRandomMeals(){
+        if isLoading == true {
+            return
+        }
         getRandomMeals = false
         meals = []
         getSpoonMeals(query: "", queryType: .random)
@@ -55,7 +57,7 @@ import CoreData
                 switch queryType{
                 case .random:
                     meals = try await NetworkManager.shared.spoonQuery(query: query, queryType: queryType)
-                    if meals.count < 10{
+                    if meals.count <= 10{
                         lessThanTen = true
                     }
                     
@@ -64,7 +66,7 @@ import CoreData
                     print(modifiedCategory)
                     meals = try await NetworkManager.shared
                         .spoonQuery(query: modifiedCategory, queryType: .category)
-                    if meals.count < 10{
+                    if meals.count < 11{
                         lessThanTen = true
                     }
                     
@@ -73,7 +75,7 @@ import CoreData
                     let modified = modifiedIngredient.lowercased() + "&offset=\(offsetBy)"
                     meals = try await NetworkManager.shared.spoonQuery(query: modified, queryType: .ingredient)
                     print("ingredient")
-                    if meals.count < 10{
+                    if meals.count < 11{
                         lessThanTen = true
                     }
                 case .keyword:

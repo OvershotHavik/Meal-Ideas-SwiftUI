@@ -128,25 +128,10 @@ struct MealDBView: View {
     }
     
 }
-
+// MARK: - Preview
 struct MealDBView_Previews: PreviewProvider {
     static var previews: some View {
         MealDBView(vm: MealDBVM())
     }
 }
 
-struct MoreMealsButton: View{
-    @StateObject var vm: MealDBVM
-    var body: some View{
-        Button {
-            // TODO:  Add to the array of meals instead of clearing when this is tapped
-            vm.getMoreMeals.toggle()
-        } label: {
-            Text("Get more meals")
-        }
-        .buttonStyle(.bordered)
-        .padding(25)
-        
-        
-    }
-}

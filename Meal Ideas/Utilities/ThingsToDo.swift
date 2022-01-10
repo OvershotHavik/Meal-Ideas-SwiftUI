@@ -17,7 +17,7 @@ import Foundation
  - [ ] Check to see what can be done to prevent duplicate API calls to spoon when it is fetching meals. Maybe check to see if is loading is running then to return out of the function. Trying to prevent unnecessary API calls since we have to pay for each one
  - [ ] only include spoon for subscription for $1 a month or something? This would cover the API cost, and could keep the free package, and hopefully would offset the usage count
   
-
+ - [ ] Add a "Get more meals" button onto my ideas when the count is more than 10, and process that accordingly. Get allt he meals initially, then get the first 10 and just show that amount for instance, then use offset like we did in spoon to change the value of the prefix
  - [ ] Only allow x amount of meals to be stored then offer the pro version which will block adds and unlock unlimited meal storage
 
  

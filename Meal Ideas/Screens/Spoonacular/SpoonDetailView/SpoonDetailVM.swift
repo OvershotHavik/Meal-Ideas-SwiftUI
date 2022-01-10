@@ -7,7 +7,7 @@
 
 import UIKit
 
-@MainActor final class SpoonDetailVM: DetailBaseVM, ObservableObject{
+@MainActor final class SpoonDetailVM: DetailBaseVM{
     @Published var meal: SpoonacularResults.Recipe?
     @Published var mealID: Int?
 
