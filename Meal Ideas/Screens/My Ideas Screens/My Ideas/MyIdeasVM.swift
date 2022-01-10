@@ -19,7 +19,8 @@ struct TabItem: Identifiable{
     @Published var allMeals : [UserMeals] = []
     @Published var source: Source = .myIdeas
     @Published var tabData : [TabItem] = [TabItem(meals: [])]
-    
+//    @Published var selectedTab = 0
+//    @Published var mealsAlreadyShown: [UserMeals] = []
 
 // MARK: - get All Meals
     func getAllMeals(){
@@ -69,9 +70,10 @@ struct TabItem: Identifiable{
         switch queryType {
         case .random:
             print("My Ideas Random")
-            if meals.count == 0{
-                meals = allMeals
-            }
+//            if meals.count == 0{
+//                meals = allMeals.shuffled()
+//            }
+            meals = allMeals.shuffled()
 //            while meals.count > 10 {
 //                let tabItem = TabItem(meals: Array(meals.prefix(10)))
 //                tabData.append(tabItem)
@@ -138,22 +140,27 @@ struct TabItem: Identifiable{
     
     // MARK: - Setup Tabs
     func setupTabs(){
+//        var loopCount = 0
         print("Meals count before while loops: \(meals.count)")
-        while meals.count > offsetBy{
             print("meals.count > offsetby: \(meals.count) > \(offsetBy)")
             while meals.count > 10 {
                 let tabItem = TabItem(meals: Array(meals.prefix(10)))
                 tabData.append(tabItem)
                 meals.removeFirst(10)
+//                loopCount += 1
             }
-        }
-        print("Meals.count after while loops")
+        
+//        selectedTab = loopCount
         let tabItem = TabItem(meals: Array(meals)) // whatever is left over gets added after the while loop
         tabData.append(tabItem)
 
-        if meals.count <= 10{
-            lessThanTen = true
-        }
+        print("Meals.count after while loops: \(meals.count)")
+
+//        if meals.count <= 10{
+//            lessThanTen = true
+//        } else {
+//
+//        }
     }
 
     // MARK: - Check For Favorite

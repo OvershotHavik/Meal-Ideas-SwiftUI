@@ -108,9 +108,9 @@ struct MyIdeasView: View {
                                 }
                             }
                             .offset(y: UI.verticalSpacing)
-                            if vm.lessThanTen == true {
-                                MoreMealsButton(vm: vm)
-                            }
+//                            if vm.lessThanTen == true {
+//                                MoreMealsButton(vm: vm)
+//                            }
                         }
                     }
                 }
