@@ -44,7 +44,7 @@ struct MyIdeasView: View {
                     }
 
                     .offset(y: UI.verticalSpacing)
-                    if vm.lessThanTen == false {
+                    if vm.lessThanTen == true {
                         MoreMealsButton(vm: vm)
                     }
 
@@ -75,6 +75,8 @@ struct MyIdeasView: View {
             }
             .onChange(of: vm.keywordSearchTapped, perform: { newValue in
                 print("Keyword: \(query.keyword)")
+                vm.offsetBy = 0
+                vm.lessThanTen = false
                 vm.checkQuery(query: query.keyword, queryType: .keyword)
             })
 
@@ -86,6 +88,10 @@ struct MyIdeasView: View {
                 print("Random tapped in User Meals")
                 vm.filterMeals(query: "", queryType: .random)
             })
+            .onChange(of: vm.getMoreMeals, perform: { newValue in
+                print("Get more meals in user meals")
+                vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
+            })
             .onAppear {
                 if query.queryType == .category ||
                     query.queryType == .ingredient{
@@ -96,6 +102,8 @@ struct MyIdeasView: View {
                 }
                 vm.getAllMeals()
                 if query.queryType != .keyword{
+                    vm.offsetBy = 0
+                    vm.lessThanTen = false
                     vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
                 }
                 query.getHistory()

@@ -56,14 +56,17 @@ import CoreData
     }
     // MARK: - Filter Meals
     func filterMeals(query: String, queryType: QueryType){
+        // TODO:  Animate the meals leaving and coming in
         getAllMeals()
         switch queryType {
         case .random:
             print("My Ideas Random")
-            
-            let offsetMeals = allMeals.prefix(offsetBy)
+            let shuffled = allMeals.shuffled()
+            let offsetMeals = shuffled.prefix(10)
             meals = offsetMeals.shuffled()
-            
+            if meals.count <= 10{
+                lessThanTen = true
+            }
             
         case .category:
             print("My Ideas category")
@@ -114,9 +117,7 @@ import CoreData
             print("My Ideas none")
         }
         
-        if meals.count < 11{
-            lessThanTen = true
-        }
+
     }
 
     // MARK: - Check For Favorite
