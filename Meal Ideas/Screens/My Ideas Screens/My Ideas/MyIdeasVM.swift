@@ -7,14 +7,20 @@
 
 import SwiftUI
 import CoreData
-
+struct TabItem: Identifiable{
+    var id = UUID()
+    var meals : [UserMeals]
+//    var text: String
+}
 @MainActor final class MyIdeasVM: BaseVM{
     @Published var meals : [UserMeals] = []
     private let pc = PersistenceController.shared
     @Published var filteredMeals: [UserMeals] = []
     @Published var allMeals : [UserMeals] = []
     @Published var source: Source = .myIdeas
+    @Published var tabData : [TabItem] = [TabItem(meals: [])]
     
+
 // MARK: - get All Meals
     func getAllMeals(){
         //used to get all meals, runs on on appear of the view, and if all meals changes, goes through check query
@@ -58,56 +64,64 @@ import CoreData
     func filterMeals(query: String, queryType: QueryType){
         // TODO:  Animate the meals leaving and coming in
         getAllMeals()
+
+        tabData = [TabItem(meals: [])] // default back to blank when switching
         switch queryType {
         case .random:
             print("My Ideas Random")
-            let shuffled = allMeals.shuffled()
-            let offsetMeals = shuffled.prefix(10)
-            meals = offsetMeals.shuffled()
-            if meals.count <= 10{
-                lessThanTen = true
+            if meals.count == 0{
+                meals = allMeals
             }
-            
+//            while meals.count > 10 {
+//                let tabItem = TabItem(meals: Array(meals.prefix(10)))
+//                tabData.append(tabItem)
+//                meals.removeFirst(10)
+//            }
+//            let tabItem = TabItem(meals: Array(meals)) // whatever is left over gets added after the while loop
+//            tabData.append(tabItem)
+//
+//            if meals.count <= 10{
+//                lessThanTen = true
+//            }
+            setupTabs()
         case .category:
             print("My Ideas category")
-            var catMeals : [UserMeals] = []
             for meal in allMeals{
                 if let safeCategories = meal.category as? [String]{
                     if safeCategories.contains(query){
-                        catMeals.append(meal)
+                        meals.append(meal)
                     }
                 }
             }
-            let offsetMeals = catMeals.prefix(offsetBy)
-            meals = offsetMeals.shuffled()
+            setupTabs()
+//            let offsetMeals = catMeals.prefix(offsetBy)
+//            meals = offsetMeals.shuffled()
             
         case .ingredient:
             print("My Ideas ingredients")
-            var ingMeals : [UserMeals] = []
             for meal in allMeals{
                 if let safeIngredients = meal.ingredients as? [String]{
                     if safeIngredients.contains(query){
-                        ingMeals.append(meal)
+                        meals.append(meal)
                     }
                 }
             }
-            let offsetMeals = ingMeals.prefix(offsetBy)
-            meals = offsetMeals.shuffled()
-            
+//            let offsetMeals = ingMeals.prefix(offsetBy)
+//            meals = offsetMeals.shuffled()
+            setupTabs()
         case .keyword:
             print("My Ideas keyword")
-            var keyMeals : [UserMeals] = []
             for meal in allMeals{
                 if let safeName = meal.mealName{
                     if safeName.containsIgnoringCase(find: query){
                         print("meal matches query: \(meal.mealName ?? "")")
-                        keyMeals.append(meal)
+                        meals.append(meal)
                     }
                 }
             }
-            let offsetMeals = keyMeals.prefix(offsetBy)
-            meals = offsetMeals.shuffled()
-            
+//            let offsetMeals = keyMeals.prefix(offsetBy)
+//            meals = offsetMeals.shuffled()
+            setupTabs()
             
         case .history:
             print("My Ideas History")
@@ -117,7 +131,29 @@ import CoreData
             print("My Ideas none")
         }
         
+        if tabData.count > 1{
+            tabData.removeFirst()
+        }
+    }
+    
+    // MARK: - Setup Tabs
+    func setupTabs(){
+        print("Meals count before while loops: \(meals.count)")
+        while meals.count > offsetBy{
+            print("meals.count > offsetby: \(meals.count) > \(offsetBy)")
+            while meals.count > 10 {
+                let tabItem = TabItem(meals: Array(meals.prefix(10)))
+                tabData.append(tabItem)
+                meals.removeFirst(10)
+            }
+        }
+        print("Meals.count after while loops")
+        let tabItem = TabItem(meals: Array(meals)) // whatever is left over gets added after the while loop
+        tabData.append(tabItem)
 
+        if meals.count <= 10{
+            lessThanTen = true
+        }
     }
 
     // MARK: - Check For Favorite
