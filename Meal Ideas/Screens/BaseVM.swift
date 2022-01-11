@@ -15,8 +15,19 @@ class BaseVM: ObservableObject{
     @Published var keywordSearchTapped = false
     @Published var getMoreMeals = false
     @Published var getRandomMeals = false
-    @Published var lessThanTen = false
+    @Published var lessThanTen = false // need to change this in spoon
     @Published var offsetBy: Int = 0 // changes by 10  each time get more meals is tapped
+    @Published var newTag: Int = 1
+    @Published var selectedTab = 1
+    @Published var moreToShow = false
+    @Published var noMealsFound = false
+    
+    func resetValues(){
+        noMealsFound = false
+        getMoreMeals = false
+        selectedTab = 1
+        newTag = 1
+    }
 }
 
 

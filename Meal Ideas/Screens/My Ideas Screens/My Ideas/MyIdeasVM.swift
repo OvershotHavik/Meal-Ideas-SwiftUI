@@ -10,7 +10,7 @@ import CoreData
 struct TabItem: Identifiable{
     var id = UUID()
     var meals : [UserMeals]
-//    var text: String
+    var tag : Int
 }
 @MainActor final class MyIdeasVM: BaseVM{
     @Published var meals : [UserMeals] = []
@@ -18,35 +18,26 @@ struct TabItem: Identifiable{
     @Published var filteredMeals: [UserMeals] = []
     @Published var allMeals : [UserMeals] = []
     @Published var source: Source = .myIdeas
-    @Published var tabData : [TabItem] = [TabItem(meals: [])]
-//    @Published var selectedTab = 0
-//    @Published var mealsAlreadyShown: [UserMeals] = []
+    @Published var tabData : [TabItem] = [TabItem(meals: [], tag: 1)]
+
 
 // MARK: - get All Meals
     func getAllMeals(){
-        //used to get all meals, runs on on appear of the view, and if all meals changes, goes through check query
         let request = NSFetchRequest<UserMeals>(entityName: "UserMeals")
         do {
             allMeals = try pc.container.viewContext.fetch(request)
-//            print("Meals Fetched")
         } catch let error {
             print("error fetching: \(error.localizedDescription)")
         }
     }
+    
+    // MARK: - Reset Values
+    
     // MARK: - Check Query
     func checkQuery(query: String, queryType: QueryType){
-        if offsetBy == 0{
-            offsetBy += 10
-        }
         print("My Ideas Query: \(query), queryType: \(queryType.rawValue)")
-        // TODO:  Add a check in here to add to the array if the query and query type haven't changed, but also make sure there are unique items still
         if originalQueryType != queryType ||
-            getMoreMeals == true ||
             allMeals.count != meals.count{
-            if getMoreMeals == true {
-                offsetBy += 10
-            }
-            getMoreMeals = false
             meals = []
             self.originalQueryType = queryType
             self.originalQuery = query
@@ -66,25 +57,16 @@ struct TabItem: Identifiable{
         // TODO:  Animate the meals leaving and coming in
         getAllMeals()
 
-        tabData = [TabItem(meals: [])] // default back to blank when switching
+        tabData = [TabItem(meals: [], tag: 1)] // default back to blank when switching, without this we get index out of range since tabData has to have at least one tab
         switch queryType {
         case .random:
             print("My Ideas Random")
-//            if meals.count == 0{
-//                meals = allMeals.shuffled()
-//            }
+           
             meals = allMeals.shuffled()
-//            while meals.count > 10 {
-//                let tabItem = TabItem(meals: Array(meals.prefix(10)))
-//                tabData.append(tabItem)
-//                meals.removeFirst(10)
-//            }
-//            let tabItem = TabItem(meals: Array(meals)) // whatever is left over gets added after the while loop
-//            tabData.append(tabItem)
-//
-//            if meals.count <= 10{
-//                lessThanTen = true
-//            }
+            if meals.count == 0{
+                noMealsFound = true
+            }
+
             setupTabs()
         case .category:
             print("My Ideas category")
@@ -95,9 +77,11 @@ struct TabItem: Identifiable{
                     }
                 }
             }
+            if meals.count == 0{
+                noMealsFound = true
+            }
             setupTabs()
-//            let offsetMeals = catMeals.prefix(offsetBy)
-//            meals = offsetMeals.shuffled()
+
             
         case .ingredient:
             print("My Ideas ingredients")
@@ -108,8 +92,10 @@ struct TabItem: Identifiable{
                     }
                 }
             }
-//            let offsetMeals = ingMeals.prefix(offsetBy)
-//            meals = offsetMeals.shuffled()
+
+            if meals.count == 0{
+                noMealsFound = true
+            }
             setupTabs()
         case .keyword:
             print("My Ideas keyword")
@@ -121,8 +107,10 @@ struct TabItem: Identifiable{
                     }
                 }
             }
-//            let offsetMeals = keyMeals.prefix(offsetBy)
-//            meals = offsetMeals.shuffled()
+
+            if meals.count == 0{
+                noMealsFound = true
+            }
             setupTabs()
             
         case .history:
@@ -136,31 +124,45 @@ struct TabItem: Identifiable{
         if tabData.count > 1{
             tabData.removeFirst()
         }
+
+        
+
+
     }
     
     // MARK: - Setup Tabs
     func setupTabs(){
-//        var loopCount = 0
-        print("Meals count before while loops: \(meals.count)")
-            print("meals.count > offsetby: \(meals.count) > \(offsetBy)")
-            while meals.count > 10 {
-                let tabItem = TabItem(meals: Array(meals.prefix(10)))
-                tabData.append(tabItem)
-                meals.removeFirst(10)
-//                loopCount += 1
+        print("Meals count before: \(meals.count)")
+        if meals.count > 10 {
+            //Takes the first 10 of the array and puts them on a new tab
+            let tenMeals = Array(meals.prefix(10))
+            let tabItem = TabItem(meals: tenMeals, tag: newTag)
+            tabData.append(tabItem)
+            meals.removeFirst(10)
+        } else {
+            if meals.count == 0{
+                return
             }
+            //Add remaining meals to the last page
+            let tabItem = TabItem(meals: Array(meals), tag: newTag)
+            tabData.append(tabItem)
+            meals = []
+        }
+        print("Meals.count after: \(meals.count)")
+        selectedTab = newTag
         
-//        selectedTab = loopCount
-        let tabItem = TabItem(meals: Array(meals)) // whatever is left over gets added after the while loop
-        tabData.append(tabItem)
-
-        print("Meals.count after while loops: \(meals.count)")
-
-//        if meals.count <= 10{
-//            lessThanTen = true
-//        } else {
-//
-//        }
+        if meals.count == 0{
+            moreToShow = false
+        } else {
+            moreToShow = true
+        }
+    }
+    
+    // MARK: - Get More Meals
+    func getMore(){
+        getMoreMeals = false
+        newTag += 1
+        setupTabs()
     }
 
     // MARK: - Check For Favorite
