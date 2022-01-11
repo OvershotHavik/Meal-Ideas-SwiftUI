@@ -28,7 +28,11 @@ struct MealDBView: View {
                 if vm.meals.isEmpty && vm.isLoading == false{
                     NoResultsView(message: "No meals found for your search")
                         .offset(y: UI.verticalSpacing)
-                    
+                }
+                if vm.totalMealCount != 0{
+                    Text("Meals found: \(vm.totalMealCount)")
+                        .opacity(0.5)
+                        .offset(y: 10)
                 }
                 ScrollView{
                     LazyVGrid(columns: columns, alignment: .center) {

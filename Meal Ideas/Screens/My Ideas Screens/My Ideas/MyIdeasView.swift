@@ -62,9 +62,8 @@ struct MyIdeasView: View {
                             }
                         }
                         .tag(tabItem.tag)
-                        
+                        .offset(y: -25)
                     }
-//                    .offset(y: -25)
                 }
                 .padding()
             }

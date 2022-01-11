@@ -56,13 +56,14 @@ import CoreData
                         modified = "Side"
                     }
                     meals = try await NetworkManager.shared.mealDBQuery(query: modified, queryType: .category)
-                    
+                    totalMealCount = meals.count
                     
                 case .ingredient:
                     let modifiedIngredient = query.replacingOccurrences(of: " ", with: "_")
                     
                     meals = try await NetworkManager.shared.mealDBQuery(query: modifiedIngredient,
                                                                         queryType: .ingredient)
+                    totalMealCount = meals.count
                     print("ing")
                 case .history:
                     print("hit")
@@ -76,6 +77,7 @@ import CoreData
                     let modifiedKeyword = query.replacingOccurrences(of: " ", with: "%20")
                     meals = try await NetworkManager.shared.mealDBQuery(query: modifiedKeyword,
                                                                         queryType: .keyword)
+                    totalMealCount = meals.count
                 }
                 isLoading = false
 
