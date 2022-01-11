@@ -31,7 +31,6 @@ struct MealDBView: View {
                     
                 }
                 ScrollView{
-                    
                     LazyVGrid(columns: columns, alignment: .center) {
                         ForEach(vm.meals, id: \.id) { meal in
                             NavigationLink(destination: MealDBDetailView(vm: MealDBDetailVM(meal: meal,
@@ -96,7 +95,7 @@ struct MealDBView: View {
                 if query.queryType == .keyword{
                     vm.checkQuery(query: query.keyword, queryType: .keyword)
                 } else {
-                    vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
+                    vm.checkQuery(query: query.selected , queryType: query.queryType)
                 }
                 //                    vm.checkQuery(query: query.keyword, queryType: query.queryType)
             })
@@ -105,15 +104,19 @@ struct MealDBView: View {
             //            }
             //not sure what the difference between these two are.. both work.. need to look into later
             .onAppear{
+                if query.queryType == vm.originalQueryType && query.selected == vm.originalQuery {
+                    //nothing changed, don't do anything
+                    return
+                }
                 if query.queryType == .category ||
                     query.queryType == .ingredient{
-                    if query.selected == nil{
+                    if query.selected == ""{
                         vm.alertItem = AlertContext.noSelection
                         return
                     }
                 }
                 if query.queryType != .keyword{
-                    vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
+                    vm.checkQuery(query: query.selected , queryType: query.queryType)
                 }
                 query.getHistory()
             }

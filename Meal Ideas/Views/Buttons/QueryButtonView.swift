@@ -14,7 +14,7 @@ struct RandomQueryButtonView: View{
     var body: some View{
         Button {
             query.queryType = .random
-            query.selected = nil
+            query.selected = ""
             getRandomMeals.toggle()
 
         } label: {

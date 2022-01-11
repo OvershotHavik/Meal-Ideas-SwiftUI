@@ -91,16 +91,20 @@ struct SpoonView: View {
                 }
             }
             .onAppear {
+                if query.queryType == vm.originalQueryType && query.selected == vm.originalQuery {
+                    //nothing changed, don't do anything
+                    return
+                }
                 if query.queryType == .category ||
                     query.queryType == .ingredient{
-                    if query.selected == nil{
+                    if query.selected == ""{
                         vm.alertItem = AlertContext.noSelection
                         return
                     }
                 }
                 if query.queryType != .keyword{
                     vm.offsetBy = 0 // may need changed to somewhere else
-                    vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
+                    vm.checkQuery(query: query.selected, queryType: query.queryType)
                 }
                 query.getHistory()
             }
@@ -123,7 +127,7 @@ struct SpoonView: View {
                 if query.queryType == .keyword{
                     vm.checkQuery(query: query.keyword, queryType: .keyword)
                 } else {
-                    vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
+                    vm.checkQuery(query: query.selected, queryType: query.queryType)
                 }
             })
 
