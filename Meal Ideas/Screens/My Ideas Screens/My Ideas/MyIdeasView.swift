@@ -10,7 +10,7 @@ import SwiftUI
 import SwiftUI
 
 struct MyIdeasView: View {
-    @StateObject var vm =  MyIdeasVM()
+    @StateObject var vm :  MyIdeasVM
     @EnvironmentObject var query: Query
     let columns = [GridItem(), GridItem()]
 
@@ -107,6 +107,10 @@ struct MyIdeasView: View {
                 }
             })
             .onAppear {
+                if query.queryType == vm.originalQueryType {
+                    //nothing changed, don't do anything
+                    return
+                }
                 if query.queryType == .category ||
                     query.queryType == .ingredient{
                     if query.selected == nil{

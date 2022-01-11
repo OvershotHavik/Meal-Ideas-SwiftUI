@@ -7,11 +7,8 @@
 
 import SwiftUI
 import CoreData
-struct TabItem: Identifiable{
-    var id = UUID()
-    var meals : [UserMeals]
-    var tag : Int
-}
+
+
 @MainActor final class MyIdeasVM: BaseVM{
     @Published var meals : [UserMeals] = []
     private let pc = PersistenceController.shared
@@ -20,7 +17,11 @@ struct TabItem: Identifiable{
     @Published var source: Source = .myIdeas
     @Published var tabData : [TabItem] = [TabItem(meals: [], tag: 1)]
 
-
+    struct TabItem: Identifiable{
+        var id = UUID()
+        var meals : [UserMeals]
+        var tag : Int
+    }
 // MARK: - get All Meals
     func getAllMeals(){
         let request = NSFetchRequest<UserMeals>(entityName: "UserMeals")
