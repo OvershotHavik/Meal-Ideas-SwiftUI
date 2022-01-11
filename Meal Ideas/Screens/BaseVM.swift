@@ -21,12 +21,14 @@ class BaseVM: ObservableObject{
     @Published var selectedTab = 1
     @Published var moreToShow = false
     @Published var noMealsFound = false
+    @Published var totalMealCount = 0
     
     func resetValues(){
         noMealsFound = false
         getMoreMeals = false
         selectedTab = 1
         newTag = 1
+        totalMealCount = 0
     }
 }
 

@@ -67,8 +67,10 @@ import CoreData
             if meals.count == 0{
                 noMealsFound = true
             }
-
+            totalMealCount = meals.count
             setupTabs()
+            
+            
         case .category:
             print("My Ideas category")
             for meal in allMeals{
@@ -81,6 +83,7 @@ import CoreData
             if meals.count == 0{
                 noMealsFound = true
             }
+            totalMealCount = meals.count
             setupTabs()
 
             
@@ -97,7 +100,10 @@ import CoreData
             if meals.count == 0{
                 noMealsFound = true
             }
+            totalMealCount = meals.count
             setupTabs()
+            
+            
         case .keyword:
             print("My Ideas keyword")
             for meal in allMeals{
@@ -112,7 +118,9 @@ import CoreData
             if meals.count == 0{
                 noMealsFound = true
             }
+            totalMealCount = meals.count
             setupTabs()
+            
             
         case .history:
             print("My Ideas History")
@@ -142,6 +150,7 @@ import CoreData
             meals.removeFirst(10)
         } else {
             if meals.count == 0{
+                moreToShow = false
                 return
             }
             //Add remaining meals to the last page

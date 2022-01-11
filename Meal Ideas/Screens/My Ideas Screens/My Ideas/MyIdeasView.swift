@@ -28,6 +28,12 @@ struct MyIdeasView: View {
                     NoResultsView(message: "No meals found for your search. \nCreate a new one by tapping the edit icon")
                         .offset(y: UI.verticalSpacing)
                 }
+                if vm.totalMealCount != 0{
+                    Text("Meals found: \(vm.totalMealCount)")
+                        .opacity(0.5)
+                        .offset(y: 10)
+                }
+                
                 TabView(selection: $vm.selectedTab){
 
                     ForEach(vm.tabData) { tabItem in
@@ -56,8 +62,9 @@ struct MyIdeasView: View {
                             }
                         }
                         .tag(tabItem.tag)
-                        .offset(y: -25)
+                        
                     }
+//                    .offset(y: -25)
                 }
                 .padding()
             }
