@@ -61,7 +61,7 @@ struct MyIdeasView: View {
                 }
                 .padding()
             }
-            .tabViewStyle(.page)
+//            .tabViewStyle(.page)
             .tabViewStyle(.page(indexDisplayMode: .automatic))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

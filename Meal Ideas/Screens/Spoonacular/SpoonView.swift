@@ -70,7 +70,7 @@ struct SpoonView: View {
                         }
                         .offset(y: UI.verticalSpacing)
                     }
-                    if vm.isLoading == false && vm.lessThanTen == true{
+                    if vm.isLoading == false && vm.moreToShow == true{
                         MoreMealsButton(vm: vm)
                     }
                     
@@ -119,6 +119,7 @@ struct SpoonView: View {
             })
             .onChange(of: vm.getMoreMeals, perform: { newValue in
                 print("More meals tapped in spoon: \(query.queryType)")
+                
                 if query.queryType == .keyword{
                     vm.checkQuery(query: query.keyword, queryType: .keyword)
                 } else {

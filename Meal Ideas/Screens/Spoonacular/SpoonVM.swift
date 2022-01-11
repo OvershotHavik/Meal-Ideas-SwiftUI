@@ -57,8 +57,10 @@ import CoreData
                 switch queryType{
                 case .random:
                     meals = try await NetworkManager.shared.spoonQuery(query: query, queryType: queryType)
-                    if meals.count <= 10{
-                        lessThanTen = true
+                    if meals.count == 10{
+                        moreToShow = true
+                    } else {
+                        moreToShow = false
                     }
                     
                 case .category:
@@ -66,8 +68,10 @@ import CoreData
                     print(modifiedCategory)
                     meals = try await NetworkManager.shared
                         .spoonQuery(query: modifiedCategory, queryType: .category)
-                    if meals.count < 11{
-                        lessThanTen = true
+                    if meals.count == 10{
+                        moreToShow = true
+                    } else {
+                        moreToShow = false
                     }
                     
                 case .ingredient:
@@ -75,8 +79,10 @@ import CoreData
                     let modified = modifiedIngredient.lowercased() + "&offset=\(offsetBy)"
                     meals = try await NetworkManager.shared.spoonQuery(query: modified, queryType: .ingredient)
                     print("ingredient")
-                    if meals.count < 11{
-                        lessThanTen = true
+                    if meals.count == 10{
+                        moreToShow = true
+                    } else {
+                        moreToShow = false
                     }
                 case .keyword:
                     var safeKeyword = query.lowercased()
@@ -86,9 +92,11 @@ import CoreData
                     let modified = safeKeyword + "&offset=\(offsetBy)"
                     keywordResults = try await NetworkManager.shared.spoonKeywordQuery(query: modified)
                     print("keyword")
-                    if keywordResults.count < 11{
+                    if keywordResults.count == 10{
                         if keywordResults.count != 0{
-                            lessThanTen = true
+                            moreToShow = true
+                        } else {
+                            moreToShow = false
                         }
                     }
                 case .history:
