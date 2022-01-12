@@ -24,8 +24,10 @@ struct SpoonView: View {
                     loadingView()
                         .offset(y: UI.verticalSpacing)
                 }
-                if let safeFirst = vm.tabData.first?.meals{
-                    if safeFirst.isEmpty{
+                if let safeFirst = vm.tabData.first?.meals,
+                   let safeFirstKeyword = vm.tabData.first?.keywordMeals{
+                    if safeFirst.isEmpty &&
+                        safeFirstKeyword.isEmpty{
                         if vm.isLoading == false {
                             NoResultsView(message: "No meals found for your search")
                                 .offset(y: UI.verticalSpacing)
@@ -59,7 +61,7 @@ struct SpoonView: View {
                             } else {
                                 //Keyword search, need to fetch the meal on the VM
                                 LazyVGrid(columns: columns, alignment: .center) {
-                                    ForEach(vm.keywordResults) { meal in
+                                    ForEach(tabItem.keywordMeals) { meal in
                                         NavigationLink(destination: SpoonDetailView(vm: SpoonDetailVM(meal: nil,
                                                                                                       mealID: meal.id,
                                                                                                       favorited: vm.checkForFavorite(id: meal.id,

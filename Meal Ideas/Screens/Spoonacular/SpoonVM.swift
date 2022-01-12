@@ -106,8 +106,9 @@ import CoreData
                             moreToShow = false
                         }
                     }
+                    setupKeywordTabs()
                     
-//                    setupTabs()
+                    
                 case .history:
                     print("History")
                 case .favorite:
@@ -166,18 +167,29 @@ import CoreData
         }
         print("Meals.count after: \(meals.count)")
         selectedTab = newTag
-        
-        
-//        if originalQueryType == .random{
-//            moreToShow = true
-//        } else {
-//            if meals.count == 0{
-//                moreToShow = false
-//            } else {
-//                moreToShow = true
-//            }
-//        }
-        
+    }
+    
+    // MARK: - SetupKeyword Tabs
+    func setupKeywordTabs(){
+        print("Keyword count before: \(keywordResults.count)")
+        if keywordResults.count > 10 {
+            //Takes the first 10 of the array and puts them on a new tab
+            let tenMeals = Array(keywordResults.prefix(10))
+            let tabItem = TabItem(meals: [], keywordMeals: tenMeals, tag: newTag)
+            tabData.append(tabItem)
+            keywordResults.removeFirst(10)
+            
+        } else {
+            if keywordResults.count < 10{
+                moreToShow = false
+            }
+            //Add remaining meals to the last page
+            let tabItem = TabItem(meals: [], keywordMeals: keywordResults, tag: newTag)
+            tabData.append(tabItem)
+            keywordResults = []
+        }
+        print("Keyword.count after: \(keywordResults.count)")
+        selectedTab = newTag
     }
     
     // MARK: - Get More Meals
