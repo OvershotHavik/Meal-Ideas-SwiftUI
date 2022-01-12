@@ -12,54 +12,60 @@ struct MyIdeasView: View {
     @EnvironmentObject var query: Query
     let columns = [GridItem(), GridItem()]
     var body: some View {
+        
         NavigationView{
-            VStack{
-                TopView(keywordSearchTapped: $vm.keywordSearchTapped,
-                        getRandomMeals: $vm.getRandomMeals,
-                        source: $vm.source)
-                
-                Spacer(minLength: UI.topViewOffsetSpacing)
-                
-                if vm.meals.isEmpty{
-                    NoResultsView(message: "No meals found for your search. \nCreate a new one by tapping the edit icon")
-                        .offset(y: UI.verticalSpacing)
-                }
-                ScrollView{
-                    LazyVGrid(columns: columns, alignment: .center) {
-                        ForEach(vm.meals) {meal in
-                            NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: meal,
-                                                                                              favorited: vm.checkForFavorite(id: meal.userMealID,
-                                                                                                                             favoriteArray: query.favoritesArray),
-                                                                                              showingHistory: false))) {
-                                MealCardView(mealPhoto: "",
-                                             mealPhotoData: meal.mealPhoto,
-                                             mealName: meal.mealName ?? "",
-                                             favorited: vm.checkForFavorite(id: meal.userMealID,
-                                                                            favoriteArray: query.favoritesArray),
-                                             inHistory: vm.checkForHistory(id: meal.mealName,
-                                                                           historyArray: query.historyArray))
+            ScrollView{
+                VStack{
+                    TopView(keywordSearchTapped: $vm.keywordSearchTapped,
+                            getRandomMeals: $vm.getRandomMeals,
+                            source: $vm.source)
+//                        .offset(y: -20)
+                    
+                    Spacer(minLength: UI.topViewOffsetSpacing)
+                    
+                    if vm.meals.isEmpty{
+                        NoResultsView(message: "No meals found for your search. \nCreate a new one by tapping the edit icon")
+                            .offset(y: UI.verticalSpacing)
+                    }
+                    ScrollView{
+                        LazyVGrid(columns: columns, alignment: .center) {
+                            ForEach(vm.meals) {meal in
+                                NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: meal,
+                                                                                                  favorited: vm.checkForFavorite(id: meal.userMealID,
+                                                                                                                                 favoriteArray: query.favoritesArray),
+                                                                                                  showingHistory: false))) {
+                                    MealCardView(mealPhoto: "",
+                                                 mealPhotoData: meal.mealPhoto,
+                                                 mealName: meal.mealName ?? "",
+                                                 favorited: vm.checkForFavorite(id: meal.userMealID,
+                                                                                favoriteArray: query.favoritesArray),
+                                                 inHistory: vm.checkForHistory(id: meal.mealName,
+                                                                               historyArray: query.historyArray))
+                                }
+                                                                                                  .foregroundColor(.primary)
                             }
-                            .foregroundColor(.primary)
                         }
+                        
+                        .offset(y: UI.verticalSpacing)
+                        if vm.lessThanTen == true {
+                            MoreMealsButton(vm: vm)
+                        }
+                        
+                        
                     }
-
-                    .offset(y: UI.verticalSpacing)
-                    if vm.lessThanTen == true {
-                        MoreMealsButton(vm: vm)
-                    }
-
-
+                    
+                    .padding()
                 }
-                
-                .padding()
             }
+            .ignoresSafeArea()
+            .navigationTitle(Text("Meal Ideas"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     NavigationLink(destination: EditMealsListView(vm: EditMealsListVM())) {
                         Image(systemName: "square.and.pencil")
                             .padding(.horizontal)
-                            .foregroundColor(.black)
+                            .foregroundColor(.primary)
                     }
                 }
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -69,7 +75,7 @@ struct MyIdeasView: View {
                     }
                     NavigationLink(destination: HistoryListView(vm: HistoryListVM(source: .myIdeas))) {
                         Image(systemName: "book")
-                            .foregroundColor(.black)
+                            .foregroundColor(.primary)
                     }
                 }
             }
@@ -79,7 +85,7 @@ struct MyIdeasView: View {
                 vm.lessThanTen = false
                 vm.checkQuery(query: query.keyword, queryType: .keyword)
             })
-
+            
             .onChange(of: vm.allMeals, perform: { newValue in
                 //if user changed the meals, run it again
                 vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
@@ -116,13 +122,12 @@ struct MyIdeasView: View {
             }
         }
         .navigationViewStyle(.stack)
-
     }
 }
 /*
-struct MyIdeasView_Previews: PreviewProvider {
-    static var previews: some View {
-        MyIdeasView(vm:MyIdeasVM())
-    }
-}
-*/
+ struct MyIdeasView_Previews: PreviewProvider {
+ static var previews: some View {
+ MyIdeasView(vm:MyIdeasVM())
+ }
+ }
+ */

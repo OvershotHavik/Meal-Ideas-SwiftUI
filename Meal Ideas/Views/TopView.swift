@@ -16,17 +16,17 @@ struct TopView: View {
         ZStack{
             BackgroundGradientView()
             VStack{
-                Spacer(minLength: 20)
-                Text("Meal Ideas")
-                    .font(.title)
+                Spacer(minLength: 10)
+//                Text("Meal Ideas")
+//                    .font(.title)
                 
                 KeywordSearchView(keywordSearchTapped: $keywordSearchTapped)
 
                 
-                TopViewButtons(getRandomMeals: $getRandomMeals)
+//                TopViewButtons(getRandomMeals: $getRandomMeals)
             }
         }
-        .frame(height: 100)
+        .frame(idealHeight: 150)
         
     }
 }
@@ -70,13 +70,53 @@ struct KeywordSearchView: View{
     @EnvironmentObject var query : Query
     @Binding var keywordSearchTapped : Bool
     var body: some View{
+        HStack(spacing: 20){
+            Button(action: {
+                // do random
+                print("Surprise me tapped")
+            }, label: {
+                Text("Surprise \nMe")
+                    .lineLimit(2)
+            })
+                .foregroundColor(.primary)
+            TextField("Search...", text: $query.keyword)
+                .textFieldStyle(CustomRoundedCornerTextField())
+                .onSubmit {
+                    query.selected = nil
+                    query.queryType = .keyword
+                    keywordSearchTapped.toggle()
+                    print("Top View Keyword search: \(query.keyword)")
+                }
+            Button  {
+                //bring up a menu for the user to select category or ingredient to then take them to the list views
+                print("Filter tapped")
+            } label: {
+                Image("Filter")
+                    .resizable()
+                    .frame(width: 30, height: 30)
+            }
+//            Spacer()
+        }
+        .padding()
+    }
+}
+
+
+
+
+// MARK: - Keyword Search View
+/*
+struct KeywordSearchView: View{
+    @EnvironmentObject var query : Query
+    @Binding var keywordSearchTapped : Bool
+    var body: some View{
         HStack{
             Spacer()
             Image(systemName: "magnifyingglass")
                 .foregroundColor(.gray)
             TextField("Search...", text: $query.keyword)
                 .textFieldStyle(CustomRoundedCornerTextField())
-                .frame(width: 250)
+//                .frame(width: 250)
                 .onSubmit {
                     query.selected = nil
                     query.queryType = .keyword
@@ -84,8 +124,10 @@ struct KeywordSearchView: View{
                     print("Top View Keyword search: \(query.keyword)")
                 }
             Spacer()
+            // Random icon - Search - Filter
+            //use a menu to choose which ingredient or category
+            
         }
     }
 }
-
-
+*/

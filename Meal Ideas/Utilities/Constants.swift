@@ -13,9 +13,10 @@ final class Constants{
 }
 
 class UI{
-    static let topViewOffsetSpacing = CGFloat(90)
+    static let topViewOffsetSpacing = CGFloat(25)
     static let verticalSpacing = CGFloat(25)
     static let placeholderMeal = "Placeholder"
+    
 //    static let horizontalSpacing = CGFloat(12)
 //    static let cornerRadius = CGFloat(12)
 //    static let backgroundColor = UIColor.systemGray5

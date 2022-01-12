@@ -53,7 +53,7 @@ struct MealDBView: View {
                     
                     if query.queryType == .random &&
                         vm.isLoading == false{
-                        //Only type of query where they don't get all ersults right away
+                        //Only type of query where they don't get all results right away
                         MoreMealsButton(vm: vm)
                     }
                     
