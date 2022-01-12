@@ -30,7 +30,7 @@ import CoreData
             }
 //            getRandomMeals = false
             meals = []
-            tabData = [TabItem(meals: [], tag: 1)] // default back to blank when switching, without this we get index out of range since tabData has to have at least one tab            self.originalQueryType = queryType
+            tabData = [TabItem(meals: [], tag: 1)] // default back to blank when switching, without this we get index out of range since tabData has to have at least one tab
             self.originalQuery = query
             self.originalQueryType = queryType
             getMealDBMeals(query: query, queryType: queryType)
@@ -72,7 +72,6 @@ import CoreData
                     
                     
                 case .ingredient:
-//                    tabData = [TabItem(meals: [], tag: 1)] // default back to blank when switching, without this we get index out of range since tabData has to have at least one tab
                     print("ingredient")
                     let modifiedIngredient = query.replacingOccurrences(of: " ", with: "_")
                     
@@ -92,7 +91,6 @@ import CoreData
                     
                     
                 case .keyword:
-//                    tabData = [TabItem(meals: [], tag: 1)] // default back to blank when switching, without this we get index out of range since tabData has to have at least one tab
                     let modifiedKeyword = query.replacingOccurrences(of: " ", with: "%20")
                     meals = try await NetworkManager.shared.mealDBQuery(query: modifiedKeyword,
                                                                         queryType: .keyword)

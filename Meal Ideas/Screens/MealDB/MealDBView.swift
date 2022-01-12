@@ -23,7 +23,6 @@ struct MealDBView: View {
                 if vm.isLoading{
                     loadingView()
                         .offset(y: UI.verticalSpacing)
-                    
                 }
 
                 
@@ -65,7 +64,6 @@ struct MealDBView: View {
                             
                             if vm.moreToShow == true &&
                                 vm.isLoading == false{
-                                //Only type of query where they don't get all ersults right away
                                 MoreMealsButton(vm: vm)
                             }
                             
