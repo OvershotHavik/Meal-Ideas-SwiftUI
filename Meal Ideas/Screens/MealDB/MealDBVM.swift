@@ -97,6 +97,7 @@ import CoreData
                     meals = try await NetworkManager.shared.mealDBQuery(query: modifiedKeyword,
                                                                         queryType: .keyword)
                     totalMealCount = meals.count
+                    setupTabs()
                 }
                 isLoading = false
                 
