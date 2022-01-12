@@ -13,19 +13,26 @@ import CoreData
     
     @Published var meals : [MealDBResults.Meal] = []
     @Published var source: Source = .mealDB
-
+    @Published var tabData: [TabItem] = [TabItem(meals: [], tag: 1)]
+    
+    struct TabItem: Identifiable{
+        var id = UUID()
+        var meals: [MealDBResults.Meal]
+        var tag: Int
+    }
+    
     
     // MARK: - CheckQuery
     func checkQuery(query: String, queryType: QueryType){
-        if originalQueryType != queryType || getMoreMeals == true || getRandomMeals == true{
+        if originalQueryType != queryType || getRandomMeals == true{
             if getRandomMeals == true{
                 self.getRandomMeals = false
             }
-            getMoreMeals = false
-            getRandomMeals = false
+//            getRandomMeals = false
             meals = []
-            self.originalQueryType = queryType
+            tabData = [TabItem(meals: [], tag: 1)] // default back to blank when switching, without this we get index out of range since tabData has to have at least one tab            self.originalQueryType = queryType
             self.originalQuery = query
+            self.originalQueryType = queryType
             getMealDBMeals(query: query, queryType: queryType)
         } else {
             if originalQuery != query {
@@ -48,8 +55,11 @@ import CoreData
                     print("random")
                     let newMeals = try await NetworkManager.shared.mealDBQuery(query: "", queryType: .random)
                     meals.append(contentsOf: newMeals)
-
+                    setupTabs()
+                    
+                    
                 case .category:
+
                     print("Fetching MealDB Category: \(query)")
                     var modified = query.replacingOccurrences(of: " ", with: "%20")
                     if modified == "Side%20Dish"{
@@ -57,14 +67,22 @@ import CoreData
                     }
                     meals = try await NetworkManager.shared.mealDBQuery(query: modified, queryType: .category)
                     totalMealCount = meals.count
+
+                    setupTabs()
+                    
                     
                 case .ingredient:
+//                    tabData = [TabItem(meals: [], tag: 1)] // default back to blank when switching, without this we get index out of range since tabData has to have at least one tab
+                    print("ingredient")
                     let modifiedIngredient = query.replacingOccurrences(of: " ", with: "_")
                     
                     meals = try await NetworkManager.shared.mealDBQuery(query: modifiedIngredient,
                                                                         queryType: .ingredient)
                     totalMealCount = meals.count
-                    print("ing")
+                    setupTabs()
+                    
+                    
+                    
                 case .history:
                     print("hit")
                 case .favorite:
@@ -74,12 +92,24 @@ import CoreData
                     
                     
                 case .keyword:
+//                    tabData = [TabItem(meals: [], tag: 1)] // default back to blank when switching, without this we get index out of range since tabData has to have at least one tab
                     let modifiedKeyword = query.replacingOccurrences(of: " ", with: "%20")
                     meals = try await NetworkManager.shared.mealDBQuery(query: modifiedKeyword,
                                                                         queryType: .keyword)
                     totalMealCount = meals.count
                 }
                 isLoading = false
+                
+                if firstRun == true {
+                    if tabData.count > 1{
+                        tabData.removeFirst()
+                    }
+                    firstRun = false
+                }
+
+
+ 
+
 
             }catch{
                 if let miError = error as? MIError{
@@ -97,6 +127,53 @@ import CoreData
                 }
             }
         }
+    }
+    
+    
+    // MARK: - Setup Tabs
+    func setupTabs(){
+        print("Meals count before: \(meals.count)")
+        if meals.count > 10 {
+            //Takes the first 10 of the array and puts them on a new tab
+            let tenMeals = Array(meals.prefix(10))
+            let tabItem = TabItem(meals: tenMeals, tag: newTag)
+            tabData.append(tabItem)
+            meals.removeFirst(10)
+            
+        } else {
+            if meals.count == 0{
+                moreToShow = false
+                return
+            }
+            //Add remaining meals to the last page
+            let tabItem = TabItem(meals: Array(meals), tag: newTag)
+            tabData.append(tabItem)
+            meals = []
+        }
+        print("Meals.count after: \(meals.count)")
+        selectedTab = newTag
+        
+        
+        if originalQueryType == .random{
+            moreToShow = true
+        } else {
+            if meals.count == 0{
+                moreToShow = false
+            } else {
+                moreToShow = true
+            }
+        }
+        
+    }
+    
+    // MARK: - Get More Meals
+    func getMore(){
+        if originalQueryType == .random{
+            getMealDBMeals(query: originalQuery, queryType: originalQueryType)
+        }
+        getMoreMeals = false
+        newTag += 1
+        setupTabs()
     }
     
     // MARK: - Check For Favorite

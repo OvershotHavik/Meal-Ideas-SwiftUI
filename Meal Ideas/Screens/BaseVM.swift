@@ -11,7 +11,7 @@ class BaseVM: ObservableObject{
     @Published var alertItem : AlertItem?
     @Published var isLoading = false
     @Published var originalQueryType = QueryType.none
-    @Published var originalQuery: String?
+    @Published var originalQuery = ""
     @Published var keywordSearchTapped = false
     @Published var getMoreMeals = false
     @Published var getRandomMeals = false
@@ -22,6 +22,7 @@ class BaseVM: ObservableObject{
     @Published var moreToShow = false
     @Published var noMealsFound = false
     @Published var totalMealCount = 0
+    @Published var firstRun = true
     
     func resetValues(){
         noMealsFound = false
@@ -29,6 +30,7 @@ class BaseVM: ObservableObject{
         selectedTab = 1
         newTag = 1
         totalMealCount = 0
+        firstRun = true
     }
 }
 

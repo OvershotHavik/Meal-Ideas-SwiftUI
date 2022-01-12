@@ -52,6 +52,7 @@ class SpoonacularResults{
     }
     class ResultsFromIngredients: Codable{
         let results :[Results]
+        
     }
     class Results: Recipe{
     }
@@ -67,3 +68,6 @@ class SpoonacularKeywordResults: Codable{
         var image: String?
     }
 }
+
+
+// TODO:  add totalResults to where it should go so we can use that in the view
