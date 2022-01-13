@@ -12,34 +12,38 @@ import Foundation
 /*
  Search for ToDo's throughout the project, been adding things here and there as well
   
- - [ ] Add a confirmation alert when user hits back when editing a meal. Save, discard or cancel
  - [ ] Add some form of statement that we are not responsible for the pictures stored in the app
- - [ ] Check to see what can be done to prevent duplicate API calls to spoon when it is fetching meals. Maybe check to see if is loading is running then to return out of the function. Trying to prevent unnecessary API calls since we have to pay for each one
- - [ ] only include spoon for subscription for $1 a month or something? This would cover the API cost, and could keep the free package, and hopefully would offset the usage count
-  
- - [ ] Add a "Get more meals" button onto my ideas when the count is more than 10, and process that accordingly. Get allt he meals initially, then get the first 10 and just show that amount for instance, then use offset like we did in spoon to change the value of the prefix
- - [ ] Only allow x amount of meals to be stored then offer the pro version which will block adds and unlock unlimited meal storage
-
- 
  
  - [ ] Animate the meal cards appearing /disappearing
  - [ ] Add haptics when meal card appear? So the phone vibrates when they come in? Just a subtle one to go with the animation?
- */
-// TODO:  make a list
+ Maybe set the gradient as the background view for the main views for each source? Then the top view could be clear.  Maybe give the scroll view a black/white background?
 
-//FIXME: fix this
+ 
+ Once these are done:
+ - [ ] Threading issue for the picture and why it doesn’t circle all the time
+ - [ ] How to handle access photos so users can allow album
+ - [ ] Multi thread ingredient pictures
+ - [ ] When scrolling down automatically make another call to get more meals
+ 
+ move back to the minimum view for top view and add these:
+ 
+ - [ ] When user taps surprise me, run the random, get the first meal and take them straight to the detail view for that meal
+ - [ ] When scroll down hide the top bar and then show it again once the user starts scrolling back up
+ 
+ */
 
 
 /*
- Future relese plans:
+ Future versions
  - Figure out how to do core data for custom ingredients and sides and categories
- 
- 
- - Filter the history so it only shows the most recent? or leave it alone.. not sure yet. Maybe give it an option in the settings section to filter history to only show the most recent viewing of the meal
- 
  - [ ] Figure out how to get the amount of times a meal has been favorites in CloudKit and display it under an open heart on the meal card. For future release
  - [ ] Add ability for user to add their own categories, ingredients, and sides
      - [ ] Like cookies or frozen meal
+ - [ ] Now that we can get text from pictures, add the ability to scan a recipe or directions from the box and add them to meal ideas
  - [ ] Offer the ability to share user meals?
  - [ ] Offer a filter button to offer the user to specify multiple query at once. Could include name, category, ingredient, prep time, servings.. would only apply where the source provides that info though
+ - [ ] Make it comparable with iPad
+ - [ ] Offer expert to json
+ - [ ] Offer ability to select ingredients to add them to a list to be able to share, like I did with original version
+
  */
