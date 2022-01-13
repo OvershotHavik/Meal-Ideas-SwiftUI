@@ -27,6 +27,11 @@ struct MealDBView: View {
                 }
                 ScrollView{
                     VStack{
+                        if vm.totalMealCount != 0{
+                            Text("Meals found: \(vm.totalMealCount)")
+                                .opacity(0.5)
+                                .offset(y: 10)
+                        }
                         LazyVGrid(columns: columns, alignment: .center) {
                             ForEach(vm.meals, id: \.id) { meal in
                                 NavigationLink(destination: MealDBDetailView(vm: MealDBDetailVM(meal: meal,

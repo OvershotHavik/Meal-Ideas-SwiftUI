@@ -74,9 +74,10 @@ import CoreData
                     meals = try await NetworkManager.shared.mealDBQuery(query: modifiedKeyword,
                                                                         queryType: .keyword)
                     allResultsShown = true
+                    
                 }
                 isLoading = false
-
+                totalMealCount = meals.count
             }catch{
                 if let miError = error as? MIError{
                     switch miError {

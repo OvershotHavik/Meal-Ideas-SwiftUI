@@ -55,7 +55,8 @@ import CoreData
             print("My Ideas Random")
             meals = allMeals.shuffled()
             allResultsShown = true
-            
+            totalMealCount = meals.count
+
         case .category:
             print("My Ideas category")
             for meal in allMeals{
@@ -66,6 +67,7 @@ import CoreData
                     }
                 }
             }
+            totalMealCount = meals.count
 
             
         case .ingredient:
@@ -78,6 +80,7 @@ import CoreData
                     }
                 }
             }
+            totalMealCount = meals.count
 
             
         case .keyword:
@@ -91,7 +94,8 @@ import CoreData
                     }
                 }
             }
-            
+            totalMealCount = meals.count
+
             
         case .history:
             print("My Ideas History")

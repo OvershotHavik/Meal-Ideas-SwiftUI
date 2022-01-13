@@ -15,9 +15,10 @@ class BaseVM: ObservableObject{
     @Published var keywordSearchTapped = false
     @Published var getMoreMeals = false
     @Published var getRandomMeals = false
-    @Published var lessThanTen = false
+    @Published var moreToShow = false
     @Published var offsetBy: Int = 0 // changes by 10
     @Published var allResultsShown = false
+    @Published var totalMealCount = 0
     
     func resetValues(){
         alertItem = nil
@@ -27,9 +28,10 @@ class BaseVM: ObservableObject{
         keywordSearchTapped = false
         getMoreMeals = false
         getRandomMeals = false
-        lessThanTen = false
+        moreToShow = false
         offsetBy = 0 // changes by 10
         allResultsShown = false
+        totalMealCount = 0
     }
     
 }

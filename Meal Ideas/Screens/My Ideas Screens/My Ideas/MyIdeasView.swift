@@ -24,8 +24,14 @@ struct MyIdeasView: View {
                     NoResultsView(message: "No meals found for your search. \nCreate a new one by tapping the edit icon")
                         .offset(y: UI.verticalSpacing)
                 }
+
                 ScrollView{
                     VStack{
+                        if vm.totalMealCount != 0{
+                            Text("Meals found: \(vm.totalMealCount)")
+                                .opacity(0.5)
+                                .offset(y: 10)
+                        }
                         LazyVGrid(columns: columns, alignment: .center) {
                             ForEach(vm.meals) {meal in
                                 NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: meal,

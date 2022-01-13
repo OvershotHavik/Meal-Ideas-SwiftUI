@@ -20,13 +20,18 @@ struct SpoonView: View {
                         source: $vm.source)
                 Spacer(minLength: UI.topViewOffsetSpacing)
                 ScrollView{
-                    if vm.isLoading{
-                        loadingView()
-                            .offset(y: UI.verticalSpacing)
-                    }
+//                    if vm.isLoading{
+//                        loadingView()
+////                            .offset(y: UI.verticalSpacing)
+//                    }
                     if vm.meals.isEmpty && vm.keywordResults.isEmpty && vm.isLoading == false{
                         NoResultsView(message: "No meals found for your search")
                             .offset(y: UI.verticalSpacing)
+                    }
+                    if vm.totalMealCount != 0{
+                        Text("Meals found: \(vm.totalMealCount)")
+                            .opacity(0.5)
+                            .offset(y: 10)
                     }
                     if vm.keywordResults.isEmpty{
                         //Normal run through
@@ -70,8 +75,12 @@ struct SpoonView: View {
                         }
                         .offset(y: UI.verticalSpacing)
                     }
-                    if vm.isLoading == false && vm.lessThanTen == true{
+                    if vm.isLoading == false && vm.moreToShow == true{
                         MoreMealsButton(vm: vm)
+                    }
+                    if vm.isLoading{
+                        loadingView()
+//                            .offset(y: UI.verticalSpacing)
                     }
                     
                 }
@@ -111,17 +120,22 @@ struct SpoonView: View {
             }
             .onChange(of: vm.keywordSearchTapped, perform: { newValue in
                 print("Keyword: \(query.keyword)")
+                vm.resetValues()
                 vm.checkQuery(query: query.keyword, queryType: .keyword)
             })
             .onChange(of: vm.getRandomMeals, perform: { newValue in
                 print("Random tapped in Spoon")
+                vm.resetValues()
                 vm.getRandomMeals()
             })
             .onChange(of: vm.getMoreMeals, perform: { newValue in
                 print("More meals tapped in spoon: \(query.queryType)")
+//                vm.resetValues()
+                
                 if query.queryType == .keyword{
                     vm.checkQuery(query: query.keyword, queryType: .keyword)
                 } else {
+//                    vm.resetValues()
                     vm.checkQuery(query: query.selected, queryType: query.queryType)
                 }
             })

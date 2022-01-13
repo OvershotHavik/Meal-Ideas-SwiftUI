@@ -80,7 +80,8 @@ final class BaseURL{
     static let mealDBKeyword = APIKey.mealDB + "search.php?s="
     
     static let spoonRandom = "https://api.spoonacular.com/recipes/random?number=10" + APIKey.spoon
-    static let spoonCategories = "https://api.spoonacular.com/recipes/random?" + APIKey.spoon + "&number=10&tags="
+//    static let spoonCategories = "https://api.spoonacular.com/recipes/random?" + APIKey.spoon + "&number=10&tags="
+    static let spoonCategories = "https://api.spoonacular.com/recipes/complexSearch?" + APIKey.spoon + "&number=10&addRecipeInformation=true&fillIngredients=true&type="
     
     static let spoonIngredients = "https://api.spoonacular.com/recipes/complexSearch?" + APIKey.spoon + "&number=10&addRecipeInformation=true&fillIngredients=true&includeIngredients="
     
