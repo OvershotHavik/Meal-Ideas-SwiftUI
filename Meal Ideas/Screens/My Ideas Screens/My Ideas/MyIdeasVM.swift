@@ -15,6 +15,7 @@ import CoreData
     @Published var allMeals : [UserMeals] = []
     @Published var source: Source = .myIdeas
     
+
 // MARK: - get All Meals
     func getAllMeals(){
         //used to get all meals, runs on on appear of the view, and if all meals changes, goes through check query
@@ -28,18 +29,9 @@ import CoreData
     }
     // MARK: - Check Query
     func checkQuery(query: String, queryType: QueryType){
-        if offsetBy == 0{
-            offsetBy += 10
-        }
         print("My Ideas Query: \(query), queryType: \(queryType.rawValue)")
-        // TODO:  Add a check in here to add to the array if the query and query type haven't changed, but also make sure there are unique items still
         if originalQueryType != queryType ||
-            getMoreMeals == true ||
             allMeals.count != meals.count{
-            if getMoreMeals == true {
-                offsetBy += 10
-            }
-            getMoreMeals = false
             meals = []
             self.originalQueryType = queryType
             self.originalQuery = query
@@ -61,52 +53,41 @@ import CoreData
         switch queryType {
         case .random:
             print("My Ideas Random")
-            let shuffled = allMeals.shuffled()
-            let offsetMeals = shuffled.prefix(10)
-            meals = offsetMeals.shuffled()
-            if meals.count <= 10{
-                lessThanTen = true
-            }
+            meals = allMeals.shuffled()
+
             
         case .category:
             print("My Ideas category")
-            var catMeals : [UserMeals] = []
             for meal in allMeals{
                 if let safeCategories = meal.category as? [String]{
                     if safeCategories.contains(query){
-                        catMeals.append(meal)
+                        meals.append(meal)
                     }
                 }
             }
-            let offsetMeals = catMeals.prefix(offsetBy)
-            meals = offsetMeals.shuffled()
+
             
         case .ingredient:
             print("My Ideas ingredients")
-            var ingMeals : [UserMeals] = []
             for meal in allMeals{
                 if let safeIngredients = meal.ingredients as? [String]{
                     if safeIngredients.contains(query){
-                        ingMeals.append(meal)
+                        meals.append(meal)
                     }
                 }
             }
-            let offsetMeals = ingMeals.prefix(offsetBy)
-            meals = offsetMeals.shuffled()
+
             
         case .keyword:
             print("My Ideas keyword")
-            var keyMeals : [UserMeals] = []
             for meal in allMeals{
                 if let safeName = meal.mealName{
                     if safeName.containsIgnoringCase(find: query){
                         print("meal matches query: \(meal.mealName ?? "")")
-                        keyMeals.append(meal)
+                        meals.append(meal)
                     }
                 }
             }
-            let offsetMeals = keyMeals.prefix(offsetBy)
-            meals = offsetMeals.shuffled()
             
             
         case .history:

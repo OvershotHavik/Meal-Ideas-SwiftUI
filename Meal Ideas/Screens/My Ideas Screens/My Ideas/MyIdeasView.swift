@@ -44,13 +44,8 @@ struct MyIdeasView: View {
                     }
 
                     .offset(y: UI.verticalSpacing)
-                    if vm.lessThanTen == true {
-                        MoreMealsButton(vm: vm)
-                    }
-
 
                 }
-                
                 .padding()
             }
             .navigationBarTitleDisplayMode(.inline)
@@ -75,8 +70,6 @@ struct MyIdeasView: View {
             }
             .onChange(of: vm.keywordSearchTapped, perform: { newValue in
                 print("Keyword: \(query.keyword)")
-                vm.offsetBy = 0
-                vm.lessThanTen = false
                 vm.checkQuery(query: query.keyword, queryType: .keyword)
             })
 
@@ -100,10 +93,8 @@ struct MyIdeasView: View {
                         return
                     }
                 }
-                vm.getAllMeals()
+//                vm.getAllMeals()
                 if query.queryType != .keyword{
-                    vm.offsetBy = 0
-                    vm.lessThanTen = false
                     vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
                 }
                 query.getHistory()
