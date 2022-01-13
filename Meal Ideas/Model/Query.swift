@@ -29,7 +29,7 @@ enum QueryName: String{
 final class Query: ObservableObject{
     @Published var queryType = QueryType.random{
         didSet{
-            selected = nil
+            selected = ""
             if queryType != .keyword{
                 keyword = ""
             }
@@ -39,7 +39,7 @@ final class Query: ObservableObject{
     @Published var keyword = ""
     @Published var favoritesArray : [Favorites] = []
     @Published var historyArray : [History] = []
-    @Published var selected : String?
+    @Published var selected = ""
     
     // MARK: - Get Favorites
     func getFavorites(){

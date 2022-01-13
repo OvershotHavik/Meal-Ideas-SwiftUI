@@ -25,25 +25,30 @@ struct MyIdeasView: View {
                         .offset(y: UI.verticalSpacing)
                 }
                 ScrollView{
-                    LazyVGrid(columns: columns, alignment: .center) {
-                        ForEach(vm.meals) {meal in
-                            NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: meal,
-                                                                                              favorited: vm.checkForFavorite(id: meal.userMealID,
-                                                                                                                             favoriteArray: query.favoritesArray),
-                                                                                              showingHistory: false))) {
-                                MealCardView(mealPhoto: "",
-                                             mealPhotoData: meal.mealPhoto,
-                                             mealName: meal.mealName ?? "",
-                                             favorited: vm.checkForFavorite(id: meal.userMealID,
-                                                                            favoriteArray: query.favoritesArray),
-                                             inHistory: vm.checkForHistory(id: meal.mealName,
-                                                                           historyArray: query.historyArray))
+                    VStack{
+                        LazyVGrid(columns: columns, alignment: .center) {
+                            ForEach(vm.meals) {meal in
+                                NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: meal,
+                                                                                                  favorited: vm.checkForFavorite(id: meal.userMealID,
+                                                                                                                                 favoriteArray: query.favoritesArray),
+                                                                                                  showingHistory: false))) {
+                                    MealCardView(mealPhoto: "",
+                                                 mealPhotoData: meal.mealPhoto,
+                                                 mealName: meal.mealName ?? "",
+                                                 favorited: vm.checkForFavorite(id: meal.userMealID,
+                                                                                favoriteArray: query.favoritesArray),
+                                                 inHistory: vm.checkForHistory(id: meal.mealName,
+                                                                               historyArray: query.historyArray))
+                                }
+                                .foregroundColor(.primary)
                             }
-                            .foregroundColor(.primary)
+                        }
+                        Spacer()
+                        if vm.allResultsShown{
+                            AllResultsShownText()
                         }
                     }
-
-                    .offset(y: UI.verticalSpacing)
+                    
 
                 }
                 .padding()
@@ -75,7 +80,7 @@ struct MyIdeasView: View {
 
             .onChange(of: vm.allMeals, perform: { newValue in
                 //if user changed the meals, run it again
-                vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
+                vm.checkQuery(query: query.selected, queryType: query.queryType)
             })
             .onChange(of: vm.getRandomMeals, perform: { newValue in
                 print("Random tapped in User Meals")
@@ -83,19 +88,19 @@ struct MyIdeasView: View {
             })
             .onChange(of: vm.getMoreMeals, perform: { newValue in
                 print("Get more meals in user meals")
-                vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
+                vm.checkQuery(query: query.selected, queryType: query.queryType)
             })
             .onAppear {
                 if query.queryType == .category ||
                     query.queryType == .ingredient{
-                    if query.selected == nil{
+                    if query.selected == ""{
                         vm.alertItem = AlertContext.noSelection
                         return
                     }
                 }
-//                vm.getAllMeals()
+                vm.resetValues()
                 if query.queryType != .keyword{
-                    vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
+                    vm.checkQuery(query: query.selected, queryType: query.queryType)
                 }
                 query.getHistory()
                 query.getFavorites()

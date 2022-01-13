@@ -17,12 +17,7 @@ import CoreData
     
     // MARK: - CheckQuery
     func checkQuery(query: String, queryType: QueryType){
-        if originalQueryType != queryType || getMoreMeals == true || getRandomMeals == true{
-            if getRandomMeals == true{
-                self.getRandomMeals = false
-            }
-            getMoreMeals = false
-            getRandomMeals = false
+        if originalQueryType != queryType  {
             meals = []
             self.originalQueryType = queryType
             self.originalQuery = query
@@ -33,7 +28,8 @@ import CoreData
                 self.originalQuery = query
                 getMealDBMeals(query: query, queryType: queryType)
             } else {
-                // nothing happens, query and query type didn't change
+                //run through again and add to the array
+                getMealDBMeals(query: query, queryType: queryType)
             }
         }
     }
@@ -48,7 +44,7 @@ import CoreData
                     print("random")
                     let newMeals = try await NetworkManager.shared.mealDBQuery(query: "", queryType: .random)
                     meals.append(contentsOf: newMeals)
-
+                    
                 case .category:
                     print("Fetching MealDB Category: \(query)")
                     var modified = query.replacingOccurrences(of: " ", with: "%20")
@@ -56,13 +52,14 @@ import CoreData
                         modified = "Side"
                     }
                     meals = try await NetworkManager.shared.mealDBQuery(query: modified, queryType: .category)
-                    
+                    allResultsShown = true
                     
                 case .ingredient:
                     let modifiedIngredient = query.replacingOccurrences(of: " ", with: "_")
                     
                     meals = try await NetworkManager.shared.mealDBQuery(query: modifiedIngredient,
                                                                         queryType: .ingredient)
+                    allResultsShown = true
                     print("ing")
                 case .history:
                     print("hit")
@@ -76,6 +73,7 @@ import CoreData
                     let modifiedKeyword = query.replacingOccurrences(of: " ", with: "%20")
                     meals = try await NetworkManager.shared.mealDBQuery(query: modifiedKeyword,
                                                                         queryType: .keyword)
+                    allResultsShown = true
                 }
                 isLoading = false
 

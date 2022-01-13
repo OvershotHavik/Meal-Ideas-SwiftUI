@@ -20,42 +20,46 @@ struct MealDBView: View {
                         source: $vm.source)
                 Spacer(minLength: UI.topViewOffsetSpacing)
                 
-                if vm.isLoading{
-                    loadingView()
-                        .offset(y: UI.verticalSpacing)
-                    
-                }
                 if vm.meals.isEmpty && vm.isLoading == false{
                     NoResultsView(message: "No meals found for your search")
                         .offset(y: UI.verticalSpacing)
                     
                 }
                 ScrollView{
-                    
-                    LazyVGrid(columns: columns, alignment: .center) {
-                        ForEach(vm.meals, id: \.id) { meal in
-                            NavigationLink(destination: MealDBDetailView(vm: MealDBDetailVM(meal: meal,
-                                                                                            favorited: vm.checkForFavorite(id: meal.id,
-                                                                                                                           favoriteArray: query.favoritesArray),
-                                                                                            mealID: meal.id ?? "",
-                                                                                            showingHistory: false))) {
-                                MealCardView(mealPhoto: meal.strMealThumb ?? "",
-                                             mealName: meal.strMeal ?? "",
-                                             favorited: vm.checkForFavorite(id: meal.id,
-                                                                            favoriteArray: query.favoritesArray),
-                                             inHistory: vm.checkForHistory(id: meal.id,
-                                                                           historyArray: query.historyArray))
+                    VStack{
+                        LazyVGrid(columns: columns, alignment: .center) {
+                            ForEach(vm.meals, id: \.id) { meal in
+                                NavigationLink(destination: MealDBDetailView(vm: MealDBDetailVM(meal: meal,
+                                                                                                favorited: vm.checkForFavorite(id: meal.id,
+                                                                                                                               favoriteArray: query.favoritesArray),
+                                                                                                mealID: meal.id ?? "",
+                                                                                                showingHistory: false))) {
+                                    MealCardView(mealPhoto: meal.strMealThumb ?? "",
+                                                 mealName: meal.strMeal ?? "",
+                                                 favorited: vm.checkForFavorite(id: meal.id,
+                                                                                favoriteArray: query.favoritesArray),
+                                                 inHistory: vm.checkForHistory(id: meal.id,
+                                                                               historyArray: query.historyArray))
+                                }
+                                                                                                .foregroundColor(.primary)
                             }
-                                                                                            .foregroundColor(.primary)
+                        }
+                        
+                        if query.queryType == .random &&
+                            vm.isLoading == false{
+                            //Only type of query where they don't get all ersults right away
+                            MoreMealsButton(vm: vm)
+                            // TODO:  Remove the button and have it auto call when scrolled down
+                        }
+                        Spacer()
+                        if vm.isLoading{
+                            loadingView()
+                        }
+                        if vm.allResultsShown{
+                            AllResultsShownText()
                         }
                     }
-                    .offset(y: UI.verticalSpacing )
-                    
-                    if query.queryType == .random &&
-                        vm.isLoading == false{
-                        //Only type of query where they don't get all ersults right away
-                        MoreMealsButton(vm: vm)
-                    }
+
                     
                     
                 }
@@ -84,20 +88,21 @@ struct MealDBView: View {
             
             .onChange(of: vm.keywordSearchTapped, perform: { newValue in
                 print("Keyword: \(query.keyword)")
+                vm.resetValues()
                 vm.checkQuery(query: query.keyword, queryType: .keyword)
             })
             .onChange(of: vm.getRandomMeals, perform: { newValue in
                 print("Random tapped in mealDB")
+                vm.resetValues()
                 vm.checkQuery(query: "", queryType: .random)
             })
             .onChange(of: vm.getMoreMeals, perform: { newValue in
                 print("More meals tapped in mealDB: \(query.queryType)")
                 //                    vm.getMoreTapped()
-                if query.queryType == .keyword{
-                    vm.checkQuery(query: query.keyword, queryType: .keyword)
-                } else {
-                    vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
-                }
+//                vm.resetValues()
+
+                    vm.checkQuery(query: query.selected , queryType: query.queryType)
+                
                 //                    vm.checkQuery(query: query.keyword, queryType: query.queryType)
             })
             //            .onAppear {
@@ -107,13 +112,13 @@ struct MealDBView: View {
             .onAppear{
                 if query.queryType == .category ||
                     query.queryType == .ingredient{
-                    if query.selected == nil{
+                    if query.selected == ""{
                         vm.alertItem = AlertContext.noSelection
                         return
                     }
                 }
                 if query.queryType != .keyword{
-                    vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
+                    vm.checkQuery(query: query.selected, queryType: query.queryType)
                 }
                 query.getHistory()
             }

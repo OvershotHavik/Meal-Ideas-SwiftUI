@@ -54,7 +54,7 @@ import CoreData
         case .random:
             print("My Ideas Random")
             meals = allMeals.shuffled()
-
+            allResultsShown = true
             
         case .category:
             print("My Ideas category")
@@ -62,6 +62,7 @@ import CoreData
                 if let safeCategories = meal.category as? [String]{
                     if safeCategories.contains(query){
                         meals.append(meal)
+                        allResultsShown = true
                     }
                 }
             }
@@ -73,6 +74,7 @@ import CoreData
                 if let safeIngredients = meal.ingredients as? [String]{
                     if safeIngredients.contains(query){
                         meals.append(meal)
+                        allResultsShown = true
                     }
                 }
             }
@@ -85,6 +87,7 @@ import CoreData
                     if safeName.containsIgnoringCase(find: query){
                         print("meal matches query: \(meal.mealName ?? "")")
                         meals.append(meal)
+                        allResultsShown = true
                     }
                 }
             }
