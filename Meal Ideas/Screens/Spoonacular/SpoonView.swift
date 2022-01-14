@@ -36,7 +36,8 @@ struct SpoonView: View {
                     if vm.keywordResults.isEmpty{
                         //Normal run through
                         LazyVGrid(columns: columns, alignment: .center) {
-                            ForEach(vm.meals) { meal in
+                            ForEach(vm.meals.indices, id: \.self) { mealIndex in
+                                let meal = vm.meals[mealIndex]
                                 NavigationLink(destination: SpoonDetailView(vm: SpoonDetailVM(meal: meal,
                                                                                               mealID: nil,
                                                                                               favorited: vm.checkForFavorite(id: meal.id,
@@ -50,6 +51,14 @@ struct SpoonView: View {
                                                                                historyArray: query.historyArray))
                                 }
                                                                                               .foregroundColor(.primary)
+                                                                                              .onAppear{
+                                                                                                  if vm.moreToShow{
+                                                                                                      if mealIndex == vm.meals.count - 2 {
+                                                                                                          vm.checkQuery(query: query.selected, queryType: query.queryType)
+                                                                                                      }
+                                                                                                  }
+
+                                                                                              }
                             }
                         }
                         .offset(y: UI.verticalSpacing)
@@ -57,7 +66,8 @@ struct SpoonView: View {
                     } else {
                         //Keyword search, need to fetch the meal on the VM
                         LazyVGrid(columns: columns, alignment: .center) {
-                            ForEach(vm.keywordResults) { meal in
+                            ForEach(vm.keywordResults.indices, id: \.self) { mealIndex in
+                                let meal = vm.keywordResults[mealIndex]
                                 NavigationLink(destination: SpoonDetailView(vm: SpoonDetailVM(meal: nil,
                                                                                               mealID: meal.id,
                                                                                               favorited: vm.checkForFavorite(id: meal.id,
@@ -71,13 +81,21 @@ struct SpoonView: View {
                                                                                historyArray: query.historyArray))
                                 }
                                                                                               .foregroundColor(.primary)
+                                                                                              .onAppear{
+                                                                                                  if vm.moreToShow == true {
+                                                                                                      if mealIndex == vm.keywordResults.count - 2 {
+                                                                                                          vm.checkQuery(query: query.keyword, queryType: query.queryType)
+                                                                                                      }
+                                                                                                  }
+
+                                                                                              }
                             }
                         }
                         .offset(y: UI.verticalSpacing)
                     }
-                    if vm.isLoading == false && vm.moreToShow == true{
-                        MoreMealsButton(vm: vm)
-                    }
+//                    if vm.isLoading == false && vm.moreToShow == true{
+//                        MoreMealsButton(vm: vm)
+//                    }
                     if vm.isLoading{
                         loadingView()
 //                            .offset(y: UI.verticalSpacing)

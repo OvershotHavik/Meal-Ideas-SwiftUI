@@ -33,7 +33,8 @@ struct MealDBView: View {
                                 .offset(y: 10)
                         }
                         LazyVGrid(columns: columns, alignment: .center) {
-                            ForEach(vm.meals, id: \.id) { meal in
+                            ForEach(vm.meals.indices, id: \.self) { mealIndex in
+                                let meal = vm.meals[mealIndex]
                                 NavigationLink(destination: MealDBDetailView(vm: MealDBDetailVM(meal: meal,
                                                                                                 favorited: vm.checkForFavorite(id: meal.id,
                                                                                                                                favoriteArray: query.favoritesArray),
@@ -47,14 +48,15 @@ struct MealDBView: View {
                                                                                historyArray: query.historyArray))
                                 }
                                                                                                 .foregroundColor(.primary)
+                                                                                                .onAppear{
+                                                                                                    if mealIndex == vm.meals.count  - 2 {
+                                                                                                        if query.queryType == .random{
+                                                                                                            vm.checkQuery(query: query.selected, queryType: query.queryType)
+                                                                                                        }
+                                                                                                    }
+
+                                                                                                }
                             }
-                        }
-                        
-                        if query.queryType == .random &&
-                            vm.isLoading == false{
-                            //Only type of query where they don't get all ersults right away
-                            MoreMealsButton(vm: vm)
-                            // TODO:  Remove the button and have it auto call when scrolled down
                         }
                         Spacer()
                         if vm.isLoading{
@@ -101,20 +103,11 @@ struct MealDBView: View {
                 vm.resetValues()
                 vm.checkQuery(query: "", queryType: .random)
             })
-            .onChange(of: vm.getMoreMeals, perform: { newValue in
-                print("More meals tapped in mealDB: \(query.queryType)")
-                //                    vm.getMoreTapped()
-//                vm.resetValues()
 
-                    vm.checkQuery(query: query.selected , queryType: query.queryType)
-                
-                //                    vm.checkQuery(query: query.keyword, queryType: query.queryType)
-            })
-            //            .onAppear {
-            //                vm.checkQuery(query: query.selected ?? "", queryType: query.query)
-            //            }
-            //not sure what the difference between these two are.. both work.. need to look into later
             .onAppear{
+                if vm.isLoading == true {
+                    return
+                }
                 if query.queryType == .category ||
                     query.queryType == .ingredient{
                     if query.selected == ""{
@@ -123,6 +116,7 @@ struct MealDBView: View {
                     }
                 }
                 if query.queryType != .keyword{
+                    vm.resetValues()
                     vm.checkQuery(query: query.selected, queryType: query.queryType)
                 }
                 query.getHistory()

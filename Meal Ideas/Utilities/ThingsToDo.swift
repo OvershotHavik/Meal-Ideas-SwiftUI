@@ -23,7 +23,6 @@ import Foundation
  - [ ] Threading issue for the picture and why it doesn’t circle all the time
  - [ ] How to handle access photos so users can allow album
  - [ ] Multi thread ingredient pictures
- - [ ] When scrolling down automatically make another call to get more meals
  
  move back to the minimum view for top view and add these:
  
