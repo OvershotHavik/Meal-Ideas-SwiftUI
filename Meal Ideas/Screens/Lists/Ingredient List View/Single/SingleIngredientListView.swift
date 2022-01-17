@@ -15,7 +15,7 @@ struct SingleIngredientListView: View {
     
     
     var body: some View {
-        ZStack{
+        VStack{
             if vm.isLoading{
                 loadingView()
                     .offset(y: UI.verticalSpacing)
@@ -29,18 +29,15 @@ struct SingleIngredientListView: View {
                         dismiss()
                     }
             }
+            .searchable(text: $vm.searchText)
+            .navigationTitle(Titles.oneIngredient.rawValue)
+            .alert(item: $vm.alertItem) { alertItem in
+                Alert(title: alertItem.title,
+                      message: alertItem.message,
+                      dismissButton: alertItem.dismissButton)
+            }
         }
 
-        .onAppear{
-            query.queryType = .ingredient
-        }
-        .searchable(text: $vm.searchText)
-        .navigationTitle(Titles.oneIngredient.rawValue)
-        .alert(item: $vm.alertItem) { alertItem in
-            Alert(title: alertItem.title,
-                  message: alertItem.message,
-                  dismissButton: alertItem.dismissButton)
-        }
     }
 }
 /*
