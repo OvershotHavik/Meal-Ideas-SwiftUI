@@ -22,7 +22,6 @@ import Foundation
  Once these are done:
  - [ ] Threading issue for the picture and why it doesn’t circle all the time
  - [ ] How to handle access photos so users can allow album
- - [ ] Multi thread ingredient pictures
  
  move back to the minimum view for top view and add these:
  

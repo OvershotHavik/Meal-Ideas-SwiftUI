@@ -1028,6 +1028,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need to use the camera to be able to take pictures for your ideas.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need to access your photos to allow you to use them for your meal Ideas.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1058,6 +1059,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need to use the camera to be able to take pictures for your ideas.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need to access your photos to allow you to use them for your meal Ideas.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
