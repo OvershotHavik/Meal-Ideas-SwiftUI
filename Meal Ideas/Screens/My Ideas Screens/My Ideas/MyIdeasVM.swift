@@ -56,13 +56,16 @@ import CoreData
             let shuffled = allMeals.shuffled()
             if let first = shuffled.first{
                 surpriseMeal = first
-                meals.append(first)
+                
+                meals.insert(first, at: 0)
+                
             }
 //            meals = allMeals.shuffled()
 //            allResultsShown = true
 //            totalMealCount = meals.count
 
         case .category:
+            
             print("My Ideas category")
             for meal in allMeals{
                 if let safeCategories = meal.category as? [String]{

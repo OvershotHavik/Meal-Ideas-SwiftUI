@@ -40,6 +40,7 @@ final class Query: ObservableObject{
     @Published var favoritesArray : [Favorites] = []
     @Published var historyArray : [History] = []
     @Published var selected = ""
+    @Published var menuSelection: QueryType?
     
     // MARK: - Get Favorites
     func getFavorites(){

@@ -96,14 +96,29 @@ struct KeywordSearchView: View{
                     keywordSearchTapped.toggle()
                     print("Top View Keyword search: \(query.keyword)")
                 }
-            Button  {
-                //bring up a menu for the user to select category or ingredient to then take them to the list views
-                print("Filter tapped")
-            } label: {
-                Image("Filter")
-                    .resizable()
-                    .frame(width: 30, height: 30)
+            Menu{
+                Button {
+                    query.menuSelection = .category
+//                    query.queryType = .category
+                    print("category selected")
+                } label: {
+                    Text(QueryType.category.rawValue)
+                }
+                
+                
+                Button {
+                    query.menuSelection = .ingredient
+//                    query.queryType = .ingredient
+                    print("Ingredient selected")
+                } label: {
+                    Text(QueryType.ingredient.rawValue)
+                }
+
+                } label: {
+                Image(systemName: "slider.horizontal.3")
             }
+                .font(.title)
+                .foregroundColor(.primary)
 //            Spacer()
         }
         .padding()

@@ -36,6 +36,10 @@ struct SingleIngredientListView: View {
                       message: alertItem.message,
                       dismissButton: alertItem.dismissButton)
             }
+
+            .onAppear{
+                query.queryType = .ingredient
+            }
         }
 
     }

@@ -10,8 +10,8 @@ import SwiftUI
 struct AllResultsShownText: View {
     var body: some View {
         Text("All results shown for this search")
-            .foregroundColor(.gray)
-            .opacity(0.5)
+//            .foregroundColor(.primary)
+//            .opacity(0.5)
     }
 }
 

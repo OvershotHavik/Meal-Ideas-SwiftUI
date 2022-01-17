@@ -10,6 +10,7 @@ import SwiftUI
 struct MyIdeasView: View {
     @StateObject var vm : MyIdeasVM
     @EnvironmentObject var query: Query
+    @State var selected: QueryType?
     let columns = [GridItem(), GridItem()]
     var body: some View {
         NavigationView{
@@ -28,7 +29,8 @@ struct MyIdeasView: View {
                     
                     if vm.totalMealCount != 0{
                         Text("Meals found: \(vm.totalMealCount)")
-                            .opacity(0.5)
+//                            .foregroundColor(.primary)
+//                            .opacity(0.5)
                             .offset(y: 10)
                     }
                     LazyVGrid(columns: columns, alignment: .center) {
@@ -48,14 +50,22 @@ struct MyIdeasView: View {
                                                                                               .foregroundColor(.primary)
                         }
                     }
+                    //Used for surprise me, when get random meals is toggled it will take user directly to the first meal at random that they have created
                     NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: vm.surpriseMeal,
                                                                                       favorited: vm.checkForFavorite(id: vm.surpriseMeal?.userMealID,
                                                                                                                      favoriteArray: query.favoritesArray),
                                                                                       showingHistory: false)),
                                    isActive: $vm.getRandomMeals) {EmptyView()}
                     
-
-
+                    //Bring up category view when selected in the menu
+                    NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: .categories), title: .oneCategory),
+                                   tag: QueryType.category,
+                                   selection: $query.menuSelection) {EmptyView()}
+                    
+                    //bring up the ingredient selection
+                    NavigationLink(destination: SingleIngredientListView(vm: IngredientListVM(editIdeaVM: EditIdeaVM(meal: nil))),
+                                   tag: QueryType.ingredient,
+                                   selection: $query.menuSelection) { EmptyView()}
                     Spacer()
                     if vm.allResultsShown{
                         AllResultsShownText()
@@ -86,46 +96,37 @@ struct MyIdeasView: View {
                     }
                 }
             }
-//            .onChange(of: vm.keywordSearchTapped, perform: { newValue in
-//                print("Keyword: \(query.keyword)")
-//
-//            })
+            .onChange(of: vm.keywordSearchTapped, perform: { newValue in
+                print("Keyword: \(query.keyword)")
+                vm.checkQuery(query: query.keyword, queryType: query.queryType)
+            })
             
             .onChange(of: vm.getRandomMeals, perform: { newValue in
                 print("Random tapped in User Meals")
                 if vm.getRandomMeals == true {
                     vm.filterMeals(query: "", queryType: .random)
                 }
-                
-            })
-            .onChange(of: query.queryType, perform: { newValue in
-                switch query.queryType{
-                case .random:
-//                    vm.filterMeals(query: "", queryType: .random)
-                    return
-                case .category:
-                    if query.selected == ""{
-                        vm.alertItem = AlertContext.noSelection
-                        return
-                    }
-                case .ingredient:
-                    if query.selected == ""{
-                        vm.alertItem = AlertContext.noSelection
-                        return
-                    }
-                case .keyword:
-                    vm.resetValues()
-                    vm.checkQuery(query: query.keyword, queryType: .keyword)
-                case .none:
-                    return
-                }
-
             })
 
             .onAppear {
                 vm.surpriseMeal = nil
                 query.getHistory()
                 query.getFavorites()
+                if query.queryType == .none ||
+                    query.queryType == .random{
+                    return
+                }
+                if query.queryType == .category ||
+                    query.queryType == .ingredient{
+                    if query.selected == ""{
+                        vm.alertItem = AlertContext.noSelection
+                        return
+                    }
+                }
+                
+                if query.queryType != .keyword{
+                    vm.checkQuery(query: query.selected, queryType: query.queryType)
+                }
             }
             .alert(item: $vm.alertItem) { alertItem in
                 Alert(title: alertItem.title,
@@ -133,9 +134,6 @@ struct MyIdeasView: View {
                       dismissButton: .default(Text("OK")))
             }
         }
-        
-        
-        
         .navigationViewStyle(.stack)
     }
         

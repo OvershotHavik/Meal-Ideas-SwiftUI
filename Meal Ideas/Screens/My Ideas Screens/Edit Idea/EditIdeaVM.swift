@@ -303,4 +303,18 @@ final class EditIdeaVM: ObservableObject{
         let day = dateFormatter.string(from: date)
         return "\(time)\n\(day)"
     }
+    
+//    
+//    func checkArray(item: String){
+//        if let repeatItem = selectedArray.firstIndex(of: item){
+//            userIngredients.remove(at: repeatItem)
+//            print("duplicate item: \(item), removed from array")
+//        } else {
+//            let newItem = UserIngredient(name: item, measurement: "")
+//            userIngredients.append(newItem)
+//            userIngredients = editVM.userIngredients.sorted{$0.name < $1.name}
+//            print("added item: \(item)")
+//        }
+//        selectedArray = userIngredients.compactMap{$0.name}
+//    }
 }
