@@ -50,6 +50,8 @@ import CoreData
     func filterMeals(query: String, queryType: QueryType){
         // TODO:  Animate the meals leaving and coming in
         getAllMeals()
+        showWelcome = false
+        allResultsShown  = false
         switch queryType {
         case .random:
             print("My Ideas Random")

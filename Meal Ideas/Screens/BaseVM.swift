@@ -19,6 +19,7 @@ class BaseVM: ObservableObject{
     @Published var offsetBy: Int = 0 // changes by 10
     @Published var allResultsShown = false
     @Published var totalMealCount = 0
+    @Published var showWelcome = true
     
     func resetValues(){
         alertItem = nil

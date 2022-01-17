@@ -21,8 +21,11 @@ struct MyIdeasView: View {
                             source: $vm.source)
                     
                     //                Spacer(minLength: UI.topViewOffsetSpacing)
-                    
-                    if vm.meals.isEmpty{
+                    if vm.showWelcome == true{
+                     NoResultsView(message: "Welcome to Meal Ideas!")
+                    }
+                        
+                    if vm.meals.isEmpty && vm.showWelcome == false{
                         NoResultsView(message: "No meals found for your search. \nCreate a new one by tapping the edit icon")
                             .offset(y: UI.verticalSpacing)
                     }
@@ -39,13 +42,13 @@ struct MyIdeasView: View {
                                                                                               favorited: vm.checkForFavorite(id: meal.userMealID,
                                                                                                                              favoriteArray: query.favoritesArray),
                                                                                               showingHistory: false))) {
-                                MealCardView(mealPhoto: "",
+                                MealCardView(vm: MealCardVM( mealPhoto: "",
                                              mealPhotoData: meal.mealPhoto,
                                              mealName: meal.mealName ?? "",
                                              favorited: vm.checkForFavorite(id: meal.userMealID,
                                                                             favoriteArray: query.favoritesArray),
                                              inHistory: vm.checkForHistory(id: meal.mealName,
-                                                                           historyArray: query.historyArray))
+                                                                           historyArray: query.historyArray)))
                             }
                                                                                               .foregroundColor(.primary)
                         }

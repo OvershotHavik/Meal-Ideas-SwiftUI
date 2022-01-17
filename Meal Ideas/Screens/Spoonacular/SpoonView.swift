@@ -20,10 +20,10 @@ struct SpoonView: View {
                         source: $vm.source)
                 Spacer(minLength: UI.topViewOffsetSpacing)
                 ScrollView{
-//                    if vm.isLoading{
-//                        loadingView()
-////                            .offset(y: UI.verticalSpacing)
-//                    }
+                    //                    if vm.isLoading{
+                    //                        loadingView()
+                    ////                            .offset(y: UI.verticalSpacing)
+                    //                    }
                     if vm.meals.isEmpty && vm.keywordResults.isEmpty && vm.isLoading == false{
                         NoResultsView(message: "No meals found for your search")
                             .offset(y: UI.verticalSpacing)
@@ -43,12 +43,13 @@ struct SpoonView: View {
                                                                                               favorited: vm.checkForFavorite(id: meal.id,
                                                                                                                              favoriteArray: query.favoritesArray),
                                                                                               showingHistory: false))) {
-                                    MealCardView(mealPhoto: meal.image ?? "",
-                                                 mealName: meal.title,
-                                                 favorited: vm.checkForFavorite(id: meal.id,
-                                                                                favoriteArray: query.favoritesArray),
-                                                 inHistory: vm.checkForHistory(id: meal.id,
-                                                                               historyArray: query.historyArray))
+                                    MealCardView(vm: MealCardVM( mealPhoto: meal.image ?? "",
+                                                                 mealPhotoData: nil,
+                                                                 mealName: meal.title,
+                                                                 favorited: vm.checkForFavorite(id: meal.id,
+                                                                                                favoriteArray: query.favoritesArray),
+                                                                 inHistory: vm.checkForHistory(id: meal.id,
+                                                                                               historyArray: query.historyArray)))
                                 }
                                                                                               .foregroundColor(.primary)
                                                                                               .onAppear{
@@ -57,12 +58,12 @@ struct SpoonView: View {
                                                                                                           vm.checkQuery(query: query.selected, queryType: query.queryType)
                                                                                                       }
                                                                                                   }
-
+                                                                                                  
                                                                                               }
                             }
                         }
                         .offset(y: UI.verticalSpacing)
-
+                        
                     } else {
                         //Keyword search, need to fetch the meal on the VM
                         LazyVGrid(columns: columns, alignment: .center) {
@@ -73,12 +74,13 @@ struct SpoonView: View {
                                                                                               favorited: vm.checkForFavorite(id: meal.id,
                                                                                                                              favoriteArray: query.favoritesArray),
                                                                                               showingHistory: false))) {
-                                    MealCardView(mealPhoto: meal.image ?? "",
-                                                 mealName: meal.title,
-                                                 favorited: vm.checkForFavorite(id: meal.id,
-                                                                                favoriteArray: query.favoritesArray),
-                                                 inHistory: vm.checkForHistory(id: meal.id,
-                                                                               historyArray: query.historyArray))
+                                    MealCardView(vm: MealCardVM( mealPhoto: meal.image ?? "",
+                                                                 mealPhotoData: nil,
+                                                                 mealName: meal.title,
+                                                                 favorited: vm.checkForFavorite(id: meal.id,
+                                                                                                favoriteArray: query.favoritesArray),
+                                                                 inHistory: vm.checkForHistory(id: meal.id,
+                                                                                               historyArray: query.historyArray)))
                                 }
                                                                                               .foregroundColor(.primary)
                                                                                               .onAppear{
@@ -87,18 +89,18 @@ struct SpoonView: View {
                                                                                                           vm.checkQuery(query: query.keyword, queryType: query.queryType)
                                                                                                       }
                                                                                                   }
-
+                                                                                                  
                                                                                               }
                             }
                         }
                         .offset(y: UI.verticalSpacing)
                     }
-//                    if vm.isLoading == false && vm.moreToShow == true{
-//                        MoreMealsButton(vm: vm)
-//                    }
+                    //                    if vm.isLoading == false && vm.moreToShow == true{
+                    //                        MoreMealsButton(vm: vm)
+                    //                    }
                     if vm.isLoading{
                         loadingView()
-//                            .offset(y: UI.verticalSpacing)
+                        //                            .offset(y: UI.verticalSpacing)
                     }
                     
                 }
@@ -148,26 +150,26 @@ struct SpoonView: View {
             })
             .onChange(of: vm.getMoreMeals, perform: { newValue in
                 print("More meals tapped in spoon: \(query.queryType)")
-//                vm.resetValues()
+                //                vm.resetValues()
                 
                 if query.queryType == .keyword{
                     vm.checkQuery(query: query.keyword, queryType: .keyword)
                 } else {
-//                    vm.resetValues()
+                    //                    vm.resetValues()
                     vm.checkQuery(query: query.selected, queryType: query.queryType)
                 }
             })
-
+            
         }
         .navigationViewStyle(.stack)
-
+        
         
     }
     // MARK: - Stop Loading
     func stopLoading(){
         vm.isLoading = false
     }
-
+    
 }
 // MARK: - Preview
 struct SpoonView_Previews: PreviewProvider {

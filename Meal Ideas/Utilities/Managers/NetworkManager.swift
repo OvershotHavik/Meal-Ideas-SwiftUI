@@ -15,6 +15,7 @@ final class NetworkManager {
     
     //fromURLString is what the call will be, but urlString is what is used within the function
     func downloadImage(fromURLString urlString: String, completed: @escaping (UIImage?) -> Void ){
+        
         let cacheKey = NSString(string: urlString)
         
         if let image = cache.object(forKey: cacheKey){
@@ -25,18 +26,20 @@ final class NetworkManager {
             completed(nil)
             return
         }
-        
-        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, response, error in
-            
-            guard let data = data, let image = UIImage(data: data) else {
-                completed(nil)
-                return
+        DispatchQueue.global(qos: .userInitiated).async {
+            let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, response, error in
+                
+                guard let data = data, let image = UIImage(data: data) else {
+                    completed(nil)
+                    return
+                }
+                
+                self.cache.setObject(image, forKey: cacheKey)
+                completed(image)
             }
-            
-            self.cache.setObject(image, forKey: cacheKey)
-            completed(image)
+            task.resume()
         }
-        task.resume()
+
     }
     
     // MARK: - MealDB Network Calls
