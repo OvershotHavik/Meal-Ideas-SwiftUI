@@ -14,6 +14,7 @@ import CoreData
     @Published var filteredMeals: [UserMeals] = []
     @Published var allMeals : [UserMeals] = []
     @Published var source: Source = .myIdeas
+    @Published var surpriseMeal : UserMeals?
     
 
 // MARK: - get All Meals
@@ -30,8 +31,7 @@ import CoreData
     // MARK: - Check Query
     func checkQuery(query: String, queryType: QueryType){
         print("My Ideas Query: \(query), queryType: \(queryType.rawValue)")
-        if originalQueryType != queryType ||
-            allMeals.count != meals.count{
+        if originalQueryType != queryType {
             meals = []
             self.originalQueryType = queryType
             self.originalQuery = query
@@ -53,9 +53,14 @@ import CoreData
         switch queryType {
         case .random:
             print("My Ideas Random")
-            meals = allMeals.shuffled()
-            allResultsShown = true
-            totalMealCount = meals.count
+            let shuffled = allMeals.shuffled()
+            if let first = shuffled.first{
+                surpriseMeal = first
+                meals.append(first)
+            }
+//            meals = allMeals.shuffled()
+//            allResultsShown = true
+//            totalMealCount = meals.count
 
         case .category:
             print("My Ideas category")
@@ -96,11 +101,6 @@ import CoreData
             }
             totalMealCount = meals.count
 
-            
-        case .history:
-            print("My Ideas History")
-        case .favorite:
-            print("My Ideas Favorite")
         case .none:
             print("My Ideas none")
         }

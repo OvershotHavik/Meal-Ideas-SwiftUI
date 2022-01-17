@@ -12,57 +12,59 @@ struct MyIdeasView: View {
     @EnvironmentObject var query: Query
     let columns = [GridItem(), GridItem()]
     var body: some View {
-        
         NavigationView{
-            VStack{
-                TopView(keywordSearchTapped: $vm.keywordSearchTapped,
-                        getRandomMeals: $vm.getRandomMeals,
-                        source: $vm.source)
-                
-                Spacer(minLength: UI.topViewOffsetSpacing)
-                
-                if vm.meals.isEmpty{
-                    NoResultsView(message: "No meals found for your search. \nCreate a new one by tapping the edit icon")
-                        .offset(y: UI.verticalSpacing)
-                }
-
-                ScrollView{
-                    VStack{
-                        if vm.totalMealCount != 0{
-                            Text("Meals found: \(vm.totalMealCount)")
-                                .opacity(0.5)
-                                .offset(y: 10)
-                        }
-                        LazyVGrid(columns: columns, alignment: .center) {
-                            ForEach(vm.meals) {meal in
-                                NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: meal,
-                                                                                                  favorited: vm.checkForFavorite(id: meal.userMealID,
-                                                                                                                                 favoriteArray: query.favoritesArray),
-                                                                                                  showingHistory: false))) {
-                                    MealCardView(mealPhoto: "",
-                                                 mealPhotoData: meal.mealPhoto,
-                                                 mealName: meal.mealName ?? "",
-                                                 favorited: vm.checkForFavorite(id: meal.userMealID,
-                                                                                favoriteArray: query.favoritesArray),
-                                                 inHistory: vm.checkForHistory(id: meal.mealName,
-                                                                               historyArray: query.historyArray))
-                                }
-                                .foregroundColor(.primary)
-                            }
-                        }
-                        Spacer()
-                        if vm.allResultsShown{
-                            AllResultsShownText()
-                        }
-                        
-                        
+            ScrollView{
+                VStack{
+                    TopView(keywordSearchTapped: $vm.keywordSearchTapped,
+                            getRandomMeals: $vm.getRandomMeals,
+                            source: $vm.source)
+                    
+                    //                Spacer(minLength: UI.topViewOffsetSpacing)
+                    
+                    if vm.meals.isEmpty{
+                        NoResultsView(message: "No meals found for your search. \nCreate a new one by tapping the edit icon")
+                            .offset(y: UI.verticalSpacing)
                     }
                     
+                    if vm.totalMealCount != 0{
+                        Text("Meals found: \(vm.totalMealCount)")
+                            .opacity(0.5)
+                            .offset(y: 10)
+                    }
+                    LazyVGrid(columns: columns, alignment: .center) {
+                        ForEach(vm.meals, id: \.self) {meal in
+                            NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: meal,
+                                                                                              favorited: vm.checkForFavorite(id: meal.userMealID,
+                                                                                                                             favoriteArray: query.favoritesArray),
+                                                                                              showingHistory: false))) {
+                                MealCardView(mealPhoto: "",
+                                             mealPhotoData: meal.mealPhoto,
+                                             mealName: meal.mealName ?? "",
+                                             favorited: vm.checkForFavorite(id: meal.userMealID,
+                                                                            favoriteArray: query.favoritesArray),
+                                             inHistory: vm.checkForHistory(id: meal.mealName,
+                                                                           historyArray: query.historyArray))
+                            }
+                                                                                              .foregroundColor(.primary)
+                        }
+                    }
+                    NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: vm.surpriseMeal,
+                                                                                      favorited: vm.checkForFavorite(id: vm.surpriseMeal?.userMealID,
+                                                                                                                     favoriteArray: query.favoritesArray),
+                                                                                      showingHistory: false)),
+                                   isActive: $vm.getRandomMeals) {EmptyView()}
+                    
 
+
+                    Spacer()
+                    if vm.allResultsShown{
+                        AllResultsShownText()
+                    }
                 }
-                .padding()
             }
-            .ignoresSafeArea()
+            .padding()
+//            .background(BackgroundGradientView())
+            
             .navigationTitle(Text("Meal Ideas"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -84,35 +86,44 @@ struct MyIdeasView: View {
                     }
                 }
             }
-            .onChange(of: vm.keywordSearchTapped, perform: { newValue in
-                print("Keyword: \(query.keyword)")
-                vm.checkQuery(query: query.keyword, queryType: .keyword)
-            })
+//            .onChange(of: vm.keywordSearchTapped, perform: { newValue in
+//                print("Keyword: \(query.keyword)")
+//
+//            })
             
-            .onChange(of: vm.allMeals, perform: { newValue in
-                //if user changed the meals, run it again
-                vm.checkQuery(query: query.selected, queryType: query.queryType)
-            })
             .onChange(of: vm.getRandomMeals, perform: { newValue in
                 print("Random tapped in User Meals")
-                vm.filterMeals(query: "", queryType: .random)
+                if vm.getRandomMeals == true {
+                    vm.filterMeals(query: "", queryType: .random)
+                }
+                
             })
-            .onChange(of: vm.getMoreMeals, perform: { newValue in
-                print("Get more meals in user meals")
-                vm.checkQuery(query: query.selected, queryType: query.queryType)
-            })
-            .onAppear {
-                if query.queryType == .category ||
-                    query.queryType == .ingredient{
+            .onChange(of: query.queryType, perform: { newValue in
+                switch query.queryType{
+                case .random:
+//                    vm.filterMeals(query: "", queryType: .random)
+                    return
+                case .category:
                     if query.selected == ""{
                         vm.alertItem = AlertContext.noSelection
                         return
                     }
+                case .ingredient:
+                    if query.selected == ""{
+                        vm.alertItem = AlertContext.noSelection
+                        return
+                    }
+                case .keyword:
+                    vm.resetValues()
+                    vm.checkQuery(query: query.keyword, queryType: .keyword)
+                case .none:
+                    return
                 }
-                vm.resetValues()
-                if query.queryType != .keyword{
-                    vm.checkQuery(query: query.selected, queryType: query.queryType)
-                }
+
+            })
+
+            .onAppear {
+                vm.surpriseMeal = nil
                 query.getHistory()
                 query.getFavorites()
             }
@@ -122,8 +133,13 @@ struct MyIdeasView: View {
                       dismissButton: .default(Text("OK")))
             }
         }
+        
+        
+        
         .navigationViewStyle(.stack)
     }
+        
+    
 }
 /*
  struct MyIdeasView_Previews: PreviewProvider {

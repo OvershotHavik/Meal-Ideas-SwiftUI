@@ -14,22 +14,27 @@ struct TopView: View {
     @Binding var source: Source
     var body: some View {
         ZStack{
-            BackgroundGradientView()
-            VStack{
-                Spacer(minLength: 10)
+//            BackgroundGradientView()
+            KeywordSearchView(keywordSearchTapped: $keywordSearchTapped,
+                              getRandomMeals: $getRandomMeals)
+
+        }
+//                Spacer(minLength: 10)
 //                Text("Meal Ideas")
 //                    .font(.title)
                 
-                KeywordSearchView(keywordSearchTapped: $keywordSearchTapped)
+        
+            
+//                    .frame(height: 150)
 
                 
 //                TopViewButtons(getRandomMeals: $getRandomMeals)
-            }
-        }
-        .frame(idealHeight: 150)
+            
+//        }
         
     }
 }
+
 
 struct TopView_Previews: PreviewProvider {
     static var previews: some View {
@@ -38,7 +43,7 @@ struct TopView_Previews: PreviewProvider {
 }
 
 
-
+/*
 // MARK: - Top View Buttons
 struct TopViewButtons: View{
     @Binding var getRandomMeals: Bool
@@ -62,18 +67,22 @@ struct TopViewButtons: View{
         
     }
 }
-
+*/
 
 // MARK: - Keyword Search View
 
 struct KeywordSearchView: View{
     @EnvironmentObject var query : Query
     @Binding var keywordSearchTapped : Bool
+    @Binding var getRandomMeals: Bool
     var body: some View{
         HStack(spacing: 20){
             Button(action: {
                 // do random
                 print("Surprise me tapped")
+                query.queryType = .random
+                query.selected = ""
+                getRandomMeals.toggle()
             }, label: {
                 Text("Surprise \nMe")
                     .lineLimit(2)
@@ -82,7 +91,7 @@ struct KeywordSearchView: View{
             TextField("Search...", text: $query.keyword)
                 .textFieldStyle(CustomRoundedCornerTextField())
                 .onSubmit {
-                    query.selected = nil
+                    query.selected = ""
                     query.queryType = .keyword
                     keywordSearchTapped.toggle()
                     print("Top View Keyword search: \(query.keyword)")

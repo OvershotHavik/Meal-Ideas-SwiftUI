@@ -61,10 +61,7 @@ import CoreData
                                                                         queryType: .ingredient)
                     allResultsShown = true
                     print("ing")
-                case .history:
-                    print("hit")
-                case .favorite:
-                    print("fav")
+
                 case .none:
                     ()
                     

@@ -104,13 +104,6 @@ final class NetworkManager {
             return try await mealDBNetworkCall(url: url)
             
             
-        default:
-            print("Query Type not setup in MealDBQuery yet")
-            guard let url = URL(string: "https://www.google.com") else {
-                throw MIError.invalidURL
-            }
-            print(url)
-            return try await mealDBNetworkCall(url: url)
         }
 //        case .ingredient:
 //            ()

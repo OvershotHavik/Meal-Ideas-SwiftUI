@@ -12,8 +12,8 @@ enum QueryType: String{
     case category = "Category"
     case ingredient = "Ingredient"
     case keyword = "Keyword"
-    case history = "book"
-    case favorite = "heart.fill"
+//    case history = "book"
+//    case favorite = "heart.fill"
     case none = "None"
 }
 enum QueryName: String{
@@ -27,7 +27,7 @@ enum QueryName: String{
 
 
 final class Query: ObservableObject{
-    @Published var queryType = QueryType.random{
+    @Published var queryType = QueryType.none{
         didSet{
             selected = ""
             if queryType != .keyword{

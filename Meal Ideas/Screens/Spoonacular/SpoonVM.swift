@@ -150,11 +150,7 @@ import CoreData
                             moreToShow = true
                         }
                     }
-                    
-                case .history:
-                    print("History")
-                case .favorite:
-                    print("Favorites")
+
                 case .none:
                     let meal = try await NetworkManager.shared.spoonQuery(query: query, queryType: .none)
                     if let safeMeal = meal.first{
