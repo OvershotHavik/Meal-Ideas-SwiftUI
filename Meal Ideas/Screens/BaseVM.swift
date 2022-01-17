@@ -11,12 +11,29 @@ class BaseVM: ObservableObject{
     @Published var alertItem : AlertItem?
     @Published var isLoading = false
     @Published var originalQueryType = QueryType.none
-    @Published var originalQuery: String?
+    @Published var originalQuery = ""
     @Published var keywordSearchTapped = false
     @Published var getMoreMeals = false
     @Published var getRandomMeals = false
-    @Published var lessThanTen = false
-    @Published var offsetBy: Int = 0 // changes by 10  each time get more meals is tapped
+    @Published var moreToShow = false
+    @Published var offsetBy: Int = 0 // changes by 10
+    @Published var allResultsShown = false
+    @Published var totalMealCount = 0
+    
+    func resetValues(){
+        alertItem = nil
+        isLoading = false
+        originalQueryType = QueryType.none
+        originalQuery = ""
+        keywordSearchTapped = false
+        getMoreMeals = false
+        getRandomMeals = false
+        moreToShow = false
+        offsetBy = 0 // changes by 10
+        allResultsShown = false
+        totalMealCount = 0
+    }
+    
 }
 
 

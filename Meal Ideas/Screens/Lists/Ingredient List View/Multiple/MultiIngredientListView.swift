@@ -13,28 +13,31 @@ struct MultiIngredientListView: View {
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
-        
-        List(vm.searchResults){ ingredient in
+        VStack{
             if vm.isLoading{
                 loadingView()
                     .offset(y: UI.verticalSpacing)
-
             }
-            let selected = vm.selectedArray.contains(ingredient.strIngredient)
-            IngredientCell(ingredient: ingredient, selected: selected)
-                .onTapGesture {
-                    vm.checkArray(item: ingredient.strIngredient)
-                }
+            List(vm.searchResults){ ingredient in
+
+                let selected = vm.selectedArray.contains(ingredient.strIngredient)
+                IngredientCell(ingredient: ingredient, selected: selected)
+                    .onTapGesture {
+                        vm.checkArray(item: ingredient.strIngredient)
+                    }
+            }
+            .searchable(text: $vm.searchText)
+            .navigationTitle(Titles.multiIngredients.rawValue)
+            .alert(item: $vm.alertItem) { alertItem in
+                Alert(title: alertItem.title,
+                      message: alertItem.message,
+                      dismissButton: alertItem.dismissButton)
+            }
         }
-        .searchable(text: $vm.searchText)
-        .navigationTitle(Titles.multiIngredients.rawValue)
-        .alert(item: $vm.alertItem) { alertItem in
-            Alert(title: alertItem.title,
-                  message: alertItem.message,
-                  dismissButton: alertItem.dismissButton)
-        }
+
     }
 }
+
 /*
 struct IngredientsListView_Previews: PreviewProvider {
     static var previews: some View {

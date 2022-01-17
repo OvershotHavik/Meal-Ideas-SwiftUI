@@ -20,18 +20,24 @@ struct SpoonView: View {
                         source: $vm.source)
                 Spacer(minLength: UI.topViewOffsetSpacing)
                 ScrollView{
-                    if vm.isLoading{
-                        loadingView()
-                            .offset(y: UI.verticalSpacing)
-                    }
+//                    if vm.isLoading{
+//                        loadingView()
+////                            .offset(y: UI.verticalSpacing)
+//                    }
                     if vm.meals.isEmpty && vm.keywordResults.isEmpty && vm.isLoading == false{
                         NoResultsView(message: "No meals found for your search")
                             .offset(y: UI.verticalSpacing)
                     }
+                    if vm.totalMealCount != 0{
+                        Text("Meals found: \(vm.totalMealCount)")
+                            .opacity(0.5)
+                            .offset(y: 10)
+                    }
                     if vm.keywordResults.isEmpty{
                         //Normal run through
                         LazyVGrid(columns: columns, alignment: .center) {
-                            ForEach(vm.meals) { meal in
+                            ForEach(vm.meals.indices, id: \.self) { mealIndex in
+                                let meal = vm.meals[mealIndex]
                                 NavigationLink(destination: SpoonDetailView(vm: SpoonDetailVM(meal: meal,
                                                                                               mealID: nil,
                                                                                               favorited: vm.checkForFavorite(id: meal.id,
@@ -45,6 +51,14 @@ struct SpoonView: View {
                                                                                historyArray: query.historyArray))
                                 }
                                                                                               .foregroundColor(.primary)
+                                                                                              .onAppear{
+                                                                                                  if vm.moreToShow{
+                                                                                                      if mealIndex == vm.meals.count - 2 {
+                                                                                                          vm.checkQuery(query: query.selected, queryType: query.queryType)
+                                                                                                      }
+                                                                                                  }
+
+                                                                                              }
                             }
                         }
                         .offset(y: UI.verticalSpacing)
@@ -52,7 +66,8 @@ struct SpoonView: View {
                     } else {
                         //Keyword search, need to fetch the meal on the VM
                         LazyVGrid(columns: columns, alignment: .center) {
-                            ForEach(vm.keywordResults) { meal in
+                            ForEach(vm.keywordResults.indices, id: \.self) { mealIndex in
+                                let meal = vm.keywordResults[mealIndex]
                                 NavigationLink(destination: SpoonDetailView(vm: SpoonDetailVM(meal: nil,
                                                                                               mealID: meal.id,
                                                                                               favorited: vm.checkForFavorite(id: meal.id,
@@ -66,12 +81,24 @@ struct SpoonView: View {
                                                                                historyArray: query.historyArray))
                                 }
                                                                                               .foregroundColor(.primary)
+                                                                                              .onAppear{
+                                                                                                  if vm.moreToShow == true {
+                                                                                                      if mealIndex == vm.keywordResults.count - 2 {
+                                                                                                          vm.checkQuery(query: query.keyword, queryType: query.queryType)
+                                                                                                      }
+                                                                                                  }
+
+                                                                                              }
                             }
                         }
                         .offset(y: UI.verticalSpacing)
                     }
-                    if vm.isLoading == false && vm.lessThanTen == true{
-                        MoreMealsButton(vm: vm)
+//                    if vm.isLoading == false && vm.moreToShow == true{
+//                        MoreMealsButton(vm: vm)
+//                    }
+                    if vm.isLoading{
+                        loadingView()
+//                            .offset(y: UI.verticalSpacing)
                     }
                     
                 }
@@ -93,14 +120,14 @@ struct SpoonView: View {
             .onAppear {
                 if query.queryType == .category ||
                     query.queryType == .ingredient{
-                    if query.selected == nil{
+                    if query.selected == ""{
                         vm.alertItem = AlertContext.noSelection
                         return
                     }
                 }
                 if query.queryType != .keyword{
                     vm.offsetBy = 0 // may need changed to somewhere else
-                    vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
+                    vm.checkQuery(query: query.selected , queryType: query.queryType)
                 }
                 query.getHistory()
             }
@@ -111,18 +138,23 @@ struct SpoonView: View {
             }
             .onChange(of: vm.keywordSearchTapped, perform: { newValue in
                 print("Keyword: \(query.keyword)")
+                vm.resetValues()
                 vm.checkQuery(query: query.keyword, queryType: .keyword)
             })
             .onChange(of: vm.getRandomMeals, perform: { newValue in
                 print("Random tapped in Spoon")
+                vm.resetValues()
                 vm.getRandomMeals()
             })
             .onChange(of: vm.getMoreMeals, perform: { newValue in
                 print("More meals tapped in spoon: \(query.queryType)")
+//                vm.resetValues()
+                
                 if query.queryType == .keyword{
                     vm.checkQuery(query: query.keyword, queryType: .keyword)
                 } else {
-                    vm.checkQuery(query: query.selected ?? "", queryType: query.queryType)
+//                    vm.resetValues()
+                    vm.checkQuery(query: query.selected, queryType: query.queryType)
                 }
             })
 

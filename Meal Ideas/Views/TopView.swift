@@ -118,7 +118,7 @@ struct KeywordSearchView: View{
                 .textFieldStyle(CustomRoundedCornerTextField())
 //                .frame(width: 250)
                 .onSubmit {
-                    query.selected = nil
+                    query.selected = ""
                     query.queryType = .keyword
                     keywordSearchTapped.toggle()
                     print("Top View Keyword search: \(query.keyword)")

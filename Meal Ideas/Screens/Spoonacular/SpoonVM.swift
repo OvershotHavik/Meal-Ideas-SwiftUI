@@ -27,11 +27,10 @@ import CoreData
     
     // MARK: - Check Query
     func checkQuery(query: String, queryType: QueryType){
-        if originalQueryType != queryType || getMoreMeals == true {
-            if getMoreMeals == true{
-                offsetBy += 10
-            }
-            getMoreMeals = false
+        if isLoading == true {
+            return
+        }
+        if originalQueryType != queryType {
             meals = []
             self.originalQueryType = queryType
             self.originalQuery = query
@@ -42,7 +41,9 @@ import CoreData
                 self.originalQuery = query
                 getSpoonMeals(query: query, queryType: queryType)
             } else {
-                // nothing happens, query and query type didn't change
+                offsetBy += 10
+                getSpoonMeals(query: query, queryType: queryType)
+
             }
         }
     }
@@ -56,27 +57,75 @@ import CoreData
             do {
                 switch queryType{
                 case .random:
-                    meals = try await NetworkManager.shared.spoonQuery(query: query, queryType: queryType)
-                    if meals.count <= 10{
-                        lessThanTen = true
+                    let randomMeals = try await NetworkManager.shared.spoonQuery(query: query, queryType: queryType)
+                    meals.append(contentsOf: randomMeals)
+                    if offsetBy == 0{
+                        if meals.count < 10{
+                            moreToShow = false
+                        } else {
+                            moreToShow = true
+                        }
+                        
+                    } else {
+                        if meals.count < offsetBy{
+                            moreToShow = false
+                        } else {
+                            moreToShow = true
+                        }
                     }
+
                     
                 case .category:
                     let modifiedCategory = query.replacingOccurrences(of: " ", with: "%20").lowercased()
                     print(modifiedCategory)
-                    meals = try await NetworkManager.shared
-                        .spoonQuery(query: modifiedCategory, queryType: .category)
-                    if meals.count < 11{
-                        lessThanTen = true
+                    let modified = modifiedCategory.lowercased() + "&offset=\(offsetBy)"
+
+                    let catMeals = try await NetworkManager.shared
+                        .spoonComplexQuery(query: modified, queryType: .category)
+                    meals.append(contentsOf: catMeals.results)
+                    if let safeTotalResults = catMeals.totalResults{
+                        totalMealCount = safeTotalResults
+                    }
+                    
+
+                    if offsetBy == 0{
+                        if meals.count < 10{
+                            moreToShow = false
+                        } else {
+                            moreToShow = true
+                        }
+                        
+                    } else {
+                        if meals.count < offsetBy{
+                            moreToShow = false
+                        } else {
+                            moreToShow = true
+                        }
                     }
                     
                 case .ingredient:
                     let modifiedIngredient = query.replacingOccurrences(of: " ", with: "%20").lowercased()
                     let modified = modifiedIngredient.lowercased() + "&offset=\(offsetBy)"
-                    meals = try await NetworkManager.shared.spoonQuery(query: modified, queryType: .ingredient)
+                    let ingMeals = try await NetworkManager.shared.spoonComplexQuery(query: modified, queryType: .ingredient)
+                    meals.append(contentsOf: ingMeals.results)
+                    if let safeTotalResults = ingMeals.totalResults{
+                        totalMealCount = safeTotalResults
+                    }
+                    
                     print("ingredient")
-                    if meals.count < 11{
-                        lessThanTen = true
+                    if offsetBy == 0{
+                        if meals.count < 10{
+                            moreToShow = false
+                        } else {
+                            moreToShow = true
+                        }
+                        
+                    } else {
+                        if meals.count < offsetBy{
+                            moreToShow = false
+                        } else {
+                            moreToShow = true
+                        }
                     }
                 case .keyword:
                     var safeKeyword = query.lowercased()
@@ -84,13 +133,24 @@ import CoreData
                     print(safeKeyword)
                     print("keyword Offset: \(offsetBy)")
                     let modified = safeKeyword + "&offset=\(offsetBy)"
-                    keywordResults = try await NetworkManager.shared.spoonKeywordQuery(query: modified)
+                    let results = try await NetworkManager.shared.spoonKeywordQuery(query: modified)
+                    keywordResults.append(contentsOf: results)
                     print("keyword")
-                    if keywordResults.count < 11{
-                        if keywordResults.count != 0{
-                            lessThanTen = true
+                    if offsetBy == 0{
+                        if keywordResults.count < 10{
+                            moreToShow = false
+                        } else {
+                            moreToShow = true
+                        }
+                        
+                    } else {
+                        if keywordResults.count < offsetBy{
+                            moreToShow = false
+                        } else {
+                            moreToShow = true
                         }
                     }
+                    
                 case .history:
                     print("History")
                 case .favorite:
@@ -101,6 +161,7 @@ import CoreData
                         individualMeal = safeMeal
                     }
                 }
+
                 isLoading = false
             } catch {
                 if let miError = error as? MIError{

@@ -50,8 +50,9 @@ class SpoonacularResults{
         var amount: Double?
         var unit: String?
     }
-    class ResultsFromIngredients: Codable{
+    class ResultsFromComplex: Codable{
         let results :[Results]
+        let totalResults : Int?
     }
     class Results: Recipe{
     }
