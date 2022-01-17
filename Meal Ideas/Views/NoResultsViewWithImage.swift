@@ -37,15 +37,15 @@ struct NoResultsView: View {
     let message: String
     var body: some View{
         ZStack{
-            Color(UIColor.systemBackground)
-                .ignoresSafeArea()
+//            Color(UIColor.systemBackground)
+//                .ignoresSafeArea()
             VStack{
                 Spacer()
                 Text(message)
                     .font(.title3)
-                    .fontWeight(.semibold)
+//                    .fontWeight(.semibold)
                     .multilineTextAlignment(.center)
-                    .foregroundColor(.secondary)
+//                    .foregroundColor(.secondary)
                     .padding()
                 Spacer()
             }

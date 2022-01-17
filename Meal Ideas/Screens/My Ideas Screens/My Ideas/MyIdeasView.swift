@@ -63,7 +63,7 @@ struct MyIdeasView: View {
                 }
             }
             .padding()
-//            .background(BackgroundGradientView())
+            .background(BackgroundGradientView())
             
             .navigationTitle(Text("Meal Ideas"))
             .navigationBarTitleDisplayMode(.inline)
