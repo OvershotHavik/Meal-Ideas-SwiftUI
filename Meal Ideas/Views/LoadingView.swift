@@ -11,7 +11,7 @@ struct loadingView: View{
     var body: some View{
         ZStack{
             Color(.systemBackground)
-                .ignoresSafeArea()
+//                .ignoresSafeArea()
             ProgressView() // Optional title
                 .progressViewStyle(CircularProgressViewStyle(tint: .primary))
                 .scaleEffect(2) // doubles the size

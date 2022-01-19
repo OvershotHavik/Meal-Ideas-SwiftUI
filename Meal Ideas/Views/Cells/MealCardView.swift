@@ -13,6 +13,7 @@ struct MealCardView: View {
     var mealName: String
     var favorited: Bool
     var inHistory: Bool
+    @StateObject var imageLoader = ImageLoaderFromData()
 
     var body: some View {
         ZStack{
@@ -23,12 +24,22 @@ struct MealCardView: View {
                 HistoryFavoriteHStack(inHistory: inHistory,
                                       favorited: favorited)
                 if mealPhotoData != nil{
-                    if let safeData = mealPhotoData{
-                        Image(uiImage: (UIImage(data: safeData) ?? UIImage(imageLiteralResourceName: UI.placeholderMeal)))
+                    ZStack{
+
+                        imageLoader.image
                             .resizable()
                             .frame(width: 100, height: 100, alignment: .center)
                             .clipShape(Circle())
+                        if imageLoader.isLoading{
+                            loadingView()
+                                .frame(width: 100, height: 100, alignment: .center)
+                                .clipShape(Circle())
+                        }
                     }
+                        
+//                        Image(uiImage: (UIImage(data: safeData) ?? UIImage(imageLiteralResourceName: UI.placeholderMeal)))
+
+                    
                 } else {
                     LoadRemoteImageView(urlString: mealPhoto)
                         .frame(width: 100, height: 100, alignment: .center)
@@ -42,7 +53,11 @@ struct MealCardView: View {
             }
         }
         .onAppear{
-//            loadImage()
+            if let safeData = mealPhotoData{
+                imageLoader.loadFromData(mealPhotoData: safeData)
+            }
+            
+
         }
         .frame(width: 160, height: 210)
         .cornerRadius(10)
