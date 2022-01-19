@@ -15,9 +15,11 @@ struct EditIdeaView: View {
     @StateObject var vm: EditIdeaVM
     
     @Environment(\.dismiss) var dismiss
-    
-    @FocusState private var focusedTextField: FormTextField?
+    @StateObject var mealPhotoLoader = ImageLoaderFromData()
+    @StateObject var mealInstructionsLoader = ImageLoaderFromData()
 
+    @FocusState private var focusedTextField: FormTextField?
+    
     var body: some View {
         Form{
             Section(header: Text("Meal Information")) {
@@ -35,13 +37,19 @@ struct EditIdeaView: View {
                     
                 MealPhotoButtonView(vm: vm)
                     .modifier(MealPhotoActionSheet(vm: vm))
-                if vm.mealPhoto != UIImage(){
-                    if let safeImage = vm.mealPhoto{
+                if mealPhotoLoader.isLoading{
+                    loadingView()
+                        .frame(width: 100)
+                }
+                if mealPhotoLoader.image != UIImage(){
+                    
+//                    if let safeImage = vm.mealPhoto{
+                        
                         HStack{
-                            Image(uiImage: safeImage)
+                            Image(uiImage: mealPhotoLoader.image)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
-                                .frame(width: 100)
+
                             Button {
                                 vm.mealPhoto = UIImage()
                             } label: {
@@ -50,7 +58,7 @@ struct EditIdeaView: View {
                             .buttonStyle(.bordered)
                             .accentColor(.red)
                         }
-                    }
+//                    }
                 }
             }
             
@@ -98,10 +106,14 @@ struct EditIdeaView: View {
             Section(header: Text("Instructions")){
                 MealInstructionsButtonView(vm: vm)
                     .modifier(MealInstructionsActionSheet(vm: vm))
-                if vm.instructionsPhoto != UIImage(){
-                    if let safeImage = vm.instructionsPhoto{
+                if mealInstructionsLoader.isLoading{
+                    loadingView()
+                        .frame(width: 100)
+                }
+                if mealInstructionsLoader.image != UIImage(){
+//                    if let safeImage = vm.instructionsPhoto{
                         HStack{
-                            Image(uiImage: safeImage)
+                            Image(uiImage: mealInstructionsLoader.image)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 100)
@@ -113,7 +125,7 @@ struct EditIdeaView: View {
                             .buttonStyle(.bordered)
                             .accentColor(.red)
                         }
-                    }
+//                    }
                 }
                 Text("And/Or type in below:")
                 TextEditor(text: $vm.recipe)
@@ -125,16 +137,7 @@ struct EditIdeaView: View {
                 TextField("Website", text: $vm.source)
                     .textFieldStyle(CustomRoundedCornerTextField())
             }
-            if vm.meal != nil{
-                Section(header: Text("Modified Dates")){
-                    if let safeModified = vm.meal?.modified{
-                        Text("Last Modified on: \(vm.convertDate(date:safeModified))")
-                    }
-                    if let safeCreated = vm.meal?.created{
-                        Text("Created on: \(vm.convertDate(date: safeCreated))")
-                    }
-                }
-            }
+
             
             // MARK: - Save Button
             SaveButtonView(vm: vm)
@@ -145,6 +148,16 @@ struct EditIdeaView: View {
                 Spacer(minLength: 5)
                 DeleteButtonView(vm: vm, showingDeleteAlert: $vm.showingDeleteAlert)
                     .listRowBackground(Color.red)
+            }
+            if vm.meal != nil{
+                Section(header: Text("Modified Dates")){
+                    if let safeModified = vm.meal?.modified{
+                        Text("Last Modified on: \(vm.convertDate(date:safeModified))")
+                    }
+                    if let safeCreated = vm.meal?.created{
+                        Text("Created on: \(vm.convertDate(date: safeCreated))")
+                    }
+                }
             }
         }
         .navigationTitle(vm.meal?.mealName ?? "Create a Meal")
@@ -169,12 +182,22 @@ struct EditIdeaView: View {
                 }
             }
         }
-        .onAppear{
+        .task{
             if vm.mealName.isEmpty{
                 focusedTextField = .mealName
             }
             // TODO:  Change the background to the background gradient?
 //            UITableView.appearance().backgroundColor = .clear
+            if let safeData = vm.meal?.mealPhoto{
+                mealPhotoLoader.loadFromData(mealPhotoData: safeData)
+                vm.mealPhoto = mealPhotoLoader.image
+            }
+            if let safeData = vm.meal?.instructionsPhoto{
+                mealInstructionsLoader.loadFromData(mealPhotoData: safeData)
+                vm.instructionsPhoto = mealPhotoLoader.image
+            }
+            
+            
         }
         // MARK: - Save alert
         .alert(item: $vm.alertItem) { alertItem in

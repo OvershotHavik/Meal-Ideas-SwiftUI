@@ -21,7 +21,8 @@ final class EditIdeaVM: ObservableObject{
     @Published var allMeals: [UserMeals] = []
     @Published var meal : UserMeals?
     @Published var alertItem: AlertItem?
-    
+    @StateObject var imageLoader = ImageLoaderFromData()
+
     
     // MARK: - UI Adjustments
     @Published var isMPActionSheetPresented = false
@@ -266,9 +267,9 @@ final class EditIdeaVM: ObservableObject{
         self.mealName = safeMeal.mealName ?? ""
         
         
-        if let safeMealPhotoData = safeMeal.mealPhoto{
-            self.mealPhoto = UIImage(data: safeMealPhotoData) ?? UIImage()
-        }
+//        if let safeMealPhotoData = safeMeal.mealPhoto{
+//            self.mealPhoto = UIImage(data: safeMealPhotoData) ?? UIImage()
+//        }
         
         self.categories = safeMeal.category as? [String] ?? []
         let ingredients = safeMeal.ingredients as? [String] ?? []
@@ -284,9 +285,9 @@ final class EditIdeaVM: ObservableObject{
         self.minuteSelection = Int(safeMeal.prepMinute)
         self.secondSelection = Int(safeMeal.prepSecond)
         
-        if let safeInstructionsData = safeMeal.instructionsPhoto{
-            self.instructionsPhoto = UIImage(data: safeInstructionsData) ?? UIImage()
-        }
+//        if let safeInstructionsData = safeMeal.instructionsPhoto{
+//            self.instructionsPhoto = UIImage(data: safeInstructionsData) ?? UIImage()
+//        }
         self.recipe = safeMeal.recipe ?? ""
         
         self.sides = safeMeal.sides as? [String] ?? []
@@ -304,7 +305,7 @@ final class EditIdeaVM: ObservableObject{
         return "\(time)\n\(day)"
     }
     
-//    
+//
 //    func checkArray(item: String){
 //        if let repeatItem = selectedArray.firstIndex(of: item){
 //            userIngredients.remove(at: repeatItem)

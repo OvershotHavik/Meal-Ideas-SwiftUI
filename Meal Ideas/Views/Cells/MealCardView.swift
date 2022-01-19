@@ -25,8 +25,7 @@ struct MealCardView: View {
                                       favorited: favorited)
                 if mealPhotoData != nil{
                     ZStack{
-
-                        imageLoader.image
+                        Image(uiImage: imageLoader.image)
                             .resizable()
                             .frame(width: 100, height: 100, alignment: .center)
                             .clipShape(Circle())

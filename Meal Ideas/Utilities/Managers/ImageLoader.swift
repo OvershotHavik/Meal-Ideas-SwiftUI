@@ -22,12 +22,12 @@ final class ImageLoader: ObservableObject{
 }
 
 final class ImageLoaderFromData: ObservableObject{
-    @Published var image = UI.placeholderImage
+    @Published var image = UIImage()
     @Published var isLoading = true
     
     func loadFromData(mealPhotoData: Data){
         DispatchQueue.global().async { [weak self] in
-            let tempImage = Image(uiImage: UIImage(data: mealPhotoData) ?? UIImage(imageLiteralResourceName: UI.placeholderMeal))
+            let tempImage = UIImage(data: mealPhotoData) ?? UIImage(imageLiteralResourceName: UI.placeholderMeal)
             DispatchQueue.main.async {
                 self?.image = tempImage
                 self?.isLoading = false
