@@ -40,13 +40,12 @@ struct MealDBView: View {
                                                                                                                                favoriteArray: query.favoritesArray),
                                                                                                 mealID: meal.id ?? "",
                                                                                                 showingHistory: false))) {
-                                    MealCardView(vm: MealCardVM( mealPhoto: meal.strMealThumb ?? "",
-                                                                 mealPhotoData: nil,
+                                    MealCardView(mealPhoto: meal.strMealThumb ?? "",
                                                  mealName: meal.strMeal ?? "",
                                                  favorited: vm.checkForFavorite(id: meal.id,
                                                                                 favoriteArray: query.favoritesArray),
                                                  inHistory: vm.checkForHistory(id: meal.id,
-                                                                               historyArray: query.historyArray)))
+                                                                               historyArray: query.historyArray))
                                 }
                                                                                                 .foregroundColor(.primary)
                                                                                                 .onAppear{

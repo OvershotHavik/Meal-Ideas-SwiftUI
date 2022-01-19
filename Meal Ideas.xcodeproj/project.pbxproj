@@ -62,6 +62,7 @@
 		B3B6CB44278C93DF00D3E5C5 /* MoreMealsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B6CB43278C93DF00D3E5C5 /* MoreMealsButton.swift */; };
 		B3BC347C27906AD9000F7677 /* AllResultsShownText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BC347B27906AD9000F7677 /* AllResultsShownText.swift */; };
 		B3BC347E2790888A000F7677 /* Sequence+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BC347D2790888A000F7677 /* Sequence+Ext.swift */; };
+		B3BC34B827989840000F7677 /* AsyncImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BC34B72798983F000F7677 /* AsyncImageLoader.swift */; };
 		B3CA2341274808CA00CA9C68 /* Meal_IdeasApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CA2340274808CA00CA9C68 /* Meal_IdeasApp.swift */; };
 		B3CA2343274808CA00CA9C68 /* CoreDataExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CA2342274808CA00CA9C68 /* CoreDataExample.swift */; };
 		B3CA2345274808D600CA9C68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3CA2344274808D600CA9C68 /* Assets.xcassets */; };
@@ -172,6 +173,7 @@
 		B3B6CB43278C93DF00D3E5C5 /* MoreMealsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreMealsButton.swift; sourceTree = "<group>"; };
 		B3BC347B27906AD9000F7677 /* AllResultsShownText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllResultsShownText.swift; sourceTree = "<group>"; };
 		B3BC347D2790888A000F7677 /* Sequence+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+Ext.swift"; sourceTree = "<group>"; };
+		B3BC34B72798983F000F7677 /* AsyncImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImageLoader.swift; sourceTree = "<group>"; };
 		B3CA233D274808CA00CA9C68 /* Meal Ideas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Meal Ideas.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3CA2340274808CA00CA9C68 /* Meal_IdeasApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal_IdeasApp.swift; sourceTree = "<group>"; };
 		B3CA2342274808CA00CA9C68 /* CoreDataExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataExample.swift; sourceTree = "<group>"; };
@@ -490,6 +492,7 @@
 				B3CA2349274808D600CA9C68 /* PersistenceController.swift */,
 				B3CEDDAF2756FDB700BB832B /* NetworkManager.swift */,
 				B375C980276216F10013895F /* PListManager.swift */,
+				B3BC34B72798983F000F7677 /* AsyncImageLoader.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -850,6 +853,7 @@
 				B3CEDDAC2756FD3800BB832B /* MealDBDetailVM.swift in Sources */,
 				B345CC48277F64420065B78A /* MultiWheelPicker.swift in Sources */,
 				B3CEDDA62756FC7700BB832B /* IngredientCell.swift in Sources */,
+				B3BC34B827989840000F7677 /* AsyncImageLoader.swift in Sources */,
 				B3D32CD8277FAA0E00FA4ACA /* BackgroundGradientView.swift in Sources */,
 				B3606DAB274D5E4A00E61972 /* MyIdeasDetailView.swift in Sources */,
 				B374E7E22787839D00422E9C /* BaseVM.swift in Sources */,

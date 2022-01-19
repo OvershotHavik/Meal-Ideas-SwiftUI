@@ -42,13 +42,13 @@ struct MyIdeasView: View {
                                                                                               favorited: vm.checkForFavorite(id: meal.userMealID,
                                                                                                                              favoriteArray: query.favoritesArray),
                                                                                               showingHistory: false))) {
-                                MealCardView(vm: MealCardVM( mealPhoto: "",
+                                MealCardView(mealPhoto: "",
                                              mealPhotoData: meal.mealPhoto,
                                              mealName: meal.mealName ?? "",
                                              favorited: vm.checkForFavorite(id: meal.userMealID,
                                                                             favoriteArray: query.favoritesArray),
                                              inHistory: vm.checkForHistory(id: meal.mealName,
-                                                                           historyArray: query.historyArray)))
+                                                                           historyArray: query.historyArray))
                             }
                                                                                               .foregroundColor(.primary)
                         }
