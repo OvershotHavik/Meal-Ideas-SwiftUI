@@ -6,7 +6,18 @@
 //
 
 import SwiftUI
+struct AsyncImageLoaderKey: EnvironmentKey {
+    static let defaultValue = AsyncImageLoader()
+}
 
+extension EnvironmentValues {
+    var asyncImageLoader: AsyncImageLoader {
+        get { self[AsyncImageLoaderKey.self] }
+        set { self[AsyncImageLoaderKey.self ] = newValue}
+    }
+}
+// TODO:  Doesn't seem to currently work with my apple ID. Come back to this once I apply for the development account
+//https://stackoverflow.com/questions/46668015/nsurlsession-error-domain-nsposixerrordomain-code-2-no-such-file-or-directory
 
 actor AsyncImageLoader {
     private var images: [URLRequest: LoaderStatus] = [:]
@@ -33,9 +44,12 @@ actor AsyncImageLoader {
 
         let task: Task<UIImage, Error> = Task {
             let (imageData, _) = try await URLSession.shared.data(for: urlRequest)
-            let image = UIImage(data: imageData)!
-            try self.persistImage(image, for: urlRequest)
-            return image
+            let image = UIImage(data: imageData)
+            if let safeImage = image{
+                try self.persistImage(safeImage, for: urlRequest)
+                return safeImage
+            }
+            return UIImage(imageLiteralResourceName: UI.placeholderMeal)
         }
 
         images[urlRequest] = .inProgress(task)
