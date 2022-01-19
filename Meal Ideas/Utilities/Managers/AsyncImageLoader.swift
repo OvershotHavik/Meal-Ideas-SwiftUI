@@ -19,6 +19,8 @@ extension EnvironmentValues {
 // TODO:  Doesn't seem to currently work with my apple ID. Come back to this once I apply for the development account
 //https://stackoverflow.com/questions/46668015/nsurlsession-error-domain-nsposixerrordomain-code-2-no-such-file-or-directory
 
+//https://www.donnywals.com/using-swifts-async-await-to-build-an-image-loader/
+
 actor AsyncImageLoader {
     private var images: [URLRequest: LoaderStatus] = [:]
 

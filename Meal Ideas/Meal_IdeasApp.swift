@@ -18,8 +18,8 @@ struct Meal_IdeasApp: App {
 //            EditIdeaView(vm: EditIdeaVM(meal: nil))
 
 //            SingleChoiceListView(vm: SingleChoiceListVM(PList: .sides))
-//            MealIdeasTabView()
-            AsyncRemoteImageView(source: url!)
+            MealIdeasTabView()
+//            AsyncRemoteImageView(source: url!)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .environmentObject(query)
             
