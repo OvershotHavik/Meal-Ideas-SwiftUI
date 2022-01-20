@@ -15,7 +15,7 @@ struct MyIdeasView: View {
     var body: some View {
         NavigationView{
             ScrollView{
-                VStack{
+                VStack(spacing: 10){
                     TopView(keywordSearchTapped: $vm.keywordSearchTapped,
                             getRandomMeals: $vm.getRandomMeals,
                             source: $vm.source)
@@ -30,11 +30,9 @@ struct MyIdeasView: View {
                             .offset(y: UI.verticalSpacing)
                     }
                     
-                    if vm.totalMealCount != 0{
-                        Text("Meals found: \(vm.totalMealCount)")
-//                            .foregroundColor(.primary)
-//                            .opacity(0.5)
-                            .offset(y: 10)
+                    if vm.meals.count != 0{
+                        Text("Meals found: \(vm.meals.count)")
+
                     }
                     LazyVGrid(columns: columns, alignment: .center) {
                         ForEach(vm.meals, id: \.self) {meal in
@@ -108,7 +106,7 @@ struct MyIdeasView: View {
             .onChange(of: vm.getRandomMeals, perform: { newValue in
                 print("Random tapped in User Meals")
                 if vm.getRandomMeals == true {
-                    vm.filterMeals(query: "", queryType: .random)
+                    vm.checkQuery(query: query.selected, queryType: query.queryType)
                 }
             })
 

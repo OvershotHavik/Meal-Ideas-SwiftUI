@@ -43,6 +43,10 @@ import CoreData
                 filterMeals(query: query, queryType: queryType)
             } else {
                 // nothing happens, query and query type didn't change
+                if queryType == .random{
+                    filterMeals(query: query, queryType: queryType)
+                }
+                
             }
         }
     }
