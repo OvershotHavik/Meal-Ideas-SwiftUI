@@ -60,7 +60,8 @@ import CoreData
                 surpriseMeal = first
                 
                 meals.insert(first, at: 0)
-                
+                meals = meals.unique()
+
             }
 //            meals = allMeals.shuffled()
 //            allResultsShown = true
