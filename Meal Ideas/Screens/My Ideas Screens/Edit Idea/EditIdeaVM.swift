@@ -21,7 +21,6 @@ final class EditIdeaVM: ObservableObject{
     @Published var allMeals: [UserMeals] = []
     @Published var meal : UserMeals?
     @Published var alertItem: AlertItem?
-    @StateObject var imageLoader = ImageLoaderFromData()
 
     
     // MARK: - UI Adjustments
@@ -266,7 +265,7 @@ final class EditIdeaVM: ObservableObject{
         }
         self.mealName = safeMeal.mealName ?? ""
         
-        
+        //Meal photo is being assigned in the view via a task to an image loader
 //        if let safeMealPhotoData = safeMeal.mealPhoto{
 //            self.mealPhoto = UIImage(data: safeMealPhotoData) ?? UIImage()
 //        }
@@ -285,6 +284,7 @@ final class EditIdeaVM: ObservableObject{
         self.minuteSelection = Int(safeMeal.prepMinute)
         self.secondSelection = Int(safeMeal.prepSecond)
         
+        //Instructions photo is being assigned in the view via a task to an image loader
 //        if let safeInstructionsData = safeMeal.instructionsPhoto{
 //            self.instructionsPhoto = UIImage(data: safeInstructionsData) ?? UIImage()
 //        }
@@ -304,18 +304,5 @@ final class EditIdeaVM: ObservableObject{
         let day = dateFormatter.string(from: date)
         return "\(time)\n\(day)"
     }
-    
-//
-//    func checkArray(item: String){
-//        if let repeatItem = selectedArray.firstIndex(of: item){
-//            userIngredients.remove(at: repeatItem)
-//            print("duplicate item: \(item), removed from array")
-//        } else {
-//            let newItem = UserIngredient(name: item, measurement: "")
-//            userIngredients.append(newItem)
-//            userIngredients = editVM.userIngredients.sorted{$0.name < $1.name}
-//            print("added item: \(item)")
-//        }
-//        selectedArray = userIngredients.compactMap{$0.name}
-//    }
+
 }

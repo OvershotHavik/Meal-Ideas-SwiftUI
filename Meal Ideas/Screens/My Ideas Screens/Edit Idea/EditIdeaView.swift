@@ -34,22 +34,20 @@ struct EditIdeaView: View {
                     .onSubmit {
                         vm.checkNameAlreadyInUse()
                     }
-                    
+                
                 MealPhotoButtonView(vm: vm)
                     .modifier(MealPhotoActionSheet(vm: vm))
                 if mealPhotoLoader.isLoading{
                     loadingView()
                         .frame(width: 100)
                 }
-                if mealPhotoLoader.image != UIImage(){
-                    
-//                    if let safeImage = vm.mealPhoto{
-                        
+                if vm.mealPhoto != UIImage(){
+                    if let safeImage = vm.mealPhoto{
                         HStack{
-                            Image(uiImage: mealPhotoLoader.image)
+                            Image(uiImage: safeImage)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
-
+                            
                             Button {
                                 vm.mealPhoto = UIImage()
                             } label: {
@@ -58,8 +56,9 @@ struct EditIdeaView: View {
                             .buttonStyle(.bordered)
                             .accentColor(.red)
                         }
-//                    }
+                    }
                 }
+                
             }
             
             Section(header: Text("Category")){
@@ -110,10 +109,10 @@ struct EditIdeaView: View {
                     loadingView()
                         .frame(width: 100)
                 }
-                if mealInstructionsLoader.image != UIImage(){
-//                    if let safeImage = vm.instructionsPhoto{
+                if vm.instructionsPhoto != UIImage(){
+                    if let safeImage = vm.instructionsPhoto{
                         HStack{
-                            Image(uiImage: mealInstructionsLoader.image)
+                            Image(uiImage: safeImage)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 100)
@@ -125,7 +124,7 @@ struct EditIdeaView: View {
                             .buttonStyle(.bordered)
                             .accentColor(.red)
                         }
-//                    }
+                    }
                 }
                 Text("And/Or type in below:")
                 TextEditor(text: $vm.recipe)
@@ -190,15 +189,25 @@ struct EditIdeaView: View {
 //            UITableView.appearance().backgroundColor = .clear
             if let safeData = vm.meal?.mealPhoto{
                 mealPhotoLoader.loadFromData(mealPhotoData: safeData)
-                vm.mealPhoto = mealPhotoLoader.image
+            }else {
+                mealPhotoLoader.isLoading = false
             }
+            
             if let safeData = vm.meal?.instructionsPhoto{
                 mealInstructionsLoader.loadFromData(mealPhotoData: safeData)
-                vm.instructionsPhoto = mealPhotoLoader.image
+            } else {
+                mealInstructionsLoader.isLoading = false
             }
             
             
         }
+        .onChange(of: mealPhotoLoader.image, perform: { NewItem in
+            vm.mealPhoto = mealPhotoLoader.image
+        })
+        .onChange(of: mealInstructionsLoader.image, perform: { NewItem in
+            vm.instructionsPhoto = mealInstructionsLoader.image
+        })
+        
         // MARK: - Save alert
         .alert(item: $vm.alertItem) { alertItem in
             Alert(title: alertItem.title,
