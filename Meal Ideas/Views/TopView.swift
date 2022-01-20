@@ -54,6 +54,7 @@ struct TopView: View{
                     } else {
                         Text(QueryType.ingredient.rawValue)
                     }
+
                 }
                 
                 } label: {// Menu label

@@ -14,10 +14,8 @@ struct MealDBView: View {
     
     var body: some View {
         NavigationView{
-            VStack{
-                TopView(keywordSearchTapped: $vm.keywordSearchTapped,
-                        getRandomMeals: $vm.getRandomMeals,
-                        source: $vm.source)
+            ZStack(alignment: .top){
+
                 Spacer(minLength: UI.topViewOffsetSpacing)
                 
                 if vm.meals.isEmpty && vm.isLoading == false{
@@ -25,7 +23,7 @@ struct MealDBView: View {
                         .offset(y: UI.verticalSpacing)
                     
                 }
-                ScrollView{
+                TrackableScrollView(.vertical, contentOffset: $vm.scrollViewContentOffset){
                     VStack{
                         if vm.totalMealCount != 0{
                             Text("Meals found: \(vm.totalMealCount)")
@@ -70,9 +68,10 @@ struct MealDBView: View {
                     
                     
                 }
+                .navigationTitle(Text("Meal Ideas"))
                 .navigationBarTitleDisplayMode(.inline)
-                //                    .padding(.horizontal)
                 .padding()
+                .background(BackgroundGradientView())
                 .toolbar {
                     ToolbarItemGroup(placement: .navigationBarTrailing) {
                         NavigationLink(destination: FavoritesListView(vm: FavoritesListVM(source: .mealDB))) {
@@ -85,7 +84,37 @@ struct MealDBView: View {
                         }
                     }
                 }
+                if vm.showTopView{
+                    TopView(keywordSearchTapped: $vm.keywordSearchTapped,
+                            getRandomMeals: $vm.getRandomMeals,
+                            source: $vm.source)
+                    
+                }
+
             }
+            .onChange(of: vm.scrollViewContentOffset, perform: { newValue in
+
+                withAnimation(.easeOut){
+                    if vm.scrollViewContentOffset < 40{
+                        vm.showTopView = true
+                    } else {
+                        vm.showTopView = false
+                    }
+                    if vm.scrollViewContentOffset > vm.largestY{
+                        //user is scrolling down
+                        vm.largestY = vm.scrollViewContentOffset
+                        
+                    } else {
+                        //user started scrolling up again, show the view and set largest Y to current value
+                        vm.showTopView = true
+                        vm.largestY = vm.scrollViewContentOffset
+                    }
+                }
+
+                
+                
+                print("offset value: \(vm.scrollViewContentOffset)")
+            })
             
             .alert(item: $vm.alertItem) { alertItem in
                 Alert(title: alertItem.title,
