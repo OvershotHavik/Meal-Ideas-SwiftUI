@@ -15,58 +15,57 @@ struct MealDBView: View {
     var body: some View {
         NavigationView{
             ZStack(alignment: .top){
-
-                Spacer(minLength: UI.topViewOffsetSpacing)
-                
-                if vm.meals.isEmpty && vm.isLoading == false{
-                    NoResultsView(message: "No meals found for your search")
-                        .offset(y: UI.verticalSpacing)
+                VStack(spacing: 10){
                     
-                }
-                TrackableScrollView(.vertical, contentOffset: $vm.scrollViewContentOffset){
-                    VStack{
-                        if vm.totalMealCount != 0{
-                            Text("Meals found: \(vm.totalMealCount)")
-                                .opacity(0.5)
-                                .offset(y: 10)
-                        }
-                        LazyVGrid(columns: columns, alignment: .center) {
-                            ForEach(vm.meals.indices, id: \.self) { mealIndex in
-                                let meal = vm.meals[mealIndex]
-                                NavigationLink(destination: MealDBDetailView(vm: MealDBDetailVM(meal: meal,
-                                                                                                favorited: vm.checkForFavorite(id: meal.id,
-                                                                                                                               favoriteArray: query.favoritesArray),
-                                                                                                mealID: meal.id ?? "",
-                                                                                                showingHistory: false))) {
-                                    MealCardView(mealPhoto: meal.strMealThumb ?? "",
-                                                 mealName: meal.strMeal ?? "",
-                                                 favorited: vm.checkForFavorite(id: meal.id,
-                                                                                favoriteArray: query.favoritesArray),
-                                                 inHistory: vm.checkForHistory(id: meal.id,
-                                                                               historyArray: query.historyArray))
-                                }
-                                                                                                .foregroundColor(.primary)
-                                                                                                .onAppear{
-                                                                                                    if mealIndex == vm.meals.count  - 2 {
-                                                                                                        if query.queryType == .random{
-                                                                                                            vm.checkQuery(query: query.selected, queryType: query.queryType)
+                    if vm.meals.isEmpty && vm.isLoading == false{
+                        NoResultsView(message: "No meals found for your search")
+                            .offset(y: UI.verticalSpacing)
+                        
+                    }
+                    TrackableScrollView(.vertical, contentOffset: $vm.scrollViewContentOffset){
+                        
+                        Spacer(minLength: UI.topViewOffsetSpacing)
+                        
+                        VStack(spacing: 10){
+                            if vm.totalMealCount != 0{
+                                Text("Meals found: \(vm.totalMealCount)")
+                                    .opacity(0.5)
+                            }
+                            LazyVGrid(columns: columns, alignment: .center) {
+                                ForEach(vm.meals.indices, id: \.self) { mealIndex in
+                                    let meal = vm.meals[mealIndex]
+                                    NavigationLink(destination: MealDBDetailView(vm: MealDBDetailVM(meal: meal,
+                                                                                                    favorited: vm.checkForFavorite(id: meal.id,
+                                                                                                                                   favoriteArray: query.favoritesArray),
+                                                                                                    mealID: meal.id ?? "",
+                                                                                                    showingHistory: false))) {
+                                        MealCardView(mealPhoto: meal.strMealThumb ?? "",
+                                                     mealName: meal.strMeal ?? "",
+                                                     favorited: vm.checkForFavorite(id: meal.id,
+                                                                                    favoriteArray: query.favoritesArray),
+                                                     inHistory: vm.checkForHistory(id: meal.id,
+                                                                                   historyArray: query.historyArray))
+                                    }
+                                                                                                    .foregroundColor(.primary)
+                                                                                                    .onAppear{
+                                                                                                        if mealIndex == vm.meals.count  - 2 {
+                                                                                                            if query.queryType == .random{
+                                                                                                                vm.checkQuery(query: query.selected, queryType: query.queryType)
+                                                                                                            }
                                                                                                         }
+                                                                                                        
                                                                                                     }
-
-                                                                                                }
+                                }
+                            }
+                            Spacer()
+                            if vm.isLoading{
+                                loadingView()
+                            }
+                            if vm.allResultsShown{
+                                AllResultsShownText()
                             }
                         }
-                        Spacer()
-                        if vm.isLoading{
-                            loadingView()
-                        }
-                        if vm.allResultsShown{
-                            AllResultsShownText()
-                        }
                     }
-
-                    
-                    
                 }
                 .navigationTitle(Text("Meal Ideas"))
                 .navigationBarTitleDisplayMode(.inline)
@@ -88,18 +87,17 @@ struct MealDBView: View {
                     TopView(keywordSearchTapped: $vm.keywordSearchTapped,
                             getRandomMeals: $vm.getRandomMeals,
                             source: $vm.source)
-                    
                 }
-
             }
             .onChange(of: vm.scrollViewContentOffset, perform: { newValue in
-
+                
                 withAnimation(.easeOut){
-                    if vm.scrollViewContentOffset < 40{
+                    if vm.scrollViewContentOffset < UI.topViewOffsetSpacing{
                         vm.showTopView = true
                     } else {
                         vm.showTopView = false
                     }
+                    
                     if vm.scrollViewContentOffset > vm.largestY{
                         //user is scrolling down
                         vm.largestY = vm.scrollViewContentOffset
@@ -110,7 +108,7 @@ struct MealDBView: View {
                         vm.largestY = vm.scrollViewContentOffset
                     }
                 }
-
+                
                 
                 
                 print("offset value: \(vm.scrollViewContentOffset)")
@@ -132,7 +130,7 @@ struct MealDBView: View {
                 vm.resetValues()
                 vm.checkQuery(query: "", queryType: .random)
             })
-
+            
             .onAppear{
                 if vm.isLoading == true {
                     return

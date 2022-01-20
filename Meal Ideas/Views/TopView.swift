@@ -24,6 +24,17 @@ struct TopView: View{
                     .lineLimit(2)
             })
                 .foregroundColor(.primary)
+                .buttonStyle(.bordered)
+            
+            
+            
+            // TODO:  Fix this so it's a solid background so it stands out better against the meals when scrolling
+            
+            
+            
+            
+            
+            
             TextField("Search...", text: $query.keyword)
                 .textFieldStyle(CustomRoundedCornerTextField())
                 .onSubmit {
@@ -44,7 +55,6 @@ struct TopView: View{
                     }
                 }
                 
-                
                 Button {
                     query.menuSelection = .ingredient
                     print("Ingredient selected")
@@ -54,7 +64,6 @@ struct TopView: View{
                     } else {
                         Text(QueryType.ingredient.rawValue)
                     }
-
                 }
                 
                 } label: {// Menu label
@@ -62,8 +71,11 @@ struct TopView: View{
             }
                 .font(.title)
                 .foregroundColor(.primary)
+            
         }
         .padding()
+//        .background()
+//        .blur(radius: 2)
     }
 }
 
