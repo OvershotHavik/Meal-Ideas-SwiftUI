@@ -42,7 +42,7 @@ struct MealCardView: View {
 
                 }
 
-                Text(mealName)
+                Text("\(mealName)\n") // adds an extra line to the meal name. If it is only 1 line, then it adds a blank line below. If it is already 2 lines, then the third "blank" line gets cut off. This will keep all meal cards aligned correctly
                     .lineLimit(2)
                     .multilineTextAlignment(.center)
                     .padding([.bottom, .horizontal], 5)
