@@ -65,10 +65,11 @@ struct MyIdeasView: View {
                                    tag: QueryType.category,
                                    selection: $query.menuSelection) {EmptyView()}
                     
-                    //bring up the ingredient selection
+                    //Bring up ingredient view when selected in the menu
                     NavigationLink(destination: SingleIngredientListView(vm: IngredientListVM(editIdeaVM: EditIdeaVM(meal: nil))),
                                    tag: QueryType.ingredient,
                                    selection: $query.menuSelection) { EmptyView()}
+                    
                     Spacer()
                     if vm.allResultsShown{
                         AllResultsShownText()

@@ -9,8 +9,8 @@ import SwiftUI
 
 final class MyIdeasDetailVM: DetailBaseVM{
     
-    @Published var  meal: UserMeals?
-
+    @Published var meal: UserMeals?
+    @Published var instructionsPhoto = UIImage()
     init(meal: UserMeals?, favorited: Bool, showingHistory: Bool){
         self.meal = meal
         super.init()

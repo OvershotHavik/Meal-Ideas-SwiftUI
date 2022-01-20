@@ -31,7 +31,7 @@ struct MealPhotoView: View {
     }
 }
  */
-//Used for Spoon since sometimes we are passing a nil meal initially, the above was failing to load properly
+//Used for Spoon and mealDB since sometimes we are passing a nil meal initially, the above was failing to load properly
 struct MealPhotoUIImageView: View{
     var mealPhoto: UIImage
     
@@ -40,8 +40,7 @@ struct MealPhotoUIImageView: View{
             NavigationLink(destination: ZoomImageView(image: mealPhoto)) {
                 Image(uiImage: mealPhoto)
                     .resizable()
-                    .frame(width: 200, height: 200)
-                    .clipShape(Circle())
+                    .modifier(MealPhotoModifier())
             }
         }
     }
@@ -51,20 +50,35 @@ struct MealPhotoUIImageView: View{
 struct CDPhotoView: View{
     var photoData: Data?
     var image = UIImage()
-    var body: some View{
-        
-        if let safeData = photoData{
-            
-            NavigationLink(destination: ZoomImageView(image: (UIImage(data: safeData) ?? UIImage(imageLiteralResourceName: UI.placeholderMeal)))) {
+    @StateObject var imageLoader = ImageLoaderFromData()
 
-                Image(uiImage: (UIImage(data: safeData) ?? UIImage(imageLiteralResourceName: UI.placeholderMeal)))
+    var body: some View{
+        ZStack{
+            if photoData != nil{
+
+                NavigationLink(destination: ZoomImageView(image: imageLoader.image)) {
+
+                    Image(uiImage: (imageLoader.image))
+                        .resizable()
+                    
+                }
+                if imageLoader.isLoading{
+                    loadingView()
+                }
+            } else {
+                Image(UI.placeholderMeal)
                     .resizable()
             }
-        } else {
-            Image(UI.placeholderMeal)
-                .resizable()
+        }
+        .task{
+            if let safeData = photoData{
+                imageLoader.loadFromData(mealPhotoData: safeData)
+            } else {
+                imageLoader.isLoading = false
+            }
         }
     }
+
 }
 /*
 struct MealPhotoView_Previews: PreviewProvider {

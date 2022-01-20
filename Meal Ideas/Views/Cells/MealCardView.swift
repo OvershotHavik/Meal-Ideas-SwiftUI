@@ -27,22 +27,19 @@ struct MealCardView: View {
                     ZStack{
                         Image(uiImage: imageLoader.image)
                             .resizable()
-                            .frame(width: 100, height: 100, alignment: .center)
-                            .clipShape(Circle())
                         if imageLoader.isLoading{
                             loadingView()
-                                .frame(width: 100, height: 100, alignment: .center)
-                                .clipShape(Circle())
                         }
                     }
+                    .modifier(MealCardPhotoModifier())
                         
 //                        Image(uiImage: (UIImage(data: safeData) ?? UIImage(imageLiteralResourceName: UI.placeholderMeal)))
 
                     
                 } else {
                     LoadRemoteImageView(urlString: mealPhoto)
-                        .frame(width: 100, height: 100, alignment: .center)
-                        .clipShape(Circle())
+                        .modifier(MealCardPhotoModifier())
+
                 }
 
                 Text(mealName)

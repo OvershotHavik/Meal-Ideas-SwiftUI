@@ -16,13 +16,20 @@ struct MyIdeasDetailView: View {
         ZStack{
             vm.backgroundColor
                 .ignoresSafeArea()
-
+            
             VStack{
                 ScrollView{
-                    CDPhotoView(photoData: vm.meal?.mealPhoto)
-                        .frame(width: 200, height: 200)
-                        .clipShape(Circle())
                     
+                    if let safeData = vm.meal?.mealPhoto{
+                        CDPhotoView(photoData: safeData)
+                            .modifier(MealPhotoModifier())
+                        
+                        
+                    } else {
+                        Image(UI.placeholderMeal)
+                            .resizable()
+                            .modifier(MealPhotoModifier())
+                    }
                     MealNameView(name: vm.meal?.mealName ?? "No Name Provided")
                     UserPrepHStack(hour: vm.meal?.prepHour,
                                    minute: vm.meal?.prepMinute,
@@ -59,9 +66,7 @@ struct MyIdeasDetailView: View {
                 
                 LinkView(url: vm.meal?.source, title: "Visit Source")
                     .navigationTitle(vm.meal?.mealName ?? "")
-            }
-        
-            
+            }            
             .padding(.horizontal)
             .toolbar{
                 ToolbarItem(placement: .navigationBarTrailing) {

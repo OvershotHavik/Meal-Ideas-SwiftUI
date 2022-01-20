@@ -28,20 +28,32 @@ import Foundation
  - [ ] When user taps surprise me, run the random, get the first meal and take them straight to the detail view for that meal
  - [ ] When scroll down hide the top bar and then show it again once the user starts scrolling back up
  
+ 
+ possible image modifier
+ 
+ .resizable()
+ .clipShape(Circle())
+ .frame(width: 200, height: 200)
+ .overlay(Circle().stroke(Color.white,lineWidth:4).shadow(radius: 10))
+ 
+ 
+ adds a white border and a shadow effeect
  */
 
 
 /*
  Future versions
- - Figure out how to do core data for custom ingredients and sides and categories
  - [ ] Figure out how to get the amount of times a meal has been favorites in CloudKit and display it under an open heart on the meal card. For future release
  - [ ] Add ability for user to add their own categories, ingredients, and sides
      - [ ] Like cookies or frozen meal
- - [ ] Now that we can get text from pictures, add the ability to scan a recipe or directions from the box and add them to meal ideas
  - [ ] Offer the ability to share user meals?
  - [ ] Offer a filter button to offer the user to specify multiple query at once. Could include name, category, ingredient, prep time, servings.. would only apply where the source provides that info though
  - [ ] Make it comparable with iPad
  - [ ] Offer expert to json
  - [ ] Offer ability to select ingredients to add them to a list to be able to share, like I did with original version
+ - [ ] Offer the option to change the gradient colors in a settings menu
 
+ 
+ 
+ 
  */
