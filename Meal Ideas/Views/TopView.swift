@@ -23,18 +23,9 @@ struct TopView: View{
                 Text("Surprise \nMe")
                     .lineLimit(2)
             })
-                .foregroundColor(.primary)
-                .buttonStyle(.bordered)
-            
-            
-            
-            // TODO:  Fix this so it's a solid background so it stands out better against the meals when scrolling
-            
-            
-            
-            
-            
-            
+                .buttonStyle(.borderedProminent)
+                .accentColor(Color(uiColor: Color.lightBlue))
+
             TextField("Search...", text: $query.keyword)
                 .textFieldStyle(CustomRoundedCornerTextField())
                 .onSubmit {
@@ -68,14 +59,15 @@ struct TopView: View{
                 
                 } label: {// Menu label
                 Image(systemName: "slider.horizontal.3")
+                        .padding(14)
+                        .background(Color(uiColor: Color.lightBlue))
+                        .cornerRadius(10)
             }
                 .font(.title)
-                .foregroundColor(.primary)
             
         }
         .padding()
-//        .background()
-//        .blur(radius: 2)
+        .foregroundColor(.primary)
     }
 }
 
