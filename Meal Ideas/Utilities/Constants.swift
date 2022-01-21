@@ -53,6 +53,7 @@ enum Source: String{
 }
 
 enum Titles: String{
+    case mainTitle = "Meal Ideas"
     case oneCategory = "Select One Category"
     case oneIngredient = "Select One Ingredient"
     
@@ -74,7 +75,9 @@ final class BaseURL{
     static let ingredientsList = "https://www.themealdb.com/api/json/v1/1/list.php?i=list"
     static let ingredientImage = "https://www.themealdb.com/images/ingredients/"
     
-    static let mealDBRandom = APIKey.mealDB + "randomselection.php"
+
+//    static let mealDBRandom = APIKey.mealDB + "randomselection.php" // 10 meals in one call
+    static let mealDBRandom = "https://www.themealdb.com/api/json/v1/1/random.php" // single meal
     static let mealDBCategories = APIKey.mealDB + "filter.php?c="
     static let mealDBIndividual = APIKey.mealDB + "lookup.php?i="
     static let mealDBIngredient = APIKey.mealDB + "filter.php?i="

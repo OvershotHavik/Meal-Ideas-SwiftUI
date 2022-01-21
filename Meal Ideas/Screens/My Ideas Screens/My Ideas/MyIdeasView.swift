@@ -15,16 +15,17 @@ struct MyIdeasView: View {
     var body: some View {
         NavigationView{
             ZStack(alignment: .top){
+
                 VStack(spacing: 10){
                     if vm.showWelcome{
                         NoResultsView(message: "Welcome to Meal Ideas!")
                     }
-                    
+
                     if vm.meals.isEmpty && vm.showWelcome == false{
                         NoResultsView(message: "No meals found for your search. \nCreate a new one by tapping the edit icon")
                             .offset(y: UI.verticalSpacing)
                     }
-                    
+
                     TrackableScrollView(.vertical, contentOffset: $vm.scrollViewContentOffset){
                         Spacer(minLength: UI.topViewOffsetSpacing)
 
@@ -57,22 +58,23 @@ struct MyIdeasView: View {
                                                                                                                          favoriteArray: query.favoritesArray),
                                                                                           showingHistory: false)),
                                        isActive: $vm.getRandomMeals) {EmptyView()}
-                        
+
                         //Bring up category view when selected in the menu
                         NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: .categories), title: .oneCategory),
                                        tag: QueryType.category,
                                        selection: $query.menuSelection) {EmptyView()}
-                        
+
                         //Bring up ingredient view when selected in the menu
                         NavigationLink(destination: SingleIngredientListView(vm: IngredientListVM(editIdeaVM: EditIdeaVM(meal: nil))),
                                        tag: QueryType.ingredient,
                                        selection: $query.menuSelection) { EmptyView()}
-                        
+
                         Spacer()
                         if vm.allResultsShown{
                             AllResultsShownText()
                         }
                     }
+
                 }
                 
                 if vm.showTopView{
@@ -85,7 +87,6 @@ struct MyIdeasView: View {
             .onChange(of: vm.scrollViewContentOffset, perform: { newValue in
                 vm.autoHideTopView()
             })
-            .navigationTitle(Text("Meal Ideas"))
             .navigationBarTitleDisplayMode(.inline)
             .navigationViewStyle(.stack)
             .toolbar {
@@ -96,6 +97,9 @@ struct MyIdeasView: View {
                             .foregroundColor(.primary)
                     }
                 }
+                ToolbarItem(placement: .principal, content: {
+                    Text(Titles.mainTitle.rawValue)
+                })
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     NavigationLink(destination: FavoritesListView(vm: FavoritesListVM(source: .myIdeas))) {
                         Image(systemName: "heart.fill")
@@ -107,6 +111,7 @@ struct MyIdeasView: View {
                     }
                 }
             }
+             
             .onChange(of: vm.keywordSearchTapped, perform: { newValue in
                 print("Keyword: \(query.keyword)")
                 vm.checkQuery(query: query.keyword, queryType: query.queryType)
@@ -144,6 +149,8 @@ struct MyIdeasView: View {
                       message: alertItem.message,
                       dismissButton: .default(Text("OK")))
             }
+            
+
         }
     }
     
