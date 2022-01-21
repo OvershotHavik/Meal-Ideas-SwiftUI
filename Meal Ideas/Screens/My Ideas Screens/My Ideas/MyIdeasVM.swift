@@ -31,6 +31,8 @@ import CoreData
     // MARK: - Check Query
     func checkQuery(query: String, queryType: QueryType){
         print("My Ideas Query: \(query), queryType: \(queryType.rawValue)")
+        showWelcome = false
+        allResultsShown  = false
         if originalQueryType != queryType {
             meals = []
             self.originalQueryType = queryType
@@ -54,8 +56,8 @@ import CoreData
     func filterMeals(query: String, queryType: QueryType){
         // TODO:  Animate the meals leaving and coming in
         getAllMeals()
-        showWelcome = false
-        allResultsShown  = false
+        isLoading = true
+
         switch queryType {
         case .random:
             print("My Ideas Random")
@@ -114,26 +116,20 @@ import CoreData
         case .none:
             print("My Ideas none")
         }
-        
-
+        isLoading = false
     }
 
     // MARK: - Check For Favorite
     func checkForFavorite(id: UUID?, favoriteArray: [Favorites]) -> Bool{
         if favoriteArray.contains(where: {$0.userMealID == id} ){
-            
-//        }
-//        if favoriteArray.contains(where: {$0.mealName == id && $0.spoonID == 0 && $0.mealDBID == nil}){
-//            print("favorited meal id: \(String(describing: id))")
             return true
         } else {
             return false
         }
     }
     // MARK: - Check For History
-    func checkForHistory(id: String?, historyArray: [History]) -> Bool{
-        if historyArray.contains(where: {$0.mealName == id && $0.spoonID == 0 && $0.mealDBID == nil}){
-//            print("History meal id: \(id ?? "")")
+    func checkForHistory(id: UUID?, historyArray: [History]) -> Bool{
+        if historyArray.contains(where: {$0.userMealID == id} ){
             return true
         } else {
             return false

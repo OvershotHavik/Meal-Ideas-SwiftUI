@@ -28,7 +28,7 @@ struct MyIdeasView: View {
                     TrackableScrollView(.vertical, contentOffset: $vm.scrollViewContentOffset){
                         Spacer(minLength: UI.topViewOffsetSpacing)
 
-                        VStack{
+                        VStack(spacing: 10){
                             if vm.meals.count != 0{
                                 Text("Meals found: \(vm.meals.count)")
                             }
@@ -44,7 +44,7 @@ struct MyIdeasView: View {
                                                      mealName: meal.mealName ?? "",
                                                      favorited: vm.checkForFavorite(id: meal.userMealID,
                                                                                     favoriteArray: query.favoritesArray),
-                                                     inHistory: vm.checkForHistory(id: meal.mealName,
+                                                     inHistory: vm.checkForHistory(id: meal.userMealID,
                                                                                    historyArray: query.historyArray))
                                     }
                                                                                                       .foregroundColor(.primary)
@@ -77,6 +77,9 @@ struct MyIdeasView: View {
                                        selection: $query.menuSelection) { EmptyView()}
 
                         Spacer()
+                        if vm.isLoading{
+                            loadingView()
+                        }
                         if vm.allResultsShown{
                             AllResultsShownText()
                         }
