@@ -10,7 +10,7 @@ import UIKit
 @MainActor final class SpoonDetailVM: DetailBaseVM{
     @Published var meal: SpoonacularResults.Recipe?
     @Published var mealID: Int?
-
+    
     init(meal: SpoonacularResults.Recipe?, mealID: Int?, favorited: Bool, showingHistory: Bool){
         super.init()
         self.mealID = mealID

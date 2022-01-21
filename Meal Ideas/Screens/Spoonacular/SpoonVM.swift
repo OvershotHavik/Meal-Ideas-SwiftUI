@@ -10,26 +10,31 @@ import CoreData
 
 @MainActor final class SpoonVM: BaseVM{
     @Published var meals: [SpoonacularResults.Recipe] = []
-    @Published var keywordResults : [SpoonacularKeywordResults.result] = []
+//    @Published var keywordResults : [SpoonacularKeywordResults.result] = []
     @Published var individualMeal: SpoonacularResults.Recipe?
     @Published var source: Source = .spoonacular
-
+    @Published var surpriseMeal: SpoonacularResults.Recipe?
     
     // MARK: - Get Random Meals
-    func getRandomMeals(){
-        if isLoading == true {
-            return
-        }
-        getRandomMeals = false
-        meals = []
-        getSpoonMeals(query: "", queryType: .random)
-    }
+//    func getRandomMeals(){
+//        if isLoading == true {
+//            return
+//        }
+//        getRandomMeals = false
+//        meals = []
+//        getSpoonMeals(query: "", queryType: .random)
+//    }
     
     // MARK: - Check Query
     func checkQuery(query: String, queryType: QueryType){
+        print("Spoon query: \(query) Type: \(queryType.rawValue)")
+
         if isLoading == true {
             return
         }
+        surpriseMealReady = false
+        showWelcome = false
+
         if originalQueryType != queryType {
             meals = []
             self.originalQueryType = queryType
@@ -41,8 +46,14 @@ import CoreData
                 self.originalQuery = query
                 getSpoonMeals(query: query, queryType: queryType)
             } else {
+                
+                if queryType == .random{
+                    getSpoonMeals(query: query, queryType: queryType)
+                    return
+                }
                 offsetBy += 10
                 getSpoonMeals(query: query, queryType: queryType)
+                
 
             }
         }
@@ -52,27 +63,32 @@ import CoreData
     // MARK: - Get Spoon Meals
     func getSpoonMeals(query: String, queryType: QueryType){
         isLoading = true
-        print("Spoon query: \(query) Type: \(queryType.rawValue)")
         Task {
             do {
                 switch queryType{
                 case .random:
                     let randomMeals = try await NetworkManager.shared.spoonQuery(query: query, queryType: queryType)
-                    meals.append(contentsOf: randomMeals)
-                    if offsetBy == 0{
-                        if meals.count < 10{
-                            moreToShow = false
-                        } else {
-                            moreToShow = true
-                        }
-                        
-                    } else {
-                        if meals.count < offsetBy{
-                            moreToShow = false
-                        } else {
-                            moreToShow = true
-                        }
+                    if let first = randomMeals.first{
+                        surpriseMeal = first
+                        surpriseMealReady = true
+                        meals.insert(first, at: 0)
                     }
+//                    meals.append(contentsOf: randomMeals)
+                    
+//                    if offsetBy == 0{
+//                        if meals.count < 10{
+//                            moreToShow = false
+//                        } else {
+//                            moreToShow = true
+//                        }
+//
+//                    } else {
+//                        if meals.count < offsetBy{
+//                            moreToShow = false
+//                        } else {
+//                            moreToShow = true
+//                        }
+//                    }
 
                     
                 case .category:
@@ -133,24 +149,28 @@ import CoreData
                     print(safeKeyword)
                     print("keyword Offset: \(offsetBy)")
                     let modified = safeKeyword + "&offset=\(offsetBy)"
-                    let results = try await NetworkManager.shared.spoonKeywordQuery(query: modified)
-                    keywordResults.append(contentsOf: results)
-                    print("keyword")
+                    let keywordMeals = try await NetworkManager.shared.spoonComplexQuery(query: modified, queryType: .keyword)
+                    meals.append(contentsOf: keywordMeals.results)
+                    if let safeTotalResults = keywordMeals.totalResults{
+                        totalMealCount = safeTotalResults
+                    }
+                    print("spoon keyword meals count: \(meals.count)")
                     if offsetBy == 0{
-                        if keywordResults.count < 10{
+                        if meals.count < 10{
                             moreToShow = false
                         } else {
                             moreToShow = true
                         }
                         
                     } else {
-                        if keywordResults.count < offsetBy{
+                        if meals.count < offsetBy{
                             moreToShow = false
                         } else {
                             moreToShow = true
                         }
                     }
 
+                    
                 case .none:
                     let meal = try await NetworkManager.shared.spoonQuery(query: query, queryType: .none)
                     if let safeMeal = meal.first{
@@ -159,6 +179,7 @@ import CoreData
                 }
 
                 isLoading = false
+                print("More to show: \(moreToShow)")
             } catch {
                 if let miError = error as? MIError{
                     isLoading = false

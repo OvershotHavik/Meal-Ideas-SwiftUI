@@ -83,13 +83,20 @@ final class BaseURL{
     static let mealDBIngredient = APIKey.mealDB + "filter.php?i="
     static let mealDBKeyword = APIKey.mealDB + "search.php?s="
     
-    static let spoonRandom = "https://api.spoonacular.com/recipes/random?number=10" + APIKey.spoon
-//    static let spoonCategories = "https://api.spoonacular.com/recipes/random?" + APIKey.spoon + "&number=10&tags="
-    static let spoonCategories = "https://api.spoonacular.com/recipes/complexSearch?" + APIKey.spoon + "&number=10&addRecipeInformation=true&fillIngredients=true&type="
+    static let spoonComplexBase = "https://api.spoonacular.com/recipes/complexSearch?" + APIKey.spoon + "&number=10&addRecipeInformation=true&fillIngredients=true&"
     
-    static let spoonIngredients = "https://api.spoonacular.com/recipes/complexSearch?" + APIKey.spoon + "&number=10&addRecipeInformation=true&fillIngredients=true&includeIngredients="
+    static let spoonRandom = "https://api.spoonacular.com/recipes/random?number=1" + APIKey.spoon
+
+//    static let spoonCategories = "https://api.spoonacular.com/recipes/complexSearch?" + APIKey.spoon + "&number=10&addRecipeInformation=true&fillIngredients=true&type="
+//
+//    static let spoonIngredients = "https://api.spoonacular.com/recipes/complexSearch?" + APIKey.spoon + "&number=10&addRecipeInformation=true&fillIngredients=true&includeIngredients="
+//
+//    static let spoonKeyword = "https://api.spoonacular.com/recipes/complexSearch?" + APIKey.spoon + "&number=10&addRecipeInformation=true&&fillIngredients=true&titleMatch="
     
-    static let spoonKeyword = "https://api.spoonacular.com/recipes/complexSearch?" + APIKey.spoon + "&number=10&titleMatch="
+    static let spoonCategories = spoonComplexBase + "type="
+    static let spoonIngredients = spoonComplexBase + "includeIngredients="
+    static let spoonKeyword = spoonComplexBase + "titleMatch="
+    
     static let spoonSingleBase = "https://api.spoonacular.com/recipes/"
     static let SpoonSingleSuffix = "/information?includeNutrition=false" + APIKey.spoon
 

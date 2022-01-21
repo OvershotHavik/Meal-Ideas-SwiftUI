@@ -165,24 +165,6 @@ Original random meal
             }
             print(url)
             return try await spoonNetworkCall(url: url)
-            
-            
-//        case .category:
-//            guard let url = URL(string: BaseURL.spoonCategories + query) else {
-//                throw MIError.invalidURL
-//            }
-//            print(url)
-//            return try await spoonComplexQuery(url: url)
-//
-//        case .ingredient:
-//            guard let url = URL(string: BaseURL.spoonIngredients + query) else {
-//                throw MIError.invalidURL
-//            }
-//            print(url)
-//            //Ingredients returns an array of "results" instead of "meals" that's why this is different
-//            return try await spoonComplexQuery(url: url)
-//
-                 
 
         default:
             guard let url = URL(string: "not Setup In spoon Query") else {
@@ -213,6 +195,13 @@ Original random meal
             //Ingredients returns an array of "results" instead of "meals" that's why this is different
             return try await spoonComplexQuery(url: url)
             
+        case .keyword:
+            guard let url = URL(string: BaseURL.spoonKeyword + query) else {
+                throw MIError.invalidURL
+            }
+            print(url)
+            
+            return try await spoonComplexQuery(url: url)
         default:
             guard let url = URL(string: "not Setup In spoon Query") else {
                 throw MIError.invalidURL
@@ -239,7 +228,7 @@ Original random meal
             throw MIError.invalidData
         }
     }
-    
+    /*
     // MARK: - Spoon Keyword Query
     func spoonKeywordQuery(query: String) async throws -> [SpoonacularKeywordResults.result]{
         guard let url = URL(string: BaseURL.spoonKeyword + query) else {
@@ -261,7 +250,7 @@ Original random meal
             throw MIError.invalidData
         }
     }
-    
+    */
     // MARK: - Spoon Single Meal
     func spoonSingleMeal(query: String) async throws -> SpoonacularResults.Recipe{
         guard let url = URL(string: BaseURL.spoonSingleBase + query + BaseURL.SpoonSingleSuffix) else {

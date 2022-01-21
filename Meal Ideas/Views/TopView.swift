@@ -29,7 +29,7 @@ struct TopView: View{
             TextField("Search...", text: $query.keyword)
                 .textFieldStyle(CustomRoundedCornerTextField())
                 .onSubmit {
-                    query.selected = ""
+                    query.selected = query.keyword
                     query.queryType = .keyword
                     keywordSearchTapped.toggle()
                     print("Top View Keyword search: \(query.keyword)")

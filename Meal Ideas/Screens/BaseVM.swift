@@ -63,9 +63,8 @@ class BaseVM: ObservableObject{
             }
         }
 
-        print("offset value: \(scrollViewContentOffset)")
+//        print("offset value: \(scrollViewContentOffset)")
     }
-    
     
 }
 

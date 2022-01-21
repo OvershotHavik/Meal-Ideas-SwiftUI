@@ -14,160 +14,179 @@ struct SpoonView: View {
     
     var body: some View {
         NavigationView{
-            VStack{
-                TopView(keywordSearchTapped: $vm.keywordSearchTapped,
-                        getRandomMeals: $vm.getRandomMeals,
-                        source: $vm.source)
-                Spacer(minLength: UI.topViewOffsetSpacing)
-                ScrollView{
-//                    if vm.isLoading{
-//                        loadingView()
-////                            .offset(y: UI.verticalSpacing)
-//                    }
-                    if vm.meals.isEmpty && vm.keywordResults.isEmpty && vm.isLoading == false{
+            ZStack(alignment: .top){
+                VStack(spacing: 10){
+                    if vm.showWelcome{
+                        NoResultsView(message: "Welcome to Meal Ideas!")
+                    }
+                    if vm.meals.isEmpty && vm.showWelcome == false && vm.isLoading == false{
                         NoResultsView(message: "No meals found for your search")
                             .offset(y: UI.verticalSpacing)
                     }
-                    if vm.totalMealCount != 0{
-                        Text("Meals found: \(vm.totalMealCount)")
-                            .opacity(0.5)
-                            .offset(y: 10)
-                    }
-                    if vm.keywordResults.isEmpty{
-                        //Normal run through
-                        LazyVGrid(columns: columns, alignment: .center) {
-                            ForEach(vm.meals.indices, id: \.self) { mealIndex in
-                                let meal = vm.meals[mealIndex]
-                                NavigationLink(destination: SpoonDetailView(vm: SpoonDetailVM(meal: meal,
-                                                                                              mealID: nil,
-                                                                                              favorited: vm.checkForFavorite(id: meal.id,
-                                                                                                                             favoriteArray: query.favoritesArray),
-                                                                                              showingHistory: false))) {
-                                    MealCardView(mealPhoto: meal.image ?? "",
-                                                 mealName: meal.title,
-                                                 favorited: vm.checkForFavorite(id: meal.id,
-                                                                                favoriteArray: query.favoritesArray),
-                                                 inHistory: vm.checkForHistory(id: meal.id,
-                                                                               historyArray: query.historyArray))
-                                }
-                                                                                              .foregroundColor(.primary)
-                                                                                              .onAppear{
-                                                                                                  if vm.moreToShow{
-                                                                                                      if mealIndex == vm.meals.count - 2 {
-                                                                                                          vm.checkQuery(query: query.selected, queryType: query.queryType)
-                                                                                                      }
-                                                                                                  }
-
-                                                                                              }
-                            }
-                        }
-                        .offset(y: UI.verticalSpacing)
-
-                    } else {
-                        //Keyword search, need to fetch the meal on the VM
-                        LazyVGrid(columns: columns, alignment: .center) {
-                            ForEach(vm.keywordResults.indices, id: \.self) { mealIndex in
-                                let meal = vm.keywordResults[mealIndex]
-                                NavigationLink(destination: SpoonDetailView(vm: SpoonDetailVM(meal: nil,
-                                                                                              mealID: meal.id,
-                                                                                              favorited: vm.checkForFavorite(id: meal.id,
-                                                                                                                             favoriteArray: query.favoritesArray),
-                                                                                              showingHistory: false))) {
-                                    MealCardView(mealPhoto: meal.image ?? "",
-                                                 mealName: meal.title,
-                                                 favorited: vm.checkForFavorite(id: meal.id,
-                                                                                favoriteArray: query.favoritesArray),
-                                                 inHistory: vm.checkForHistory(id: meal.id,
-                                                                               historyArray: query.historyArray))
-                                }
-                                                                                              .foregroundColor(.primary)
-                                                                                              .onAppear{
-                                                                                                  if vm.moreToShow == true {
-                                                                                                      if mealIndex == vm.keywordResults.count - 2 {
-                                                                                                          vm.checkQuery(query: query.keyword, queryType: query.queryType)
-                                                                                                      }
-                                                                                                  }
-
-                                                                                              }
-                            }
-                        }
-                        .offset(y: UI.verticalSpacing)
-                    }
-//                    if vm.isLoading == false && vm.moreToShow == true{
-//                        MoreMealsButton(vm: vm)
-//                    }
-                    if vm.isLoading{
-                        loadingView()
-//                            .offset(y: UI.verticalSpacing)
-                    }
                     
-                }
-                .navigationBarTitleDisplayMode(.inline)
-                .padding()
-                .toolbar {
-                    ToolbarItemGroup(placement: .navigationBarTrailing) {
-                        NavigationLink(destination: FavoritesListView(vm: FavoritesListVM(source: .spoonacular))) {
-                            Image(systemName: "heart.fill")
-                                .foregroundColor(.pink)
+                    TrackableScrollView(.vertical, contentOffset: $vm.scrollViewContentOffset){
+                        Spacer(minLength: UI.topViewOffsetSpacing)
+                        
+                        VStack(spacing: 10){
+                            if vm.totalMealCount != 0{
+                                Text("Meals found: \(vm.totalMealCount)") // total meals for the complex search on the server
+                            } else {
+                                if vm.meals.count != 0{
+                                    Text("Meals shown: \(vm.meals.count)") // total meals that have loaded
+                                }
+                                
+                            }
+                            LazyVGrid(columns: columns, alignment: .center) {
+                                ForEach(vm.meals.indices, id: \.self) { mealIndex in
+                                    let meal = vm.meals[mealIndex]
+                                    NavigationLink(destination: SpoonDetailView(vm: SpoonDetailVM(meal: meal,
+                                                                                                  mealID: nil,
+                                                                                                  favorited: vm.checkForFavorite(id: meal.id,
+                                                                                                                                 favoriteArray: query.favoritesArray),
+                                                                                                  showingHistory: false))) {
+                                        MealCardView(mealPhoto: meal.image ?? "",
+                                                     mealName: meal.title,
+                                                     favorited: vm.checkForFavorite(id: meal.id,
+                                                                                    favoriteArray: query.favoritesArray),
+                                                     inHistory: vm.checkForHistory(id: meal.id,
+                                                                                   historyArray: query.historyArray))
+                                    }
+                                                                                                  .foregroundColor(.primary)
+                                                                                                  .onAppear{
+                                                                                                      if vm.moreToShow{
+                                                                                                          if mealIndex == vm.meals.count - 1 {
+                                                                                                              vm.checkQuery(query: query.selected, queryType: query.queryType)
+                                                                                                          }
+                                                                                                      }
+                                                                                                      
+                                                                                                  }
+                                }
+                            }
+                            
+                            
                         }
-                        NavigationLink(destination: HistoryListView(vm: HistoryListVM(source: .spoonacular))) {
-                            Image(systemName: "book")
-                                .foregroundColor(.black)
+                        
+                        //Used for surprise me, when get random meals is toggled it will take user directly to the first meal at random that they have created
+                        NavigationLink(destination: SpoonDetailView(vm: SpoonDetailVM(meal: vm.surpriseMeal,
+                                                                                      mealID: vm.surpriseMeal?.id, favorited: vm.checkForFavorite(id: vm.surpriseMeal?.id,
+                                                                                                                                                  favoriteArray: query.favoritesArray),
+                                                                                      showingHistory: false)),
+                                       isActive: $vm.surpriseMealReady) {EmptyView()}
+                        
+                        //Bring up category view when selected in the menu
+                        NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: .categories), title: .oneCategory),
+                                       tag: QueryType.category,
+                                       selection: $query.menuSelection) {EmptyView()}
+                        
+                        //Bring up ingredient view when selected in the menu
+                        NavigationLink(destination: SingleIngredientListView(vm: IngredientListVM(editIdeaVM: EditIdeaVM(meal: nil))),
+                                       tag: QueryType.ingredient,
+                                       selection: $query.menuSelection) { EmptyView()}
+                        Spacer()
+                        
+                        if vm.allResultsShown{
+                            AllResultsShownText()
                         }
                     }
+                }
+                if vm.isLoading{
+                    loadingView()
+                }
+                if vm.showTopView{
+                    TopView(keywordSearchTapped: $vm.keywordSearchTapped,
+                            getRandomMeals: $vm.getRandomMeals,
+                            source: $vm.source)
                 }
             }
-            .onAppear {
-                if query.queryType == .category ||
-                    query.queryType == .ingredient{
-                    if query.selected == ""{
-                        vm.alertItem = AlertContext.noSelection
-                        return
+            .background(BackgroundGradientView())
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationViewStyle(.stack)
+            .toolbar {
+                ToolbarItem(placement: .principal, content: {
+                    Text(Titles.mainTitle.rawValue)
+                })
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    NavigationLink(destination: FavoritesListView(vm: FavoritesListVM(source: .spoonacular))) {
+                        Image(systemName: "heart.fill")
+                            .foregroundColor(.pink)
+                    }
+                    NavigationLink(destination: HistoryListView(vm: HistoryListVM(source: .spoonacular))) {
+                        Image(systemName: "book")
+                            .foregroundColor(.primary)
                     }
                 }
-                if query.queryType != .keyword{
-                    vm.offsetBy = 0 // may need changed to somewhere else
-                    vm.checkQuery(query: query.selected , queryType: query.queryType)
-                }
-                query.getHistory()
             }
             .alert(item: $vm.alertItem) { alertItem in
                 Alert(title: alertItem.title,
                       message: alertItem.message,
                       dismissButton: .default(Text("OK"), action: stopLoading))
             }
+            .onAppear {
+                query.getHistory()
+                query.getFavorites()
+                vm.surpriseMeal = nil
+
+                if query.queryType == vm.originalQueryType && query.selected == vm.originalQuery{
+                    //nothing changed, don't do anything
+                    return
+                }
+                
+
+                if query.queryType == .none ||
+                    query.queryType == .random{
+                    return
+                }
+                if query.queryType == .category ||
+                    query.queryType == .ingredient{
+                    if query.selected == ""{
+                        vm.alertItem = AlertContext.noSelection
+                        return
+                    }
+                    vm.resetValues()
+                    vm.checkQuery(query: query.selected, queryType: query.queryType)
+                }
+                if query.queryType == .keyword{
+                    query.selected = query.keyword
+                    vm.checkQuery(query: query.selected, queryType: query.queryType)
+                }
+                //
+                //                if query.queryType == .category ||
+                //                    query.queryType == .ingredient{
+                //                    if query.selected == ""{
+                //                        vm.alertItem = AlertContext.noSelection
+                //                        return
+                //                    }
+                //                }
+                //                if query.queryType != .keyword{
+                //                    vm.offsetBy = 0 // may need changed to somewhere else
+                //                    vm.checkQuery(query: query.selected , queryType: query.queryType)
+                //                }
+                //                query.getHistory()
+            }
+            
+            .onChange(of: vm.scrollViewContentOffset, perform: { newValue in
+                vm.autoHideTopView()
+            })
             .onChange(of: vm.keywordSearchTapped, perform: { newValue in
                 print("Keyword: \(query.keyword)")
-                vm.resetValues()
-                vm.checkQuery(query: query.keyword, queryType: .keyword)
+                query.selected = query.keyword
+
+                vm.checkQuery(query: query.selected, queryType: .keyword)
             })
             .onChange(of: vm.getRandomMeals, perform: { newValue in
                 print("Random tapped in Spoon")
-                vm.resetValues()
-                vm.getRandomMeals()
+                vm.checkQuery(query: query.selected, queryType: query.queryType)
             })
-            .onChange(of: vm.getMoreMeals, perform: { newValue in
-                print("More meals tapped in spoon: \(query.queryType)")
-//                vm.resetValues()
-                
-                if query.queryType == .keyword{
-                    vm.checkQuery(query: query.keyword, queryType: .keyword)
-                } else {
-//                    vm.resetValues()
-                    vm.checkQuery(query: query.selected, queryType: query.queryType)
-                }
-            })
-
+            
         }
-        .navigationViewStyle(.stack)
-
+        
         
     }
     // MARK: - Stop Loading
     func stopLoading(){
         vm.isLoading = false
     }
-
+    
 }
 // MARK: - Preview
 struct SpoonView_Previews: PreviewProvider {

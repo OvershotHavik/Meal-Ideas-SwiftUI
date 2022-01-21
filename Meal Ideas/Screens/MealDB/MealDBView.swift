@@ -32,7 +32,7 @@ struct MealDBView: View {
                         
                         VStack(spacing: 10){
                             if vm.meals.count != 0{
-                                Text("Meals found: \(vm.meals.count)")
+                                Text("Meals shown: \(vm.meals.count)")
                             }
                             LazyVGrid(columns: columns, alignment: .center) {
                                 ForEach(vm.meals.indices, id: \.self) { mealIndex in
@@ -87,9 +87,9 @@ struct MealDBView: View {
                             source: $vm.source)
                 }
             }
+            .background(BackgroundGradientView())
             .navigationBarTitleDisplayMode(.inline)
             .navigationViewStyle(.stack)
-            .background(BackgroundGradientView())
             .toolbar {
                 ToolbarItem(placement: .principal, content: {
                     Text(Titles.mainTitle.rawValue)
@@ -107,29 +107,23 @@ struct MealDBView: View {
                 }
             }
             
-            .onChange(of: vm.scrollViewContentOffset, perform: { newValue in
-                vm.autoHideTopView()
-            })
             
             .alert(item: $vm.alertItem) { alertItem in
                 Alert(title: alertItem.title,
                       message: alertItem.message,
                       dismissButton: .default(Text("OK"), action: stopLoading))
             }
-            
-            .onChange(of: vm.keywordSearchTapped, perform: { newValue in
-                print("Keyword: \(query.keyword)")
-                vm.checkQuery(query: query.keyword, queryType: .keyword)
-            })
-            .onChange(of: vm.getRandomMeals, perform: { newValue in
-                print("Random tapped in mealDB")
-                vm.checkQuery(query: query.selected, queryType: query.queryType)
-            })
+
             
             .onAppear{
                 vm.surpriseMeal = nil
                 query.getHistory()
                 query.getFavorites()
+                
+                if query.queryType == vm.originalQueryType && query.selected == vm.originalQuery{
+                    //nothing changed, don't do anything
+                    return
+                }
                 if query.queryType == .none ||
                     query.queryType == .random{
                     return
@@ -141,6 +135,10 @@ struct MealDBView: View {
                         return
                     }
                     vm.checkQuery(query: query.selected, queryType: query.queryType)
+                }
+                if query.queryType == .keyword{
+                    query.selected = query.keyword
+                    vm.checkQuery(query: query.keyword, queryType: query.queryType)
                 }
                 
 //                if query.queryType != .keyword{
@@ -163,6 +161,18 @@ struct MealDBView: View {
                  query.getHistory()
                  */
             }
+            .onChange(of: vm.scrollViewContentOffset, perform: { newValue in
+                vm.autoHideTopView()
+            })
+            .onChange(of: vm.keywordSearchTapped, perform: { newValue in
+                print("Keyword: \(query.keyword)")
+                query.selected = query.keyword
+                vm.checkQuery(query: query.keyword, queryType: .keyword)
+            })
+            .onChange(of: vm.getRandomMeals, perform: { newValue in
+                print("Random tapped in mealDB")
+                vm.checkQuery(query: query.selected, queryType: query.queryType)
+            })
             
         }
         

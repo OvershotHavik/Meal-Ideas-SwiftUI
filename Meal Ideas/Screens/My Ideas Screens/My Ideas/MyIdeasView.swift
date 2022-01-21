@@ -10,8 +10,8 @@ import SwiftUI
 struct MyIdeasView: View {
     @StateObject var vm : MyIdeasVM
     @EnvironmentObject var query: Query
-    @State var selected: QueryType?
     let columns = [GridItem(), GridItem()]
+
     var body: some View {
         NavigationView{
             ZStack(alignment: .top){
@@ -30,7 +30,7 @@ struct MyIdeasView: View {
 
                         VStack(spacing: 10){
                             if vm.meals.count != 0{
-                                Text("Meals found: \(vm.meals.count)")
+                                Text("Meals shown: \(vm.meals.count)")
                             }
                             LazyVGrid(columns: columns, alignment: .center) {
                                 ForEach(vm.meals.indices, id: \.self) {mealIndex in
@@ -70,16 +70,16 @@ struct MyIdeasView: View {
                                        selection: $query.menuSelection) { EmptyView()}
 
                         Spacer()
-                        if vm.isLoading{
-                            loadingView()
-                        }
+
                         if vm.allResultsShown{
                             AllResultsShownText()
                         }
                     }
 
                 }
-                
+                if vm.isLoading{
+                    loadingView()
+                }
                 if vm.showTopView{
                     TopView(keywordSearchTapped: $vm.keywordSearchTapped,
                             getRandomMeals: $vm.getRandomMeals,
@@ -87,9 +87,6 @@ struct MyIdeasView: View {
                 }
             }
             .background(BackgroundGradientView())
-            .onChange(of: vm.scrollViewContentOffset, perform: { newValue in
-                vm.autoHideTopView()
-            })
             .navigationBarTitleDisplayMode(.inline)
             .navigationViewStyle(.stack)
             .toolbar {
@@ -114,23 +111,18 @@ struct MyIdeasView: View {
                     }
                 }
             }
-             
-            .onChange(of: vm.keywordSearchTapped, perform: { newValue in
-                print("Keyword: \(query.keyword)")
-                vm.checkQuery(query: query.keyword, queryType: query.queryType)
-            })
-            
-            .onChange(of: vm.getRandomMeals, perform: { newValue in
-                print("Random tapped in User Meals")
-                if vm.getRandomMeals == true {
-                    vm.checkQuery(query: query.selected, queryType: query.queryType)
-                }
-            })
+            .alert(item: $vm.alertItem) { alertItem in
+                Alert(title: alertItem.title,
+                      message: alertItem.message,
+                      dismissButton: .default(Text("OK")))
+            }
             
             .onAppear {
                 vm.surpriseMeal = nil
                 query.getHistory()
                 query.getFavorites()
+                vm.surpriseMeal = nil
+
                 if query.queryType == .none ||
                     query.queryType == .random{
                     return
@@ -145,16 +137,26 @@ struct MyIdeasView: View {
                 }
                 
                 if query.queryType == .keyword{
-                    vm.checkQuery(query: query.keyword, queryType: query.queryType)
+                    vm.checkQuery(query: query.selected, queryType: query.queryType)
                 }
             }
-            .alert(item: $vm.alertItem) { alertItem in
-                Alert(title: alertItem.title,
-                      message: alertItem.message,
-                      dismissButton: .default(Text("OK")))
-            }
-            
 
+            
+            .onChange(of: vm.scrollViewContentOffset, perform: { newValue in
+                vm.autoHideTopView()
+            })
+            .onChange(of: vm.keywordSearchTapped, perform: { newValue in
+                print("Keyword: \(query.keyword)")
+                query.selected = query.keyword
+                vm.checkQuery(query: query.selected, queryType: query.queryType)
+            })
+            
+            .onChange(of: vm.getRandomMeals, perform: { newValue in
+                print("Random tapped in User Meals")
+                if vm.getRandomMeals == true {
+                    vm.checkQuery(query: query.selected, queryType: query.queryType)
+                }
+            })
         }
     }
     
