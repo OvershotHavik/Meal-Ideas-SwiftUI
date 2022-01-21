@@ -15,7 +15,6 @@ struct MyIdeasView: View {
     var body: some View {
         NavigationView{
             ZStack(alignment: .top){
-
                 VStack(spacing: 10){
                     if vm.showWelcome{
                         NoResultsView(message: "Welcome to Meal Ideas!")
@@ -34,7 +33,8 @@ struct MyIdeasView: View {
                                 Text("Meals found: \(vm.meals.count)")
                             }
                             LazyVGrid(columns: columns, alignment: .center) {
-                                ForEach(vm.meals, id: \.self) {meal in
+                                ForEach(vm.meals.indices, id: \.self) {mealIndex in
+                                    let meal = vm.meals[mealIndex]
                                     NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: meal,
                                                                                                       favorited: vm.checkForFavorite(id: meal.userMealID,
                                                                                                                                      favoriteArray: query.favoritesArray),
@@ -48,6 +48,13 @@ struct MyIdeasView: View {
                                                                                    historyArray: query.historyArray))
                                     }
                                                                                                       .foregroundColor(.primary)
+                                                                                                      .onAppear{
+                                                                                                          if mealIndex == vm.meals.count  - 2 {
+                                                                                                              if query.queryType == .random{
+                                                                                                                  vm.checkQuery(query: query.selected, queryType: query.queryType)
+                                                                                                              }
+                                                                                                          }
+                                                                                                      }
                                 }
                             }
                         }
