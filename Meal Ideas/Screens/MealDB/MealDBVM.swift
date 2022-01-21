@@ -13,10 +13,13 @@ import CoreData
     
     @Published var meals : [MealDBResults.Meal] = []
     @Published var source: Source = .mealDB
-
+    @Published var surpriseMeal: MealDBResults.Meal?
     
     // MARK: - CheckQuery
     func checkQuery(query: String, queryType: QueryType){
+        print("MealDB Query: \(query), queryType: \(queryType.rawValue)")
+        surpriseMealReady = false
+        showWelcome = false
         if originalQueryType != queryType  {
             meals = []
             self.originalQueryType = queryType
@@ -28,22 +31,28 @@ import CoreData
                 self.originalQuery = query
                 getMealDBMeals(query: query, queryType: queryType)
             } else {
-                //run through again and add to the array
-                getMealDBMeals(query: query, queryType: queryType)
+                //same choice was selected so nothing should happen except for random
+                if queryType == .random{
+                    getMealDBMeals(query: query, queryType: queryType)
+                }
             }
         }
     }
     // MARK: - Get MealDBMeals
     func getMealDBMeals(query: String, queryType: QueryType) {
         isLoading = true
-        print("mealdb Query : \(queryType.rawValue)")
+        
         Task {
             do{
                 switch queryType {
                 case .random:
                     print("random")
-                    let newMeals = try await NetworkManager.shared.mealDBQuery(query: "", queryType: .random)
-                    meals.append(contentsOf: newMeals)
+                    let newMeal = try await NetworkManager.shared.mealDBQuery(query: "", queryType: .random)
+                    if let first = newMeal.first{
+                        surpriseMeal = first
+                        surpriseMealReady = true
+                        meals.insert(first, at: 0)
+                    }
                     
                 case .category:
                     print("Fetching MealDB Category: \(query)")
@@ -74,7 +83,7 @@ import CoreData
                     
                 }
                 isLoading = false
-                totalMealCount = meals.count
+//                totalMealCount = meals.count
             }catch{
                 if let miError = error as? MIError{
                     switch miError {
