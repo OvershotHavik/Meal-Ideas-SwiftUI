@@ -20,10 +20,13 @@ class BaseVM: ObservableObject{
     @Published var allResultsShown = false
     @Published var totalMealCount = 0
     @Published var showWelcome = true
+    @Published var surpriseMealReady = false
     //For scroll views
     @Published var scrollViewContentOffset = CGFloat(0)
     @Published var largestY = CGFloat(0)
     @Published var showTopView = true
+
+
     
     // MARK: - Reset Values
     func resetValues(){
