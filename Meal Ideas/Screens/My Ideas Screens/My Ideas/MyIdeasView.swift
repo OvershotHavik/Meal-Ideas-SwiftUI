@@ -48,13 +48,6 @@ struct MyIdeasView: View {
                                                                                    historyArray: query.historyArray))
                                     }
                                                                                                       .foregroundColor(.primary)
-                                                                                                      .onAppear{
-                                                                                                          if mealIndex == vm.meals.count  - 2 {
-                                                                                                              if query.queryType == .random{
-                                                                                                                  vm.checkQuery(query: query.selected, queryType: query.queryType)
-                                                                                                              }
-                                                                                                          }
-                                                                                                      }
                                 }
                             }
                         }
@@ -148,10 +141,11 @@ struct MyIdeasView: View {
                         vm.alertItem = AlertContext.noSelection
                         return
                     }
+                    vm.checkQuery(query: query.selected, queryType: query.queryType)
                 }
                 
-                if query.queryType != .keyword{
-                    vm.checkQuery(query: query.selected, queryType: query.queryType)
+                if query.queryType == .keyword{
+                    vm.checkQuery(query: query.keyword, queryType: query.queryType)
                 }
             }
             .alert(item: $vm.alertItem) { alertItem in

@@ -33,6 +33,7 @@ import CoreData
         print("My Ideas Query: \(query), queryType: \(queryType.rawValue)")
         showWelcome = false
         allResultsShown  = false
+        surpriseMealReady = false
         if originalQueryType != queryType {
             meals = []
             self.originalQueryType = queryType
@@ -64,10 +65,9 @@ import CoreData
             let shuffled = allMeals.shuffled()
             if let first = shuffled.first{
                 surpriseMeal = first
-                
+                surpriseMealReady = true
                 meals.insert(first, at: 0)
                 meals = meals.unique()
-
             }
 //            meals = allMeals.shuffled()
 //            allResultsShown = true
