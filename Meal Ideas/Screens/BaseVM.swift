@@ -25,6 +25,7 @@ class BaseVM: ObservableObject{
     @Published var largestY = CGFloat(0)
     @Published var showTopView = true
     
+    // MARK: - Reset Values
     func resetValues(){
         alertItem = nil
         isLoading = false
@@ -38,6 +39,30 @@ class BaseVM: ObservableObject{
         allResultsShown = false
         totalMealCount = 0
     }
+    
+    // MARK: - Auto Hide Top View
+    func autoHideTopView(){
+        withAnimation(.easeOut){
+            if scrollViewContentOffset < UI.topViewOffsetSpacing{
+                showTopView = true
+            } else {
+                showTopView = false
+            }
+            
+            if scrollViewContentOffset > largestY{
+                //user is scrolling down
+                largestY = scrollViewContentOffset
+                
+            } else {
+                //user started scrolling up again, show the view and set largest Y to current value
+                showTopView = true
+                largestY = scrollViewContentOffset
+            }
+        }
+
+        print("offset value: \(scrollViewContentOffset)")
+    }
+    
     
 }
 
