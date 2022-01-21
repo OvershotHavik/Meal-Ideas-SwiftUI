@@ -14,71 +14,80 @@ struct MyIdeasView: View {
     let columns = [GridItem(), GridItem()]
     var body: some View {
         NavigationView{
-            ScrollView{
+            ZStack(alignment: .top){
                 VStack(spacing: 10){
-                    TopView(keywordSearchTapped: $vm.keywordSearchTapped,
-                            getRandomMeals: $vm.getRandomMeals,
-                            source: $vm.source)
-                    
-                    //                Spacer(minLength: UI.topViewOffsetSpacing)
-                    if vm.showWelcome == true{
-                     NoResultsView(message: "Welcome to Meal Ideas!")
+                    if vm.showWelcome{
+                        NoResultsView(message: "Welcome to Meal Ideas!")
                     }
-                        
+                    
                     if vm.meals.isEmpty && vm.showWelcome == false{
                         NoResultsView(message: "No meals found for your search. \nCreate a new one by tapping the edit icon")
                             .offset(y: UI.verticalSpacing)
                     }
                     
-                    if vm.meals.count != 0{
-                        Text("Meals found: \(vm.meals.count)")
+                    TrackableScrollView(.vertical, contentOffset: $vm.scrollViewContentOffset){
+                        Spacer(minLength: UI.topViewOffsetSpacing)
 
-                    }
-                    LazyVGrid(columns: columns, alignment: .center) {
-                        ForEach(vm.meals, id: \.self) {meal in
-                            NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: meal,
-                                                                                              favorited: vm.checkForFavorite(id: meal.userMealID,
-                                                                                                                             favoriteArray: query.favoritesArray),
-                                                                                              showingHistory: false))) {
-                                MealCardView(mealPhoto: "",
-                                             mealPhotoData: meal.mealPhoto,
-                                             mealName: meal.mealName ?? "",
-                                             favorited: vm.checkForFavorite(id: meal.userMealID,
-                                                                            favoriteArray: query.favoritesArray),
-                                             inHistory: vm.checkForHistory(id: meal.mealName,
-                                                                           historyArray: query.historyArray))
+                        VStack{
+                            if vm.meals.count != 0{
+                                Text("Meals found: \(vm.meals.count)")
                             }
-                                                                                              .foregroundColor(.primary)
+                            LazyVGrid(columns: columns, alignment: .center) {
+                                ForEach(vm.meals, id: \.self) {meal in
+                                    NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: meal,
+                                                                                                      favorited: vm.checkForFavorite(id: meal.userMealID,
+                                                                                                                                     favoriteArray: query.favoritesArray),
+                                                                                                      showingHistory: false))) {
+                                        MealCardView(mealPhoto: "",
+                                                     mealPhotoData: meal.mealPhoto,
+                                                     mealName: meal.mealName ?? "",
+                                                     favorited: vm.checkForFavorite(id: meal.userMealID,
+                                                                                    favoriteArray: query.favoritesArray),
+                                                     inHistory: vm.checkForHistory(id: meal.mealName,
+                                                                                   historyArray: query.historyArray))
+                                    }
+                                                                                                      .foregroundColor(.primary)
+                                }
+                            }
+                        }
+
+                        //Used for surprise me, when get random meals is toggled it will take user directly to the first meal at random that they have created
+                        NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: vm.surpriseMeal,
+                                                                                          favorited: vm.checkForFavorite(id: vm.surpriseMeal?.userMealID,
+                                                                                                                         favoriteArray: query.favoritesArray),
+                                                                                          showingHistory: false)),
+                                       isActive: $vm.getRandomMeals) {EmptyView()}
+                        
+                        //Bring up category view when selected in the menu
+                        NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: .categories), title: .oneCategory),
+                                       tag: QueryType.category,
+                                       selection: $query.menuSelection) {EmptyView()}
+                        
+                        //Bring up ingredient view when selected in the menu
+                        NavigationLink(destination: SingleIngredientListView(vm: IngredientListVM(editIdeaVM: EditIdeaVM(meal: nil))),
+                                       tag: QueryType.ingredient,
+                                       selection: $query.menuSelection) { EmptyView()}
+                        
+                        Spacer()
+                        if vm.allResultsShown{
+                            AllResultsShownText()
                         }
                     }
-                    //Used for surprise me, when get random meals is toggled it will take user directly to the first meal at random that they have created
-                    NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: vm.surpriseMeal,
-                                                                                      favorited: vm.checkForFavorite(id: vm.surpriseMeal?.userMealID,
-                                                                                                                     favoriteArray: query.favoritesArray),
-                                                                                      showingHistory: false)),
-                                   isActive: $vm.getRandomMeals) {EmptyView()}
-                    
-                    //Bring up category view when selected in the menu
-                    NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: .categories), title: .oneCategory),
-                                   tag: QueryType.category,
-                                   selection: $query.menuSelection) {EmptyView()}
-                    
-                    //Bring up ingredient view when selected in the menu
-                    NavigationLink(destination: SingleIngredientListView(vm: IngredientListVM(editIdeaVM: EditIdeaVM(meal: nil))),
-                                   tag: QueryType.ingredient,
-                                   selection: $query.menuSelection) { EmptyView()}
-                    
-                    Spacer()
-                    if vm.allResultsShown{
-                        AllResultsShownText()
-                    }
+                }
+                
+                if vm.showTopView{
+                    TopView(keywordSearchTapped: $vm.keywordSearchTapped,
+                            getRandomMeals: $vm.getRandomMeals,
+                            source: $vm.source)
                 }
             }
-            .padding()
             .background(BackgroundGradientView())
-            
+            .onChange(of: vm.scrollViewContentOffset, perform: { newValue in
+                vm.autoHideTopView()
+            })
             .navigationTitle(Text("Meal Ideas"))
             .navigationBarTitleDisplayMode(.inline)
+            .navigationViewStyle(.stack)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     NavigationLink(destination: EditMealsListView(vm: EditMealsListVM())) {
@@ -109,7 +118,7 @@ struct MyIdeasView: View {
                     vm.checkQuery(query: query.selected, queryType: query.queryType)
                 }
             })
-
+            
             .onAppear {
                 vm.surpriseMeal = nil
                 query.getHistory()
@@ -136,9 +145,8 @@ struct MyIdeasView: View {
                       dismissButton: .default(Text("OK")))
             }
         }
-        .navigationViewStyle(.stack)
     }
-        
+    
     
 }
 /*
