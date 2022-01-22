@@ -18,7 +18,7 @@ struct BadgesHStack: View {
                 .font(.body)
             ScrollView(.horizontal){
                 HStack{
-                    ForEach(items, id: \.self) {cat in
+                    ForEach(items.sorted(by: {$0 < $1}), id: \.self) {cat in
                         Text(cat)
                             .padding(3)
                             .background(LinearGradient(gradient: Gradient(colors: [topColor, bottomColor]),
