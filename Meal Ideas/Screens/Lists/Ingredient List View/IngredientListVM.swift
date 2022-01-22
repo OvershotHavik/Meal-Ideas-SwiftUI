@@ -5,14 +5,13 @@
 //  Created by Steve Plavetzky on 11/30/21.
 //
 
-import Foundation
 import SwiftUI
 
-@MainActor final class IngredientListVM: ObservableObject{
+@MainActor class IngredientListVM: ObservableObject{
+    @Published var itemList: [String]
     @Published var ingredients: [Ingredients.Meals] = []
     @Published var alertItem: AlertItem?
     @Published var isLoading = false
-    @ObservedObject var editVM: EditIdeaVM
     @Published var selectedArray : [String] = []
     
     @Published var selection: String?
@@ -27,9 +26,8 @@ import SwiftUI
         }
     }
     
-    init(editIdeaVM: EditIdeaVM){
-        self.editVM = editIdeaVM
-        selectedArray = editIdeaVM.userIngredients.compactMap{$0.name}
+    init(itemList: [String]){
+        self.itemList = itemList
         getIngredients()
     }
     
@@ -39,6 +37,9 @@ import SwiftUI
             do {
                 let allIngredients = try await NetworkManager.shared.getIngredients()
                 ingredients = allIngredients.sorted {$0.strIngredient < $1.strIngredient}
+                if !itemList.isEmpty{
+                    ingredients = ingredients.filter { itemList.contains($0.strMeasurement)}
+                }
                 self.isLoading = false
             } catch {
                 DispatchQueue.main.async {
@@ -59,19 +60,7 @@ import SwiftUI
             }
         }
     }
-    
-    func checkArray(item: String){
-        if let repeatItem = selectedArray.firstIndex(of: item){
-            editVM.userIngredients.remove(at: repeatItem)
-            print("duplicate item: \(item), removed from array")
-        } else {
-            let newItem = UserIngredient(name: item, measurement: "")
-            editVM.userIngredients.append(newItem)
-            editVM.userIngredients = editVM.userIngredients.sorted{$0.name < $1.name}
-            print("added item: \(item)")
-        }
-        selectedArray = editVM.userIngredients.compactMap{$0.name}
-    }
+
     
 
 }

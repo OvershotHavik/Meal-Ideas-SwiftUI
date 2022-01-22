@@ -85,7 +85,7 @@ struct SpoonView: View {
                                        selection: $query.menuSelection) {EmptyView()}
                         
                         //Bring up ingredient view when selected in the menu
-                        NavigationLink(destination: SingleIngredientListView(vm: IngredientListVM(editIdeaVM: EditIdeaVM(meal: nil))),
+                        NavigationLink(destination: SingleIngredientListView(vm: IngredientListVM(itemList: [])),
                                        tag: QueryType.ingredient,
                                        selection: $query.menuSelection) { EmptyView()}
                         Spacer()

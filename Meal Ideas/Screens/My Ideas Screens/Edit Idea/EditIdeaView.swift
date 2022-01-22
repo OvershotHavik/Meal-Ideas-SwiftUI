@@ -298,7 +298,7 @@ struct IngredientSelectView: View{
     @ObservedObject var vm: EditIdeaVM
     var body: some View{
         
-        NavigationLink(destination: MultiIngredientListView(vm: IngredientListVM(editIdeaVM: vm))) {
+        NavigationLink(destination: MultiIngredientListView(vm: MultiIngredientListVM(editVM: vm))) {
             Text("Select Ingredients")
         }
     }

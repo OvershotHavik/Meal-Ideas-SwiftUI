@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+/*
 // MARK: - Random Query Button
 struct RandomQueryButtonView: View{
     @Binding var getRandomMeals: Bool
@@ -95,3 +95,4 @@ struct QueryButtonModifier: ViewModifier{
             .opacity((query.queryType.rawValue == title.rawValue) ? 1 : 0.5)
     }
 }
+*/
