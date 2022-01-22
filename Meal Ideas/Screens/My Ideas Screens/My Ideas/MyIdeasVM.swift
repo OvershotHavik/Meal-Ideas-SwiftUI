@@ -67,12 +67,11 @@ import CoreData
             if let first = shuffled.first{
                 surpriseMeal = first
                 surpriseMealReady = true
-                meals.insert(first, at: 0)
-                meals = meals.unique()
+                withAnimation(Animation.easeIn.delay(1)){
+                    meals.insert(first, at: 0)
+                    meals = meals.unique()
+                }
             }
-//            meals = allMeals.shuffled()
-//            allResultsShown = true
-//            totalMealCount = meals.count
 
         case .category:
             

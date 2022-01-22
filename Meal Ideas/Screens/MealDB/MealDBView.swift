@@ -119,7 +119,6 @@ struct MealDBView: View {
                 query.getHistory()
                 query.getFavorites()
                 vm.surpriseMeal = nil
-
                 if query.queryType == .category{
                     if query.selected == ""{
                         vm.alertItem = AlertContext.noSelection

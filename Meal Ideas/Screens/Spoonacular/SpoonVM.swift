@@ -5,7 +5,7 @@
 //  Created by Steve Plavetzky on 11/30/21.
 //
 
-import Foundation
+import SwiftUI
 import CoreData
 
 @MainActor final class SpoonVM: BaseVM{
@@ -61,7 +61,11 @@ import CoreData
                     if let first = randomMeals.first{
                         surpriseMeal = first
                         surpriseMealReady = true
-                        meals.insert(first, at: 0)
+                        allResultsShown = false
+                        withAnimation(Animation.easeIn.delay(1)){
+                            meals.insert(first, at: 0)
+                        }
+//                        meals.insert(first, at: 0)
                     }
 //                    meals.append(contentsOf: randomMeals)
                     

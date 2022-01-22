@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import SwiftUI
 
 
 @MainActor final class MealDBVM: BaseVM{
@@ -51,8 +52,10 @@ import CoreData
                     if let first = newMeal.first{
                         surpriseMeal = first
                         surpriseMealReady = true
-                        meals.insert(first, at: 0)
                         allResultsShown = false
+                        withAnimation(Animation.easeIn.delay(1)){
+                            meals.insert(first, at: 0)
+                        }
                     }
                     
                 case .category:
@@ -122,6 +125,11 @@ import CoreData
         }
     }
    
-    
-
+    // MARK: - Add Surprise Meal
+//    func addSurpriseToMeals(){
+//        if let surpriseMeal = surpriseMeal {
+//            meals.insert(surpriseMeal, at: 0)
+//        }
+//        surpriseMeal = nil
+//    }
 }
