@@ -15,11 +15,9 @@ struct SingleIngredientListView: View {
     
     
     var body: some View {
-        VStack{
-            if vm.isLoading{
-                loadingView()
-                    .offset(y: UI.verticalSpacing)
-            }
+//        UITableView.appearance().backgroundColor =  .secondarySystemBackground
+
+        ZStack{
             List(vm.searchResults, selection: $vm.selection){ ingredient in
 
                 let selected = ingredient.strIngredient == vm.selection
@@ -29,6 +27,7 @@ struct SingleIngredientListView: View {
                         dismiss()
                     }
             }
+
             .searchable(text: $vm.searchText)
             .navigationTitle(Titles.oneIngredient.rawValue)
             .alert(item: $vm.alertItem) { alertItem in
@@ -37,11 +36,16 @@ struct SingleIngredientListView: View {
                       dismissButton: alertItem.dismissButton)
             }
 
-//            .onAppear{
-//                query.queryType = .ingredient
-//            }
+            .onAppear {
+//                UITableView.appearance().backgroundColor =  .secondarySystemBackground
+//                UITableViewCell.appearance().backgroundColor = Color.lightBlue
+            }
+            if vm.isLoading{
+                loadingView()
+                    .offset(y: UI.verticalSpacing)
+            }
         }
-
+        .background(Color(uiColor: .secondarySystemBackground))
     }
 }
 /*

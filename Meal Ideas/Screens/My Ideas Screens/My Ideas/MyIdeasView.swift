@@ -158,6 +158,7 @@ struct MyIdeasView: View {
                 }
             })
         }
+        .accentColor(.primary)
     }
     
     

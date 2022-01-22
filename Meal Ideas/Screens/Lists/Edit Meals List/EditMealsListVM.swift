@@ -37,6 +37,14 @@ final class EditMealsListVM: ObservableObject{
         }
     }
     
-    // MARK: - Convert To Favorite
-    
+    // MARK: - Delete Meal
+    func deleteMeal(){
+        if let safeIndexSet = selectedIndexSet{
+            withAnimation {
+                PersistenceController.shared.deleteInList(indexSet: safeIndexSet,
+                                                          entityName: .userMeals)
+                fetchMeals()
+            }
+        }
+    }
 }

@@ -50,6 +50,8 @@ enum Titles: String{
     case oneCategory = "Select One Category"
     case oneIngredient = "Select One Ingredient"
     
+    case myIdeas = "My Ideas"
+    
     case multiCategory = "Select Categories"
     case multiIngredients = "Select Ingredients"
     case multiSides = "Select Sides"

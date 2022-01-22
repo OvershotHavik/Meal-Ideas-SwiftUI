@@ -36,6 +36,7 @@ struct EditIdeaView: View {
                     }
                 
                 MealPhotoButtonView(vm: vm)
+                    .foregroundColor(.blue)
                     .modifier(MealPhotoActionSheet(vm: vm))
                 if mealPhotoLoader.isLoading{
                     loadingView()
@@ -63,6 +64,7 @@ struct EditIdeaView: View {
             
             Section(header: Text("Category")){
                 CategorySelectView(vm: vm)
+                    .foregroundColor(.blue)
                 if !vm.categories.isEmpty{
                     BadgesHStack(title: "Categories",
                                  items: vm.categories,
@@ -75,7 +77,7 @@ struct EditIdeaView: View {
             
             Section(header: Text("Ingredients")){
                 IngredientSelectView(vm: vm)
-                
+                    .foregroundColor(.blue)
                 ForEach($vm.userIngredients) {$ing in
                     HStack{
                         Text(ing.name)
@@ -90,6 +92,7 @@ struct EditIdeaView: View {
             
             Section(header: Text("Sides")){
                 SidesButtonView(vm: vm)
+                    .foregroundColor(.blue)
                 if !vm.sides.isEmpty{
                     BadgesHStack(title: "Possible Sides",
                                  items: vm.sides,
@@ -104,6 +107,7 @@ struct EditIdeaView: View {
             }
             Section(header: Text("Instructions")){
                 MealInstructionsButtonView(vm: vm)
+                    .foregroundColor(.blue)
                     .modifier(MealInstructionsActionSheet(vm: vm))
                 if mealInstructionsLoader.isLoading{
                     loadingView()
@@ -159,7 +163,11 @@ struct EditIdeaView: View {
                 }
             }
         }
-        .navigationTitle(vm.meal?.mealName ?? "Create a Meal")
+        .onAppear{
+//            UITableView.appearance().backgroundColor =  .tertiarySystemBackground
+//            UITableViewCell.appearance().backgroundColor = .secondarySystemBackground
+
+        }
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading:
                                 Button {
@@ -173,6 +181,9 @@ struct EditIdeaView: View {
         }
         )
         .toolbar {
+            ToolbarItem(placement: .principal, content: {
+                Text(vm.meal?.mealName ?? "Create a Meal")
+            })
             ToolbarItemGroup(placement: .keyboard) {
                 HStack{
                     Spacer()

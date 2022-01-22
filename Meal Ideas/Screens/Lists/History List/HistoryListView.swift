@@ -90,7 +90,6 @@ struct HistoryListView: View {
         
         .onAppear {
             vm.filteredHistory(history: query.historyArray)
-            // TODO:  Find out how to fix the list from showing blank cells when deleted via the trash can
         }
     }
     

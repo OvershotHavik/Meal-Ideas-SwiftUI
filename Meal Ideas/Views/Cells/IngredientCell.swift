@@ -17,8 +17,8 @@ struct IngredientCell: View {
         let modifiedMealDB = ingredient.strIngredient.replacingOccurrences(of: " ", with: "%20")
         if let mealDBImages = URL(string: "\(BaseURL.ingredientImage)\(modifiedMealDB).png"){
             ZStack(alignment: .leading){
-//                Color.blue // only applies to the cell, not the list
-                
+//                Color.lightBlue // only applies to the cell, not the list
+//                Color(uiColor: Color.lightBlue)
                 HStack{
                     LoadRemoteImageView(urlString: mealDBImages.absoluteString)
                         .aspectRatio(contentMode: .fit)
@@ -32,7 +32,8 @@ struct IngredientCell: View {
                     }
                 }
             }
-            .background(Color(uiColor: .secondarySystemBackground))
+//            .background(Color(uiColor: .secondarySystemBackground))
+            
         }
     }
 }

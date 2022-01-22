@@ -8,18 +8,18 @@
 import SwiftUI
 
 struct MyIdeasDetailView: View {
-    
     @StateObject var vm : MyIdeasDetailVM
     @EnvironmentObject var query: Query
     
     var body: some View {
         ZStack{
-            vm.backgroundColor
-                .ignoresSafeArea()
-            
+//            vm.backgroundColor
+//                .ignoresSafeArea()
+            BackgroundGradientView()
             VStack{
                 ScrollView{
-                    
+                    Spacer(minLength: 5)
+
                     if let safeData = vm.meal?.mealPhoto{
                         CDPhotoView(photoData: safeData)
                             .modifier(MealPhotoModifier())
@@ -65,10 +65,13 @@ struct MyIdeasDetailView: View {
                 }
                 
                 LinkView(url: vm.meal?.source, title: "Visit Source")
-                    .navigationTitle(vm.meal?.mealName ?? "")
-            }            
-            .padding(.horizontal)
+            }
+            .padding()
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar{
+                ToolbarItem(placement: .principal, content: {
+                    Text(vm.meal?.mealName ?? "")
+                })
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         vm.favorited.toggle()
@@ -81,7 +84,6 @@ struct MyIdeasDetailView: View {
                     
                 }
             }
-            .onAppear(perform: vm.addToHistory)
         }
     }
 }

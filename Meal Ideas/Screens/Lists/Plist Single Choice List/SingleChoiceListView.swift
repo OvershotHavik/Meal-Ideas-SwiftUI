@@ -23,7 +23,8 @@ struct SingleChoiceListView: View {
                             Image(systemName: "checkmark")
                         }
                     }
-                    .background(Color(uiColor: .secondarySystemBackground))
+//                    .background(Color(uiColor: .secondarySystemBackground))
+//                    .background(.clear)
                     .onTapGesture{
                         query.selected = item
                         dismiss()

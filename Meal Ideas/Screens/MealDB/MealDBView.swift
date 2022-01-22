@@ -188,6 +188,7 @@ struct MealDBView: View {
             })
             
         }
+        .accentColor(.primary)
         
     }
     // MARK: - Stop Loading

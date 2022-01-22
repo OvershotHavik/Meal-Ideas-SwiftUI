@@ -16,6 +16,7 @@ final class MyIdeasDetailVM: DetailBaseVM{
         super.init()
         self.favorited = favorited
         self.showingHistory = showingHistory
+        addToHistory()
     }
     // MARK: - Favorite Toggled
     func favoriteToggled(){

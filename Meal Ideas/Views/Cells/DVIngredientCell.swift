@@ -41,9 +41,7 @@ struct DetailViewIngredientCell: View {
             .onAppear{
                 getImage(ingredientName: ingredient)
             }
-            
-        
-            
+
     }
     func getImage(ingredientName: String){
         let modifiedMealDB = ingredientName.replacingOccurrences(of: " ", with: "%20")

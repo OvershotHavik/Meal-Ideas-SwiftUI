@@ -13,10 +13,13 @@ struct SpoonDetailView: View {
     
     var body: some View {
         ZStack{
-            vm.backgroundColor
-                .ignoresSafeArea()
+//            vm.backgroundColor
+//                .ignoresSafeArea()
+            BackgroundGradientView()
             VStack{
                 ScrollView{
+                    Spacer(minLength: 5)
+
                     if vm.isLoading{
                         loadingView()
                     }
@@ -59,19 +62,13 @@ struct SpoonDetailView: View {
                     RecipeView(recipe: vm.instructions)
                 }
                 LinkView(url: vm.meal?.sourceUrl, title: "Visit Source")
-                    .navigationTitle(vm.meal?.title ?? "")
-                
+               
             }
-            
-            
-            .padding(.horizontal)
-            
-            .alert(item: $vm.alertItem) { alertItem in
-                Alert(title: alertItem.title,
-                      message: alertItem.message,
-                      dismissButton: .default(Text("OK")))
-            }
+            .padding()
             .toolbar{
+                ToolbarItem(placement: .principal, content: {
+                    Text(vm.meal?.title ?? "")
+                })
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         vm.favorited.toggle()
@@ -84,8 +81,13 @@ struct SpoonDetailView: View {
                     
                 }
             }
+            .alert(item: $vm.alertItem) { alertItem in
+                Alert(title: alertItem.title,
+                      message: alertItem.message,
+                      dismissButton: .default(Text("OK")))
+            }
+//            .onAppear(perform: vm.addToHistory)
         }
-        
     }
 }
 

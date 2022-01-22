@@ -27,13 +27,13 @@ struct EditMealsListView: View {
                     vm.selectedIndexSet = IndexSet
                 }
             }
-            .listStyle(PlainListStyle())
             .searchable(text: $vm.searchText)
         }
-        
-        .navigationTitle("Edit Your Ideas")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            ToolbarItem(placement: .principal, content: {
+                Text(Titles.myIdeas.rawValue)
+            })
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink(destination: EditIdeaView(vm: EditIdeaVM(meal: nil))) {
                     Image(systemName: "plus")
@@ -43,25 +43,23 @@ struct EditMealsListView: View {
                 }
             }
         }
-        .onAppear(perform: vm.fetchMeals)
+        .onAppear{
+            vm.fetchMeals()
+//            UITableView.appearance().backgroundColor =  .secondarySystemBackground
+//            UITableViewCell.appearance().backgroundColor = .secondarySystemBackground
+
+        }
         // MARK: - Delete Alert
         .alert("Delete Meal", isPresented: $vm.showingDeleteAlert) {
-            Button("Delete", role: .destructive, action: deleteMeal)
+            Button("Delete", role: .destructive, action: vm.deleteMeal)
             Button("Cancel", role: .cancel) { }
         } message: {
             Text("Are you sure you want to delete the meal?")
         }
+        
     }
     
-    func deleteMeal(){
-        if let safeIndexSet = vm.selectedIndexSet{
-            withAnimation {
-                PersistenceController.shared.deleteInList(indexSet: safeIndexSet,
-                                                          entityName: .userMeals)
-                vm.fetchMeals()
-            }
-        }
-    }
+
     
 }
 

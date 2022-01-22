@@ -12,10 +12,13 @@ struct MealDBDetailView: View {
     @EnvironmentObject var query: Query
     var body: some View {
         ZStack{
-            vm.backgroundColor
-                .ignoresSafeArea()
+//            vm.backgroundColor
+//                .ignoresSafeArea()
+            BackgroundGradientView()
             VStack{
                 ScrollView{
+                    Spacer(minLength: 5)
+
                     if vm.isLoading{
                         loadingView()
                     }
@@ -40,10 +43,14 @@ struct MealDBDetailView: View {
                 }
                 
                 LinkView(url: vm.meal?.strSource ?? "", title: "Visit Source")
-                    .navigationTitle(vm.meal?.strMeal ?? "")
             }
-            .padding(.horizontal)
+//            .padding(.horizontal)
+            .padding()
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar{
+                ToolbarItem(placement: .principal, content: {
+                    Text(vm.meal?.strMeal ?? "")
+                })
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         vm.favorited.toggle()
