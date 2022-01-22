@@ -80,7 +80,7 @@ struct SpoonView: View {
                                        isActive: $vm.surpriseMealReady) {EmptyView()}
                         
                         //Bring up category view when selected in the menu
-                        NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: .spoonCategories), title: .oneCategory),
+                        NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: .spoonCategories, listItems: []), title: .oneCategory),
                                        tag: QueryType.category,
                                        selection: $query.menuSelection) {EmptyView()}
                         

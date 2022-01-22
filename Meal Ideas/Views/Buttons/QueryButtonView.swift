@@ -36,7 +36,7 @@ struct CategoryQueryButtonView: View{
     @EnvironmentObject var query: Query
     var body: some View{
         
-        NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: .categories), title: .oneCategory)) {
+        NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: .categories, listItems: []), title: .oneCategory)) {
             VStack(spacing: 5){
                 if query.queryType == .category{
                     if let safeSelected = query.selected{

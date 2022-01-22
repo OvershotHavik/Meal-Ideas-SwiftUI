@@ -15,15 +15,37 @@ import CoreData
     @Published var allMeals : [UserMeals] = []
     @Published var source: Source = .myIdeas
     @Published var surpriseMeal : UserMeals?
+    @Published var userCategories : [String] = []
+    @Published var userIngredients: [String] = []
     
     // TODO:  Add a category verification to user meals so that the category list only shows what the user has created meals for
+    // TODO:  Add
 
+    init(){
+        super.init(sourceCategory: .categories)
+        getAllMeals()
+    }
 // MARK: - get All Meals
     func getAllMeals(){
         //used to get all meals, runs on on appear of the view, and if all meals changes, goes through check query
         let request = NSFetchRequest<UserMeals>(entityName: "UserMeals")
         do {
             allMeals = try pc.container.viewContext.fetch(request)
+
+            for meal in allMeals{
+                userCategories.append(contentsOf: meal.category as? [String] ?? [])
+                userIngredients.append(contentsOf: meal.ingredients as? [String] ?? [])
+            }
+            
+            userCategories = userCategories.unique()
+            userIngredients = userIngredients.unique()
+            print(userCategories)
+            print(userIngredients)
+
+             // works, but it's still an array of arrays, need to pull that out and into it's own array
+            
+//            userCategories.compactMap({$0})
+//            sourceCategories = userCategories
 //            print("Meals Fetched")
         } catch let error {
             print("error fetching: \(error.localizedDescription)")

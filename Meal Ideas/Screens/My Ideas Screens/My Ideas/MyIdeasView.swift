@@ -60,7 +60,7 @@ struct MyIdeasView: View {
                                        isActive: $vm.getRandomMeals) {EmptyView()}
 
                         //Bring up category view when selected in the menu
-                        NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: .categories), title: .oneCategory),
+                        NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: nil, listItems: vm.userCategories), title: .oneCategory),
                                        tag: QueryType.category,
                                        selection: $query.menuSelection) {EmptyView()}
 
