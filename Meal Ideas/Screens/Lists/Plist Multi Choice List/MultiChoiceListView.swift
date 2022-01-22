@@ -17,6 +17,7 @@ struct MultiChoiceListView: View {
         List(vm.searchResults, id: \.self) {item in
             HStack {
                 Text(item)
+                    .background(Color(uiColor: .secondarySystemBackground))
                 Spacer()
                 if vm.selectedArray.contains(item){
                     Image(systemName: "checkmark")

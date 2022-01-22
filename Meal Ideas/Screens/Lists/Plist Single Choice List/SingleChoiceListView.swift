@@ -23,15 +23,16 @@ struct SingleChoiceListView: View {
                             Image(systemName: "checkmark")
                         }
                     }
+                    .background(Color(uiColor: .secondarySystemBackground))
                     .onTapGesture{
                         query.selected = item
                         dismiss()
                     }
                 }
             }
-            .onAppear{
-                query.queryType = .category
-            }
+//            .onAppear{
+//                query.queryType = .category
+//            }
             .searchable(text: $vm.searchText)
             .navigationTitle(title.rawValue)
             .navigationBarTitleDisplayMode(.inline)

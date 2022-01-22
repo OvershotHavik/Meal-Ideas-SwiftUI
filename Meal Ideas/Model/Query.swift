@@ -42,6 +42,8 @@ final class Query: ObservableObject{
     @Published var selected = ""
     @Published var menuSelection: QueryType?
     
+    
+    
     // MARK: - Get Favorites
     func getFavorites(){
         let request = NSFetchRequest<Favorites>(entityName: EntityName.favorites.rawValue)
