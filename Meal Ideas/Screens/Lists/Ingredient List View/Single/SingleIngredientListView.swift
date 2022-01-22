@@ -37,9 +37,9 @@ struct SingleIngredientListView: View {
                       dismissButton: alertItem.dismissButton)
             }
 
-            .onAppear{
-                query.queryType = .ingredient
-            }
+//            .onAppear{
+//                query.queryType = .ingredient
+//            }
         }
 
     }

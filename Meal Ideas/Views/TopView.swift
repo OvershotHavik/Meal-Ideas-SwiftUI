@@ -37,6 +37,7 @@ struct TopView: View{
             Menu{
                 Button {
                     query.menuSelection = .category
+                    query.queryType = .category
                     print("category selected")
                 } label: {
                     if query.queryType == .category{
@@ -48,6 +49,7 @@ struct TopView: View{
                 
                 Button {
                     query.menuSelection = .ingredient
+                    query.queryType = .ingredient
                     print("Ingredient selected")
                 } label: {
                     if query.queryType == .ingredient{

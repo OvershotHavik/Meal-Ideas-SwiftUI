@@ -16,6 +16,7 @@ import CoreData
     @Published var source: Source = .myIdeas
     @Published var surpriseMeal : UserMeals?
     
+    // TODO:  Add a category verification to user meals so that the category list only shows what the user has created meals for
 
 // MARK: - get All Meals
     func getAllMeals(){

@@ -21,12 +21,17 @@ class BaseVM: ObservableObject{
     @Published var totalMealCount = 0
     @Published var showWelcome = true
     @Published var surpriseMealReady = false
+    @Published var sourceCategories: [String] = []
+    @Published var sourceCategory: PList
     //For scroll views
     @Published var scrollViewContentOffset = CGFloat(0)
     @Published var largestY = CGFloat(0)
     @Published var showTopView = true
 
-
+    init(sourceCategory: PList){
+        self.sourceCategory = sourceCategory
+        fetchPlist(plist: sourceCategory)
+    }
     
     // MARK: - Reset Values
     func resetValues(){
@@ -66,6 +71,23 @@ class BaseVM: ObservableObject{
 //        print("offset value: \(scrollViewContentOffset)")
     }
     
+    // MARK: - Fetch Plsit for category verification
+    func fetchPlist(plist: PList){
+        if sourceCategories.isEmpty{
+            PListManager.loadItemsFromLocalPlist(XcodePlist: plist,
+                                                 classToDecodeTo: [NewItem].self,
+                                                 completionHandler: { [weak self] result in
+                if let self = self {
+                    switch result {
+                    case .success(let itemArray):
+                        self.sourceCategories = itemArray.map{$0.itemName}
+                    case .failure(let e): print(e)
+                    }
+                }
+            })
+        }
+    }
+
 }
 
 

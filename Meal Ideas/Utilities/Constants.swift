@@ -27,16 +27,9 @@ class UI{
 }
 enum PList: String{
     case categories = "Categories"
-    case mealDBFavorites = "MealDBFavorites"
-    case spoonFavorites = "SpoonFavorites"
-    case userFavorites = "UserFavorites"
-    case mealDBHistory = "MealDBHistory"
-    case spoonHistory = "SpoonHistory"
-    case userHistory = "UserHistory"
-    case userSides = "UserSides"
-    case userIngredients = "UserIngredients"
+    case spoonCategories = "SpoonCategories"
+    case mealDBCategories = "MealDBCategories"
     case sides = "Sides"
-    case userCat = "UserCategories"
 }
 
 enum EntityName: String{
@@ -83,7 +76,7 @@ final class BaseURL{
     static let mealDBIngredient = APIKey.mealDB + "filter.php?i="
     static let mealDBKeyword = APIKey.mealDB + "search.php?s="
     
-    static let spoonComplexBase = "https://api.spoonacular.com/recipes/complexSearch?" + APIKey.spoon + "&number=10&addRecipeInformation=true&fillIngredients=true&"
+    static let spoonComplexBase = "https://api.spoonacular.com/recipes/complexSearch?" + APIKey.spoon + "&number=15&addRecipeInformation=true&fillIngredients=true&"
     
     static let spoonRandom = "https://api.spoonacular.com/recipes/random?number=1" + APIKey.spoon
 

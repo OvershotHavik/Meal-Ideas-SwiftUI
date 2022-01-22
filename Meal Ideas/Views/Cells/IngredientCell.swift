@@ -32,6 +32,7 @@ struct IngredientCell: View {
                     }
                 }
             }
+            .background(Color(uiColor: .secondarySystemBackground))
         }
     }
 }
