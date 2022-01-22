@@ -68,6 +68,7 @@
 		B3BC34C02799F227000F7677 /* TrackableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BC34BF2799F226000F7677 /* TrackableScrollView.swift */; };
 		B3BC34C2279C4643000F7677 /* SpoonCategories.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3BC34C1279C4642000F7677 /* SpoonCategories.plist */; };
 		B3BC34C4279C4894000F7677 /* MealDBCategories.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3BC34C3279C4894000F7677 /* MealDBCategories.plist */; };
+		B3C7EB7E279C795100BB7519 /* MultiIngredientListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C7EB7D279C795100BB7519 /* MultiIngredientListVM.swift */; };
 		B3CA2341274808CA00CA9C68 /* Meal_IdeasApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CA2340274808CA00CA9C68 /* Meal_IdeasApp.swift */; };
 		B3CA2343274808CA00CA9C68 /* CoreDataExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CA2342274808CA00CA9C68 /* CoreDataExample.swift */; };
 		B3CA2345274808D600CA9C68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3CA2344274808D600CA9C68 /* Assets.xcassets */; };
@@ -184,6 +185,7 @@
 		B3BC34BF2799F226000F7677 /* TrackableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackableScrollView.swift; sourceTree = "<group>"; };
 		B3BC34C1279C4642000F7677 /* SpoonCategories.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = SpoonCategories.plist; sourceTree = "<group>"; };
 		B3BC34C3279C4894000F7677 /* MealDBCategories.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = MealDBCategories.plist; sourceTree = "<group>"; };
+		B3C7EB7D279C795100BB7519 /* MultiIngredientListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiIngredientListVM.swift; sourceTree = "<group>"; };
 		B3CA233D274808CA00CA9C68 /* Meal Ideas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Meal Ideas.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3CA2340274808CA00CA9C68 /* Meal_IdeasApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal_IdeasApp.swift; sourceTree = "<group>"; };
 		B3CA2342274808CA00CA9C68 /* CoreDataExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataExample.swift; sourceTree = "<group>"; };
@@ -438,6 +440,7 @@
 			isa = PBXGroup;
 			children = (
 				B375C99227629F140013895F /* MultiIngredientListView.swift */,
+				B3C7EB7D279C795100BB7519 /* MultiIngredientListVM.swift */,
 			);
 			path = Multiple;
 			sourceTree = "<group>";
@@ -874,6 +877,7 @@
 				B3CEDDA62756FC7700BB832B /* IngredientCell.swift in Sources */,
 				B3BC34B827989840000F7677 /* AsyncImageLoader.swift in Sources */,
 				B3D32CD8277FAA0E00FA4ACA /* BackgroundGradientView.swift in Sources */,
+				B3C7EB7E279C795100BB7519 /* MultiIngredientListVM.swift in Sources */,
 				B3606DAB274D5E4A00E61972 /* MyIdeasDetailView.swift in Sources */,
 				B374E7E22787839D00422E9C /* BaseVM.swift in Sources */,
 				B3CEDDAA2756FCE700BB832B /* IngredientListVM.swift in Sources */,

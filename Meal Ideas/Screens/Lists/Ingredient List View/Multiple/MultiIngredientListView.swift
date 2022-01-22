@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MultiIngredientListView: View {
-    @StateObject var vm: IngredientListVM
+    @StateObject var vm: MultiIngredientListVM
     @EnvironmentObject var query: Query
     @Environment(\.dismiss) var dismiss
 
