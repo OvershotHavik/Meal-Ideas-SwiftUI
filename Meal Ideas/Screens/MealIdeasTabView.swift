@@ -12,15 +12,15 @@ struct MealIdeasTabView: View {
     
     var body: some View {
         TabView{
-            MyIdeasView(vm: MyIdeasVM())
+            MyIdeasView(vm: MyIdeasVM(sourceCategory: .categories))
                 .tabItem {
                     Label("My Ideas", systemImage: "person")
                 }
-            MealDBView(vm: MealDBVM())
+            MealDBView(vm: MealDBVM(sourceCategory: .mealDBCategories))
                 .tabItem {
                     Label("The Meal DB", systemImage: "fork.knife.circle.fill")
                 }
-            SpoonView(vm: SpoonVM())
+            SpoonView(vm: SpoonVM(sourceCategory: .spoonCategories))
                 .tabItem {
                     Label("Spoonacular", systemImage: "fork.knife.circle.fill")
                 }
