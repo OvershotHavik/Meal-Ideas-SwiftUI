@@ -62,7 +62,7 @@ struct MealDBView: View {
                                        isActive: $vm.surpriseMealReady) {EmptyView()}
                         
                         //Bring up category view when selected in the menu
-                        NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: .categories), title: .oneCategory),
+                        NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: .mealDBCategories), title: .oneCategory),
                                        tag: QueryType.category,
                                        selection: $query.menuSelection) {EmptyView()}
                         
@@ -116,9 +116,23 @@ struct MealDBView: View {
 
             
             .onAppear{
-                vm.surpriseMeal = nil
                 query.getHistory()
                 query.getFavorites()
+                vm.surpriseMeal = nil
+
+                if query.queryType == .category{
+                    if query.selected == ""{
+                        vm.alertItem = AlertContext.noSelection
+                        return
+                    }
+                    if !vm.sourceCategories.contains(query.selected){
+                        //If the user selected a category that isn't supported, return with the error
+                        vm.resetValues()
+                        vm.meals = []
+                        vm.alertItem = AlertContext.invalidData
+                        return
+                    }
+                }
                 
                 if query.queryType == vm.originalQueryType && query.selected == vm.originalQuery{
                     //nothing changed, don't do anything
@@ -186,7 +200,7 @@ struct MealDBView: View {
 // MARK: - Preview
 struct MealDBView_Previews: PreviewProvider {
     static var previews: some View {
-        MealDBView(vm: MealDBVM())
+        MealDBView(vm: MealDBVM(sourceCategory: .mealDBCategories))
     }
 }
 

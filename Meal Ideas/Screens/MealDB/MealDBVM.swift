@@ -14,7 +14,7 @@ import CoreData
     @Published var meals : [MealDBResults.Meal] = []
     @Published var source: Source = .mealDB
     @Published var surpriseMeal: MealDBResults.Meal?
-    
+
     // MARK: - CheckQuery
     func checkQuery(query: String, queryType: QueryType){
         print("MealDB Query: \(query), queryType: \(queryType.rawValue)")
@@ -52,6 +52,7 @@ import CoreData
                         surpriseMeal = first
                         surpriseMealReady = true
                         meals.insert(first, at: 0)
+                        allResultsShown = false
                     }
                     
                 case .category:
@@ -121,4 +122,6 @@ import CoreData
         }
     }
    
+    
+
 }
