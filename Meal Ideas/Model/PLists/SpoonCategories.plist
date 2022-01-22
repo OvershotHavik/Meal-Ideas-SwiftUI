@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+   SpoonCategories.plist
+   Meal Ideas
+
+   Created by Steve Plavetzky on 1/22/22.
+   Copyright (c) 2022 ___ORGANIZATIONNAME___. All rights reserved.
+-->
+<plist version="1.0">
+<array>
+    <dict><key>itemName</key><string>Appetizer</string></dict>
+    <dict><key>itemName</key><string>Beverage</string></dict>
+    <dict><key>itemName</key><string>Bread</string></dict>
+    <dict><key>itemName</key><string>Breakfast</string></dict>
+    <dict><key>itemName</key><string>Dessert</string></dict>
+    <dict><key>itemName</key><string>Drink</string></dict>
+    <dict><key>itemName</key><string>Fingerfood</string></dict>
+    <dict><key>itemName</key><string>Main Course</string></dict>
+    <dict><key>itemName</key><string>Marinade</string></dict>
+    <dict><key>itemName</key><string>Salad</string></dict>
+    <dict><key>itemName</key><string>Sauce</string></dict>
+    <dict><key>itemName</key><string>Side Dish</string></dict>
+    <dict><key>itemName</key><string>Snack</string></dict>
+    <dict><key>itemName</key><string>Soup</string></dict>
+</array>
+</plist>
+
+

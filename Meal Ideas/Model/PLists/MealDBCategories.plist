@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+   MealDBCategories.plist
+   Meal Ideas
+
+   Created by Steve Plavetzky on 1/22/22.
+   Copyright (c) 2022 ___ORGANIZATIONNAME___. All rights reserved.
+-->
+<plist version="1.0">
+<array>
+    <dict><key>itemName</key><string>Beef</string></dict>
+    <dict><key>itemName</key><string>Breakfast</string></dict>
+    <dict><key>itemName</key><string>Chicken</string></dict>
+    <dict><key>itemName</key><string>Dessert</string></dict>
+    <dict><key>itemName</key><string>Goat</string></dict>
+    <dict><key>itemName</key><string>Lamb</string></dict>
+    <dict><key>itemName</key><string>Miscellaneous</string></dict>
+    <dict><key>itemName</key><string>Pasta</string></dict>
+    <dict><key>itemName</key><string>Pork</string></dict>
+    <dict><key>itemName</key><string>Seafood</string></dict>
+    <dict><key>itemName</key><string>Side Dish</string></dict>
+    <dict><key>itemName</key><string>Starter</string></dict>
+    <dict><key>itemName</key><string>Vegan</string></dict>
+    <dict><key>itemName</key><string>Vegetarian</string></dict>
+</array>
+</plist>
