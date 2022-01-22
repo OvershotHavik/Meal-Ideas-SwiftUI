@@ -29,12 +29,13 @@ struct SpoonView: View {
                         
                         VStack(spacing: 10){
                             if vm.totalMealCount != 0{
-                                Text("Meals found: \(vm.totalMealCount)") // total meals for the complex search on the server
-                            } else {
-                                if vm.meals.count != 0{
-                                    Text("Meals shown: \(vm.meals.count)") // total meals that have loaded
+                                if vm.moreToShow == true{
+                                    //Only show when there are more available. Sometimes the total count is showing 1,000's but only brings back less than 10
+                                    Text("Total Meals found: \(vm.totalMealCount)") // total meals for the complex search on the server
                                 }
-                                
+                            }
+                            if vm.meals.count != 0{
+                                Text("Meals shown: \(vm.meals.count)") // total meals that have loaded
                             }
                             LazyVGrid(columns: columns, alignment: .center) {
                                 ForEach(vm.meals.indices, id: \.self) { mealIndex in
@@ -53,9 +54,14 @@ struct SpoonView: View {
                                     }
                                                                                                   .foregroundColor(.primary)
                                                                                                   .onAppear{
-                                                                                                      if vm.moreToShow{
+                                                                                                      print("mealIndex: \(mealIndex)")
+                                                                                                      
+                                                                                                      //                                                                                                      if vm.moreToShow{
+                                                                                                      if query.queryType != .random && vm.moreToShow{
                                                                                                           if mealIndex == vm.meals.count - 1 {
+                                                                                                              print("check query called")
                                                                                                               vm.checkQuery(query: query.selected, queryType: query.queryType)
+                                                                                                              //                                                                                                          }
                                                                                                           }
                                                                                                       }
                                                                                                       
@@ -74,7 +80,7 @@ struct SpoonView: View {
                                        isActive: $vm.surpriseMealReady) {EmptyView()}
                         
                         //Bring up category view when selected in the menu
-                        NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: .categories), title: .oneCategory),
+                        NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: .spoonCategories), title: .oneCategory),
                                        tag: QueryType.category,
                                        selection: $query.menuSelection) {EmptyView()}
                         
@@ -125,6 +131,20 @@ struct SpoonView: View {
                 query.getHistory()
                 query.getFavorites()
                 vm.surpriseMeal = nil
+                if query.queryType == .category{
+                    if query.selected == ""{
+                        vm.alertItem = AlertContext.noSelection
+                        return
+                    }
+                    if !vm.sourceCategories.contains(query.selected){
+                        //If the user selected a category that isn't supported, return with the error
+                        vm.resetValues()
+                        vm.meals = []
+                        vm.alertItem = AlertContext.invalidData
+                        return
+                    }
+                }
+
 
                 if query.queryType == vm.originalQueryType && query.selected == vm.originalQuery{
                     //nothing changed, don't do anything
@@ -188,10 +208,12 @@ struct SpoonView: View {
     }
     
 }
+
 // MARK: - Preview
 struct SpoonView_Previews: PreviewProvider {
     static var previews: some View {
-        SpoonView(vm: SpoonVM())
+        SpoonView(vm: SpoonVM(sourceCategory: .spoonCategories))
     }
 }
+
 

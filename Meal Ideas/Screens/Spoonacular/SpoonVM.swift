@@ -15,16 +15,6 @@ import CoreData
     @Published var source: Source = .spoonacular
     @Published var surpriseMeal: SpoonacularResults.Recipe?
     
-    // MARK: - Get Random Meals
-//    func getRandomMeals(){
-//        if isLoading == true {
-//            return
-//        }
-//        getRandomMeals = false
-//        meals = []
-//        getSpoonMeals(query: "", queryType: .random)
-//    }
-    
     // MARK: - Check Query
     func checkQuery(query: String, queryType: QueryType){
         print("Spoon query: \(query) Type: \(queryType.rawValue)")
@@ -229,4 +219,32 @@ import CoreData
             return false
         }
     }
+    
+    // MARK: - Fetch Plsit for category verification
+//    func fetchPlist(plist: PList){
+//        if sourceCategories.isEmpty{
+//            PListManager.loadItemsFromLocalPlist(XcodePlist: plist,
+//                                                 classToDecodeTo: [NewItem].self,
+//                                                 completionHandler: { [weak self] result in
+//                if let self = self {
+//                    switch result {
+//                    case .success(let itemArray):
+//                        self.sourceCategories = itemArray.map{$0.itemName}
+//                    case .failure(let e): print(e)
+//                    }
+//                }
+//            })
+//        }
+//    }
 }
+//@objc private func post(_ sender: UIButton) {
+//    Task {
+//        // defer { dismiss(animated: true) } -- Doesn't work
+//        defer { Task { await dismiss(animated: true) } }
+//        do {
+//            try await doSomethingAsync()
+//        } catch {
+//            print(error)
+//        }
+//    }
+//}
