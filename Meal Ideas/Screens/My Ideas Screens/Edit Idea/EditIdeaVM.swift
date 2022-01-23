@@ -17,7 +17,7 @@ enum ImagePickerSelection: Identifiable {
 }
 
 final class EditIdeaVM: ObservableObject{
-
+    
     @Published var allMeals: [UserMeals] = []
     @Published var meal : UserMeals?
     @Published var alertItem: AlertItem?
@@ -28,6 +28,7 @@ final class EditIdeaVM: ObservableObject{
     @Published var isMIActionSheetPresented = false
     @Published var showingDeleteAlert = false
     @Published var showingBackAlert = false
+    @Published var isLoading = false
     
     // MARK: - For Image Picker
     @Published var isShowPhotoLibrary = false

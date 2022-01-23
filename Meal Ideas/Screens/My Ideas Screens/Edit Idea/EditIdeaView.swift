@@ -21,148 +21,154 @@ struct EditIdeaView: View {
     @FocusState private var focusedTextField: FormTextField?
     
     var body: some View {
-        Form{
-            Section(header: Text("Meal Information")) {
-                TextField(vm.meal?.mealName ?? "Meal Name*", text: $vm.mealName)
-                    .textFieldStyle(CustomRoundedCornerTextField())
-                    .overlay{
-                        Rectangle().frame(height: 2).padding(.top, 35)
-                            .foregroundColor(vm.mealName == "" ? Color.red : Color.clear)
+        ZStack{
+            Form{
+                Section(header: Text("Meal Information")) {
+                    TextField(vm.meal?.mealName ?? "Meal Name*", text: $vm.mealName)
+                        .textFieldStyle(CustomRoundedCornerTextField())
+                        .overlay{
+                            Rectangle().frame(height: 2).padding(.top, 35)
+                                .foregroundColor(vm.mealName == "" ? Color.red : Color.clear)
+                        }
+                        .font(.title)
+                        .focused($focusedTextField, equals: .mealName)
+                        .onSubmit {
+                            vm.checkNameAlreadyInUse()
+                        }
+                    
+                    MealPhotoButtonView(vm: vm)
+                        .foregroundColor(.blue)
+                        .modifier(MealPhotoActionSheet(vm: vm))
+                    if mealPhotoLoader.isLoading{
+                        loadingView()
+                            .frame(width: 100)
                     }
-                    .font(.title)
-                    .focused($focusedTextField, equals: .mealName)
-                    .onSubmit {
-                        vm.checkNameAlreadyInUse()
-                    }
-                
-                MealPhotoButtonView(vm: vm)
-                    .foregroundColor(.blue)
-                    .modifier(MealPhotoActionSheet(vm: vm))
-                if mealPhotoLoader.isLoading{
-                    loadingView()
-                        .frame(width: 100)
-                }
-                if vm.mealPhoto != UIImage(){
-                    if let safeImage = vm.mealPhoto{
-                        HStack{
-                            Image(uiImage: safeImage)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                            
-                            Button {
-                                vm.mealPhoto = UIImage()
-                            } label: {
-                                Text("Remove Photo")
+                    if vm.mealPhoto != UIImage(){
+                        if let safeImage = vm.mealPhoto{
+                            HStack{
+                                Image(uiImage: safeImage)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                
+                                Button {
+                                    vm.mealPhoto = UIImage()
+                                } label: {
+                                    Text("Remove Photo")
+                                }
+                                .buttonStyle(.bordered)
+                                .accentColor(.red)
                             }
-                            .buttonStyle(.bordered)
-                            .accentColor(.red)
+                        }
+                    }
+                    
+                }
+                
+                Section(header: Text("Category")){
+                    CategorySelectView(vm: vm)
+                        .foregroundColor(.blue)
+                    if !vm.categories.isEmpty{
+                        BadgesHStack(title: "Categories",
+                                     items: vm.categories,
+                                     topColor: .blue,
+                                     bottomColor: .blue)
+                    }
+                }
+
+                
+                
+                Section(header: Text("Ingredients")){
+                    IngredientSelectView(vm: vm)
+                        .foregroundColor(.blue)
+                    ForEach($vm.userIngredients) {$ing in
+                        HStack{
+                            Text(ing.name)
+                            Spacer()
+                            TextField("Measurement", text: $ing.measurement)
+                                .textFieldStyle(CustomRoundedCornerTextField())
+                                .frame(width: 150)
+                        }
+                    }
+                    .onDelete(perform: vm.deleteIngredient)
+                }
+                
+                Section(header: Text("Sides")){
+                    SidesButtonView(vm: vm)
+                        .foregroundColor(.blue)
+                    if !vm.sides.isEmpty{
+                        BadgesHStack(title: "Possible Sides",
+                                     items: vm.sides,
+                                     topColor: .green,
+                                     bottomColor: .green)
+                    }
+                }
+                
+                
+                Section(header: Text("Prep Time")){
+                    PrepTimePickerView(vm: vm)
+                }
+                Section(header: Text("Instructions")){
+                    MealInstructionsButtonView(vm: vm)
+                        .foregroundColor(.blue)
+                        .modifier(MealInstructionsActionSheet(vm: vm))
+                    if mealInstructionsLoader.isLoading{
+                        loadingView()
+                            .frame(width: 100)
+                    }
+                    if vm.instructionsPhoto != UIImage(){
+                        if let safeImage = vm.instructionsPhoto{
+                            HStack{
+                                Image(uiImage: safeImage)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 100)
+                                Button {
+                                    vm.instructionsPhoto = UIImage()
+                                } label: {
+                                    Text("Remove Photo")
+                                }
+                                .buttonStyle(.bordered)
+                                .accentColor(.red)
+                            }
+                        }
+                    }
+                    Text("And/Or type in below:")
+                    TextEditor(text: $vm.recipe)
+                        .background(RoundedRectangle(cornerRadius: 10)
+                                        .fill(Color(.systemGray3)))
+                        .frame(height: 150)
+                }
+                Section(header: Text("Source")){
+                    TextField("Website", text: $vm.source)
+                        .textFieldStyle(CustomRoundedCornerTextField())
+                }
+
+                
+                // MARK: - Save Button
+                SaveButtonView(vm: vm)
+                    .listRowBackground(Color.green)
+                
+                if vm.meal != nil{
+                    //Only show and add space if the meal was passed in
+                    Spacer(minLength: 5)
+                    DeleteButtonView(vm: vm, showingDeleteAlert: $vm.showingDeleteAlert)
+                        .listRowBackground(Color.red)
+                }
+                if vm.meal != nil{
+                    Section(header: Text("Modified Dates")){
+                        if let safeModified = vm.meal?.modified{
+                            Text("Last Modified on: \(vm.convertDate(date:safeModified))")
+                        }
+                        if let safeCreated = vm.meal?.created{
+                            Text("Created on: \(vm.convertDate(date: safeCreated))")
                         }
                     }
                 }
-                
-            }
             
-            Section(header: Text("Category")){
-                CategorySelectView(vm: vm)
-                    .foregroundColor(.blue)
-                if !vm.categories.isEmpty{
-                    BadgesHStack(title: "Categories",
-                                 items: vm.categories,
-                                 topColor: .blue,
-                                 bottomColor: .blue)
-                }
-            }
-
-            
-            
-            Section(header: Text("Ingredients")){
-                IngredientSelectView(vm: vm)
-                    .foregroundColor(.blue)
-                ForEach($vm.userIngredients) {$ing in
-                    HStack{
-                        Text(ing.name)
-                        Spacer()
-                        TextField("Measurement", text: $ing.measurement)
-                            .textFieldStyle(CustomRoundedCornerTextField())
-                            .frame(width: 150)
-                    }
-                }
-                .onDelete(perform: vm.deleteIngredient)
-            }
-            
-            Section(header: Text("Sides")){
-                SidesButtonView(vm: vm)
-                    .foregroundColor(.blue)
-                if !vm.sides.isEmpty{
-                    BadgesHStack(title: "Possible Sides",
-                                 items: vm.sides,
-                                 topColor: .green,
-                                 bottomColor: .green)
-                }
-            }
-            
-            
-            Section(header: Text("Prep Time")){
-                PrepTimePickerView(vm: vm)
-            }
-            Section(header: Text("Instructions")){
-                MealInstructionsButtonView(vm: vm)
-                    .foregroundColor(.blue)
-                    .modifier(MealInstructionsActionSheet(vm: vm))
-                if mealInstructionsLoader.isLoading{
-                    loadingView()
-                        .frame(width: 100)
-                }
-                if vm.instructionsPhoto != UIImage(){
-                    if let safeImage = vm.instructionsPhoto{
-                        HStack{
-                            Image(uiImage: safeImage)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 100)
-                            Button {
-                                vm.instructionsPhoto = UIImage()
-                            } label: {
-                                Text("Remove Photo")
-                            }
-                            .buttonStyle(.bordered)
-                            .accentColor(.red)
-                        }
-                    }
-                }
-                Text("And/Or type in below:")
-                TextEditor(text: $vm.recipe)
-                    .background(RoundedRectangle(cornerRadius: 10)
-                                    .fill(Color(.systemGray3)))
-                    .frame(height: 150)
-            }
-            Section(header: Text("Source")){
-                TextField("Website", text: $vm.source)
-                    .textFieldStyle(CustomRoundedCornerTextField())
-            }
-
-            
-            // MARK: - Save Button
-            SaveButtonView(vm: vm)
-                .listRowBackground(Color.green)
-            
-            if vm.meal != nil{
-                //Only show and add space if the meal was passed in
-                Spacer(minLength: 5)
-                DeleteButtonView(vm: vm, showingDeleteAlert: $vm.showingDeleteAlert)
-                    .listRowBackground(Color.red)
-            }
-            if vm.meal != nil{
-                Section(header: Text("Modified Dates")){
-                    if let safeModified = vm.meal?.modified{
-                        Text("Last Modified on: \(vm.convertDate(date:safeModified))")
-                    }
-                    if let safeCreated = vm.meal?.created{
-                        Text("Created on: \(vm.convertDate(date: safeCreated))")
-                    }
-                }
-            }
         }
+            if vm.isLoading{
+                loadingView()
+            }
+}
         .onAppear{
 //            UITableView.appearance().backgroundColor =  .tertiarySystemBackground
 //            UITableViewCell.appearance().backgroundColor = .secondarySystemBackground
@@ -256,9 +262,11 @@ struct EditIdeaView: View {
                 switch safeSelection{
                 case .mealPhoto:
                     ImagePicker(selectedImage: $vm.mealPhoto,
+                                isLoading: $vm.isLoading,
                                 sourceType: vm.imageSource)
                 case .instructions:
                     ImagePicker(selectedImage: $vm.instructionsPhoto,
+                                isLoading: $vm.isLoading,
                                 sourceType: vm.imageSource)
                 }
             }
@@ -378,6 +386,7 @@ struct MealPhotoActionSheet: ViewModifier{
                     vm.imagePickerSelection = .mealPhoto
                     vm.imageSource = .photoLibrary
                     vm.isShowPhotoLibrary.toggle()
+                    vm.isLoading = true
                 }
                 buttons.append(cameraRoll)
                 
@@ -386,6 +395,7 @@ struct MealPhotoActionSheet: ViewModifier{
                     vm.imagePickerSelection = .mealPhoto
                     vm.imageSource = .camera
                     vm.isShowPhotoLibrary.toggle()
+                    vm.isLoading = true
                 }
                 buttons.append(camera)
                 if vm.mealPhoto != UIImage(){
@@ -399,7 +409,12 @@ struct MealPhotoActionSheet: ViewModifier{
                 buttons.append(.cancel())
                 return ActionSheet(title: Text("Select where you want to get the photo from"), message: nil, buttons: buttons)
             })
+//            .onChange(of: vm.mealPhoto, perform: { newValue in
+//                vm.isLoading = false
+//            })
+            
     }
+    
 }
 
 // MARK: - Meal Instructions Action Sheet
@@ -414,6 +429,7 @@ struct MealInstructionsActionSheet: ViewModifier{
                     vm.isShowPhotoLibrary.toggle()
                     vm.imagePickerSelection = .instructions
                     vm.imageSource = .photoLibrary
+                    vm.isLoading = true
                 }
                 buttons.append(cameraRoll)
                 
@@ -422,6 +438,7 @@ struct MealInstructionsActionSheet: ViewModifier{
                     vm.isShowPhotoLibrary.toggle()
                     vm.imageSource = .camera
                     vm.imagePickerSelection = .instructions
+                    vm.isLoading = true
                 }
                 buttons.append(camera)
                 if vm.instructionsPhoto != UIImage(){
