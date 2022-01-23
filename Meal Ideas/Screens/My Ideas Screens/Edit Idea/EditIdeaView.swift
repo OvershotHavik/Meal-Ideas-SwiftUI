@@ -409,10 +409,6 @@ struct MealPhotoActionSheet: ViewModifier{
                 buttons.append(.cancel())
                 return ActionSheet(title: Text("Select where you want to get the photo from"), message: nil, buttons: buttons)
             })
-//            .onChange(of: vm.mealPhoto, perform: { newValue in
-//                vm.isLoading = false
-//            })
-            
     }
     
 }

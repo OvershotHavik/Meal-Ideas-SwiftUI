@@ -64,6 +64,7 @@ struct MealCardView: View {
 
         }
         .frame(width: 160, height: 210)
+//        .frame(idealWidth: 160, idealHeight: 210)
         .cornerRadius(10)
 //        .shadow(color: .black, radius: 5, x: 0, y: 0)
     }
@@ -103,14 +104,12 @@ struct HistoryFavoriteHStack: View{
                     .opacity(0.50)
             }
             Spacer()
-            Text("")
-            Spacer()
             if favorited == true {
                 Image(systemName:"heart.fill") // If favorited is true, then show book, if not, show nothing
                     .foregroundColor(.pink)
                     .padding([.trailing, .top])
             }
-
         }
+        .frame(height: 30)
     }
 }
