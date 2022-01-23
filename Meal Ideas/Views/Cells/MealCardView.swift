@@ -10,6 +10,7 @@ import SwiftUI
 struct MealCardView: View {
     var mealPhoto: String
     var mealPhotoData: Data?
+    
     var mealName: String
     var favorited: Bool
     var inHistory: Bool
@@ -18,15 +19,22 @@ struct MealCardView: View {
     var body: some View {
         ZStack{
             Color(UIColor.secondarySystemBackground)
-                .opacity(0.25)
+//                .opacity(0.25)
 
             VStack{
                 HistoryFavoriteHStack(inHistory: inHistory,
                                       favorited: favorited)
                 if mealPhotoData != nil{
                     ZStack{
-                        Image(uiImage: imageLoader.image)
-                            .resizable()
+                        if let safeData = mealPhotoData{
+                            Image(uiImage: (UIImage(data: safeData) ?? UIImage(imageLiteralResourceName: UI.placeholderMeal)))
+                                .resizable()
+
+                        }
+//                        Image(uiImage: imageLoader.image)
+//                            .resizable()
+
+
                         if imageLoader.isLoading{
                             loadingView()
                         }
