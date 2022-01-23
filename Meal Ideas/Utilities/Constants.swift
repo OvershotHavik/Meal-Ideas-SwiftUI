@@ -13,7 +13,7 @@ final class Constants{
 }
 
 class UI{
-    static let topViewOffsetSpacing = CGFloat(70)
+    static let topViewOffsetSpacing = CGFloat(75)
     static let verticalSpacing = CGFloat(25)
     static let placeholderMeal = "Placeholder"
     static let placeholderImage = Image(UI.placeholderMeal).resizable()

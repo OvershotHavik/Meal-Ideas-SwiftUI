@@ -104,7 +104,7 @@ struct SpoonView: View {
                             source: $vm.source)
                 }
             }
-            .background(BackgroundGradientView())
+//            .background(BackgroundGradientView())
             .navigationBarTitleDisplayMode(.inline)
             .navigationViewStyle(.stack)
             .toolbar {

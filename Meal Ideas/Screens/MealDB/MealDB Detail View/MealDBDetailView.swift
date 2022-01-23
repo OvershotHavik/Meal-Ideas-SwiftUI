@@ -12,9 +12,9 @@ struct MealDBDetailView: View {
     @EnvironmentObject var query: Query
     var body: some View {
         ZStack{
-//            vm.backgroundColor
-//                .ignoresSafeArea()
-            BackgroundGradientView()
+            vm.backgroundColor
+                .ignoresSafeArea()
+//            BackgroundGradientView()
             VStack{
                 ScrollView{
                     Spacer(minLength: 5)

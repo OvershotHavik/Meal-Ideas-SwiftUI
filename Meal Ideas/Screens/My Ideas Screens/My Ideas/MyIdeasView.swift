@@ -84,9 +84,10 @@ struct MyIdeasView: View {
                     TopView(keywordSearchTapped: $vm.keywordSearchTapped,
                             getRandomMeals: $vm.getRandomMeals,
                             source: $vm.source)
+//                        .background(BackgroundGradientView())
                 }
             }
-            .background(BackgroundGradientView())
+//            .background(BackgroundGradientView())
             .navigationBarTitleDisplayMode(.inline)
             .navigationViewStyle(.stack)
             .toolbar {

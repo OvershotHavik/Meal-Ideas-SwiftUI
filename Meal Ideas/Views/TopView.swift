@@ -23,8 +23,8 @@ struct TopView: View{
                 Text("Surprise \nMe")
                     .lineLimit(2)
             })
-                .buttonStyle(.borderedProminent)
-                .accentColor(Color(uiColor: Color.lightBlue))
+//                .buttonStyle(.borderedProminent)
+//                .accentColor(Color(uiColor: Color.lightBlue))
 
             TextField("Search...", text: $query.keyword)
                 .textFieldStyle(CustomRoundedCornerTextField())
@@ -61,15 +61,16 @@ struct TopView: View{
                 
                 } label: {// Menu label
                 Image(systemName: "slider.horizontal.3")
-                        .padding(14)
-                        .background(Color(uiColor: Color.lightBlue))
-                        .cornerRadius(10)
+//                        .padding(14)
+//                        .background(Color(uiColor: Color.lightBlue))
+//                        .cornerRadius(10)
             }
                 .font(.title)
             
         }
         .padding()
         .foregroundColor(.primary)
+        .background(BackgroundGradientView())
     }
 }
 
