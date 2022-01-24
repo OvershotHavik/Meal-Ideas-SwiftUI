@@ -14,6 +14,7 @@ import CoreData
     @Published var individualMeal: SpoonacularResults.Recipe?
     @Published var source: Source = .spoonacular
     @Published var surpriseMeal: SpoonacularResults.Recipe?
+    @Published var customURLString = ""
     
     // MARK: - Check Query
     func checkQuery(query: String, queryType: QueryType){
@@ -65,24 +66,7 @@ import CoreData
                         withAnimation(Animation.easeIn.delay(1)){
                             meals.insert(first, at: 0)
                         }
-//                        meals.insert(first, at: 0)
                     }
-//                    meals.append(contentsOf: randomMeals)
-                    
-//                    if offsetBy == 0{
-//                        if meals.count < 10{
-//                            moreToShow = false
-//                        } else {
-//                            moreToShow = true
-//                        }
-//
-//                    } else {
-//                        if meals.count < offsetBy{
-//                            moreToShow = false
-//                        } else {
-//                            moreToShow = true
-//                        }
-//                    }
 
                     
                 case .category:
@@ -196,6 +180,119 @@ import CoreData
         }
     }
 
+    // MARK: - Custom Filter
+    func customFilter(keyword: String?, category: String?, ingredient: String?){
+        showWelcome = false
+        allResultsShown = false
+        surpriseMealReady = false
+        
+        if originalCustomKeyword != keyword ||
+            originalCustomCategory != category ||
+            originalCustomIngredient != ingredient{
+            meals = []
+            self.originalCustomKeyword = keyword
+            self.originalCustomCategory = category
+            self.originalCustomIngredient = ingredient
+            print("Keyword: \(keyword ?? ""), category: \(category ?? ""), ingredient: \(ingredient ?? "")")
+            
+            Task {
+            
+                do {
+                    
+                
+            // MARK: - Just keyword provided
+            if keyword != "" &&
+                category == "" &&
+                ingredient == ""{
+                if let safeKeyword = keyword{
+                    getSpoonMeals(query: safeKeyword, queryType: .keyword)
+                }
+            }
+            
+            // MARK: - Just Category provided
+            if keyword == "" &&
+                category != "" &&
+                ingredient == ""{
+                if let safeCategory = category{
+                    getSpoonMeals(query: safeCategory, queryType: .category)
+                }
+            }
+            
+            // MARK: - Just ingredient provided
+            if keyword == "" &&
+                category == "" &&
+                ingredient != ""{
+                if let safeIngredient = ingredient{
+                    getSpoonMeals(query: safeIngredient, queryType: .ingredient)
+                }
+            }
+            
+            // MARK: - Keyword and category
+            if keyword != "" &&
+                category != "" &&
+                ingredient == "" {
+                if let keyword = keyword,
+                    let category = category{
+                    var safeKeyword = keyword.lowercased()
+                    safeKeyword = safeKeyword.replacingOccurrences(of: " ", with: "%20")
+                    print(safeKeyword)
+                                    
+                    
+                    let modifiedCategory = category.replacingOccurrences(of: " ", with: "%20").lowercased()
+                    print(modifiedCategory)
+                    let modified = modifiedCategory.lowercased() + "&offset=\(offsetBy)"
+                    customURLString = safeKeyword + modified
+                    let catMeals = try await NetworkManager.shared
+                        .spoonComplexQuery(query: customURLString, queryType: .category)
+                    meals.append(contentsOf: catMeals.results)
+                    if let safeTotalResults = catMeals.totalResults{
+                        totalMealCount = safeTotalResults
+                    }
+                    
+
+                    if offsetBy == 0{
+                        if meals.count < 10{
+                            moreToShow = false
+                        } else {
+                            moreToShow = true
+                        }
+                        
+                    } else {
+                        if meals.count < offsetBy{
+                            moreToShow = false
+                        } else {
+                            moreToShow = true
+                        }
+                    }
+                }
+                
+                
+            }
+            
+            
+        } catch {
+            if let miError = error as? MIError{
+                isLoading = false
+
+                switch miError {
+                    //only ones that would come through should be invalidURL or invalid data, but wanted to keep the other cases
+                case .invalidURL:
+                    alertItem = AlertContext.invalidURL
+                case .invalidData:
+                    alertItem = AlertContext.invalidData
+                default: alertItem = AlertContext.invalidResponse // generic error if wanted..
+                }
+            } else {
+                alertItem = AlertContext.invalidResponse // generic error would go here
+                isLoading = false
+            }
+        }
+            }
+            
+        }else {
+            // call same request again and add offset since user scroleld to get more results
+        }
+    }
     // MARK: - Get Meal From ID
     func getMealFromID(mealID: Int) async -> SpoonacularResults.Recipe?{
         

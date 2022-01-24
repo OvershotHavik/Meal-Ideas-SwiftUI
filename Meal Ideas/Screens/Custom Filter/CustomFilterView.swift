@@ -74,12 +74,6 @@ struct CustomCategoryNL: View{
     @EnvironmentObject var query: Query
 
     var body: some View{
-
-//        NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: vm.plist,
-//                                                                                listItems: vm.source == .myIdeas ? vm.userCategories : [],
-//                                                                                singleChoiceString = query.customCategory),
-//                                                         title: .oneCategory)) {
-        
         NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: vm.plist,
                                                                                 listItems: vm.source == .myIdeas ? vm.userCategories : [],
                                                                                 singleChoiceString: query.customCategory),
