@@ -170,6 +170,8 @@ import CoreData
                     if let safeMeal = meal.first{
                         individualMeal = safeMeal
                     }
+                case .custom:
+                    print("Custom not setup yet in spoonVM")
                 }
 
                 isLoading = false

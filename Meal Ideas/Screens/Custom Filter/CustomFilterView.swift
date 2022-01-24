@@ -9,34 +9,29 @@ import SwiftUI
 
 struct CustomFilterView: View {
     @StateObject var vm : CustomFilterVM
+    @EnvironmentObject var query: Query
+    @Environment(\.dismiss) var dismiss
+
     var body: some View {
         Form{
-            TextField("Search...", text: $vm.name)
+            TextField("Search...", text: $query.customKeyword)
             
-            NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: vm.plist,
-                                                                                    listItems: vm.listItems),
-                                                             title: .oneCategory)) {
-                Text("Select a Category")
-            }
-                                                             .foregroundColor(.blue)
+            CustomCategoryNL(vm: vm)
             
-            if vm.category != ""{
-                BadgesHStack(title: "Category:", items: [vm.category], topColor: .blue, bottomColor: .blue)
+            if query.customCategory != ""{
+                BadgesHStack(title: "Category:", items: [query.customCategory], topColor: .blue, bottomColor: .blue)
             }
             
-            
-            NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: vm.plist,
-                                                                                    listItems: vm.listItems),
-                                                             title: .oneIngredient)) {
-                Text("Select an Ingredient")
-            }
-                                                             .foregroundColor(.blue)
-            if vm.ingredient != ""{
-                BadgesHStack(title: "Ingredient:", items: [vm.ingredient], topColor: .green, bottomColor: .green)
+            CustomIngredientNL(vm: vm)
+
+            if query.customIngredient != ""{
+                BadgesHStack(title: "Ingredient:", items: [query.customIngredient], topColor: .green, bottomColor: .green)
             }
 
             Button {
-                print("Do the search")
+                print("Go back to the view to perform search")
+                dismiss()
+
             } label: {
                 Text("Search")
                     .foregroundColor(.white)
@@ -53,9 +48,38 @@ struct CustomFilterView: View {
         }
     }
 }
-
+/*
 struct CustomFilterView_Previews: PreviewProvider {
+    
     static var previews: some View {
         CustomFilterView(vm: CustomFilterVM(source: .myIdeas, plist: nil, listItems: []))
+    }
+}
+*/
+
+struct CustomCategoryNL: View{
+    @StateObject var vm: CustomFilterVM
+
+    var body: some View{
+
+        NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: vm.plist,
+                                                                                listItems: vm.source == .myIdeas ? vm.userCategories : []),
+                                                         title: .oneCategory)) {
+            Text("Select a Category")
+        }
+                                                         .foregroundColor(.blue)
+    }
+
+}
+
+
+struct CustomIngredientNL: View{
+    @StateObject var vm: CustomFilterVM
+    var body: some View{
+        
+        NavigationLink(destination: SingleIngredientListView(vm: IngredientListVM(itemList: vm.userIngredients))) {
+            Text("Select an ingredient")
+        }                                                         .foregroundColor(.blue)
+
     }
 }

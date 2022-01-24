@@ -14,6 +14,7 @@ enum QueryType: String{
     case keyword = "Keyword"
 //    case history = "book"
 //    case favorite = "heart.fill"
+    case custom = "Custom"
     case none = "None"
 }
 enum QueryName: String{
@@ -41,6 +42,9 @@ final class Query: ObservableObject{
     @Published var historyArray : [History] = []
     @Published var selected = ""
     @Published var menuSelection: QueryType?
+    @Published var customCategory = ""
+    @Published var customIngredient = ""
+    @Published var customKeyword = ""
     
     
     

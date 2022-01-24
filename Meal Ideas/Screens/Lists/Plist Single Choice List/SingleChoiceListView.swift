@@ -27,6 +27,7 @@ struct SingleChoiceListView: View {
 //                    .background(.clear)
                     .onTapGesture{
                         query.selected = item
+                        query.customCategory = item // manually setting for category right now, may need to change if using this elsewhere for something else
                         dismiss()
                     }
                 }

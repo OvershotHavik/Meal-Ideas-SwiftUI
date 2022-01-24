@@ -135,6 +135,8 @@ import CoreData
             }
             totalMealCount = meals.count
 
+        case .custom:
+            print("Custom not setup yet in my ideas")
         case .none:
             print("My Ideas none")
         }

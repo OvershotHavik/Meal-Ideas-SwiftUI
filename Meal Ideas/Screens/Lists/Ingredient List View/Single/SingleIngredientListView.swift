@@ -24,6 +24,7 @@ struct SingleIngredientListView: View {
                 IngredientCell(ingredient: ingredient, selected: selected)
                     .onTapGesture {
                         query.selected = ingredient.strIngredient
+                        query.customIngredient = ingredient.strIngredient
                         dismiss()
                     }
             }

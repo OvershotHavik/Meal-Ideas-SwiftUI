@@ -107,15 +107,15 @@ final class NetworkManager {
             return try await mealDBNetworkCall(url: url)
             
             
+        case .custom:
+            //custom not used in mealDB due to limitations in their API
+            guard let url = URL(string: "" + query) else {
+                throw MIError.invalidURL
+            }
+            print(url)
+            return try await mealDBNetworkCall(url: url)
         }
-//        case .ingredient:
-//            ()
-//        case .history:
-//            ()
-//        case .favorite:
-//            ()
-//        case .none:
-//            ()
+
         
     }
     /*

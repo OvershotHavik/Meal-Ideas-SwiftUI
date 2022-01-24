@@ -84,7 +84,9 @@ import SwiftUI
                     meals = try await NetworkManager.shared.mealDBQuery(query: modifiedKeyword,
                                                                         queryType: .keyword)
                     allResultsShown = true
-                    
+                 
+                case .custom:
+                    () // Custom is not being used in mealDB due to limitations in their API
                 }
                 isLoading = false
 //                totalMealCount = meals.count

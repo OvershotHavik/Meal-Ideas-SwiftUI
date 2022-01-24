@@ -68,6 +68,14 @@ struct MyIdeasView: View {
                         NavigationLink(destination: SingleIngredientListView(vm: IngredientListVM(itemList: vm.userIngredients)),
                                        tag: QueryType.ingredient,
                                        selection: $query.menuSelection) { EmptyView()}
+                        
+                        //Bring up the Custom filter view
+                        NavigationLink(destination: CustomFilterView(vm: CustomFilterVM(source: .myIdeas,
+                                                                                        plist: nil,
+                                                                                        userIngredients: vm.userIngredients,
+                                                                                        userCategories: vm.userCategories)),
+                                       tag: QueryType.custom,
+                                       selection: $query.menuSelection) { EmptyView()}
 
                         Spacer()
 

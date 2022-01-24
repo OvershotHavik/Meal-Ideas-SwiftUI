@@ -9,15 +9,14 @@ import Foundation
 
 @MainActor final class CustomFilterVM: ObservableObject{
     @Published var source: Source
-    @Published var name: String = ""
     @Published var plist: PList?
-    @Published var category: String = ""
-    @Published var ingredient: String = ""
-    @Published var listItems: [String]
+    @Published var userIngredients: [String]
+    @Published var userCategories: [String]
     
-    init(source: Source, plist: PList?, listItems: [String]){
+    init(source: Source, plist: PList?, userIngredients: [String], userCategories: [String]){
         self.source = source
         self.plist = plist
-        self.listItems = listItems
+        self.userIngredients = userIngredients
+        self.userCategories = userCategories
     }
 }

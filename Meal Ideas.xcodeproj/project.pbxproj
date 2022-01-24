@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B3132583279EDE44004FDE3C /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3132582279EDE44004FDE3C /* PhotoPicker.swift */; };
 		B3132585279EEFBE004FDE3C /* KeyboardResponsive.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3132584279EEFBE004FDE3C /* KeyboardResponsive.swift */; };
 		B3132588279F008F004FDE3C /* CustomFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3132587279F008F004FDE3C /* CustomFilterView.swift */; };
 		B313258A279F00A0004FDE3C /* CustomFilterVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3132589279F00A0004FDE3C /* CustomFilterVM.swift */; };
@@ -128,7 +127,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B3132582279EDE44004FDE3C /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		B3132584279EEFBE004FDE3C /* KeyboardResponsive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponsive.swift; sourceTree = "<group>"; };
 		B3132587279F008F004FDE3C /* CustomFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFilterView.swift; sourceTree = "<group>"; };
 		B3132589279F00A0004FDE3C /* CustomFilterVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFilterVM.swift; sourceTree = "<group>"; };
@@ -468,7 +466,6 @@
 			children = (
 				B37C63242760F3DB00DF3934 /* ImagePicker.swift */,
 				B345CC47277F64420065B78A /* MultiWheelPicker.swift */,
-				B3132582279EDE44004FDE3C /* PhotoPicker.swift */,
 			);
 			path = "UIKit COmponents";
 			sourceTree = "<group>";
@@ -849,7 +846,6 @@
 				B3606D99274C1FB600E61972 /* MealDBModel.swift in Sources */,
 				B3606DBF274D7A9800E61972 /* MealDBJSON.swift in Sources */,
 				B3CA2343274808CA00CA9C68 /* CoreDataExample.swift in Sources */,
-				B3132583279EDE44004FDE3C /* PhotoPicker.swift in Sources */,
 				B374E7DC278496C800422E9C /* SpoonFunctions.swift in Sources */,
 				B3A75CB7276699B30062C8B4 /* NoResultsViewWithImage.swift in Sources */,
 				B3D32CDA2783992500FA4ACA /* DetailViewIngredientListView.swift in Sources */,
