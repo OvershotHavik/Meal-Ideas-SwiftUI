@@ -17,24 +17,14 @@ struct EditIdeaView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var mealPhotoLoader = ImageLoaderFromData()
     @StateObject var mealInstructionsLoader = ImageLoaderFromData()
-
+    
     @FocusState private var focusedTextField: FormTextField?
     
     var body: some View {
-        ZStack{
+        ZStack {
             Form{
                 Section(header: Text("Meal Information")) {
-                    TextField(vm.meal?.mealName ?? "Meal Name*", text: $vm.mealName)
-                        .textFieldStyle(CustomRoundedCornerTextField())
-                        .overlay{
-                            Rectangle().frame(height: 2).padding(.top, 35)
-                                .foregroundColor(vm.mealName == "" ? Color.red : Color.clear)
-                        }
-                        .font(.title)
-                        .focused($focusedTextField, equals: .mealName)
-                        .onSubmit {
-                            vm.checkNameAlreadyInUse()
-                        }
+                    MealNameTextField(vm: vm)
                     
                     MealPhotoButtonView(vm: vm)
                         .foregroundColor(.blue)
@@ -44,23 +34,8 @@ struct EditIdeaView: View {
                             .frame(width: 100)
                     }
                     if vm.mealPhoto != UIImage(){
-                        if let safeImage = vm.mealPhoto{
-                            HStack{
-                                Image(uiImage: safeImage)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                
-                                Button {
-                                    vm.mealPhoto = UIImage()
-                                } label: {
-                                    Text("Remove Photo")
-                                }
-                                .buttonStyle(.bordered)
-                                .accentColor(.red)
-                            }
-                        }
+                        MealPhotoView(vm: vm)
                     }
-                    
                 }
                 
                 Section(header: Text("Category")){
@@ -73,22 +48,13 @@ struct EditIdeaView: View {
                                      bottomColor: .blue)
                     }
                 }
-
+                
                 
                 
                 Section(header: Text("Ingredients")){
                     IngredientSelectView(vm: vm)
                         .foregroundColor(.blue)
-                    ForEach($vm.userIngredients) {$ing in
-                        HStack{
-                            Text(ing.name)
-                            Spacer()
-                            TextField("Measurement", text: $ing.measurement)
-                                .textFieldStyle(CustomRoundedCornerTextField())
-                                .frame(width: 150)
-                        }
-                    }
-                    .onDelete(perform: vm.deleteIngredient)
+                    IngredientHStack(vm: vm)
                 }
                 
                 Section(header: Text("Sides")){
@@ -115,21 +81,7 @@ struct EditIdeaView: View {
                             .frame(width: 100)
                     }
                     if vm.instructionsPhoto != UIImage(){
-                        if let safeImage = vm.instructionsPhoto{
-                            HStack{
-                                Image(uiImage: safeImage)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 100)
-                                Button {
-                                    vm.instructionsPhoto = UIImage()
-                                } label: {
-                                    Text("Remove Photo")
-                                }
-                                .buttonStyle(.bordered)
-                                .accentColor(.red)
-                            }
-                        }
+                        InstructionPhotoView(vm: vm)
                     }
                     Text("And/Or type in below:")
                     TextEditor(text: $vm.recipe)
@@ -141,7 +93,7 @@ struct EditIdeaView: View {
                     TextField("Website", text: $vm.source)
                         .textFieldStyle(CustomRoundedCornerTextField())
                 }
-
+                
                 
                 // MARK: - Save Button
                 SaveButtonView(vm: vm)
@@ -163,17 +115,20 @@ struct EditIdeaView: View {
                         }
                     }
                 }
+                
+            }
+            .onAppear{
+                //            UITableView.appearance().backgroundColor =  .tertiarySystemBackground
+                //            UITableViewCell.appearance().backgroundColor = .secondarySystemBackground
+                
+            }
             
-        }
+            
             if vm.isLoading{
                 loadingView()
             }
-}
-        .onAppear{
-//            UITableView.appearance().backgroundColor =  .tertiarySystemBackground
-//            UITableViewCell.appearance().backgroundColor = .secondarySystemBackground
-
         }
+
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading:
                                 Button {
@@ -203,7 +158,7 @@ struct EditIdeaView: View {
                 focusedTextField = .mealName
             }
             // TODO:  Change the background to the background gradient?
-//            UITableView.appearance().backgroundColor = .clear
+            //            UITableView.appearance().backgroundColor = .clear
             if let safeData = vm.meal?.mealPhoto{
                 mealPhotoLoader.loadFromData(mealPhotoData: safeData)
             }else {
@@ -246,7 +201,7 @@ struct EditIdeaView: View {
             Button("Discard changes and go back", role: .destructive, action: popView)
             //cancel is added automatically and stops the back process
         }
-
+        
         // MARK: - Delete Alert
         .alert("Delete Meal", isPresented: $vm.showingDeleteAlert) {
             Button("Delete", role: .destructive, action: deleteMeal)
@@ -290,9 +245,27 @@ struct CreateIdeaView_Previews: PreviewProvider {
         EditIdeaView(vm: EditIdeaVM(meal: nil))
     }
 }
+
+// MARK: - Meal Name Text FIeld
+struct MealNameTextField: View{
+    @StateObject var vm: EditIdeaVM
+    var body: some View{
+        TextField(vm.meal?.mealName ?? "Meal Name*", text: $vm.mealName)
+            .textFieldStyle(CustomRoundedCornerTextField())
+            .overlay{
+                Rectangle().frame(height: 2).padding(.top, 35)
+                    .foregroundColor(vm.mealName == "" ? Color.red : Color.clear)
+            }
+            .font(.title)
+//            .focused($focusedTextField, equals: .mealName)
+            .onSubmit {
+                vm.checkNameAlreadyInUse()
+            }
+    }
+}
 // MARK: - Meal Photo Button View
 struct MealPhotoButtonView: View{
-    @ObservedObject var vm: EditIdeaVM
+    @StateObject var vm: EditIdeaVM
     var body: some View{
         Button {
             vm.isMPActionSheetPresented.toggle()
@@ -302,10 +275,29 @@ struct MealPhotoButtonView: View{
         }
     }
 }
-
+// MARK: - Meal Photo View
+struct MealPhotoView: View{
+    @StateObject var vm: EditIdeaVM
+    var body: some View{
+        HStack{
+            Image(uiImage: vm.mealPhoto)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+            
+            Button {
+                vm.mealPhoto = UIImage()
+            } label: {
+                Text("Remove Photo")
+            }
+            .buttonStyle(.bordered)
+            .accentColor(.red)
+        }
+        
+    }
+}
 // MARK: - Category Select View
 struct CategorySelectView: View{
-    @ObservedObject var vm: EditIdeaVM
+    @StateObject var vm: EditIdeaVM
     var body: some View{
         NavigationLink(destination: MultiChoiceListView(vm: MultiChoiceListVM(PList: .categories, editIdeaVM: vm), title: .multiCategory)) {
             Text("Select Categories")
@@ -314,7 +306,7 @@ struct CategorySelectView: View{
 }
 // MARK: - Ingredient Select View
 struct IngredientSelectView: View{
-    @ObservedObject var vm: EditIdeaVM
+    @StateObject var vm: EditIdeaVM
     var body: some View{
         
         NavigationLink(destination: MultiIngredientListView(vm: MultiIngredientListVM(editVM: vm))) {
@@ -322,9 +314,25 @@ struct IngredientSelectView: View{
         }
     }
 }
+// MARK: - Ingredient HStack
+struct IngredientHStack: View{
+    @StateObject var vm: EditIdeaVM
+    var body: some View{
+        ForEach($vm.userIngredients) {$ing in
+            HStack{
+                Text(ing.name)
+                Spacer()
+                TextField("Measurement", text: $ing.measurement)
+                    .textFieldStyle(CustomRoundedCornerTextField())
+                    .frame(width: 150)
+            }
+        }
+        .onDelete(perform: vm.deleteIngredient)
+    }
+}
 // MARK: - Sides Button View
 struct SidesButtonView: View{
-    @ObservedObject var vm: EditIdeaVM
+    @StateObject var vm: EditIdeaVM
     var body: some View{
         NavigationLink(destination: MultiChoiceListView(vm: MultiChoiceListVM(PList: .sides,
                                                                               editIdeaVM: vm), title: .multiSides)) {
@@ -335,7 +343,7 @@ struct SidesButtonView: View{
 
 // MARK: - Meal Instructions Button View
 struct MealInstructionsButtonView: View{
-    @ObservedObject var vm: EditIdeaVM
+    @StateObject var vm: EditIdeaVM
     var body: some View{
         Button {
             vm.isMIActionSheetPresented.toggle()
@@ -345,6 +353,26 @@ struct MealInstructionsButtonView: View{
         }
     }
 }
+// MARK: - Instruction Photo View
+struct InstructionPhotoView: View{
+    @StateObject var vm: EditIdeaVM
+    var body: some View{
+        HStack{
+            Image(uiImage: vm.instructionsPhoto)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 100)
+            Button {
+                vm.instructionsPhoto = UIImage()
+            } label: {
+                Text("Remove Photo")
+            }
+            .buttonStyle(.bordered)
+            .accentColor(.red)
+        }
+    }
+}
+
 // MARK: - Save Button
 struct SaveButtonView: View{
     var vm: EditIdeaVM
@@ -456,11 +484,11 @@ struct PrepTimePickerView: View{
         HStack {
             GeometryReader { geometry in
                 HStack(spacing: 0){
-
+                    
                     // TODO:  Disable keyboard when selecting picker
                     BasePicker(selecting: $vm.hourSelection, data: vm.hours, label: "h")
                         .frame(width: geometry.size.width/3, height: geometry.size.height, alignment: .center)
-
+                    
                     BasePicker(selecting: $vm.minuteSelection, data: vm.minutes, label: "m")
                         .frame(width: geometry.size.width/3, height: geometry.size.height, alignment: .center)
                     
@@ -476,50 +504,50 @@ struct PrepTimePickerView: View{
 
 
 /*
-//This "works" but due to an ios 15 bug the pickers aren't picking up correctly
-
-// MARK: - Prep Time Picker View
-struct PrepTimePickerView: View{
-    @StateObject var vm: EditIdeaVM
-    var body: some View{
-        GeometryReader { geometry in
-            HStack(spacing: 10){
-                Picker(selection: $vm.hourSelection, label: Text("Hours")){
-                    ForEach(0 ..< vm.hours.count) { index in
-                        Text("\(vm.hours[index]) h").tag(index)
-                    }
-                }
-                .pickerStyle(.wheel)
-                .frame(width: geometry.size.width/3, height: geometry.size.height, alignment: .center)
-                .compositingGroup()
-                .clipped(antialiased: false)
-                
-
-                Picker(selection: $vm.minuteSelection, label: Text("Minutes")){
-                    ForEach(0 ..< vm.minutes.count) { index in
-                        Text("\(vm.minutes[index]) m").tag(index)
-                    }
-                }
-                .pickerStyle(.wheel)
-                .frame(width: geometry.size.width/3, height: geometry.size.height, alignment: .center)
-                .compositingGroup()
-                .clipped(antialiased: false)
-                
-                
-                Picker(selection: $vm.secondSelection, label: Text("Seconds")){
-                    ForEach(0 ..< vm.seconds.count) { index in
-                        Text("\(vm.seconds[index]) s").tag(index)
-                    }
-                }
-                .pickerStyle(.wheel)
-                .frame(width: geometry.size.width/3, height: geometry.size.height, alignment: .center)
-                .compositingGroup()
-                .clipped(antialiased: false)
-                
-            }
-        }
-
-    }
-}
-*/
+ //This "works" but due to an ios 15 bug the pickers aren't picking up correctly
+ 
+ // MARK: - Prep Time Picker View
+ struct PrepTimePickerView: View{
+ @StateObject var vm: EditIdeaVM
+ var body: some View{
+ GeometryReader { geometry in
+ HStack(spacing: 10){
+ Picker(selection: $vm.hourSelection, label: Text("Hours")){
+ ForEach(0 ..< vm.hours.count) { index in
+ Text("\(vm.hours[index]) h").tag(index)
+ }
+ }
+ .pickerStyle(.wheel)
+ .frame(width: geometry.size.width/3, height: geometry.size.height, alignment: .center)
+ .compositingGroup()
+ .clipped(antialiased: false)
+ 
+ 
+ Picker(selection: $vm.minuteSelection, label: Text("Minutes")){
+ ForEach(0 ..< vm.minutes.count) { index in
+ Text("\(vm.minutes[index]) m").tag(index)
+ }
+ }
+ .pickerStyle(.wheel)
+ .frame(width: geometry.size.width/3, height: geometry.size.height, alignment: .center)
+ .compositingGroup()
+ .clipped(antialiased: false)
+ 
+ 
+ Picker(selection: $vm.secondSelection, label: Text("Seconds")){
+ ForEach(0 ..< vm.seconds.count) { index in
+ Text("\(vm.seconds[index]) s").tag(index)
+ }
+ }
+ .pickerStyle(.wheel)
+ .frame(width: geometry.size.width/3, height: geometry.size.height, alignment: .center)
+ .compositingGroup()
+ .clipped(antialiased: false)
+ 
+ }
+ }
+ 
+ }
+ }
+ */
 
