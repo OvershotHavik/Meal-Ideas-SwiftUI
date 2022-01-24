@@ -62,7 +62,7 @@ struct MealDBView: View {
                                        isActive: $vm.surpriseMealReady) {EmptyView()}
                         
                         //Bring up category view when selected in the menu
-                        NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: .mealDBCategories, listItems: []), title: .oneCategory),
+                        NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: .mealDBCategories, listItems: [], singleChoiceString: query.selected), title: .oneCategory),
                                        tag: QueryType.category,
                                        selection: $query.menuSelection) {EmptyView()}
                         

@@ -34,6 +34,12 @@ final class Query: ObservableObject{
             if queryType != .keyword{
                 keyword = ""
             }
+            if queryType != .custom{
+                customCategory = ""
+                customIngredient = ""
+                customKeyword = ""
+            }
+
         }
     }
     

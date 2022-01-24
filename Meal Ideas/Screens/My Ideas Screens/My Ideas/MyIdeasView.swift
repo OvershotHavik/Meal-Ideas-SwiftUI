@@ -60,7 +60,7 @@ struct MyIdeasView: View {
                                        isActive: $vm.getRandomMeals) {EmptyView()}
 
                         //Bring up category view when selected in the menu
-                        NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: nil, listItems: vm.userCategories), title: .oneCategory),
+                        NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: nil, listItems: vm.userCategories, singleChoiceString: query.selected), title: .oneCategory),
                                        tag: QueryType.category,
                                        selection: $query.menuSelection) {EmptyView()}
 
@@ -127,6 +127,8 @@ struct MyIdeasView: View {
             }
             
             .onAppear {
+                
+                
                 vm.surpriseMeal = nil
                 query.getHistory()
                 query.getFavorites()
@@ -147,6 +149,12 @@ struct MyIdeasView: View {
                 
                 if query.queryType == .keyword{
                     vm.checkQuery(query: query.selected, queryType: query.queryType)
+                }
+                
+                if query.queryType == .custom{
+                    vm.customFilter(keyword: query.customKeyword,
+                                    category: query.customCategory,
+                                    ingredient: query.customIngredient)
                 }
             }
 

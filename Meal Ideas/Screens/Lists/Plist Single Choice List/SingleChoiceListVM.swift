@@ -23,9 +23,10 @@ final class  SingleChoiceListVM: ObservableObject {
             return listItems.filter { $0.contains(searchText) }
         }
     }
-    init(PList: PList?, listItems: [String]){
+    init(PList: PList?, listItems: [String], singleChoiceString: String?){
         self.PList = PList
         self.listItems = listItems
+        self.singleChoiceString = singleChoiceString
         fetchPlist()
     }
     

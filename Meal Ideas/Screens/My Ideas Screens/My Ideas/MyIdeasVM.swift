@@ -11,12 +11,12 @@ import CoreData
 @MainActor final class MyIdeasVM: BaseVM{
     @Published var meals : [UserMeals] = []
     private let pc = PersistenceController.shared
-    @Published var filteredMeals: [UserMeals] = []
     @Published var allMeals : [UserMeals] = []
     @Published var source: Source = .myIdeas
     @Published var surpriseMeal : UserMeals?
     @Published var userCategories : [String] = []
     @Published var userIngredients: [String] = []
+    
     
     // TODO:  Add a category verification to user meals so that the category list only shows what the user has created meals for
     // TODO:  Add
@@ -42,11 +42,6 @@ import CoreData
             print(userCategories)
             print(userIngredients)
 
-             // works, but it's still an array of arrays, need to pull that out and into it's own array
-            
-//            userCategories.compactMap({$0})
-//            sourceCategories = userCategories
-//            print("Meals Fetched")
         } catch let error {
             print("error fetching: \(error.localizedDescription)")
         }
@@ -72,8 +67,131 @@ import CoreData
                 if queryType == .random{
                     filterMeals(query: query, queryType: queryType)
                 }
-                
             }
+        }
+    }
+    
+    // MARK: - Custom Filter
+    func customFilter(keyword: String?, category: String?, ingredient: String?){
+        showWelcome = false
+        allResultsShown = false
+        surpriseMealReady = false
+        
+        if originalCustomKeyword != keyword ||
+            originalCustomCategory != category ||
+            originalCustomIngredient != ingredient{
+            meals = []
+            self.originalCustomKeyword = keyword
+            self.originalCustomCategory = category
+            self.originalCustomIngredient = ingredient
+            print("Keyword: \(keyword ?? ""), category: \(category ?? ""), ingredient: \(ingredient ?? "")")
+            
+            
+            var filteredKeyword : [UserMeals] = []
+            var filteredCategory: [UserMeals] = []
+            var filteredIngredients: [UserMeals] = []
+
+            for meal in allMeals{
+                if let safeName = meal.mealName{
+                    if let safeKeyword = keyword{
+                        if safeName.containsIgnoringCase(find: safeKeyword){
+                            print("meal matches Name: \(meal.mealName ?? "")")
+                            filteredKeyword.append(meal)
+                        }
+                    }
+                }
+                if let safeCategories = meal.category as? [String]{
+                    if let safeCat = category{
+                        if safeCategories.contains(safeCat){
+                                //add to the array
+                            print("meal matched category \(meal.mealName ?? "")")
+                            filteredCategory.append(meal)
+                            
+                        }
+                    }
+                }
+
+                
+                if let safeIngredients = meal.ingredients as? [String]{
+                    if let safeIng = ingredient{
+                        if safeIngredients.contains(safeIng){
+                                //add to the array
+                                print("meal matched ingredient: \(meal.mealName ?? "")")
+                            filteredIngredients.append(meal)
+                        }
+                    }
+                }
+        
+            }
+            print("Filtered keyword count: \(filteredKeyword.count)")
+            print("Filtered category count: \(filteredCategory.count)")
+            print("filtered ingredient count: \(filteredIngredients.count)")
+           
+
+            // just keyword results
+            if !filteredKeyword.isEmpty &&
+                filteredCategory.isEmpty &&
+                filteredIngredients.isEmpty{
+                meals = filteredKeyword
+                return
+            }
+            
+            // just category results
+            if filteredKeyword.isEmpty &&
+                !filteredCategory.isEmpty &&
+                filteredIngredients.isEmpty{
+                meals = filteredCategory
+                return
+            }
+            // just ingredient results
+            if filteredKeyword.isEmpty &&
+                filteredCategory.isEmpty &&
+                !filteredIngredients.isEmpty{
+                meals = filteredIngredients
+                return
+            }
+            
+            // keyword and category filter
+            if !filteredKeyword.isEmpty &&
+                !filteredCategory.isEmpty &&
+                filteredIngredients.isEmpty{
+                meals = filteredKeyword.filter{filteredCategory.contains($0)}
+                return
+            }
+            
+            // keyword and ingredient filter
+            if !filteredKeyword.isEmpty &&
+                filteredCategory.isEmpty &&
+                !filteredIngredients.isEmpty{
+                meals = filteredKeyword.filter{filteredIngredients.contains($0)}
+                return
+            }
+            
+            // keyword and ingredient filter
+            if !filteredKeyword.isEmpty &&
+                filteredCategory.isEmpty &&
+                !filteredIngredients.isEmpty{
+                meals = filteredKeyword.filter{filteredIngredients.contains($0)}
+                return
+            }
+            
+            // ingredient and category filter
+            if filteredKeyword.isEmpty &&
+                !filteredCategory.isEmpty &&
+                !filteredIngredients.isEmpty{
+                meals = filteredCategory.filter{filteredIngredients.contains($0)}
+                return
+            }
+            
+            // all three have results
+            if !filteredKeyword.isEmpty &&
+                !filteredCategory.isEmpty &&
+                !filteredIngredients.isEmpty{
+                let keyCat = filteredKeyword.filter{filteredCategory.contains($0)}
+                meals = filteredIngredients.filter{keyCat.contains($0)}
+                return
+            }
+
         }
     }
     // MARK: - Filter Meals

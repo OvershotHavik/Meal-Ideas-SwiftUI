@@ -13,34 +13,46 @@ struct CustomFilterView: View {
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
-        Form{
-            TextField("Search...", text: $query.customKeyword)
-            
-            CustomCategoryNL(vm: vm)
-            
-            if query.customCategory != ""{
-                BadgesHStack(title: "Category:", items: [query.customCategory], topColor: .blue, bottomColor: .blue)
+        
+            Form{
+                TextField("Search...", text: $query.customKeyword)
+                
+                CustomCategoryNL(vm: vm)
+                
+                if query.customCategory != ""{
+                    BadgesHStack(title: "Category:", items: [query.customCategory], topColor: .blue, bottomColor: .blue)
+                }
+                
+                CustomIngredientNL(vm: vm)
+
+                if query.customIngredient != ""{
+                    BadgesHStack(title: "Ingredient:", items: [query.customIngredient], topColor: .green, bottomColor: .green)
+                }
+                Button {
+                    print("Go back to the view to perform search")
+                    dismiss()
+
+                } label: {
+                    Text("Search")
+                        .foregroundColor(.white)
+                        .frame(width: 200, height: 50)
+                        .background(.blue)
+                        .cornerRadius(10)
+                }
+                
+                Button {
+                    print("Reset")
+                    query.customKeyword = ""
+                    query.customCategory = ""
+                    query.customIngredient = ""
+                } label: {
+                    Text("Reset")
+                        .foregroundColor(.white)
+                        .frame(width: 200, height: 50)
+                        .background(.red)
+                        .cornerRadius(10)
+                }
             }
-            
-            CustomIngredientNL(vm: vm)
-
-            if query.customIngredient != ""{
-                BadgesHStack(title: "Ingredient:", items: [query.customIngredient], topColor: .green, bottomColor: .green)
-            }
-
-            Button {
-                print("Go back to the view to perform search")
-                dismiss()
-
-            } label: {
-                Text("Search")
-                    .foregroundColor(.white)
-                    .frame(width: 200, height: 50)
-                    .background(.blue)
-                    .cornerRadius(10)
-            }
-
-        }
         .toolbar{
             ToolbarItem(placement: .principal, content: {
                 Text(Titles.customFilter.rawValue)
@@ -59,11 +71,18 @@ struct CustomFilterView_Previews: PreviewProvider {
 
 struct CustomCategoryNL: View{
     @StateObject var vm: CustomFilterVM
+    @EnvironmentObject var query: Query
 
     var body: some View{
 
+//        NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: vm.plist,
+//                                                                                listItems: vm.source == .myIdeas ? vm.userCategories : [],
+//                                                                                singleChoiceString = query.customCategory),
+//                                                         title: .oneCategory)) {
+        
         NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: vm.plist,
-                                                                                listItems: vm.source == .myIdeas ? vm.userCategories : []),
+                                                                                listItems: vm.source == .myIdeas ? vm.userCategories : [],
+                                                                                singleChoiceString: query.customCategory),
                                                          title: .oneCategory)) {
             Text("Select a Category")
         }

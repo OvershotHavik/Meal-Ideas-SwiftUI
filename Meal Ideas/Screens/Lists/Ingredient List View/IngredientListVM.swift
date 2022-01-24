@@ -38,7 +38,7 @@ import SwiftUI
                 let allIngredients = try await NetworkManager.shared.getIngredients()
                 ingredients = allIngredients.sorted {$0.strIngredient < $1.strIngredient}
                 if !itemList.isEmpty{
-                    ingredients = ingredients.filter { itemList.contains($0.strMeasurement)}
+                    ingredients = ingredients.filter { itemList.contains($0.strIngredient)}
                 }
                 self.isLoading = false
             } catch {

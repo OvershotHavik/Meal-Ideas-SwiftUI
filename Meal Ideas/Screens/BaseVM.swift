@@ -28,6 +28,15 @@ class BaseVM: ObservableObject{
     @Published var largestY = CGFloat(0)
     @Published var showTopView = true
 
+    //Custom filter
+    @Published var customKeyword: String?
+    @Published var customCategory: String?
+    @Published var customIngredient: String?
+    @Published var originalCustomKeyword: String?
+    @Published var originalCustomCategory: String?
+    @Published var originalCustomIngredient: String?
+    
+    
     init(sourceCategory: PList){
         self.sourceCategory = sourceCategory
         fetchPlist(plist: sourceCategory)
