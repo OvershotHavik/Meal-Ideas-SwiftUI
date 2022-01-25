@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 @MainActor final class MultiIngredientListVM: IngredientListVM{
     @ObservedObject var editVM: EditIdeaVM
@@ -17,8 +18,8 @@ import SwiftUI
         self.editVM = editVM
         self.listType = listType
         super.init(itemList: [])
+        getUserIngredients()
         selectedArray = editVM.userIngredients.compactMap{$0.name}
-        
     }
     
     func checkArray(item: String){
@@ -32,5 +33,27 @@ import SwiftUI
             print("added item: \(item)")
         }
         selectedArray = editVM.userIngredients.compactMap{$0.name}
+    }
+    // MARK: - Get Ingredients
+    func getUserIngredients(){
+        let request = NSFetchRequest<CDIngredient>(entityName: EntityName.CDIngredient.rawValue)
+        do {
+            let ingredients = try PersistenceController.shared.container.viewContext.fetch(request)
+            for ingredient in ingredients {
+                let UUID = UUID()
+                let userIngredient = Ingredients.Meals(id: UUID.uuidString,
+                                                       strIngredient: ingredient.ingredient ?? "",
+                                                       strDescription: nil,
+                                                       strMeasurement: "",
+                                                       strType: nil)
+
+                userIngredients.insert(userIngredient, at: 0)
+            }
+//            userIngredients = ingredients.compactMap{$0.ingredient}
+//            print("user ingredient: \(userIngredients)")
+            print("user ingredient count: \(userIngredients.count)")
+        } catch let error {
+            print("error fetching: \(error.localizedDescription)")
+        }
     }
 }

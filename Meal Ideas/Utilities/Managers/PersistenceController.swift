@@ -239,4 +239,28 @@ struct PersistenceController {
         }
     }
 
+    func addUserItem(entityName: EntityName, item: String){
+        switch entityName {
+        case .CDIngredient:
+            let newItem = CDIngredient(context: container.viewContext)
+            newItem.ingredient = item
+            print("adding to CDIngredients: \(item)")
+            
+            
+        case .CDUserCategory:
+            let newItem = CDUserCategory(context: container.viewContext)
+            newItem.category = item
+            print("adding to CDUserCategory: \(item)")
+            
+            
+        case .CDUserSides:
+            let newItem = CDUserSides(context: container.viewContext)
+            newItem.side = item
+            print("adding to CDUserSides: \(item)")
+            
+            
+        default: print("Not setup in addUserItem")
+        }
+        saveData()
+    }
 }

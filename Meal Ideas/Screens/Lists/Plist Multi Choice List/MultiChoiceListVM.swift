@@ -5,8 +5,8 @@
 //  Created by Steve Plavetzky on 12/9/21.
 //
 
-import Foundation
 import SwiftUI
+import CoreData
 
 final class  MultiChoiceListVM: ObservableObject {
 //    @EnvironmentObject var editIdeaVM: EditIdeaVM
@@ -19,6 +19,8 @@ final class  MultiChoiceListVM: ObservableObject {
     //For the alert to add items to the list
     @Published var showTextAlert = false
     @Published var listType: ListType
+    @Published var userSides: [String] = []
+    @Published var userCategories: [String] = []
     
     var searchResults: [String] {
         if searchText.isEmpty {
@@ -32,9 +34,12 @@ final class  MultiChoiceListVM: ObservableObject {
         self.PList = PList
         self.editVM = editIdeaVM
         self.listType = listType
+        getSides()
+        getCategories()
         fetchPlist()
+        
     }
-
+// MARK: - Fetch Plist
     func fetchPlist(){
         PListManager.loadItemsFromLocalPlist(XcodePlist: PList,
                                              classToDecodeTo: [NewItem].self,
@@ -43,6 +48,16 @@ final class  MultiChoiceListVM: ObservableObject {
                 switch result {
                 case .success(let itemArray):
                     self.listItems = itemArray.map{$0.itemName}
+                    switch self.listType{
+                        
+                    case .side:
+                        self.listItems.append(contentsOf: self.userSides)
+                    case .ingredient:
+                        () // done in multi ingredient VM
+                    case .category:
+                        self.listItems.append(contentsOf: self.userCategories)
+                        
+                    }
                 case .failure(let e): print(e)
                 }
             }
@@ -56,6 +71,7 @@ final class  MultiChoiceListVM: ObservableObject {
         }
     }
     
+    // MARK: - Check Array
     func checkArray(item: String){
         //updates the array on the editIdeaVM as well as selectedArray to have the list view respond accordingly
         
@@ -96,5 +112,31 @@ final class  MultiChoiceListVM: ObservableObject {
 //        selectedArray = editIdeaVM.categories
 //        print(editIdeaVM.categories)
 
+    }
+    // MARK: - Get Sides
+    func getSides(){
+        let request = NSFetchRequest<CDUserSides>(entityName: EntityName.CDUserSides.rawValue)
+        do {
+            let sides = try PersistenceController.shared.container.viewContext.fetch(request)
+            userSides = sides.compactMap({$0.side})
+            print("User sides: \(userSides)")
+            
+            print("sides count: \(userSides.count)")
+        } catch let error {
+            print("error fetching: \(error.localizedDescription)")
+        }
+    }
+    
+    // MARK: - Get Categories
+    func getCategories(){
+        let request = NSFetchRequest<CDUserCategory>(entityName: EntityName.CDUserCategory.rawValue)
+        do {
+            let categories = try PersistenceController.shared.container.viewContext.fetch(request)
+            userCategories = categories.compactMap{$0.category}
+            print("user categories: \(userCategories)")
+            print("categories count: \(userSides.count)")
+        } catch let error {
+            print("error fetching: \(error.localizedDescription)")
+        }
     }
 }

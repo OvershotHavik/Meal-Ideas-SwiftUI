@@ -312,7 +312,8 @@ struct IngredientSelectView: View{
     @StateObject var vm: EditIdeaVM
     var body: some View{
         
-        NavigationLink(destination: MultiIngredientListView(vm: MultiIngredientListVM(editVM: vm, listType: .ingredients))) {
+        NavigationLink(destination: MultiIngredientListView(vm: MultiIngredientListVM(editVM: vm,
+                                                                                      listType: .ingredient))) {
             Text("Select Ingredients")
         }
     }
@@ -339,7 +340,7 @@ struct SidesButtonView: View{
     var body: some View{
         NavigationLink(destination: MultiChoiceListView(vm: MultiChoiceListVM(PList: .sides,
                                                                               editIdeaVM: vm,
-                                                                              listType: .sides),
+                                                                              listType: .side),
                                                         title: .multiSides)) {
             Text("Select Possible Sides")
         }

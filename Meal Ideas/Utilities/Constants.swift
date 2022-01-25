@@ -42,8 +42,8 @@ enum EntityName: String{
 }
 
 enum ListType: String{
-    case sides = "Side"
-    case ingredients = "Ingredient"
+    case side = "Side"
+    case ingredient = "Ingredient"
     case category = "Category"
 }
 

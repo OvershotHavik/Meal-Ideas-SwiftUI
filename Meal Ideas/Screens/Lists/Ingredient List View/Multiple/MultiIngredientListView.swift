@@ -38,10 +38,10 @@ struct MultiIngredientListView: View {
             .alert(isPresented: $vm.showTextAlert,
                    TextAlert(title: "Add a new \(vm.listType)", message: "This will be added to this meal. \nThis will also be available for future meals", action: { result in
                 if let text = result{
-                    if vm.listType == .ingredients{
+                    if vm.listType == .ingredient{
                         print("Add ingredient: \(text)")
+                        PersistenceController.shared.addUserItem(entityName: .CDIngredient, item: text)
                     }
-
                 }
             }))
             .toolbar{

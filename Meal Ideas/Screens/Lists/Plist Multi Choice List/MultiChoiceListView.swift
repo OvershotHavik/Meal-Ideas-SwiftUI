@@ -14,7 +14,7 @@ struct MultiChoiceListView: View {
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
-        List(vm.searchResults, id: \.self) {item in
+        List(vm.searchResults.sorted{$0 < $1}, id: \.self) {item in
             HStack {
                 Text(item)
                     .background(Color(uiColor: .secondarySystemBackground))
@@ -31,11 +31,13 @@ struct MultiChoiceListView: View {
         .alert(isPresented: $vm.showTextAlert,
                TextAlert(title: "Add a new \(vm.listType)", message:  "This will be added to this meal. \nThis will also be available for future meals", action: { result in
             if let text = result{
-                if vm.listType == .sides{
+                if vm.listType == .side{
                     print("Side entered: \(text)")
+                    PersistenceController.shared.addUserItem(entityName: .CDUserSides, item: text)
                 }
                 if vm.listType == .category{
                     print("category entered: \(text)")
+                    PersistenceController.shared.addUserItem(entityName: .CDUserCategory, item: text)
                 }
             }
         }))

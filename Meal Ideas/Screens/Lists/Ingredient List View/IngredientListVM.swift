@@ -16,7 +16,7 @@ import SwiftUI
     
     @Published var selection: String?
     @Published var searching = false
-    
+    @Published var userIngredients : [Ingredients.Meals] = []
     @Published var searchText = ""
     var searchResults: [Ingredients.Meals] {
         if searchText.isEmpty {
@@ -39,7 +39,10 @@ import SwiftUI
                 ingredients = allIngredients.sorted {$0.strIngredient < $1.strIngredient}
                 if !itemList.isEmpty{
                     ingredients = ingredients.filter { itemList.contains($0.strIngredient)}
+                } else {
+                    ingredients.append(contentsOf: userIngredients)
                 }
+                ingredients = ingredients.sorted{$0.strIngredient < $1.strIngredient}
                 self.isLoading = false
             } catch {
                 DispatchQueue.main.async {

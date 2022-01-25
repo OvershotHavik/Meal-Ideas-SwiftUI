@@ -36,7 +36,13 @@ struct Ingredients: Codable{
             strDescription = try container.decodeIfPresent(String.self, forKey: .strDescription)
             strType = try container.decodeIfPresent(String.self, forKey: .strType)
         }
-        
+        init(id: String, strIngredient: String, strDescription: String?, strMeasurement: String, strType: String?){
+            self.id = id
+            self.strIngredient = strIngredient
+            self.strDescription = strDescription
+            self.strMeasurement = strMeasurement
+            self.strType = strType
+        }
         private enum Base: String, Codable {
             case id, strIngredient, strMeasurement, strType
         }
