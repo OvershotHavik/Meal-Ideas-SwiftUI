@@ -71,6 +71,14 @@ struct MealDBView: View {
                                        tag: QueryType.ingredient,
                                        selection: $query.menuSelection) { EmptyView()}
                         
+                        //bring up the custom filter view
+                        NavigationLink(destination: CustomFilterView(vm: CustomFilterVM(source: .mealDB,
+                                                                                        plist: .mealDBCategories,
+                                                                                        userIngredients: [],
+                                                                                        userCategories: [])),
+                                       tag: QueryType.custom,
+                                       selection: $query.menuSelection)  { EmptyView()}
+                        
                         Spacer()
 
                         if vm.allResultsShown{
@@ -124,7 +132,7 @@ struct MealDBView: View {
                         vm.alertItem = AlertContext.noSelection
                         return
                     }
-                    if !vm.sourceCategories.contains(query.selected){
+                    if !vm.sourceCategories.contains(query.customCategory){
                         //If the user selected a category that isn't supported, return with the error
                         vm.resetValues()
                         vm.meals = []
@@ -152,6 +160,11 @@ struct MealDBView: View {
                 if query.queryType == .keyword{
                     query.selected = query.keyword
                     vm.checkQuery(query: query.keyword, queryType: query.queryType)
+                }
+                if query.queryType == .custom{
+                    vm.customFilter(keyword: query.customKeyword,
+                                    category: query.customCategory,
+                                    ingredient: query.customIngredient)
                 }
                 
 //                if query.queryType != .keyword{

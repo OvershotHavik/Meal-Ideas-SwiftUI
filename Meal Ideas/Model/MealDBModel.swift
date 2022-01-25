@@ -12,7 +12,7 @@ struct MealDBResults {
     struct Results: Decodable  {
         let meals: [Meal]
     }
-    struct Meal: Decodable, Identifiable{
+    struct Meal: Decodable, Identifiable, Hashable{
         
         enum CodingKeys: String, CodingKey{
             case idMeal, strMeal, strDrinkAlternative, strCategory, strArea, strInstructions, strMealThumb,
