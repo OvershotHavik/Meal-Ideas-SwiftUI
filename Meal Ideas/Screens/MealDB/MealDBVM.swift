@@ -127,6 +127,124 @@ import SwiftUI
         }
     }
    
+    // MARK: - Custom Filter
+    func customFilter(keyword: String?, category: String?, ingredient: String?){
+        showWelcome = false
+        allResultsShown = false
+        surpriseMealReady = false
+        
+        if originalCustomKeyword != keyword ||
+            originalCustomCategory != category ||
+            originalCustomIngredient != ingredient{
+            meals = []
+            self.originalCustomKeyword = keyword
+            self.originalCustomCategory = category
+            self.originalCustomIngredient = ingredient
+            print("Keyword: \(keyword ?? ""), category: \(category ?? ""), ingredient: \(ingredient ?? "")")
+            
+            Task {
+            
+                do {
+                    
+                
+            // MARK: - Just keyword provided
+            if keyword != "" &&
+                category == "" &&
+                ingredient == ""{
+                if let safeKeyword = keyword{
+                    getMealDBMeals(query: safeKeyword, queryType: .keyword)
+                }
+            }
+            
+            // MARK: - Just Category provided
+            if keyword == "" &&
+                category != "" &&
+                ingredient == ""{
+                if let safeCategory = category{
+                    getMealDBMeals(query: safeCategory, queryType: .category)
+                }
+            }
+            
+            // MARK: - Just ingredient provided
+            if keyword == "" &&
+                category == "" &&
+                ingredient != ""{
+                if let safeIngredient = ingredient{
+                    getMealDBMeals(query: safeIngredient, queryType: .ingredient)
+                }
+            }
+            
+            // MARK: - Keyword and category
+            if keyword != "" &&
+                category != "" &&
+                ingredient == "" {
+                if let keyword = keyword,
+                    let category = category{
+                    var safeKeyword = keyword.lowercased()
+                    safeKeyword = safeKeyword.replacingOccurrences(of: " ", with: "%20")
+                    print(safeKeyword)
+                                    
+                    
+                    print("Fetching MealDB Category: \(category)")
+                    var modified = category.replacingOccurrences(of: " ", with: "%20")
+                    if modified == "Side%20Dish"{
+                        modified = "Side"
+                    }
+                    let catMeals = try await NetworkManager.shared.mealDBQuery(query: modified, queryType: .category)
+                    
+//                    let modified = modifiedCategory.lowercased() + "&offset=\(offsetBy)"
+//                    customURLString = safeKeyword + modified
+//                    let catMeals = try await NetworkManager.shared
+//                        .spoonComplexQuery(query: customURLString, queryType: .category)
+//                    meals.append(contentsOf: catMeals.results)
+//                    if let safeTotalResults = catMeals.totalResults{
+//                        totalMealCount = safeTotalResults
+//                    }
+                    
+
+//                    if offsetBy == 0{
+//                        if meals.count < 10{
+//                            moreToShow = false
+//                        } else {
+//                            moreToShow = true
+//                        }
+//
+//                    } else {
+//                        if meals.count < offsetBy{
+//                            moreToShow = false
+//                        } else {
+//                            moreToShow = true
+//                        }
+//                    }
+                }
+                
+                
+            }
+            
+            
+        } catch {
+            if let miError = error as? MIError{
+                isLoading = false
+
+                switch miError {
+                    //only ones that would come through should be invalidURL or invalid data, but wanted to keep the other cases
+                case .invalidURL:
+                    alertItem = AlertContext.invalidURL
+                case .invalidData:
+                    alertItem = AlertContext.invalidData
+                default: alertItem = AlertContext.invalidResponse // generic error if wanted..
+                }
+            } else {
+                alertItem = AlertContext.invalidResponse // generic error would go here
+                isLoading = false
+            }
+        }
+            }
+            
+        }else {
+            // call same request again and add offset since user scroleld to get more results
+        }
+    }
     // MARK: - Add Surprise Meal
 //    func addSurpriseToMeals(){
 //        if let surpriseMeal = surpriseMeal {

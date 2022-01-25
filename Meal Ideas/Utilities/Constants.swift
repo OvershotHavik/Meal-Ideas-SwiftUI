@@ -66,6 +66,11 @@ enum Titles: String{
     case myIdeasHistory = "History from My Ideas"
 }
 
+enum SpoonTags: String{
+    case category = "&type="
+    case ingredient = "&includeIngredients="
+    case keyword = "&titleMatch="
+}
 
 final class BaseURL{
     static let ingredientsList = "https://www.themealdb.com/api/json/v1/1/list.php?i=list"
@@ -79,7 +84,7 @@ final class BaseURL{
     static let mealDBIngredient = APIKey.mealDB + "filter.php?i="
     static let mealDBKeyword = APIKey.mealDB + "search.php?s="
     
-    static let spoonComplexBase = "https://api.spoonacular.com/recipes/complexSearch?" + APIKey.spoon + "&number=15&addRecipeInformation=true&fillIngredients=true&"
+    static let spoonComplexBase = "https://api.spoonacular.com/recipes/complexSearch?" + APIKey.spoon + "&number=15&addRecipeInformation=true&fillIngredients=true"
     
     static let spoonRandom = "https://api.spoonacular.com/recipes/random?number=1" + APIKey.spoon
 
@@ -89,9 +94,10 @@ final class BaseURL{
 //
 //    static let spoonKeyword = "https://api.spoonacular.com/recipes/complexSearch?" + APIKey.spoon + "&number=10&addRecipeInformation=true&&fillIngredients=true&titleMatch="
     
-    static let spoonCategories = spoonComplexBase + "type="
-    static let spoonIngredients = spoonComplexBase + "includeIngredients="
-    static let spoonKeyword = spoonComplexBase + "titleMatch="
+    static let spoonCategories = spoonComplexBase + SpoonTags.category.rawValue
+    static let spoonIngredients = spoonComplexBase + SpoonTags.ingredient.rawValue
+    static let spoonKeyword = spoonComplexBase + SpoonTags.keyword.rawValue
+    
     
     static let spoonSingleBase = "https://api.spoonacular.com/recipes/"
     static let SpoonSingleSuffix = "/information?includeNutrition=false" + APIKey.spoon

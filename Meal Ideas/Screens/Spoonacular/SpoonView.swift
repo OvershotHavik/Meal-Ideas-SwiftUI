@@ -55,21 +55,21 @@ struct SpoonView: View {
                                                                                                   .foregroundColor(.primary)
                                                                                                   .onAppear{
                                                                                                       print("mealIndex: \(mealIndex)")
-                                                                                                      
-                                                                                                      //                                                                                                      if vm.moreToShow{
                                                                                                       if query.queryType != .random && vm.moreToShow{
                                                                                                           if mealIndex == vm.meals.count - 1 {
-                                                                                                              print("check query called")
-                                                                                                              vm.checkQuery(query: query.selected, queryType: query.queryType)
-                                                                                                              //                                                                                                          }
+                                                                                                              if query.queryType == .custom{
+                                                                                                                  vm.customFilter(keyword: query.customKeyword,
+                                                                                                                                  category: query.customCategory,
+                                                                                                                                  ingredient: query.customIngredient)
+                                                                                                              } else {
+                                                                                                                  print("check query called")
+                                                                                                                  vm.checkQuery(query: query.selected, queryType: query.queryType)
+                                                                                                              }
                                                                                                           }
                                                                                                       }
-                                                                                                      
                                                                                                   }
                                 }
                             }
-                            
-                            
                         }
                         
                         //Used for surprise me, when get random meals is toggled it will take user directly to the first meal at random that they have created

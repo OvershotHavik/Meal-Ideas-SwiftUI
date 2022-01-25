@@ -187,6 +187,7 @@ Original random meal
             print(url)
             return try await spoonComplexQuery(url: url)
             
+            
         case .ingredient:
             guard let url = URL(string: BaseURL.spoonIngredients + query) else {
                 throw MIError.invalidURL
@@ -195,6 +196,7 @@ Original random meal
             //Ingredients returns an array of "results" instead of "meals" that's why this is different
             return try await spoonComplexQuery(url: url)
             
+            
         case .keyword:
             guard let url = URL(string: BaseURL.spoonKeyword + query) else {
                 throw MIError.invalidURL
@@ -202,12 +204,24 @@ Original random meal
             print(url)
             
             return try await spoonComplexQuery(url: url)
+            
+            
+        case .custom:
+            guard let url = URL(string: BaseURL.spoonComplexBase + query) else {
+                throw MIError.invalidURL
+            }
+            print(url)
+            
+            return try await spoonComplexQuery(url: url)
+            
+            
         default:
+            print("Not setup yet in spoon complex query")
+
             guard let url = URL(string: "not Setup In spoon Query") else {
                 throw MIError.invalidURL
             }
             print(url)
-            print("Not setup yet in spoon complex query")
             return try await spoonComplexQuery(url: url)
         }
     }
