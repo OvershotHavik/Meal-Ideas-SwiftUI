@@ -72,7 +72,7 @@ import CoreData
     }
     
     // MARK: - Custom Filter
-    func customFilter(keyword: String?, category: String?, ingredient: String?){
+    func customFilter(keyword: String, category: String, ingredient: String){
         showWelcome = false
         allResultsShown = false
         surpriseMealReady = false
@@ -84,7 +84,7 @@ import CoreData
             self.originalCustomKeyword = keyword
             self.originalCustomCategory = category
             self.originalCustomIngredient = ingredient
-            print("Keyword: \(keyword ?? ""), category: \(category ?? ""), ingredient: \(ingredient ?? "")")
+            print("Keyword: \(keyword), category: \(category), ingredient: \(ingredient)")
             
             
             var filteredKeyword : [UserMeals] = []
@@ -93,35 +93,33 @@ import CoreData
 
             for meal in allMeals{
                 if let safeName = meal.mealName{
-                    if let safeKeyword = keyword{
-                        if safeName.containsIgnoringCase(find: safeKeyword){
+                    if keyword != ""{
+                        if safeName.containsIgnoringCase(find: keyword){
                             print("meal matches Name: \(meal.mealName ?? "")")
                             filteredKeyword.append(meal)
                         }
                     }
                 }
                 if let safeCategories = meal.category as? [String]{
-                    if let safeCat = category{
-                        if safeCategories.contains(safeCat){
+                    if category != ""{
+                        if safeCategories.contains(category){
                                 //add to the array
                             print("meal matched category \(meal.mealName ?? "")")
                             filteredCategory.append(meal)
-                            
                         }
                     }
                 }
 
                 
                 if let safeIngredients = meal.ingredients as? [String]{
-                    if let safeIng = ingredient{
-                        if safeIngredients.contains(safeIng){
+                    if ingredient != ""{
+                        if safeIngredients.contains(ingredient){
                                 //add to the array
                                 print("meal matched ingredient: \(meal.mealName ?? "")")
                             filteredIngredients.append(meal)
                         }
                     }
                 }
-        
             }
             print("Filtered keyword count: \(filteredKeyword.count)")
             print("Filtered category count: \(filteredCategory.count)")

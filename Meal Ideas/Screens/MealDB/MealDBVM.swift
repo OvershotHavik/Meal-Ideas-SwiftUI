@@ -192,30 +192,8 @@ import SwiftUI
                     }
                     let catMeals = try await NetworkManager.shared.mealDBQuery(query: modified, queryType: .category)
                     
-//                    let modified = modifiedCategory.lowercased() + "&offset=\(offsetBy)"
-//                    customURLString = safeKeyword + modified
-//                    let catMeals = try await NetworkManager.shared
-//                        .spoonComplexQuery(query: customURLString, queryType: .category)
-//                    meals.append(contentsOf: catMeals.results)
-//                    if let safeTotalResults = catMeals.totalResults{
-//                        totalMealCount = safeTotalResults
-//                    }
-                    
 
-//                    if offsetBy == 0{
-//                        if meals.count < 10{
-//                            moreToShow = false
-//                        } else {
-//                            moreToShow = true
-//                        }
-//
-//                    } else {
-//                        if meals.count < offsetBy{
-//                            moreToShow = false
-//                        } else {
-//                            moreToShow = true
-//                        }
-//                    }
+                    
                 }
                 
                 
@@ -245,11 +223,5 @@ import SwiftUI
             // call same request again and add offset since user scroleld to get more results
         }
     }
-    // MARK: - Add Surprise Meal
-//    func addSurpriseToMeals(){
-//        if let surpriseMeal = surpriseMeal {
-//            meals.insert(surpriseMeal, at: 0)
-//        }
-//        surpriseMeal = nil
-//    }
+
 }

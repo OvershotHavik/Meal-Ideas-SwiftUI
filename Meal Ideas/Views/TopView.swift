@@ -59,20 +59,19 @@ struct TopView: View{
                     }
                 }
                 
-                if source != .mealDB{
-                    Button {
-                        query.menuSelection = .custom
-                        query.queryType = .custom
-                        print("Custom selected")
-                    } label: {
-                        if query.queryType == .custom{
-                            Text("\(QueryType.custom.rawValue) ->")
-                        } else {
-                            Text(QueryType.custom.rawValue)
-                        }
-                        
+                Button {
+                    query.menuSelection = .custom
+                    query.queryType = .custom
+                    print("Custom selected")
+                } label: {
+                    if query.queryType == .custom{
+                        Text("\(QueryType.custom.rawValue) ->")
+                    } else {
+                        Text(QueryType.custom.rawValue)
                     }
+                    
                 }
+                
 
 
                 } label: {// Menu label
