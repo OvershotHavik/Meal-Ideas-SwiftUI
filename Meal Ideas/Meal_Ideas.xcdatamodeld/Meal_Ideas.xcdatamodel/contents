@@ -14,6 +14,12 @@
         <attribute name="timeStamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="userMealID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
     </entity>
+    <entity name="UserCategory" representedClassName="UserCategory" syncable="YES" codeGenerationType="class">
+        <attribute name="category" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="UserIngredient" representedClassName="UserIngredient" syncable="YES" codeGenerationType="class">
+        <attribute name="ingredient" optional="YES" attributeType="String"/>
+    </entity>
     <entity name="UserMeals" representedClassName="UserMeals" syncable="YES" codeGenerationType="class">
         <attribute name="category" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="created" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -32,9 +38,15 @@
         <attribute name="source" optional="YES" attributeType="String"/>
         <attribute name="userMealID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
     </entity>
+    <entity name="UserSides" representedClassName="UserSides" syncable="YES" codeGenerationType="class">
+        <attribute name="side" optional="YES" attributeType="String"/>
+    </entity>
     <elements>
         <element name="Favorites" positionX="-63" positionY="-18" width="128" height="104"/>
         <element name="History" positionX="-54" positionY="63" width="128" height="104"/>
         <element name="UserMeals" positionX="-54" positionY="0" width="128" height="269"/>
+        <element name="UserSides" positionX="-54" positionY="108" width="128" height="44"/>
+        <element name="UserCategory" positionX="-45" positionY="117" width="128" height="44"/>
+        <element name="UserIngredient" positionX="-36" positionY="126" width="128" height="44"/>
     </elements>
 </model>

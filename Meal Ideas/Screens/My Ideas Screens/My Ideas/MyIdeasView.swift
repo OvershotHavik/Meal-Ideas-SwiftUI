@@ -127,8 +127,6 @@ struct MyIdeasView: View {
             }
             
             .onAppear {
-                
-                
                 vm.surpriseMeal = nil
                 query.getHistory()
                 query.getFavorites()

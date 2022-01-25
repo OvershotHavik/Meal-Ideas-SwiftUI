@@ -9,17 +9,6 @@ import Foundation
 import CoreData
 import SwiftUI
 
-
-
-//extension RangeReplaceableCollection {
-//    func intersection<S: Sequence>(_ sequence: S) -> Self where S.Element == Element, Element: Hashable {
-//        var set = Set(sequence)
-//        return filter { !set.insert($0).inserted }
-//    }
-//}
-
-
-
 @MainActor final class MealDBVM: BaseVM{
     
     @Published var meals : [MealDBResults.Meal] = []
