@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+    <entity name="CDIngredient" representedClassName="CDIngredient" syncable="YES" codeGenerationType="class">
+        <attribute name="ingredient" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="CDUserCategory" representedClassName="CDUserCategory" syncable="YES" codeGenerationType="class">
+        <attribute name="category" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="CDUserSides" representedClassName="CDUserSides" syncable="YES" codeGenerationType="class">
+        <attribute name="side" optional="YES" attributeType="String"/>
+    </entity>
     <entity name="Favorites" representedClassName="Favorites" syncable="YES" codeGenerationType="class">
         <attribute name="dateAdded" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="mealDBID" optional="YES" attributeType="String"/>
@@ -13,12 +22,6 @@
         <attribute name="spoonID" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="timeStamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="userMealID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-    </entity>
-    <entity name="UserCategory" representedClassName="UserCategory" syncable="YES" codeGenerationType="class">
-        <attribute name="category" optional="YES" attributeType="String"/>
-    </entity>
-    <entity name="UserIngredient" representedClassName="UserIngredient" syncable="YES" codeGenerationType="class">
-        <attribute name="ingredient" optional="YES" attributeType="String"/>
     </entity>
     <entity name="UserMeals" representedClassName="UserMeals" syncable="YES" codeGenerationType="class">
         <attribute name="category" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
@@ -38,15 +41,12 @@
         <attribute name="source" optional="YES" attributeType="String"/>
         <attribute name="userMealID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
     </entity>
-    <entity name="UserSides" representedClassName="UserSides" syncable="YES" codeGenerationType="class">
-        <attribute name="side" optional="YES" attributeType="String"/>
-    </entity>
     <elements>
         <element name="Favorites" positionX="-63" positionY="-18" width="128" height="104"/>
         <element name="History" positionX="-54" positionY="63" width="128" height="104"/>
+        <element name="CDUserCategory" positionX="-45" positionY="117" width="128" height="44"/>
+        <element name="CDIngredient" positionX="-36" positionY="126" width="128" height="44"/>
         <element name="UserMeals" positionX="-54" positionY="0" width="128" height="269"/>
-        <element name="UserSides" positionX="-54" positionY="108" width="128" height="44"/>
-        <element name="UserCategory" positionX="-45" positionY="117" width="128" height="44"/>
-        <element name="UserIngredient" positionX="-36" positionY="126" width="128" height="44"/>
+        <element name="CDUserSides" positionX="-54" positionY="108" width="128" height="44"/>
     </elements>
 </model>
