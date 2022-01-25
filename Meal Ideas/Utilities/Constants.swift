@@ -36,6 +36,9 @@ enum EntityName: String{
     case userMeals = "UserMeals"
     case history = "History"
     case favorites = "Favorites"
+    case CDIngredient = "CDIngredient"
+    case CDUserCategory = "CDUserCategory"
+    case CDUserSides = "CDUserSides"
 }
 
 
@@ -71,6 +74,7 @@ enum SpoonTags: String{
     case ingredient = "&includeIngredients="
     case keyword = "&titleMatch="
 }
+
 
 final class BaseURL{
     static let ingredientsList = "https://www.themealdb.com/api/json/v1/1/list.php?i=list"

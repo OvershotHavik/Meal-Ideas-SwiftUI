@@ -10,6 +10,7 @@
 		B3132585279EEFBE004FDE3C /* KeyboardResponsive.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3132584279EEFBE004FDE3C /* KeyboardResponsive.swift */; };
 		B3132588279F008F004FDE3C /* CustomFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3132587279F008F004FDE3C /* CustomFilterView.swift */; };
 		B313258A279F00A0004FDE3C /* CustomFilterVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3132589279F00A0004FDE3C /* CustomFilterVM.swift */; };
+		B32934FE27A07D6C00951C47 /* TextAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32934FD27A07D6C00951C47 /* TextAlert.swift */; };
 		B32D0308275E6C91003ACE14 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32D0307275E6C91003ACE14 /* Constants.swift */; };
 		B345CC48277F64420065B78A /* MultiWheelPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B345CC47277F64420065B78A /* MultiWheelPicker.swift */; };
 		B345CC4A277F6F470065B78A /* UserPrepHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B345CC49277F6F470065B78A /* UserPrepHStack.swift */; };
@@ -130,6 +131,7 @@
 		B3132584279EEFBE004FDE3C /* KeyboardResponsive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponsive.swift; sourceTree = "<group>"; };
 		B3132587279F008F004FDE3C /* CustomFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFilterView.swift; sourceTree = "<group>"; };
 		B3132589279F00A0004FDE3C /* CustomFilterVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFilterVM.swift; sourceTree = "<group>"; };
+		B32934FD27A07D6C00951C47 /* TextAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAlert.swift; sourceTree = "<group>"; };
 		B32D0307275E6C91003ACE14 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B345CC47277F64420065B78A /* MultiWheelPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiWheelPicker.swift; sourceTree = "<group>"; };
 		B345CC49277F6F470065B78A /* UserPrepHStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPrepHStack.swift; sourceTree = "<group>"; };
@@ -536,6 +538,7 @@
 			children = (
 				B3AE0A172756D109001EAD15 /* Alert.swift */,
 				B3CEDDAD2756FD7D00BB832B /* MIError.swift */,
+				B32934FD27A07D6C00951C47 /* TextAlert.swift */,
 			);
 			path = Alerts;
 			sourceTree = "<group>";
@@ -872,6 +875,7 @@
 				B3CEDDC4275700E300BB832B /* ThingsToDo.swift in Sources */,
 				B3627BF9275F756B004A6519 /* EditMealsListView.swift in Sources */,
 				B345CC4A277F6F470065B78A /* UserPrepHStack.swift in Sources */,
+				B32934FE27A07D6C00951C47 /* TextAlert.swift in Sources */,
 				B3CEDDA82756FCB800BB832B /* SingleIngredientListView.swift in Sources */,
 				B3CA23722748108C00CA9C68 /* MealIdeasTabView.swift in Sources */,
 				B3606D9B274C201200E61972 /* SpoonMealModel.swift in Sources */,
