@@ -178,9 +178,18 @@ struct SpoonView: View {
                     vm.checkQuery(query: query.selected, queryType: query.queryType)
                 }
                 if query.queryType == .custom{
-                    vm.customFilter(keyword: query.customKeyword,
-                                    category: query.customCategory,
-                                    ingredient: query.customIngredient)
+                    if !vm.sourceCategories.contains(query.customCategory){
+                        //If the user selected a category that isn't supported, return with the error
+                        vm.resetValues()
+                        vm.meals = []
+                        vm.alertItem = AlertContext.invalidData
+                        return
+                    } else {
+                        vm.customFilter(keyword: query.customKeyword,
+                                        category: query.customCategory,
+                                        ingredient: query.customIngredient)
+                    }
+
                 }
                 //
                 //                if query.queryType == .category ||
