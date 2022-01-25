@@ -41,6 +41,11 @@ enum EntityName: String{
     case CDUserSides = "CDUserSides"
 }
 
+enum ListType: String{
+    case sides = "Side"
+    case ingredients = "Ingredient"
+    case category = "Category"
+}
 
 enum Source: String{
     case spoonacular = "Spoonacular"

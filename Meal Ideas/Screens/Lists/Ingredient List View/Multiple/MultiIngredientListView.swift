@@ -26,6 +26,35 @@ struct MultiIngredientListView: View {
                         vm.checkArray(item: ingredient.strIngredient)
                     }
             }
+            .toolbar{
+                ToolbarItem(placement: .navigationBarTrailing){
+                    Button {
+                        print("Bring up the new item alert with text field")
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                }
+            }
+            .alert(isPresented: $vm.showTextAlert,
+                   TextAlert(title: "Add a new \(vm.listType)", message: "This will be added to this meal. \nThis will also be available for future meals", action: { result in
+                if let text = result{
+                    if vm.listType == .ingredients{
+                        print("Add ingredient: \(text)")
+                    }
+
+                }
+            }))
+            .toolbar{
+                ToolbarItem(placement: .navigationBarTrailing){
+                    Button {
+                        print("Bring up the new item alert with text field")
+                        vm.showTextAlert.toggle()
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+
+                }
+            }
             .searchable(text: $vm.searchText)
             .navigationTitle(Titles.multiIngredients.rawValue)
             .alert(item: $vm.alertItem) { alertItem in

@@ -102,6 +102,12 @@ struct PersistenceController {
             } catch let e{
                 print("Error fetching favorites: \(e.localizedDescription)")
             }
+        case .CDIngredient:
+            print("Not setup yet in deleteInList")
+        case .CDUserCategory:
+            print("Not setup yet in deleteInList")
+        case .CDUserSides:
+            print("Not setup yet in deleteInList")
         }
         saveData()
 

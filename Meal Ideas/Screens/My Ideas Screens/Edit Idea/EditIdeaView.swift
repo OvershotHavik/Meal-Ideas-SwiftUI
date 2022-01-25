@@ -299,7 +299,10 @@ struct MealPhotoView: View{
 struct CategorySelectView: View{
     @StateObject var vm: EditIdeaVM
     var body: some View{
-        NavigationLink(destination: MultiChoiceListView(vm: MultiChoiceListVM(PList: .categories, editIdeaVM: vm), title: .multiCategory)) {
+        NavigationLink(destination: MultiChoiceListView(vm: MultiChoiceListVM(PList: .categories,
+                                                                              editIdeaVM: vm,
+                                                                              listType: .category),
+                                                        title: .multiCategory)) {
             Text("Select Categories")
         }
     }
@@ -309,7 +312,7 @@ struct IngredientSelectView: View{
     @StateObject var vm: EditIdeaVM
     var body: some View{
         
-        NavigationLink(destination: MultiIngredientListView(vm: MultiIngredientListVM(editVM: vm))) {
+        NavigationLink(destination: MultiIngredientListView(vm: MultiIngredientListVM(editVM: vm, listType: .ingredients))) {
             Text("Select Ingredients")
         }
     }
@@ -335,7 +338,9 @@ struct SidesButtonView: View{
     @StateObject var vm: EditIdeaVM
     var body: some View{
         NavigationLink(destination: MultiChoiceListView(vm: MultiChoiceListVM(PList: .sides,
-                                                                              editIdeaVM: vm), title: .multiSides)) {
+                                                                              editIdeaVM: vm,
+                                                                              listType: .sides),
+                                                        title: .multiSides)) {
             Text("Select Possible Sides")
         }
     }

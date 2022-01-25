@@ -9,9 +9,13 @@ import SwiftUI
 
 @MainActor final class MultiIngredientListVM: IngredientListVM{
     @ObservedObject var editVM: EditIdeaVM
+    //For the alert to add items to the list
+    @Published var showTextAlert = false
+    @Published var listType: ListType
 
-    init(editVM: EditIdeaVM){
+    init(editVM: EditIdeaVM, listType: ListType){
         self.editVM = editVM
+        self.listType = listType
         super.init(itemList: [])
         selectedArray = editVM.userIngredients.compactMap{$0.name}
         

@@ -15,6 +15,11 @@ final class  MultiChoiceListVM: ObservableObject {
     @Published var PList: PList
     @Published var selectedArray: [String] = [] // updates based on the plist selected
     @Published var searchText = ""
+    
+    //For the alert to add items to the list
+    @Published var showTextAlert = false
+    @Published var listType: ListType
+    
     var searchResults: [String] {
         if searchText.isEmpty {
             return listItems
@@ -23,12 +28,13 @@ final class  MultiChoiceListVM: ObservableObject {
         }
     }
     
-    init(PList: PList, editIdeaVM: EditIdeaVM){
+    init(PList: PList, editIdeaVM: EditIdeaVM, listType: ListType){
         self.PList = PList
         self.editVM = editIdeaVM
+        self.listType = listType
         fetchPlist()
     }
-    
+
     func fetchPlist(){
         PListManager.loadItemsFromLocalPlist(XcodePlist: PList,
                                              classToDecodeTo: [NewItem].self,

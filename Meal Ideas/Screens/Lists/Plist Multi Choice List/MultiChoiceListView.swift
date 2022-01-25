@@ -26,7 +26,32 @@ struct MultiChoiceListView: View {
                 .onTapGesture {
                     vm.checkArray(item: item)
                 }
+                
         }
+        .alert(isPresented: $vm.showTextAlert,
+               TextAlert(title: "Add a new \(vm.listType)", message:  "This will be added to this meal. \nThis will also be available for future meals", action: { result in
+            if let text = result{
+                if vm.listType == .sides{
+                    print("Side entered: \(text)")
+                }
+                if vm.listType == .category{
+                    print("category entered: \(text)")
+                }
+            }
+        }))
+        .toolbar{
+
+            ToolbarItem(placement: .navigationBarTrailing){
+                Button {
+                    print("Bring up the new item alert with text field")
+                    vm.showTextAlert.toggle()
+                } label: {
+                    Image(systemName: "plus")
+                }
+
+            }
+        }
+
         .searchable(text: $vm.searchText)
         .navigationTitle(title.rawValue)
         .navigationBarTitleDisplayMode(.inline)
