@@ -92,6 +92,8 @@ struct PersistenceController {
             } catch let e{
                 print("Error fetching history: \(e.localizedDescription)")
             }
+            
+            
         case .favorites:
             let request = NSFetchRequest<Favorites>(entityName: EntityName.favorites.rawValue)
             do {
@@ -102,12 +104,46 @@ struct PersistenceController {
             } catch let e{
                 print("Error fetching favorites: \(e.localizedDescription)")
             }
+            
+            
         case .CDIngredient:
-            print("Not setup yet in deleteInList")
+            let request = NSFetchRequest<CDIngredient>(entityName: EntityName.CDIngredient.rawValue)
+            do {
+                let savedIngredients = try container.viewContext.fetch(request)
+                guard let index = indexSet.first else {return}
+                let ingredient = savedIngredients[index]
+                print(ingredient)
+                container.viewContext.delete(ingredient)
+            }catch let e {
+                print("Error fetching CDIngredients: \(e.localizedDescription)")
+            }
+
+            
         case .CDUserCategory:
-            print("Not setup yet in deleteInList")
+            let request = NSFetchRequest<CDUserCategory>(entityName: EntityName.CDUserCategory.rawValue)
+            do {
+                let savedItems = try container.viewContext.fetch(request)
+                guard let index = indexSet.first else {return}
+                let category = savedItems[index]
+                print(category)
+                container.viewContext.delete(category)
+            }catch let e {
+                print("Error fetching CDUserCategory: \(e.localizedDescription)")
+            }
+            
+            
         case .CDUserSides:
-            print("Not setup yet in deleteInList")
+            let request = NSFetchRequest<CDUserSides>(entityName: EntityName.CDUserSides.rawValue)
+            do {
+                let savedItems = try container.viewContext.fetch(request)
+                guard let index = indexSet.first else {return}
+                let Side = savedItems[index]
+                print(Side)
+                container.viewContext.delete(Side)
+            }catch let e {
+                print("Error fetching CDUserCategory: \(e.localizedDescription)")
+            }
+            
         }
         saveData()
 

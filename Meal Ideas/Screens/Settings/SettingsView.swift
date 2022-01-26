@@ -14,24 +14,30 @@ struct SettingsView: View {
         NavigationView{
             Form {
                 Section(header: Text("Edit Your Items")){
-                    NavigationLink(destination: EditItemList(vm: EditItemListVM(title: .editCategories, listItems: vm.userCategories))) {
+                    NavigationLink(destination: EditItemList(vm: EditItemListVM(title: .editCategories,
+                                                                                listType: .category,
+                                                                                entityName: .CDUserCategory))) {
                         Text(Titles.editCategories.rawValue)
+                            .foregroundColor(.blue)
                     }
                     
-                    NavigationLink(destination: EditItemList(vm: EditItemListVM(title: .editIngredients, listItems: vm.userIngredients))) {
+                    NavigationLink(destination: EditItemList(vm: EditItemListVM(title: .editIngredients,
+                                                                                listType: .ingredient,
+                                                                                entityName: .CDIngredient))) {
                         Text(Titles.editIngredients.rawValue)
+                            .foregroundColor(.blue)
                     }
                     
-                    NavigationLink(destination: EditItemList(vm: EditItemListVM(title: .editSides, listItems: vm.userSides))) {
+                    NavigationLink(destination: EditItemList(vm: EditItemListVM(title: .editSides,
+                                                                                listType: .side,
+                                                                                entityName: .CDUserSides))) {
                         Text(Titles.editSides.rawValue)
+                            .foregroundColor(.blue)
                     }
                 }
             }
             .navigationTitle(Titles.settings.rawValue)
-            
         }
-
-
     }
 }
 
