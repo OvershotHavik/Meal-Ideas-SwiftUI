@@ -46,6 +46,9 @@ struct MultiIngredientListView: View {
                 }
             }))
             .toolbar{
+                ToolbarItem(placement: .principal){
+                    Text(Titles.multiIngredients.rawValue)
+                }
                 ToolbarItem(placement: .navigationBarTrailing){
                     Button {
                         print("Bring up the new item alert with text field")
@@ -57,7 +60,6 @@ struct MultiIngredientListView: View {
                 }
             }
             .searchable(text: $vm.searchText)
-            .navigationTitle(Titles.multiIngredients.rawValue)
             .alert(item: $vm.alertItem) { alertItem in
                 Alert(title: alertItem.title,
                       message: alertItem.message,

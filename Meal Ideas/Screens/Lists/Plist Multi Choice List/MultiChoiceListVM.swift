@@ -102,16 +102,6 @@ final class  MultiChoiceListVM: ObservableObject {
             
         default: print("plist selection checkArray  not setup in MultiChoiceListVM")
         }
-//        if let repeatItem = editIdeaVM.categories.firstIndex(of: item){
-//            editIdeaVM.categories.remove(at: repeatItem)
-//            print("duplicate item: \(item), removed from array")
-//        } else {
-//            editIdeaVM.categories.append(item)
-//            print("added item: \(item)")
-//        }
-//        selectedArray = editIdeaVM.categories
-//        print(editIdeaVM.categories)
-
     }
     // MARK: - Get Sides
     func getSides(){
@@ -138,5 +128,18 @@ final class  MultiChoiceListVM: ObservableObject {
         } catch let error {
             print("error fetching: \(error.localizedDescription)")
         }
+    }
+    // MARK: - Add Item
+    func addItem(item: String){
+        selectedArray.append(item)
+        if listType == .category{
+            editVM.categories.append(item)
+        }
+        if listType == .side{
+            editVM.sides.append(item)
+        }
+            
+        listItems.append(item)
+        listItems = listItems.sorted{$0 < $1}
     }
 }

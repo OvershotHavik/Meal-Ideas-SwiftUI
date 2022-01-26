@@ -32,11 +32,15 @@ struct SingleChoiceListView: View {
                     }
                 }
             }
+            .toolbar{
+                ToolbarItem(placement: .principal) {
+                    Text(title.rawValue)
+                }
+            }
 //            .onAppear{
 //                query.queryType = .category
 //            }
             .searchable(text: $vm.searchText)
-            .navigationTitle(title.rawValue)
             .navigationBarTitleDisplayMode(.inline)
     }
 }

@@ -28,9 +28,12 @@ struct SingleIngredientListView: View {
                         dismiss()
                     }
             }
-
+            .toolbar{
+                ToolbarItem(placement: .principal) {
+                    Text(Titles.oneIngredient.rawValue)
+                }
+            }
             .searchable(text: $vm.searchText)
-            .navigationTitle(Titles.oneIngredient.rawValue)
             .alert(item: $vm.alertItem) { alertItem in
                 Alert(title: alertItem.title,
                       message: alertItem.message,

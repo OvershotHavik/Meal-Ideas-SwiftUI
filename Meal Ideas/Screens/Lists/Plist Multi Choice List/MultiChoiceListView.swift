@@ -33,15 +33,20 @@ struct MultiChoiceListView: View {
             if let text = result{
                 if vm.listType == .side{
                     print("Side entered: \(text)")
+                    vm.addItem(item: text)
                     PersistenceController.shared.addUserItem(entityName: .CDUserSides, item: text)
                 }
                 if vm.listType == .category{
                     print("category entered: \(text)")
+                    vm.addItem(item: text)
                     PersistenceController.shared.addUserItem(entityName: .CDUserCategory, item: text)
                 }
             }
         }))
         .toolbar{
+            ToolbarItem(placement: .principal) {
+                Text(title.rawValue)
+            }
 
             ToolbarItem(placement: .navigationBarTrailing){
                 Button {
@@ -55,7 +60,6 @@ struct MultiChoiceListView: View {
         }
 
         .searchable(text: $vm.searchText)
-        .navigationTitle(title.rawValue)
         .navigationBarTitleDisplayMode(.inline)
     }
 }
