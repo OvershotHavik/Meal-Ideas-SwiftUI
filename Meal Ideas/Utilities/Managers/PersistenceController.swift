@@ -113,7 +113,31 @@ struct PersistenceController {
                 guard let index = indexSet.first else {return}
                 let ingredient = savedIngredients[index]
                 print(ingredient)
+//                print("Turn delete back on for ingredient after testing")
                 container.viewContext.delete(ingredient)
+                
+                let mealRequest = NSFetchRequest<UserMeals>(entityName: EntityName.userMeals.rawValue)
+                
+                if let ingredientName = ingredient.ingredient{
+                    let savedMeals = try container.viewContext.fetch(mealRequest)
+                    for meal in savedMeals{
+                        if let safeIngredients = meal.ingredients as? [String]{
+                            if safeIngredients.contains(ingredientName){
+                                print("Meal: \(meal.mealName ?? "") with ingredient: \(ingredientName)")
+                                
+                                var savedIngredients = safeIngredients
+                                print("Ingredients: \(savedIngredients)")
+                                if let existingIngredient = savedIngredients.firstIndex(of: ingredientName){
+                                    savedIngredients.remove(at: existingIngredient)
+                                    meal.ingredients = savedIngredients as NSObject
+                                    print("Ingredients after removal: \(savedIngredients)")
+                                    saveData()
+                                    print("Meal saved")
+                                }
+                            }
+                        }
+                    }
+                }
             }catch let e {
                 print("Error fetching CDIngredients: \(e.localizedDescription)")
             }

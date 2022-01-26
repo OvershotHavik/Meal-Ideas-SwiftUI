@@ -28,7 +28,7 @@ final class EditMealsListVM: ObservableObject{
     
     // MARK: - Fetch Meals
     func fetchMeals(){
-        let request = NSFetchRequest<UserMeals>(entityName: "UserMeals")
+        let request = NSFetchRequest<UserMeals>(entityName: EntityName.userMeals.rawValue)
         do {
             savedMeals = try pc.container.viewContext.fetch(request)
             print("Meals Fetched")
