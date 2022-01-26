@@ -16,13 +16,12 @@ struct IngredientCell: View {
     var body: some View {
         let modifiedMealDB = ingredient.strIngredient.replacingOccurrences(of: " ", with: "%20")
         if let mealDBImages = URL(string: "\(BaseURL.ingredientImage)\(modifiedMealDB).png"){
-            ZStack(alignment: .leading){
-//                Color.lightBlue // only applies to the cell, not the list
-//                Color(uiColor: Color.lightBlue)
+            ZStack{
+                Color(uiColor: .secondarySystemBackground)
+
                 HStack{
                     LoadRemoteImageView(urlString: mealDBImages.absoluteString)
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 50)
                     Text(ingredient.strIngredient)
                         .font(.body)
                         .padding(.horizontal)
@@ -31,9 +30,8 @@ struct IngredientCell: View {
                         Image(systemName: "checkmark")
                     }
                 }
+                .frame(height: 50)
             }
-//            .background(Color(uiColor: .secondarySystemBackground))
-            
         }
     }
 }

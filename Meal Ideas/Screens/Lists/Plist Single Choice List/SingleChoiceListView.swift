@@ -14,32 +14,29 @@ struct SingleChoiceListView: View {
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
-            VStack{
                 List(vm.searchResults, id: \.self, selection: $vm.singleChoiceString) {item in
-                    HStack{
-                        Text(item)
-                        Spacer()
-                        if query.selected == item{
-                            Image(systemName: "checkmark")
+                    ZStack{
+                        Color(uiColor: .secondarySystemBackground)
+                        HStack{
+                            Text(item)
+                            Spacer()
+                            if query.selected == item{
+                                Image(systemName: "checkmark")
+                            }
                         }
                     }
-                    .background(Color(uiColor: .secondarySystemBackground))
-//                    .background(.clear)
                     .onTapGesture{
                         query.selected = item
                         query.customCategory = item // manually setting for category right now, may need to change if using this elsewhere for something else
                         dismiss()
                     }
                 }
-            }
+            
             .toolbar{
                 ToolbarItem(placement: .principal) {
                     Text(title.rawValue)
                 }
             }
-//            .onAppear{
-//                query.queryType = .category
-//            }
             .searchable(text: $vm.searchText)
             .navigationBarTitleDisplayMode(.inline)
     }

@@ -41,6 +41,7 @@ struct RemoteImage: View{
     var image: Image?
     var body: some View{
         image?.resizable() ?? Image(UI.placeholderMeal).resizable() // If image is nil, use the image in asset as a placeholder
+            
     }
 }
 

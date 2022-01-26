@@ -15,18 +15,20 @@ struct MultiChoiceListView: View {
 
     var body: some View {
         List(vm.searchResults.sorted{$0 < $1}, id: \.self) {item in
-            HStack {
-                Text(item)
-                    .background(Color(uiColor: .secondarySystemBackground))
-                Spacer()
-                if vm.selectedArray.contains(item){
-                    Image(systemName: "checkmark")
+            ZStack{
+                Color(uiColor: .secondarySystemBackground)
+                HStack {
+                    Text(item)
+                        
+                    Spacer()
+                    if vm.selectedArray.contains(item){
+                        Image(systemName: "checkmark")
+                    }
                 }
             }
-                .onTapGesture {
-                    vm.checkArray(item: item)
-                }
-                
+            .onTapGesture {
+                vm.checkArray(item: item)
+            }
         }
         .alert(isPresented: $vm.showTextAlert,
                TextAlert(title: "Add a new \(vm.listType)", message:  "This will be added to this meal. \nThis will also be available for future meals", action: { result in
@@ -55,7 +57,6 @@ struct MultiChoiceListView: View {
                 } label: {
                     Image(systemName: "plus")
                 }
-
             }
         }
 
