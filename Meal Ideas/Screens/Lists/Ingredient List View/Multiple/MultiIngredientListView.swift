@@ -40,6 +40,7 @@ struct MultiIngredientListView: View {
                 if let text = result{
                     if vm.listType == .ingredient{
                         print("Add ingredient: \(text)")
+                        vm.addItem(item: text)
                         PersistenceController.shared.addUserItem(entityName: .CDIngredient, item: text)
                     }
                 }
