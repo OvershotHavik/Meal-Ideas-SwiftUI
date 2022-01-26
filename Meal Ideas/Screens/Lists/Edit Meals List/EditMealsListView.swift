@@ -11,24 +11,23 @@ struct EditMealsListView: View {
     @StateObject var vm = EditMealsListVM()
     
     var body: some View {
-        VStack(spacing: 20) {
 
-            List {
-                if vm.savedMeals.isEmpty{
-                    NoResultsView(message: "Tap the + to create a meal")
-                }
-                ForEach(vm.searchResults) {meal in
-                    NavigationLink(destination: EditIdeaView(vm: EditIdeaVM(meal: meal))) {
-                        Text(meal.mealName ?? "No name")
-                    }
-                }
-                .onDelete { IndexSet in
-                    vm.showingDeleteAlert.toggle()
-                    vm.selectedIndexSet = IndexSet
+        List {
+            if vm.savedMeals.isEmpty{
+                NoResultsView(message: "Tap the + to create a meal")
+            }
+            ForEach(vm.searchResults) {meal in
+                NavigationLink(destination: EditIdeaView(vm: EditIdeaVM(meal: meal))) {
+                    Text(meal.mealName ?? "No name")
                 }
             }
-            .searchable(text: $vm.searchText)
+            .onDelete { IndexSet in
+                vm.showingDeleteAlert.toggle()
+                vm.selectedIndexSet = IndexSet
+            }
         }
+        .searchable(text: $vm.searchText)
+        
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal, content: {

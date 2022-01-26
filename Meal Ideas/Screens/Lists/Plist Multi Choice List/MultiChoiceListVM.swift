@@ -124,7 +124,7 @@ final class  MultiChoiceListVM: ObservableObject {
             let categories = try PersistenceController.shared.container.viewContext.fetch(request)
             userCategories = categories.compactMap{$0.category}
             print("user categories: \(userCategories)")
-            print("categories count: \(userSides.count)")
+            print("categories count: \(userCategories.count)")
         } catch let error {
             print("error fetching: \(error.localizedDescription)")
         }

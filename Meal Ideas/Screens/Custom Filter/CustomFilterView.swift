@@ -76,8 +76,8 @@ struct CustomCategoryNL: View{
     var body: some View{
         NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: vm.plist,
                                                                                 listItems: vm.source == .myIdeas ? vm.userCategories : [],
-                                                                                singleChoiceString: query.customCategory),
-                                                         title: .oneCategory)) {
+                                                                                singleChoiceString: query.customCategory,
+                                                                                title: .oneCategory))) {
             Text("Select a Category")
         }
                                                          .foregroundColor(.blue)

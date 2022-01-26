@@ -7,14 +7,12 @@
 
 import SwiftUI
 
-final class  SingleChoiceListVM: ObservableObject {
+final class SingleChoiceListVM: ObservableObject {
 
     @Published var listItems: [String]
     @Published var PList: PList?
-//    @Published var singleChoice: NewItem?
+    @Published var title: Titles
     @Published var singleChoiceString: String?
-//    @Published var multi = Set<String>()
-    
     @Published var searchText = ""
     var searchResults: [String] {
         if searchText.isEmpty {
@@ -23,10 +21,11 @@ final class  SingleChoiceListVM: ObservableObject {
             return listItems.filter { $0.contains(searchText) }
         }
     }
-    init(PList: PList?, listItems: [String], singleChoiceString: String?){
+    init(PList: PList?, listItems: [String], singleChoiceString: String?, title: Titles){
         self.PList = PList
         self.listItems = listItems
         self.singleChoiceString = singleChoiceString
+        self.title = title
         fetchPlist()
     }
     

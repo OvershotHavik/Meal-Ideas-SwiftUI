@@ -61,6 +61,13 @@ enum Titles: String{
     
     case myIdeas = "My Ideas"
     
+    
+    case settings = "Settings"
+    case editCategories = "Edit Categories"
+    case editIngredients = "Edit Ingredients"
+    case editSides = "Edit Sides"
+    
+    
     case multiCategory = "Select Categories"
     case multiIngredients = "Select Ingredients"
     case multiSides = "Select Sides"

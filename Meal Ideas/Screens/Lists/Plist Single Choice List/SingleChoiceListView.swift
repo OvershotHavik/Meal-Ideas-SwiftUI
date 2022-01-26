@@ -10,7 +10,6 @@ import SwiftUI
 struct SingleChoiceListView: View {
     @StateObject var vm: SingleChoiceListVM
     @EnvironmentObject var query: Query
-    var title: Titles
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
@@ -34,7 +33,7 @@ struct SingleChoiceListView: View {
             
             .toolbar{
                 ToolbarItem(placement: .principal) {
-                    Text(title.rawValue)
+                    Text(vm.title.rawValue)
                 }
             }
             .searchable(text: $vm.searchText)

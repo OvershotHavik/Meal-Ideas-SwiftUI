@@ -24,6 +24,10 @@ struct MealIdeasTabView: View {
                 .tabItem {
                     Label("Spoonacular", systemImage: "fork.knife.circle.fill")
                 }
+            SettingsView()
+                .tabItem {
+                    Label("Settings", systemImage: "gearshape.fill")
+                }
         }
         .onAppear{
             query.getFavorites()
