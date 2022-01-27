@@ -113,9 +113,8 @@ struct PersistenceController {
                 guard let index = indexSet.first else {return}
                 let ingredient = savedIngredients[index]
                 print(ingredient)
-//                print("Turn delete back on for ingredient after testing")
                 container.viewContext.delete(ingredient)
-                
+                //Delete the ingredient from any meals that may have it in them
                 let mealRequest = NSFetchRequest<UserMeals>(entityName: EntityName.userMeals.rawValue)
                 
                 if let ingredientName = ingredient.ingredient{
@@ -143,27 +142,34 @@ struct PersistenceController {
             }
 
             
-        case .CDUserCategory:
-            let request = NSFetchRequest<CDUserCategory>(entityName: EntityName.CDUserCategory.rawValue)
+        case .CDCategory:
+            let request = NSFetchRequest<CDCategory>(entityName: EntityName.CDCategory.rawValue)
             do {
                 let savedItems = try container.viewContext.fetch(request)
                 guard let index = indexSet.first else {return}
                 let category = savedItems[index]
                 print(category)
                 container.viewContext.delete(category)
+                
+                // TODO:    do the same here that was done in category above
+                    
             }catch let e {
                 print("Error fetching CDUserCategory: \(e.localizedDescription)")
             }
             
             
-        case .CDUserSides:
-            let request = NSFetchRequest<CDUserSides>(entityName: EntityName.CDUserSides.rawValue)
+        case .CDSides:
+            let request = NSFetchRequest<CDSides>(entityName: EntityName.CDSides.rawValue)
             do {
                 let savedItems = try container.viewContext.fetch(request)
                 guard let index = indexSet.first else {return}
                 let Side = savedItems[index]
                 print(Side)
                 container.viewContext.delete(Side)
+                
+// TODO:    do the same here that was done in category above
+                    
+                    
             }catch let e {
                 print("Error fetching CDUserCategory: \(e.localizedDescription)")
             }
@@ -307,14 +313,14 @@ struct PersistenceController {
             print("adding to CDIngredients: \(item)")
             
             
-        case .CDUserCategory:
-            let newItem = CDUserCategory(context: container.viewContext)
+        case .CDCategory:
+            let newItem = CDCategory(context: container.viewContext)
             newItem.category = item
             print("adding to CDUserCategory: \(item)")
             
             
-        case .CDUserSides:
-            let newItem = CDUserSides(context: container.viewContext)
+        case .CDSides:
+            let newItem = CDSides(context: container.viewContext)
             newItem.side = item
             print("adding to CDUserSides: \(item)")
             

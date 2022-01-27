@@ -16,7 +16,7 @@ struct SettingsView: View {
                 Section(header: Text("Edit Your Items")){
                     NavigationLink(destination: EditItemList(vm: EditItemListVM(title: .editCategories,
                                                                                 listType: .category,
-                                                                                entityName: .CDUserCategory))) {
+                                                                                entityName: .CDCategory))) {
                         Text(Titles.editCategories.rawValue)
                             .foregroundColor(.blue)
                     }
@@ -30,7 +30,7 @@ struct SettingsView: View {
                     
                     NavigationLink(destination: EditItemList(vm: EditItemListVM(title: .editSides,
                                                                                 listType: .side,
-                                                                                entityName: .CDUserSides))) {
+                                                                                entityName: .CDSides))) {
                         Text(Titles.editSides.rawValue)
                             .foregroundColor(.blue)
                     }

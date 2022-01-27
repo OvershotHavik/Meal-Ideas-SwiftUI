@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+    <entity name="CDCategory" representedClassName="CDCategory" syncable="YES" codeGenerationType="class">
+        <attribute name="category" optional="YES" attributeType="String"/>
+    </entity>
     <entity name="CDIngredient" representedClassName="CDIngredient" syncable="YES" codeGenerationType="class">
         <attribute name="ingredient" optional="YES" attributeType="String"/>
     </entity>
-    <entity name="CDUserCategory" representedClassName="CDUserCategory" syncable="YES" codeGenerationType="class">
-        <attribute name="category" optional="YES" attributeType="String"/>
-    </entity>
-    <entity name="CDUserSides" representedClassName="CDUserSides" syncable="YES" codeGenerationType="class">
+    <entity name="CDSides" representedClassName="CDSides" syncable="YES" codeGenerationType="class">
         <attribute name="side" optional="YES" attributeType="String"/>
     </entity>
     <entity name="Favorites" representedClassName="Favorites" syncable="YES" codeGenerationType="class">
@@ -44,9 +44,9 @@
     <elements>
         <element name="Favorites" positionX="-63" positionY="-18" width="128" height="104"/>
         <element name="History" positionX="-54" positionY="63" width="128" height="104"/>
-        <element name="CDUserCategory" positionX="-45" positionY="117" width="128" height="44"/>
+        <element name="CDCategory" positionX="-45" positionY="117" width="128" height="44"/>
         <element name="CDIngredient" positionX="-36" positionY="126" width="128" height="44"/>
         <element name="UserMeals" positionX="-54" positionY="0" width="128" height="269"/>
-        <element name="CDUserSides" positionX="-54" positionY="108" width="128" height="44"/>
+        <element name="CDSides" positionX="-54" positionY="108" width="128" height="44"/>
     </elements>
 </model>

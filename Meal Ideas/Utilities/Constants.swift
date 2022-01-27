@@ -37,8 +37,8 @@ enum EntityName: String{
     case history = "History"
     case favorites = "Favorites"
     case CDIngredient = "CDIngredient"
-    case CDUserCategory = "CDUserCategory"
-    case CDUserSides = "CDUserSides"
+    case CDCategory = "CDCategory"
+    case CDSides = "CDSides"
 }
 
 enum ListType: String{

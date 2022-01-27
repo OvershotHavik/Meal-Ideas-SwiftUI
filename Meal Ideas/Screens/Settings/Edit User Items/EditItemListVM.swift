@@ -34,7 +34,7 @@ import CoreData
     func getUserItems(){
         switch listType {
         case .category:
-            let categoriesRequest = NSFetchRequest<CDUserCategory>(entityName: EntityName.CDUserCategory.rawValue)
+            let categoriesRequest = NSFetchRequest<CDCategory>(entityName: EntityName.CDCategory.rawValue)
             do {
                 let categories = try PersistenceController.shared.container.viewContext.fetch(categoriesRequest)
                 listItems = categories.compactMap{$0.category}
@@ -56,7 +56,7 @@ import CoreData
             
             
         case .side:
-            let sidesRequest = NSFetchRequest<CDUserSides>(entityName: EntityName.CDUserSides.rawValue)
+            let sidesRequest = NSFetchRequest<CDSides>(entityName: EntityName.CDSides.rawValue)
             do {
                 let sides = try PersistenceController.shared.container.viewContext.fetch(sidesRequest)
                 listItems = sides.compactMap({$0.side})
@@ -72,11 +72,11 @@ import CoreData
         listItems = listItems.sorted{$0 < $1}
         switch listType {
         case .category:
-            PersistenceController.shared.addUserItem(entityName: .CDUserCategory, item: item)
+            PersistenceController.shared.addUserItem(entityName: .CDCategory, item: item)
         case .ingredient:
             PersistenceController.shared.addUserItem(entityName: .CDIngredient, item: item)
         case .side:
-            PersistenceController.shared.addUserItem(entityName: .CDUserSides, item: item)
+            PersistenceController.shared.addUserItem(entityName: .CDSides, item: item)
         }
     }
     // MARK: - Delete User Item

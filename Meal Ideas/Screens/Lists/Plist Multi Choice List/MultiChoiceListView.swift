@@ -36,12 +36,12 @@ struct MultiChoiceListView: View {
                 if vm.listType == .side{
                     print("Side entered: \(text)")
                     vm.addItem(item: text)
-                    PersistenceController.shared.addUserItem(entityName: .CDUserSides, item: text)
+                    PersistenceController.shared.addUserItem(entityName: .CDSides, item: text)
                 }
                 if vm.listType == .category{
                     print("category entered: \(text)")
                     vm.addItem(item: text)
-                    PersistenceController.shared.addUserItem(entityName: .CDUserCategory, item: text)
+                    PersistenceController.shared.addUserItem(entityName: .CDCategory, item: text)
                 }
             }
         }))

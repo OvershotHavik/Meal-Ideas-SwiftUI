@@ -105,7 +105,7 @@ final class  MultiChoiceListVM: ObservableObject {
     }
     // MARK: - Get Sides
     func getSides(){
-        let request = NSFetchRequest<CDUserSides>(entityName: EntityName.CDUserSides.rawValue)
+        let request = NSFetchRequest<CDSides>(entityName: EntityName.CDSides.rawValue)
         do {
             let sides = try PersistenceController.shared.container.viewContext.fetch(request)
             userSides = sides.compactMap({$0.side})
@@ -119,7 +119,7 @@ final class  MultiChoiceListVM: ObservableObject {
     
     // MARK: - Get Categories
     func getCategories(){
-        let request = NSFetchRequest<CDUserCategory>(entityName: EntityName.CDUserCategory.rawValue)
+        let request = NSFetchRequest<CDCategory>(entityName: EntityName.CDCategory.rawValue)
         do {
             let categories = try PersistenceController.shared.container.viewContext.fetch(request)
             userCategories = categories.compactMap{$0.category}
