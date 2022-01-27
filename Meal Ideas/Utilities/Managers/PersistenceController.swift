@@ -150,8 +150,30 @@ struct PersistenceController {
                 let category = savedItems[index]
                 print(category)
                 container.viewContext.delete(category)
-                
-                // TODO:    do the same here that was done in category above
+                //Delete the Category from any meals that may have it in them
+
+                let mealRequest = NSFetchRequest<UserMeals>(entityName: EntityName.userMeals.rawValue)
+
+                if let categoryName = category.category{
+                    let savedMeals = try container.viewContext.fetch(mealRequest)
+                    for meal in savedMeals{
+                        if let safeCategories = meal.category as? [String]{
+                            if safeCategories.contains(categoryName){
+                                print("Meal: \(meal.mealName ?? "") with category: \(categoryName)")
+                                var savedCategories = safeCategories
+                                print("Categories: \(savedCategories)")
+                                
+                                if let existingCategory = savedCategories.firstIndex(of: categoryName){
+                                    savedCategories.remove(at: existingCategory)
+                                    meal.category = savedCategories as NSObject
+                                    print("Catagories after removal: \(savedCategories)")
+                                    saveData()
+                                    print("Meal saved")
+                                }
+                            }
+                        }
+                    }
+                }
                     
             }catch let e {
                 print("Error fetching CDUserCategory: \(e.localizedDescription)")
@@ -163,11 +185,34 @@ struct PersistenceController {
             do {
                 let savedItems = try container.viewContext.fetch(request)
                 guard let index = indexSet.first else {return}
-                let Side = savedItems[index]
-                print(Side)
-                container.viewContext.delete(Side)
-                
-// TODO:    do the same here that was done in category above
+                let side = savedItems[index]
+                print(side)
+                container.viewContext.delete(side)
+                //Delete the Side from any meals that may have it in them
+
+                let mealRequest = NSFetchRequest<UserMeals>(entityName: EntityName.userMeals.rawValue)
+
+                if let sideName = side.side{
+                    let savedMeals = try container.viewContext.fetch(mealRequest)
+                    for meal in savedMeals{
+                        if let safeSides = meal.sides as? [String]{
+                            if safeSides.contains(sideName){
+                                print("Meal \(meal.mealName ?? "") with side: \(sideName)")
+                                var savedSides = safeSides
+                                print("Sides: \(savedSides)")
+                                
+                                if let existingSide = savedSides.firstIndex(of: sideName){
+                                    savedSides.remove(at: existingSide)
+                                    meal.sides = savedSides as NSObject
+                                    print("SIdes after removal: \(savedSides)")
+                                    saveData()
+                                    print("Meal saved")
+                                }
+                            }
+                        }
+                    }
+                }
+
                     
                     
             }catch let e {
