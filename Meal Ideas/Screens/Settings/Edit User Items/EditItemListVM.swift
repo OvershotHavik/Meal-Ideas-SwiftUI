@@ -15,6 +15,8 @@ import CoreData
     @Published var listType: ListType
     @Published var showTextAlert = false
     @Published var entityName: EntityName
+    @Published var itemToEdit: String = ""
+    @Published var showEditAlert = false
     
     var searchResults: [String] {
         if searchText.isEmpty {

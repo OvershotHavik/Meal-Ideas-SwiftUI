@@ -350,6 +350,7 @@ struct PersistenceController {
         }
     }
 
+    // MARK: - Add User Item
     func addUserItem(entityName: EntityName, item: String){
         switch entityName {
         case .CDIngredient:
@@ -371,6 +372,74 @@ struct PersistenceController {
             
             
         default: print("Not setup in addUserItem")
+        }
+        saveData()
+    }
+    
+    func editUserItem(entityName: EntityName, original: String, updated: String?){
+        //If updated is nil, user selected delete
+        switch entityName {
+        case .CDCategory:
+            print("not setup in EditUse Item yet")
+        case .CDIngredient:
+            print("not setup in EditUse Item yet")
+
+        case .CDSides:
+            let request = NSFetchRequest<CDSides>(entityName: EntityName.CDSides.rawValue)
+            do {               
+                
+                let savedItems = try container.viewContext.fetch(request)
+                guard let index = savedItems.firstIndex(where: {$0.side == original}) else {return}
+                let side = savedItems[index]
+                print(side)
+
+
+                //Delete the Side from any meals that may have it in them
+
+                let mealRequest = NSFetchRequest<UserMeals>(entityName: EntityName.userMeals.rawValue)
+
+                if let sideName = side.side{
+                    let savedMeals = try container.viewContext.fetch(mealRequest)
+                    for meal in savedMeals{
+                        if let safeSides = meal.sides as? [String]{
+                            if safeSides.contains(sideName){
+                                print("Meal \(meal.mealName ?? "") with side: \(sideName)")
+                                var savedSides = safeSides
+                                print("Sides: \(savedSides)")
+                                
+                                if let existingSide = savedSides.firstIndex(of: sideName){
+                                    //Remove from the array
+                                    savedSides.remove(at: existingSide)
+                                    if let safeUpdated = updated{
+                                        //Add updated
+                                        savedSides.append(safeUpdated)
+                                    }
+                                    meal.sides = savedSides as NSObject
+                                    print("SIdes after removal: \(savedSides)")
+                                    saveData()
+                                    print("Meal saved")
+                                }
+                            }
+                        }
+                    }
+                }
+                if updated == nil{
+                    print("delete tapped, removing")
+                    //user selected delete, delete it from the CD
+                    container.viewContext.delete(side)
+                } else {
+                    //Update the side
+                    print("Update tapped")
+                    side.side = updated
+                    saveData()
+                }
+                    
+                    
+            }catch let e {
+                print("Error fetching CDUserCategory: \(e.localizedDescription)")
+            }
+            
+        default: print("Not setup in EditUserItems")
         }
         saveData()
     }
