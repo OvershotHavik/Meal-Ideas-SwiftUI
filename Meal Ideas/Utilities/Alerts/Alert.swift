@@ -27,6 +27,11 @@ struct AlertContext{
                                              message: Text("Invalid response from the server. \nPlease try again later or contact support."),
                                              dismissButton: .default(Text("OK")))
     
+    // MARK: - App Storage error
+    static let invalidUserData = AlertItem(title: Text("Profile Error"),
+                                           message: Text("There was an error saving or retrieving your settings"),
+                                           dismissButton: .default(Text("OK")))
+    
     // TODO:  Fix errors to make more sense for end user
     static let invalidURL         = AlertItem(title: Text("Server Error"),
                                               message: Text("Invalid URL."),

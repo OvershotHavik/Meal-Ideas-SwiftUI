@@ -15,6 +15,7 @@
 		B329350327A1E1FD00951C47 /* SettingsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B329350227A1E1FD00951C47 /* SettingsVM.swift */; };
 		B329350627A1E80000951C47 /* EditItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B329350527A1E80000951C47 /* EditItemList.swift */; };
 		B329350827A1E80E00951C47 /* EditItemListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B329350727A1E80E00951C47 /* EditItemListVM.swift */; };
+		B329350A27A3137000951C47 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B329350927A3136F00951C47 /* UserSettings.swift */; };
 		B32D0308275E6C91003ACE14 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32D0307275E6C91003ACE14 /* Constants.swift */; };
 		B345CC48277F64420065B78A /* MultiWheelPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B345CC47277F64420065B78A /* MultiWheelPicker.swift */; };
 		B345CC4A277F6F470065B78A /* UserPrepHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B345CC49277F6F470065B78A /* UserPrepHStack.swift */; };
@@ -140,6 +141,7 @@
 		B329350227A1E1FD00951C47 /* SettingsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVM.swift; sourceTree = "<group>"; };
 		B329350527A1E80000951C47 /* EditItemList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditItemList.swift; sourceTree = "<group>"; };
 		B329350727A1E80E00951C47 /* EditItemListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditItemListVM.swift; sourceTree = "<group>"; };
+		B329350927A3136F00951C47 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		B32D0307275E6C91003ACE14 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B345CC47277F64420065B78A /* MultiWheelPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiWheelPicker.swift; sourceTree = "<group>"; };
 		B345CC49277F6F470065B78A /* UserPrepHStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPrepHStack.swift; sourceTree = "<group>"; };
@@ -337,6 +339,7 @@
 				B3606D9E274C210700E61972 /* FavoritesModel.swift */,
 				B3606DA0274C217700E61972 /* IngredientsModel.swift */,
 				B3CEDDB12756FDEA00BB832B /* Query.swift */,
+				B329350927A3136F00951C47 /* UserSettings.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -880,6 +883,7 @@
 				B374E7DC278496C800422E9C /* SpoonFunctions.swift in Sources */,
 				B3A75CB7276699B30062C8B4 /* NoResultsViewWithImage.swift in Sources */,
 				B3D32CDA2783992500FA4ACA /* DetailViewIngredientListView.swift in Sources */,
+				B329350A27A3137000951C47 /* UserSettings.swift in Sources */,
 				B3CEDDB02756FDB700BB832B /* NetworkManager.swift in Sources */,
 				B3CEDD9E2756F9D200BB832B /* EditIdeaView.swift in Sources */,
 				B3CA237A2748114000CA9C68 /* MealDBView.swift in Sources */,

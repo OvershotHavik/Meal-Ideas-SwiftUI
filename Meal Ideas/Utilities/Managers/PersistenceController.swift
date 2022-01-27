@@ -484,6 +484,8 @@ struct PersistenceController {
             }catch let e {
                 print("Error fetching CDIngredients: \(e.localizedDescription)")
             }
+            
+            
         case .CDSides:
             let request = NSFetchRequest<CDSides>(entityName: EntityName.CDSides.rawValue)
             do {
