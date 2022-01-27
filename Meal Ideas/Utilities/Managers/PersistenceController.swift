@@ -380,13 +380,113 @@ struct PersistenceController {
         //If updated is nil, user selected delete
         switch entityName {
         case .CDCategory:
-            print("not setup in EditUse Item yet")
-        case .CDIngredient:
-            print("not setup in EditUse Item yet")
+            let request = NSFetchRequest<CDCategory>(entityName: EntityName.CDCategory.rawValue)
+            do {
+                let savedItems = try container.viewContext.fetch(request)
+                guard let index = savedItems.firstIndex(where: {$0.category == original}) else {return}
+                let category = savedItems[index]
+                print(category)
 
+                //Delete the Category from any meals that may have it in them
+
+                let mealRequest = NSFetchRequest<UserMeals>(entityName: EntityName.userMeals.rawValue)
+
+                if let categoryName = category.category{
+                    let savedMeals = try container.viewContext.fetch(mealRequest)
+                    for meal in savedMeals{
+                        if let safeCategories = meal.category as? [String]{
+                            if safeCategories.contains(categoryName){
+                                print("Meal: \(meal.mealName ?? "") with category: \(categoryName)")
+                                var savedCategories = safeCategories
+                                print("Categories: \(savedCategories)")
+                                
+                                if let existingCategory = savedCategories.firstIndex(of: categoryName){
+                                    //Remove from the array
+                                    savedCategories.remove(at: existingCategory)
+                                    if let safeUpdated = updated{
+                                        //add updated
+                                        savedCategories.append(safeUpdated)
+                                    }
+                                    meal.category = savedCategories as NSObject
+                                    print("Categories after update: \(savedCategories)")
+                                    saveData()
+                                    print("Meal saved")
+                                }
+                            }
+                        }
+                    }
+                }
+                    
+                if updated == nil{
+                    print("delete tapped, removing")
+                    //user selected delete, delete it from the CD
+                    container.viewContext.delete(category)
+                } else {
+                    //Update the side
+                    print("Update tapped")
+                    category.category = updated
+                    saveData()
+                }
+                
+                
+            }catch let e {
+                print("Error fetching CDUserCategory: \(e.localizedDescription)")
+            }
+
+            
+        case .CDIngredient:
+            let request = NSFetchRequest<CDIngredient>(entityName: EntityName.CDIngredient.rawValue)
+            do {
+                let savedIngredients = try container.viewContext.fetch(request)
+                guard let index = savedIngredients.firstIndex(where: {$0.ingredient == original}) else {return}
+                let ingredient = savedIngredients[index]
+                print(ingredient)
+
+                //Update the ingredient from any meals that may have it in them
+
+                let mealRequest = NSFetchRequest<UserMeals>(entityName: EntityName.userMeals.rawValue)
+                
+                if let ingredientName = ingredient.ingredient{
+                    let savedMeals = try container.viewContext.fetch(mealRequest)
+                    for meal in savedMeals{
+                        if let safeIngredients = meal.ingredients as? [String]{
+                            if safeIngredients.contains(ingredientName){
+                                print("Meal: \(meal.mealName ?? "") with ingredient: \(ingredientName)")
+                                var savedIngredients = safeIngredients
+                                print("Ingredients: \(savedIngredients)")
+                                if let existingIngredient = savedIngredients.firstIndex(of: ingredientName){
+                                    //Remove from the array
+                                    savedIngredients.remove(at: existingIngredient)
+                                    if let safeUpdated = updated{
+                                        // add updated
+                                        savedIngredients.append(safeUpdated)
+                                    }
+                                    meal.ingredients = savedIngredients as NSObject
+                                    print("Ingredients after removal: \(savedIngredients)")
+                                    saveData()
+                                    print("Meal saved")
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                if updated == nil{
+                    print("delete tapped, removing")
+                    //user selected delete, delete it from the CD
+                    container.viewContext.delete(ingredient)
+                } else {
+                    //Update the side
+                    print("Update tapped")
+                    ingredient.ingredient = updated
+                    saveData()
+                }
+            }catch let e {
+                print("Error fetching CDIngredients: \(e.localizedDescription)")
+            }
         case .CDSides:
             let request = NSFetchRequest<CDSides>(entityName: EntityName.CDSides.rawValue)
-            do {               
+            do {
                 
                 let savedItems = try container.viewContext.fetch(request)
                 guard let index = savedItems.firstIndex(where: {$0.side == original}) else {return}
@@ -394,7 +494,7 @@ struct PersistenceController {
                 print(side)
 
 
-                //Delete the Side from any meals that may have it in them
+                //Update the Side from any meals that may have it in them
 
                 let mealRequest = NSFetchRequest<UserMeals>(entityName: EntityName.userMeals.rawValue)
 
