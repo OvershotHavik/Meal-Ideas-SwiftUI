@@ -56,6 +56,7 @@ struct SettingsView: View {
                             userEnvironment.saveChanges()
                         } label: {
                             Text("Reset Colors")
+                                .foregroundColor(.blue)
                         }
                     }
 
