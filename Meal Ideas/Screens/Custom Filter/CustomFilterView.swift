@@ -50,6 +50,7 @@ struct CustomFilterView: View {
                         query.customIngredient = ""
                     } label: {
                         Text("Reset")
+                            .foregroundColor(.red)
                     }
                 }
                 

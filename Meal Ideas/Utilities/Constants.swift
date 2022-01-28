@@ -17,6 +17,8 @@ class UI{
     static let verticalSpacing = CGFloat(25)
     static let placeholderMeal = "Placeholder"
     static let placeholderImage = Image(UI.placeholderMeal).resizable()
+    static let noIngredient = "No meals have been created that contain ingredients."
+    static let noCategory = "No meals have been created that contain any categories."
 //    static let horizontalSpacing = CGFloat(12)
 //    static let cornerRadius = CGFloat(12)
 //    static let backgroundColor = UIColor.systemGray5
@@ -87,7 +89,14 @@ enum SpoonTags: String{
     case keyword = "&titleMatch="
 }
 
-
+/*
+//Uncomment this section to clear the alerts. The network calls will not work but the app can be used for user meals
+final class APIKey{
+    static let spoon = ""
+    static let mealDB = ""
+    
+}
+*/
 final class BaseURL{
     static let ingredientsList = "https://www.themealdb.com/api/json/v1/1/list.php?i=list"
     static let ingredientImage = "https://www.themealdb.com/images/ingredients/"

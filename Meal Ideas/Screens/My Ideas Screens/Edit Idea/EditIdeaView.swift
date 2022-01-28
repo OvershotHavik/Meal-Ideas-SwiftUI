@@ -101,7 +101,7 @@ struct EditIdeaView: View {
                 
                 if vm.meal != nil{
                     //Only show and add space if the meal was passed in
-                    Spacer(minLength: 5)
+//                    Spacer(minLength: 5)
                     DeleteButtonView(vm: vm, showingDeleteAlert: $vm.showingDeleteAlert)
 //                        .listRowBackground(Color.red)
                 }

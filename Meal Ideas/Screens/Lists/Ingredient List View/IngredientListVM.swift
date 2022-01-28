@@ -13,7 +13,7 @@ import SwiftUI
     @Published var alertItem: AlertItem?
     @Published var isLoading = false
     @Published var selectedArray : [String] = []
-    
+    @Published var showNoResults = false
     @Published var selection: String?
     @Published var searching = false
     @Published var userIngredients : [Ingredients.Meals] = []
@@ -39,6 +39,7 @@ import SwiftUI
                 ingredients = allIngredients.sorted {$0.strIngredient < $1.strIngredient}
                 if !itemList.isEmpty{
                     ingredients = ingredients.filter { itemList.contains($0.strIngredient)}
+                    showNoResults = false
                 } else {
                     ingredients.append(contentsOf: userIngredients)
                 }

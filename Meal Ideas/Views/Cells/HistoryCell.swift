@@ -26,6 +26,7 @@ struct HistoryCell: View {
                     .foregroundColor(.pink)
             }
         }
+        .contentShape(Rectangle())
     }
     // MARK: - Convert Date
     func convertDate(date:Date)->String{

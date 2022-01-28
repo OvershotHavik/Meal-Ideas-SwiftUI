@@ -30,6 +30,8 @@ import CoreData
         //used to get all meals, runs on on appear of the view, and if all meals changes, goes through check query
         let request = NSFetchRequest<UserMeals>(entityName: "UserMeals")
         do {
+            userCategories = []
+            userIngredients = []
             allMeals = try pc.container.viewContext.fetch(request)
 
             for meal in allMeals{
@@ -38,7 +40,13 @@ import CoreData
             }
             
             userCategories = userCategories.unique()
+//            if userCategories.isEmpty{
+//                userCategories.append(UI.noCategory)
+//            }
             userIngredients = userIngredients.unique()
+            if userIngredients.isEmpty{
+                userIngredients.append(UI.noIngredient)
+            }
             print(userCategories)
             print(userIngredients)
 

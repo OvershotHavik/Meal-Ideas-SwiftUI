@@ -12,20 +12,18 @@ struct MultiChoiceListView: View {
     @EnvironmentObject var editIdeaVM: EditIdeaVM
     var title: Titles
     @Environment(\.dismiss) var dismiss
-
+    
     var body: some View {
         List(vm.searchResults.sorted{$0 < $1}, id: \.self) {item in
-            ZStack{
-                Color(uiColor: .secondarySystemBackground)
-                HStack {
-                    Text(item)
-                        
-                    Spacer()
-                    if vm.selectedArray.contains(item){
-                        Image(systemName: "checkmark")
-                    }
+            HStack {
+                Text(item)
+                
+                Spacer()
+                if vm.selectedArray.contains(item){
+                    Image(systemName: "checkmark")
                 }
             }
+            .contentShape(Rectangle())
             .onTapGesture {
                 vm.checkArray(item: item)
             }

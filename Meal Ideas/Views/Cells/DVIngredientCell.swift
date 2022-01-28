@@ -37,6 +37,7 @@ struct DetailViewIngredientCell: View {
                         Image(systemName: "checkmark")
                     }
                 }
+                .contentShape(Rectangle())
             }
             .onAppear{
                 getImage(ingredientName: ingredient)

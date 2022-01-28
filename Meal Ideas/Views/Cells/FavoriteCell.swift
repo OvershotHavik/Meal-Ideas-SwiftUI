@@ -16,6 +16,7 @@ struct FavoriteCell: View {
             Image(systemName: "heart.fill")
                 .foregroundColor(.pink)
         }
+        .contentShape(Rectangle())
     }
 }
 

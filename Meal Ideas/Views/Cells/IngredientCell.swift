@@ -16,22 +16,19 @@ struct IngredientCell: View {
     var body: some View {
         let modifiedMealDB = ingredient.strIngredient.replacingOccurrences(of: " ", with: "%20")
         if let mealDBImages = URL(string: "\(BaseURL.ingredientImage)\(modifiedMealDB).png"){
-            ZStack{
-                Color(uiColor: .secondarySystemBackground)
-
-                HStack{
-                    LoadRemoteImageView(urlString: mealDBImages.absoluteString)
-                        .aspectRatio(contentMode: .fit)
-                    Text(ingredient.strIngredient)
-                        .font(.body)
-                        .padding(.horizontal)
-                    Spacer()
-                    if selected == true{
-                        Image(systemName: "checkmark")
-                    }
+            HStack{
+                LoadRemoteImageView(urlString: mealDBImages.absoluteString)
+                    .aspectRatio(contentMode: .fit)
+                Text(ingredient.strIngredient)
+                    .font(.body)
+                    .padding(.horizontal)
+                Spacer()
+                if selected == true{
+                    Image(systemName: "checkmark")
                 }
-                .frame(height: 50)
             }
+            .contentShape(Rectangle())
+            .frame(height: 50)
         }
     }
 }
