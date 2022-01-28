@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MealIdeasTabView: View {
     @EnvironmentObject var query: Query
+    @EnvironmentObject var userEnvironment: UserEnvironment
     
     var body: some View {
         TabView{
@@ -32,6 +33,7 @@ struct MealIdeasTabView: View {
         .onAppear{
             query.getFavorites()
             query.getHistory()
+            userEnvironment.retrieveUserSettings()
         }
     }
 }

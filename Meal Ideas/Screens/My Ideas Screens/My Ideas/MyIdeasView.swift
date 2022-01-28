@@ -83,7 +83,6 @@ struct MyIdeasView: View {
                             AllResultsShownText()
                         }
                     }
-
                 }
                 if vm.isLoading{
                     loadingView()
@@ -92,7 +91,6 @@ struct MyIdeasView: View {
                     TopView(keywordSearchTapped: $vm.keywordSearchTapped,
                             getRandomMeals: $vm.getRandomMeals,
                             source: $vm.source)
-//                        .background(BackgroundGradientView())
                 }
             }
 //            .background(BackgroundGradientView())

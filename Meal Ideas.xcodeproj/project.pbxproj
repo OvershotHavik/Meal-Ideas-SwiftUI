@@ -297,6 +297,15 @@
 			path = "Edit User Items";
 			sourceTree = "<group>";
 		};
+		B329350B27A46D6400951C47 /* Environment */ = {
+			isa = PBXGroup;
+			children = (
+				B3CEDDB12756FDEA00BB832B /* Query.swift */,
+				B329350927A3136F00951C47 /* UserSettings.swift */,
+			);
+			path = Environment;
+			sourceTree = "<group>";
+		};
 		B3606D8F2748221E00E61972 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -330,6 +339,7 @@
 		B3606D94274C1BD900E61972 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B329350B27A46D6400951C47 /* Environment */,
 				B375C979276213E30013895F /* PLists */,
 				B3606DBD274D7A8100E61972 /* JSON Samples */,
 				B3606D96274C1F6E00E61972 /* MyMealModel.swift */,
@@ -338,8 +348,6 @@
 				B3606D9C274C20AF00E61972 /* HistoryModel.swift */,
 				B3606D9E274C210700E61972 /* FavoritesModel.swift */,
 				B3606DA0274C217700E61972 /* IngredientsModel.swift */,
-				B3CEDDB12756FDEA00BB832B /* Query.swift */,
-				B329350927A3136F00951C47 /* UserSettings.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

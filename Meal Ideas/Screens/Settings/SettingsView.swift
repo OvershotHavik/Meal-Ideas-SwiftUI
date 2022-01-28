@@ -9,39 +9,57 @@ import SwiftUI
 
 struct SettingsView: View {
     @StateObject var vm = SettingsVM()
-//    @AppStorage("TestColor") var testColor = ""
-    @State var topLeft = ""
+    @EnvironmentObject var userEnvironment: UserEnvironment
+
     var body: some View {
         NavigationView{
             Form {
                 Section(header: Text("Change Gradient Colors")){
-                    BackgroundGradientView()
+                    SampleTopView()
+
                         .frame(height: 100)
-                        .frame(maxWidth: .infinity)
-                        .cornerRadius(20)
-                    
+                        .frame(maxWidth: .infinity)                    
                     // MARK: - Top Left
                     ColorPicker("Top Left", selection: Binding(get: {
-                        vm.topLeftColor
+                        userEnvironment.topLeftColor
                     }, set: { newValue in
-                        vm.userSettings.topLeftColor = vm.updateColor(color: newValue)
-                        vm.topLeftColor = newValue
-                        vm.saveChanges()
+                        userEnvironment.userSettings.topLeftColor = vm.updateColor(color: newValue)
+                        userEnvironment.topLeftColor = newValue
+                        userEnvironment.saveChanges()
                     }))
                         .onAppear{
-                            vm.convertStringToColorTopLeft()
+                            userEnvironment.convertStringToColorTopLeft()
                         }
                     // MARK: - Bottom Right
                     ColorPicker("Bottom Right", selection: Binding(get: {
-                        vm.bottomRightColor
+                        userEnvironment.bottomRightColor
                     }, set: { newValue in
-                        vm.userSettings.bottomRightColor = vm.updateColor(color: newValue)
-                        vm.bottomRightColor = newValue
-                        vm.saveChanges()
+                        userEnvironment.userSettings.bottomRightColor = vm.updateColor(color: newValue)
+                        userEnvironment.bottomRightColor = newValue
+                        userEnvironment.saveChanges()
                     }))
                         .onAppear{
-                            vm.convertStringToColorBottomRight()
+                            userEnvironment.convertStringToColorBottomRight()
                         }
+                    if userEnvironment.topLeftColor !=  Color(uiColor: .lightBlue) ||
+                        userEnvironment.bottomRightColor != Color(uiColor: .darkBlue){
+                        Button {
+                            print("Reset values")
+                            userEnvironment.topLeftColor = Color(uiColor: .lightBlue)
+                            userEnvironment.userSettings.topLeftColor = vm.updateColor(color: Color(uiColor: .lightBlue))
+
+                            
+                            userEnvironment.bottomRightColor = Color(uiColor: .darkBlue)
+                            userEnvironment.userSettings.bottomRightColor = vm.updateColor(color: Color(uiColor: .darkBlue))
+                            
+                            
+                            userEnvironment.saveChanges()
+                        } label: {
+                            Text("Reset Colors")
+                        }
+                    }
+
+
                 }
 
                 
@@ -68,13 +86,20 @@ struct SettingsView: View {
                     }
                 }
             }
+            .navigationBarTitleDisplayMode(.inline)
             .alert(item: $vm.alertItem) { alertItem in
                 Alert(title: alertItem.title,
                       message: alertItem.message,
                       dismissButton: .default(Text("OK")))
             }
-            .navigationTitle(Titles.settings.rawValue)
+            .toolbar{
+                ToolbarItem(placement: .principal, content: {
+                    Text(Titles.settings.rawValue)
+                })
+            }
+            
         }
+        .foregroundColor(.primary)
     }
     
 
@@ -83,5 +108,25 @@ struct SettingsView: View {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView()
+    }
+}
+
+struct SampleTopView: View{
+    @EnvironmentObject var userEnvironment: UserEnvironment
+    @State var sample = ""
+    var body: some View{
+        HStack(spacing: 5){
+            Text("Surprise \nMe")
+                .lineLimit(2)
+            
+            TextField("Sample", text: $sample)
+                .textFieldStyle(CustomRoundedCornerTextField())
+            
+            Image(systemName: "slider.horizontal.3")
+            
+        }
+        .padding()
+        .foregroundColor(.primary)
+        .background(BackgroundGradientView())
     }
 }

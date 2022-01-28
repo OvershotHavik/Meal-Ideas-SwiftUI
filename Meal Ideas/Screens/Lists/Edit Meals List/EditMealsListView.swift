@@ -36,9 +36,8 @@ struct EditMealsListView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink(destination: EditIdeaView(vm: EditIdeaVM(meal: nil))) {
                     Image(systemName: "plus")
-                        .foregroundColor(.blue)
                         .padding(.horizontal)
-                        .foregroundColor(.black)
+                        .foregroundColor(.primary)
                 }
             }
         }

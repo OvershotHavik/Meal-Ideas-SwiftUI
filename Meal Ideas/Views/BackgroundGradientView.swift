@@ -8,8 +8,14 @@
 import SwiftUI
 
 struct BackgroundGradientView: View {
+    @EnvironmentObject var userEnvironment: UserEnvironment
+
+    
     var body: some View {
-        LinearGradient(gradient: Gradient(colors: [Color(uiColor: Color.lightBlue), Color(uiColor: Color.darkBlue)]), startPoint: .topLeading, endPoint: .bottomTrailing)
+        LinearGradient(gradient: Gradient(colors: [
+            userEnvironment.topLeftColor,
+            userEnvironment.bottomRightColor
+        ]), startPoint: .topLeading, endPoint: .bottomTrailing)
 //            .cornerRadius(20, corners: [.bottomLeft, .bottomRight])
             .ignoresSafeArea()
     }

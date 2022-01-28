@@ -12,7 +12,7 @@ struct EditItemList: View {
     var body: some View {
         List {
             if vm.listItems.isEmpty{
-                NoResultsView(message: "Tap the + to add a custom item")
+                NoResultsView(message: "Tap the + to add a custom \(vm.listType)")
             }
             ForEach(vm.searchResults, id: \.self) { item in
                 ZStack{
@@ -21,8 +21,6 @@ struct EditItemList: View {
                         Text(item)
                         Spacer()
                     }
-
-
                 }
                 .onTapGesture {
                     print("item tapped: \(item)")

@@ -28,7 +28,6 @@ struct NoResultsViewWithImage: View {
                     .foregroundColor(.secondary)
                     .padding()
             }
-//            .offset(y: -50)
         }
     }
 }
@@ -36,20 +35,15 @@ struct NoResultsViewWithImage: View {
 struct NoResultsView: View {
     let message: String
     var body: some View{
-        ZStack{
-//            Color(UIColor.systemBackground)
-//                .ignoresSafeArea()
-            VStack{
-                Spacer()
-                Text(message)
-                    .font(.title3)
-//                    .fontWeight(.semibold)
-                    .multilineTextAlignment(.center)
-//                    .foregroundColor(.secondary)
-                    .padding()
-                Spacer()
-            }
+        VStack{
+            Spacer()
+            Text(message)
+                .font(.title3)
+                .multilineTextAlignment(.center)
+                .padding()
+            Spacer()
         }
+        .frame(maxWidth: .infinity)
     }
 }
 struct NoResultsView_Previews: PreviewProvider {
