@@ -97,13 +97,13 @@ struct EditIdeaView: View {
                 
                 // MARK: - Save Button
                 SaveButtonView(vm: vm)
-                    .listRowBackground(Color.green)
+//                    .listRowBackground(Color.green)
                 
                 if vm.meal != nil{
                     //Only show and add space if the meal was passed in
                     Spacer(minLength: 5)
                     DeleteButtonView(vm: vm, showingDeleteAlert: $vm.showingDeleteAlert)
-                        .listRowBackground(Color.red)
+//                        .listRowBackground(Color.red)
                 }
                 if vm.meal != nil{
                     Section(header: Text("Modified Dates")){
@@ -117,12 +117,6 @@ struct EditIdeaView: View {
                 }
                 
             }
-            .onAppear{
-                //            UITableView.appearance().backgroundColor =  .tertiarySystemBackground
-                //            UITableViewCell.appearance().backgroundColor = .secondarySystemBackground
-                
-            }
-            
             
             if vm.isLoading{
                 loadingView()
@@ -388,7 +382,7 @@ struct SaveButtonView: View{
         } label: {
             Text("Save Meal")
                 .padding()
-                .foregroundColor(.white)
+                .foregroundColor(.green)
         }
     }
 }
@@ -404,7 +398,7 @@ struct DeleteButtonView: View{
         } label: {
             Text("Delete Meal")
                 .padding()
-                .foregroundColor(.white)
+                .foregroundColor(.red)
         }
     }
 }

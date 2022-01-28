@@ -11,10 +11,11 @@ struct CustomFilterView: View {
     @StateObject var vm : CustomFilterVM
     @EnvironmentObject var query: Query
     @Environment(\.dismiss) var dismiss
-
+    
     var body: some View {
         
-            Form{
+        Form{
+            Section{
                 TextField("Search...", text: $query.customKeyword)
                 
                 CustomCategoryNL(vm: vm)
@@ -24,35 +25,37 @@ struct CustomFilterView: View {
                 }
                 
                 CustomIngredientNL(vm: vm)
-
+                
                 if query.customIngredient != ""{
                     BadgesHStack(title: "Ingredient:", items: [query.customIngredient], topColor: .green, bottomColor: .green)
                 }
+            }
+            
+            Section{
                 Button {
                     print("Go back to the view to perform search")
                     dismiss()
-
+                    
                 } label: {
                     Text("Search")
-                        .foregroundColor(.white)
-                        .frame(width: 200, height: 50)
-                        .background(.blue)
-                        .cornerRadius(10)
+                        .foregroundColor(.blue)
+                }
+                if query.customKeyword != "" ||
+                    query.customCategory != "" ||
+                    query.customIngredient != ""{
+                    Button {
+                        print("Reset")
+                        query.customKeyword = ""
+                        query.customCategory = ""
+                        query.customIngredient = ""
+                    } label: {
+                        Text("Reset")
+                    }
                 }
                 
-                Button {
-                    print("Reset")
-                    query.customKeyword = ""
-                    query.customCategory = ""
-                    query.customIngredient = ""
-                } label: {
-                    Text("Reset")
-                        .foregroundColor(.white)
-                        .frame(width: 200, height: 50)
-                        .background(.red)
-                        .cornerRadius(10)
-                }
             }
+            
+        }
         .toolbar{
             ToolbarItem(placement: .principal, content: {
                 Text(Titles.customFilter.rawValue)
