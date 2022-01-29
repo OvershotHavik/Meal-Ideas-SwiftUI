@@ -18,7 +18,9 @@ struct IngredientCell: View {
         if let mealDBImages = URL(string: "\(BaseURL.ingredientImage)\(modifiedMealDB).png"){
             HStack{
                 LoadRemoteImageView(urlString: mealDBImages.absoluteString)
+                    .clipShape(Circle())
                     .aspectRatio(contentMode: .fit)
+                    .frame(width: 50)
                 Text(ingredient.strIngredient)
                     .font(.body)
                     .padding(.horizontal)

@@ -23,6 +23,7 @@ struct DetailViewIngredientCell: View {
                     }
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 50)
+                        .clipShape(Circle())
                     VStack(alignment: .leading){
                         Text(ingredient)
                             .font(.body)

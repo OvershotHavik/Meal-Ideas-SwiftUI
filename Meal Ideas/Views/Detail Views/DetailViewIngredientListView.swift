@@ -16,6 +16,7 @@ struct DetailViewIngredientListView: View {
                                      measurement: measurements[i],
                                      selected: false)
         }
+        .frame(height: 50)
     }
 }
 

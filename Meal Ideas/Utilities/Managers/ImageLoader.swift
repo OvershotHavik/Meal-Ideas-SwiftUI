@@ -53,6 +53,7 @@ struct LoadRemoteImageView: View{ // Used in the list view as a view
     
     var body: some View{
         RemoteImage(image: imageLoader.image)
+//            .clipShape(Circle())
             .onAppear {
                 imageLoader.load(fromURLString: urlString)
             }
