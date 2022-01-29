@@ -26,6 +26,7 @@
     <entity name="UserMeals" representedClassName="UserMeals" syncable="YES" codeGenerationType="class">
         <attribute name="category" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="created" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="createdBy" optional="YES" attributeType="String"/>
         <attribute name="favorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="ingredients" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="instructionsPhoto" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
@@ -37,6 +38,7 @@
         <attribute name="prepMinute" attributeType="Integer 16" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="prepSecond" attributeType="Integer 16" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="recipe" optional="YES" attributeType="String"/>
+        <attribute name="servings" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="sides" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="source" optional="YES" attributeType="String"/>
         <attribute name="userMealID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
@@ -46,7 +48,7 @@
         <element name="History" positionX="-54" positionY="63" width="128" height="104"/>
         <element name="CDCategory" positionX="-45" positionY="117" width="128" height="44"/>
         <element name="CDIngredient" positionX="-36" positionY="126" width="128" height="44"/>
-        <element name="UserMeals" positionX="-54" positionY="0" width="128" height="269"/>
+        <element name="UserMeals" positionX="-54" positionY="0" width="128" height="299"/>
         <element name="CDSides" positionX="-54" positionY="108" width="128" height="44"/>
     </elements>
 </model>
