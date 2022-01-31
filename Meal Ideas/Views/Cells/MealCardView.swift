@@ -18,7 +18,7 @@ struct MealCardView: View {
 
     var body: some View {
         ZStack{
-            Color(UIColor.secondarySystemBackground)
+            Color(UIColor.tertiarySystemBackground)
 //                .opacity(0.25)
 
             VStack{

@@ -8,6 +8,7 @@
 import SwiftUI
 
 class BaseVM: ObservableObject{
+    @Published var backgroundColor = Color(UIColor.secondarySystemBackground)
     @Published var alertItem : AlertItem?
     @Published var isLoading = false
     @Published var originalQueryType = QueryType.none

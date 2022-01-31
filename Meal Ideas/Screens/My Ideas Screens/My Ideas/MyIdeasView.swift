@@ -97,7 +97,7 @@ struct MyIdeasView: View {
                             source: $vm.source)
                 }
             }
-//            .background(BackgroundGradientView())
+            .background(vm.backgroundColor)
             .navigationBarTitleDisplayMode(.inline)
             .navigationViewStyle(.stack)
             .toolbar {
