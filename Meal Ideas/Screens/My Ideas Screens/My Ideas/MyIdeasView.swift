@@ -156,6 +156,11 @@ struct MyIdeasView: View {
             .onChange(of: vm.scrollViewContentOffset, perform: { newValue in
                 vm.autoHideTopView()
             })
+            .onChange(of: query.showAllUserMealIdeas, perform: { newValue in
+                if query.showAllUserMealIdeas == true{
+                    vm.showAllMeals()
+                }
+            })
             .onChange(of: vm.keywordSearchTapped, perform: { newValue in
                 print("Keyword: \(query.keyword)")
                 query.selected = query.keyword

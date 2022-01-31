@@ -47,6 +47,16 @@ import CoreData
             print("error fetching: \(error.localizedDescription)")
         }
     }
+    
+    // MARK: - Show All Meals
+    func showAllMeals(){
+        showWelcome = false
+        allResultsShown  = false
+        surpriseMealReady = false
+        
+        meals = allMeals
+        allResultsShown = true
+    }
     // MARK: - Check Query
     func checkQuery(query: String, queryType: QueryType){
         print("My Ideas Query: \(query), queryType: \(queryType.rawValue)")

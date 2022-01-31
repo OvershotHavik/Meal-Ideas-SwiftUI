@@ -55,6 +55,20 @@ struct CustomFilterView: View {
                 }
                 
             }
+            if vm.source == .myIdeas{
+                Section(header: Text("No filter")){
+                    Button {
+                        print("Show All tapped")
+                        query.showAllUserMealIdeas = true
+                        dismiss()
+
+                    } label: {
+                        Text("Show all your ideas")
+                            .foregroundColor(.blue)
+                        
+                    }
+                }
+            }
             
         }
         .toolbar{

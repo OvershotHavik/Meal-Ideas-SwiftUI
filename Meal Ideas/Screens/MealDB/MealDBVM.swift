@@ -128,6 +128,13 @@ import SwiftUI
     
     // MARK: - Custom Filter
     func customFilter(keyword: String, category: String, ingredient: String){
+        if keyword == "" &&
+            category == "" &&
+            ingredient == ""{
+            //Nothing provided, return
+            return
+        }
+        
         showWelcome = false
         allResultsShown = false
         surpriseMealReady = false

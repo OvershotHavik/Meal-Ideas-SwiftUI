@@ -41,11 +41,10 @@ final class Query: ObservableObject{
                     customKeyword = ""
                 }
                 originalQueryType = queryType
+                showAllUserMealIdeas = false
             } else {
                 //do nothing
             }
-
-
         }
     }
     

@@ -144,6 +144,12 @@ import CoreData
 
     // MARK: - Custom Filter
     func customFilter(keyword: String, category: String, ingredient: String){
+        if keyword == "" &&
+            category == "" &&
+            ingredient == ""{
+            //Nothing provided, return
+            return
+        }
         if isLoading == true {
             return
         }
@@ -151,6 +157,8 @@ import CoreData
         showWelcome = false
         allResultsShown = false
         surpriseMealReady = false
+        
+        
         
         if originalCustomKeyword != keyword ||
             originalCustomCategory != category ||
