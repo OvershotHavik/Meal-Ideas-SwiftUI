@@ -199,7 +199,7 @@ struct SpoonView: View {
             
         }
         .accentColor(.primary)
-        
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     // MARK: - Stop Loading
     func stopLoading(){

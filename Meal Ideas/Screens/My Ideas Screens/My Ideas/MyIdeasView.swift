@@ -100,6 +100,8 @@ struct MyIdeasView: View {
             .background(vm.backgroundColor)
             .navigationBarTitleDisplayMode(.inline)
             .navigationViewStyle(.stack)
+//            .navigationViewStyle(StackNavigationViewStyle())
+
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     NavigationLink(destination: EditMealsListView(vm: EditMealsListVM())) {
@@ -179,6 +181,7 @@ struct MyIdeasView: View {
             })
         }
         .accentColor(.primary)
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     

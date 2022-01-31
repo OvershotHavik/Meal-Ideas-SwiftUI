@@ -99,6 +99,7 @@ struct MealDBView: View {
             .background(vm.backgroundColor)
             .navigationBarTitleDisplayMode(.inline)
             .navigationViewStyle(.stack)
+//            .navigationViewStyle(StackNavigationViewStyle())
             .toolbar {
                 ToolbarItem(placement: .principal, content: {
                     Text(Titles.mainTitle.rawValue)
@@ -175,6 +176,7 @@ struct MealDBView: View {
             
         }
         .accentColor(.primary)
+        .navigationViewStyle(StackNavigationViewStyle())
         
     }
     // MARK: - Stop Loading
