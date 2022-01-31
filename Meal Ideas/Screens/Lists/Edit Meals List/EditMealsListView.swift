@@ -14,7 +14,7 @@ struct EditMealsListView: View {
 
         List {
             if vm.savedMeals.isEmpty{
-                NoResultsView(message: "Tap the + to create a meal")
+                NoResultsView(message: Messages.tapToCreate.rawValue)
             }
             ForEach(vm.searchResults) {meal in
                 NavigationLink(destination: EditIdeaView(vm: EditIdeaVM(meal: meal))) {

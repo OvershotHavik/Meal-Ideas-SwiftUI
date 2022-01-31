@@ -15,8 +15,8 @@ struct HistoryListView: View {
         
         List {
             if vm.searchResults.isEmpty{
-                NoResultsView(message: "No meals viewed")
-                    .navigationBarTitle("History")
+                NoResultsView(message: Messages.noHistory.rawValue)
+                    .navigationBarTitle(Titles.history.rawValue)
             }
             ForEach(vm.searchResults) {history in
                 switch vm.source{

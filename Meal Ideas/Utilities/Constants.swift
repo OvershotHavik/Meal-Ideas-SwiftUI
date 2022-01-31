@@ -62,7 +62,8 @@ enum Titles: String{
     case customFilter = "Customized Filter"
     
     case myIdeas = "My Ideas"
-    
+    case history = "History"
+    case favorites = "Favorites"
     
     case settings = "Settings"
     case editCategories = "Edit Categories"
@@ -105,6 +106,14 @@ enum SectionHeaders: String{
     case none = "No Filter"
 }
 
+enum Messages: String{
+    case welcome = "Welcome to Meal Ideas!\n\nTo get started: \nTap Surprise me for a Random meal\n\n Or type in a keyword in the search bar \n\n Or click the filter button for Category, Ingredient, or custom filters of the three"
+    case noMealsMyIdeas = "No meals found for your search. \n You can create a new one to match this search \nby tapping the edit icon at the top left."
+    case noMealsFound = "No meals found for your search"
+    case tapToCreate = "Tap the + to create a meal"
+    case noFavorites = "No favorites saved yet"
+    case noHistory = "No meals viewed"
+}
 
 /*
 //Uncomment this section to clear the alerts. The network calls will not work but the app can be used for user meals

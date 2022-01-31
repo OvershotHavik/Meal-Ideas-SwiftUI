@@ -13,8 +13,8 @@ struct FavoritesListView: View {
     
     var body: some View {
         if vm.searchResults.isEmpty{
-            NoResultsView(message: "No favorites saved yet")
-                .navigationTitle("Favorites")
+            NoResultsView(message: Messages.noFavorites.rawValue)
+                .navigationTitle(Titles.favorites.rawValue)
         }
         
         List {

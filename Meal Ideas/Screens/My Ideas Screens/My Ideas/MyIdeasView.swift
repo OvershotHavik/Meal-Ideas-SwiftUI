@@ -17,13 +17,14 @@ struct MyIdeasView: View {
             ZStack(alignment: .top){
                 VStack(spacing: 10){
                     if vm.showWelcome{
-                        NoResultsView(message: "Welcome to Meal Ideas!")
+                        NoResultsView(message: Messages.welcome.rawValue)
+                            .frame(height: 500)
                     }
 
                     if vm.meals.isEmpty &&
                         vm.showWelcome == false &&
                         vm.isLoading == false{
-                        NoResultsView(message: "No meals found for your search. \nCreate a new one by tapping the edit icon at the top left.")
+                        NoResultsView(message: Messages.noMealsMyIdeas.rawValue)
                             .offset(y: UI.verticalSpacing)
                     }
 
@@ -86,6 +87,7 @@ struct MyIdeasView: View {
                         }
                     }
                 }
+                
                 if vm.isLoading{
                     loadingView()
                 }

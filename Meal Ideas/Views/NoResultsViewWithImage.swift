@@ -43,7 +43,8 @@ struct NoResultsView: View {
                 .padding()
             Spacer()
         }
-        .frame(maxWidth: .infinity)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+//        .background(.red)
     }
 }
 struct NoResultsView_Previews: PreviewProvider {
