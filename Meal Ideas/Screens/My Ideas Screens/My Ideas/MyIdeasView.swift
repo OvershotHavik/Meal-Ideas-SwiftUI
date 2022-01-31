@@ -65,7 +65,7 @@ struct MyIdeasView: View {
                                        selection: $query.menuSelection) {EmptyView()}
 
                         //Bring up ingredient view when selected in the menu
-                        NavigationLink(destination: SingleIngredientListView(vm: IngredientListVM(itemList: vm.userIngredients)),
+                        NavigationLink(destination: SingleIngredientListView(vm: IngredientListVM(itemList: vm.userIngredients, selection: query.selected)),
                                        tag: QueryType.ingredient,
                                        selection: $query.menuSelection) { EmptyView()}
                         

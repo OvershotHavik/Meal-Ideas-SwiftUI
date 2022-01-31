@@ -17,7 +17,7 @@ import CoreData
     init(editVM: EditIdeaVM, listType: ListType){
         self.editVM = editVM
         self.listType = listType
-        super.init(itemList: [])
+        super.init(itemList: [], selection: nil)
         getUserIngredients()
         selectedArray = editVM.userIngredients.compactMap{$0.name}
     }

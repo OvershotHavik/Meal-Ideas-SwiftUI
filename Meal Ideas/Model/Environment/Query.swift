@@ -30,15 +30,21 @@ enum QueryName: String{
 final class Query: ObservableObject{
     @Published var queryType = QueryType.none{
         didSet{
-            selected = ""
-            if queryType != .keyword{
-                keyword = ""
+            if queryType != originalQueryType{
+                selected = ""
+                if queryType != .keyword{
+                    keyword = ""
+                }
+                if queryType != .custom{
+                    customCategory = ""
+                    customIngredient = ""
+                    customKeyword = ""
+                }
+                originalQueryType = queryType
+            } else {
+                //do nothing
             }
-            if queryType != .custom{
-                customCategory = ""
-                customIngredient = ""
-                customKeyword = ""
-            }
+
 
         }
     }
@@ -51,7 +57,8 @@ final class Query: ObservableObject{
     @Published var customCategory = ""
     @Published var customIngredient = ""
     @Published var customKeyword = ""
-    
+    private var originalQueryType: QueryType?
+    @Published var showAllUserMealIdeas = false
     
     
     // MARK: - Get Favorites

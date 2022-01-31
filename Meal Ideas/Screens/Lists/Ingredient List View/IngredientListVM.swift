@@ -26,8 +26,9 @@ import SwiftUI
         }
     }
     
-    init(itemList: [String]){
+    init(itemList: [String], selection: String?){
         self.itemList = itemList
+        self.selection = selection
         getIngredients()
     }
     

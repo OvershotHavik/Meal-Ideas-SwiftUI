@@ -15,8 +15,6 @@ struct SingleIngredientListView: View {
     
     
     var body: some View {
-//        UITableView.appearance().backgroundColor =  .secondarySystemBackground
-
         ZStack{
             List(vm.searchResults, selection: $vm.selection){ ingredient in
 

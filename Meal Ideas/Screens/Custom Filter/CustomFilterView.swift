@@ -94,7 +94,7 @@ struct CustomIngredientNL: View{
     @StateObject var vm: CustomFilterVM
     var body: some View{
         
-        NavigationLink(destination: SingleIngredientListView(vm: IngredientListVM(itemList: vm.userIngredients))) {
+        NavigationLink(destination: SingleIngredientListView(vm: IngredientListVM(itemList: vm.userIngredients, selection: nil))) {
             Text("Select an ingredient")
         }                                                         .foregroundColor(.blue)
 
