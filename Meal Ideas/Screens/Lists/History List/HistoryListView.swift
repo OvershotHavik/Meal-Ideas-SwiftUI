@@ -34,7 +34,6 @@ struct HistoryListView: View {
                                                                    userMealID: nil))
                     }
                                                                                   .navigationBarTitle(Titles.spoonHistory.rawValue)
-                                                                                  .searchable(text: $vm.searchText)
                 case .mealDB:
                     NavigationLink(destination: MealDBDetailView(vm: MealDBDetailVM(meal: vm.fetchMealDBMeal(mealDBID: history.mealDBID),
                                                                                     favorited: vm.checkForFavorite(favoritesArray: query.favoritesArray,
@@ -49,7 +48,6 @@ struct HistoryListView: View {
                                                                    userMealID: nil))
                     }
                                                                                     .navigationBarTitle(Titles.mealDBHistory.rawValue)
-                                                                                    .searchable(text: $vm.searchText)
                 case .myIdeas:
                     NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: vm.fetchUserMeal(userMealID: history.userMealID),
                                                                                       favorited: vm.checkForFavorite(favoritesArray: query.favoritesArray,
@@ -63,9 +61,9 @@ struct HistoryListView: View {
                                                                    userMealID: history.userMealID))
                     }
                                                                                       .navigationBarTitle(Titles.myIdeasHistory.rawValue)
-                                                                                      .searchable(text: $vm.searchText)
                 }
             }
+            
             .onDelete{ IndexSet in
                 PersistenceController.shared.deleteInList(indexSet: IndexSet,
                                                           entityName: .history)
@@ -74,7 +72,7 @@ struct HistoryListView: View {
                 vm.filteredHistory(history: query.historyArray)
             }
         }
-        
+        .searchable(text: $vm.searchText)
         .toolbar{
             ToolbarItem(placement: .navigationBarTrailing){
                 Button{

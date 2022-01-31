@@ -27,7 +27,6 @@ struct FavoritesListView: View {
                                                                                   showingHistory: false))) {
                         FavoriteCell(mealName: favorite.mealName)
                             .navigationTitle(Titles.spoonFavorite.rawValue)
-                            .searchable(text: $vm.searchText)
                     }
                                                                                   
                     
@@ -38,7 +37,6 @@ struct FavoritesListView: View {
                                                                                     showingHistory: false))) {
                         FavoriteCell(mealName: favorite.mealName)
                             .navigationTitle(Titles.mealDBFavorite.rawValue)
-                            .searchable(text: $vm.searchText)
                     }
                                                                                     
                     
@@ -47,7 +45,6 @@ struct FavoritesListView: View {
                                                                                       favorited: true, showingHistory: false))) {
                         FavoriteCell(mealName: favorite.mealName)
                             .navigationTitle(Titles.myIdeasFavorite.rawValue)
-                            .searchable(text: $vm.searchText)
                     }
                 }
             }
@@ -60,6 +57,8 @@ struct FavoritesListView: View {
             .listStyle(.plain)
             
         }
+        .searchable(text: $vm.searchText)
+
         .onAppear {
             vm.filteredFavorites(favorites: query.favoritesArray)
         }
