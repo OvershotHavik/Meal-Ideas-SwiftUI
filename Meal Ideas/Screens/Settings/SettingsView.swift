@@ -101,6 +101,8 @@ struct SettingsView: View {
             
         }
         .foregroundColor(.primary)
+        .navigationViewStyle(StackNavigationViewStyle())
+
     }
     
 

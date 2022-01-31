@@ -63,7 +63,7 @@ struct MealCardView: View {
             
 
         }
-        .frame(width: 160, height: 210)
+//        .frame(width: 160, height: 210)
 //        .frame(idealWidth: 160, idealHeight: 210)
         .cornerRadius(10)
 //        .shadow(color: .black, radius: 5, x: 0, y: 0)

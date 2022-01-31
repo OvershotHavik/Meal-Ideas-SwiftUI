@@ -10,93 +10,104 @@ import SwiftUI
 struct MyIdeasView: View {
     @StateObject var vm : MyIdeasVM
     @EnvironmentObject var query: Query
-    let columns = [GridItem(), GridItem()]
+//    let columns = [GridItem(), GridItem()]
+//    @State var columns: [GridItem] = []
 
     var body: some View {
+        
         NavigationView{
-            ZStack(alignment: .top){
-                VStack(spacing: 10){
-                    if vm.showWelcome{
-                        NoResultsView(message: Messages.welcome.rawValue)
-                            .frame(height: 500)
-                    }
+            GeometryReader{ screenBounds in
+//                let numberOfColumns: Int = Int(screenBounds.size.width/160)
+//                for _ in numberOfColumns{
+//                    columns.append(GridItem())
+//                }
+                ZStack(alignment: .top){
+                    VStack(spacing: 10){
+                        if vm.showWelcome{
+                            NoResultsView(message: Messages.welcome.rawValue)
+                                .frame(height: 500)
+                        }
 
-                    if vm.meals.isEmpty &&
-                        vm.showWelcome == false &&
-                        vm.isLoading == false{
-                        NoResultsView(message: Messages.noMealsMyIdeas.rawValue)
-                            .offset(y: UI.verticalSpacing)
-                    }
+                        if vm.meals.isEmpty &&
+                            vm.showWelcome == false &&
+                            vm.isLoading == false{
+                            NoResultsView(message: Messages.noMealsMyIdeas.rawValue)
+                                .offset(y: UI.verticalSpacing)
+                        }
 
-                    TrackableScrollView(.vertical, contentOffset: $vm.scrollViewContentOffset){
-                        Spacer(minLength: UI.topViewOffsetSpacing)
+                        TrackableScrollView(.vertical, contentOffset: $vm.scrollViewContentOffset){
+                            Spacer(minLength: UI.topViewOffsetSpacing)
 
-                        VStack(spacing: 10){
-                            if vm.meals.count != 0{
-                                Text("Meals shown: \(vm.meals.count)")
-                            }
-                            LazyVGrid(columns: columns, alignment: .center) {
-                                ForEach(vm.meals.indices, id: \.self) {mealIndex in
-                                    let meal = vm.meals[mealIndex]
-                                    NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: meal,
-                                                                                                      favorited: vm.checkForFavorite(id: meal.userMealID,
-                                                                                                                                     favoriteArray: query.favoritesArray),
-                                                                                                      showingHistory: false))) {
-                                        MealCardView(mealPhoto: "",
-                                                     mealPhotoData: meal.mealPhoto,
-                                                     mealName: meal.mealName ?? "",
-                                                     favorited: vm.checkForFavorite(id: meal.userMealID,
-                                                                                    favoriteArray: query.favoritesArray),
-                                                     inHistory: vm.checkForHistory(id: meal.userMealID,
-                                                                                   historyArray: query.historyArray))
+                            VStack(spacing: 10){
+                                if vm.meals.count != 0{
+                                    Text("Meals shown: \(vm.meals.count)")
+                                }
+//                                LazyVGrid(columns: columns, alignment: .center) {
+                                LazyVGrid(columns: [GridItem(.adaptive(minimum: 160))], alignment: .center) {
+                                    ForEach(vm.meals.indices, id: \.self) {mealIndex in
+                                        let meal = vm.meals[mealIndex]
+                                        NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: meal,
+                                                                                                          favorited: vm.checkForFavorite(id: meal.userMealID,
+                                                                                                                                         favoriteArray: query.favoritesArray),
+                                                                                                          showingHistory: false))) {
+                                            MealCardView(mealPhoto: "",
+                                                         mealPhotoData: meal.mealPhoto,
+                                                         mealName: meal.mealName ?? "",
+                                                         favorited: vm.checkForFavorite(id: meal.userMealID,
+                                                                                        favoriteArray: query.favoritesArray),
+                                                         inHistory: vm.checkForHistory(id: meal.userMealID,
+                                                                                       historyArray: query.historyArray))
+//                                                .frame(width: screenBounds.size.width/2)
+                                        }
+                                                                                                          .foregroundColor(.primary)
                                     }
-                                                                                                      .foregroundColor(.primary)
                                 }
                             }
-                        }
 
-                        //Used for surprise me, when get random meals is toggled it will take user directly to the first meal at random that they have created
-                        NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: vm.surpriseMeal,
-                                                                                          favorited: vm.checkForFavorite(id: vm.surpriseMeal?.userMealID,
-                                                                                                                         favoriteArray: query.favoritesArray),
-                                                                                          showingHistory: false)),
-                                       isActive: $vm.getRandomMeals) {EmptyView()}
+                            //Used for surprise me, when get random meals is toggled it will take user directly to the first meal at random that they have created
+                            NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: vm.surpriseMeal,
+                                                                                              favorited: vm.checkForFavorite(id: vm.surpriseMeal?.userMealID,
+                                                                                                                             favoriteArray: query.favoritesArray),
+                                                                                              showingHistory: false)),
+                                           isActive: $vm.getRandomMeals) {EmptyView()}
 
-                        //Bring up category view when selected in the menu
-                        NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: nil, listItems: vm.userCategories, singleChoiceString: query.selected, title: .oneCategory)),
-                                       tag: QueryType.category,
-                                       selection: $query.menuSelection) {EmptyView()}
+                            //Bring up category view when selected in the menu
+                            NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: nil, listItems: vm.userCategories, singleChoiceString: query.selected, title: .oneCategory)),
+                                           tag: QueryType.category,
+                                           selection: $query.menuSelection) {EmptyView()}
 
-                        //Bring up ingredient view when selected in the menu
-                        NavigationLink(destination: SingleIngredientListView(vm: IngredientListVM(itemList: vm.userIngredients, selection: query.selected)),
-                                       tag: QueryType.ingredient,
-                                       selection: $query.menuSelection) { EmptyView()}
-                        
-                        //Bring up the Custom filter view
-                        NavigationLink(destination: CustomFilterView(vm: CustomFilterVM(source: .myIdeas,
-                                                                                        plist: nil,
-                                                                                        userIngredients: vm.userIngredients,
-                                                                                        userCategories: vm.userCategories)),
-                                       tag: QueryType.custom,
-                                       selection: $query.menuSelection) { EmptyView()}
+                            //Bring up ingredient view when selected in the menu
+                            NavigationLink(destination: SingleIngredientListView(vm: IngredientListVM(itemList: vm.userIngredients, selection: query.selected)),
+                                           tag: QueryType.ingredient,
+                                           selection: $query.menuSelection) { EmptyView()}
+                            
+                            //Bring up the Custom filter view
+                            NavigationLink(destination: CustomFilterView(vm: CustomFilterVM(source: .myIdeas,
+                                                                                            plist: nil,
+                                                                                            userIngredients: vm.userIngredients,
+                                                                                            userCategories: vm.userCategories)),
+                                           tag: QueryType.custom,
+                                           selection: $query.menuSelection) { EmptyView()}
 
-                        Spacer()
+                            Spacer()
 
-                        if vm.allResultsShown{
-                            AllResultsShownText()
+                            if vm.allResultsShown{
+                                AllResultsShownText()
+                            }
                         }
                     }
-                }
-                
-                if vm.isLoading{
-                    loadingView()
-                }
-                if vm.showTopView{
-                    TopView(keywordSearchTapped: $vm.keywordSearchTapped,
-                            getRandomMeals: $vm.getRandomMeals,
-                            source: $vm.source)
+                    
+                    if vm.isLoading{
+                        loadingView()
+                    }
+                    if vm.showTopView{
+                        TopView(keywordSearchTapped: $vm.keywordSearchTapped,
+                                getRandomMeals: $vm.getRandomMeals,
+                                source: $vm.source)
+                    }
                 }
             }
+            
             .background(vm.backgroundColor)
             .navigationBarTitleDisplayMode(.inline)
             .navigationViewStyle(.stack)

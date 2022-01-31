@@ -39,7 +39,9 @@ struct SpoonView: View {
                             if vm.meals.count != 0{
                                 Text("Meals shown: \(vm.meals.count)") // total meals that have loaded
                             }
-                            LazyVGrid(columns: columns, alignment: .center) {
+//                            LazyVGrid(columns: columns, alignment: .center) {
+                            LazyVGrid(columns: [GridItem(.adaptive(minimum: 160))], alignment: .center) {
+
                                 ForEach(vm.meals.indices, id: \.self) { mealIndex in
                                     let meal = vm.meals[mealIndex]
                                     NavigationLink(destination: SpoonDetailView(vm: SpoonDetailVM(meal: meal,
