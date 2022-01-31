@@ -147,7 +147,7 @@ struct MealDBView: View {
                         //Only do this check if the query type is categories
                         if !vm.sourceCategories.contains(query.customCategory) &&
                             query.customCategory != ""{
-                            //If the user selected a category that isn't supported, return with the error
+                            //If the user selected a category that isn't supported, return with no meals
                             vm.resetValues()
                             vm.meals = []
                             vm.showWelcome = false
@@ -158,69 +158,6 @@ struct MealDBView: View {
                     vm.showWelcome = false
                     vm.checkQuery(query: query.selected, queryType: query.queryType)
                 }
-                
-                
-                /*
-                if query.queryType == .category{
-                    if query.selected == ""{
-                        vm.alertItem = AlertContext.noSelection
-                        return
-                    }
-                    if !vm.sourceCategories.contains(query.customCategory){
-                        //If the user selected a category that isn't supported, return with the error
-                        vm.resetValues()
-                        vm.meals = []
-//                        vm.alertItem = AlertContext.invalidData
-                        return
-                    }
-                }
-                
-                if query.queryType == vm.originalQueryType && query.selected == vm.originalQuery{
-                    //nothing changed, don't do anything
-                    return
-                }
-                if query.queryType == .none ||
-                    query.queryType == .random{
-                    return
-                }
-                if query.queryType == .category ||
-                    query.queryType == .ingredient{
-//                    if query.selected == ""{
-//                        vm.alertItem = AlertContext.noSelection
-//                        return
-//                    }
-                    vm.checkQuery(query: query.selected, queryType: query.queryType)
-                }
-                if query.queryType == .keyword{
-                    query.selected = query.keyword
-                    vm.checkQuery(query: query.keyword, queryType: query.queryType)
-                }
-                if query.queryType == .custom{
-                    vm.customFilter(keyword: query.customKeyword,
-                                    category: query.customCategory,
-                                    ingredient: query.customIngredient)
-                }
-                
-//                if query.queryType != .keyword{
-//                }
-                /*
-                 if vm.isLoading == true {
-                 return
-                 }
-                 if query.queryType == .category ||
-                 query.queryType == .ingredient{
-                 if query.selected == ""{
-                 vm.alertItem = AlertContext.noSelection
-                 return
-                 }
-                 }
-                 if query.queryType != .keyword{
-                 vm.resetValues()
-                 vm.checkQuery(query: query.selected, queryType: query.queryType)
-                 }
-                 query.getHistory()
-                 */
-                 */
             }
             .onChange(of: vm.scrollViewContentOffset, perform: { newValue in
                 vm.autoHideTopView()

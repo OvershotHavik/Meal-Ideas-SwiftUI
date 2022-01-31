@@ -30,6 +30,7 @@ extension UIAlertController {
             $0.placeholder = alert.placeholder
             $0.keyboardType = alert.keyboardType
         }
+        
         if let cancel = alert.cancel {
             addAction(UIAlertAction(title: cancel, style: .cancel) { _ in
                 alert.action(nil)
@@ -37,6 +38,7 @@ extension UIAlertController {
         }
 
         let textField = self.textFields?.first
+        textField?.autocapitalizationType = .sentences
         addAction(UIAlertAction(title: alert.accept, style: .default) { _ in
             alert.action(textField?.text)
         })

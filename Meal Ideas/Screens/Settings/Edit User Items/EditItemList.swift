@@ -14,7 +14,7 @@ struct EditItemList: View {
             if vm.listItems.isEmpty{
                 NoResultsView(message: "Tap the + to add a custom \(vm.listType)")
             }
-            ForEach(vm.searchResults, id: \.self) { item in
+            ForEach(vm.searchResults.sorted{$0 < $1}, id: \.self) { item in
                 ZStack{
                     Color(uiColor: .secondarySystemBackground)
                     HStack{

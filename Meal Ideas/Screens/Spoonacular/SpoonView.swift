@@ -136,13 +136,14 @@ struct SpoonView: View {
                       dismissButton: .default(Text("OK"), action: stopLoading))
             }
             .onAppear {
+                query.getHistory()
+                query.getFavorites()
+                vm.surpriseMeal = nil
                 if query.queryType == vm.originalQueryType && query.selected == vm.originalQuery{
                     //nothing changed, don't do anything
                     return
                 }
-                query.getHistory()
-                query.getFavorites()
-                vm.surpriseMeal = nil
+
                 
                 
                 if query.queryType == .custom{
@@ -152,7 +153,6 @@ struct SpoonView: View {
                         vm.resetValues()
                         vm.meals = []
                         vm.showWelcome = false
-
 //                        vm.alertItem = AlertContext.invalidData
                         return
                     } else {
@@ -168,7 +168,7 @@ struct SpoonView: View {
                 } else {
                         if !vm.sourceCategories.contains(query.customCategory) &&
                             query.customCategory != ""{
-                            //If the user selected a category that isn't supported, return with the error
+                            //If the user selected a category that isn't supported, return with no meals
                             vm.resetValues()
                             vm.meals = []
                             vm.showWelcome = false
@@ -179,60 +179,6 @@ struct SpoonView: View {
                     vm.showWelcome = false
                     vm.checkQuery(query: query.selected, queryType: query.queryType)
                 }
-                
-
-//                if query.queryType == .category{
-////                    if query.selected == ""{
-////                        vm.alertItem = AlertContext.noSelection
-////                        return
-////                    }
-//                    if !vm.sourceCategories.contains(query.selected){
-//                        //If the user selected a category that isn't supported, return with the error
-//                        vm.resetValues()
-//                        vm.meals = []
-//                        vm.alertItem = AlertContext.invalidData
-//                        return
-//                    }
-//                }
-
-
-//                if query.queryType == vm.originalQueryType && query.selected == vm.originalQuery{
-//                    //nothing changed, don't do anything
-//                    return
-//                }
-//
-//
-//                if query.queryType == .none ||
-//                    query.queryType == .random{
-//                    return
-//                }
-//                if query.queryType == .category ||
-//                    query.queryType == .ingredient{
-//                    if query.selected == ""{
-//                        vm.alertItem = AlertContext.noSelection
-//                        return
-//                    }
-//                    vm.resetValues()
-//                    vm.checkQuery(query: query.selected, queryType: query.queryType)
-//                }
-//                if query.queryType == .keyword{
-//                    query.selected = query.keyword
-//                    vm.checkQuery(query: query.selected, queryType: query.queryType)
-//                }
-
-                //
-                //                if query.queryType == .category ||
-                //                    query.queryType == .ingredient{
-                //                    if query.selected == ""{
-                //                        vm.alertItem = AlertContext.noSelection
-                //                        return
-                //                    }
-                //                }
-                //                if query.queryType != .keyword{
-                //                    vm.offsetBy = 0 // may need changed to somewhere else
-                //                    vm.checkQuery(query: query.selected , queryType: query.queryType)
-                //                }
-                //                query.getHistory()
             }
             
             .onChange(of: vm.scrollViewContentOffset, perform: { newValue in

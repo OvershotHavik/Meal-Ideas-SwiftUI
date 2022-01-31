@@ -125,14 +125,16 @@ struct MyIdeasView: View {
             }
             
             .onAppear {
+                query.getHistory()
+                query.getFavorites()
+                vm.surpriseMeal = nil
+                vm.getAllMeals() // updates the meals if the user created/deleted and came back
                 if query.queryType == vm.originalQueryType && query.selected == vm.originalQuery{
                     //nothing changed, don't do anything
                     return
                 }
-                vm.getAllMeals() // updates the meals if the user created/deleted and came back 
-                vm.surpriseMeal = nil
-                query.getHistory()
-                query.getFavorites()
+                 
+
                 
                 if query.queryType == .custom{
                     vm.customFilter(keyword: query.customKeyword,
