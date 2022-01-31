@@ -17,9 +17,6 @@ import CoreData
     @Published var userCategories : [String] = []
     @Published var userIngredients: [String] = []
     
-    
-    // TODO:  Add a category verification to user meals so that the category list only shows what the user has created meals for
-    // TODO:  Add
 
     init(){
         super.init(sourceCategory: .categories)
@@ -28,7 +25,7 @@ import CoreData
 // MARK: - get All Meals
     func getAllMeals(){
         //used to get all meals, runs on on appear of the view, and if all meals changes, goes through check query
-        let request = NSFetchRequest<UserMeals>(entityName: "UserMeals")
+        let request = NSFetchRequest<UserMeals>(entityName: EntityName.userMeals.rawValue)
         do {
             userCategories = []
             userIngredients = []
@@ -40,15 +37,11 @@ import CoreData
             }
             
             userCategories = userCategories.unique()
-//            if userCategories.isEmpty{
-//                userCategories.append(UI.noCategory)
-//            }
             userIngredients = userIngredients.unique()
             if userIngredients.isEmpty{
                 userIngredients.append(UI.noIngredient)
             }
-            print(userCategories)
-            print(userIngredients)
+
 
         } catch let error {
             print("error fetching: \(error.localizedDescription)")

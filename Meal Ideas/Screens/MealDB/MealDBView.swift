@@ -124,9 +124,43 @@ struct MealDBView: View {
 
             
             .onAppear{
+                if query.queryType == vm.originalQueryType && query.selected == vm.originalQuery{
+                    //nothing changed, don't do anything
+                    return
+                }
                 query.getHistory()
                 query.getFavorites()
                 vm.surpriseMeal = nil
+                
+                if query.queryType == .custom{
+                    vm.customFilter(keyword: query.customKeyword,
+                                    category: query.customCategory,
+                                    ingredient: query.customIngredient)
+                    return
+                }
+                
+                if query.queryType == .none ||
+                    query.queryType == .random{
+                    return
+                } else {
+                    if query.queryType == .category{
+                        //Only do this check if the query type is categories
+                        if !vm.sourceCategories.contains(query.customCategory) &&
+                            query.customCategory != ""{
+                            //If the user selected a category that isn't supported, return with the error
+                            vm.resetValues()
+                            vm.meals = []
+                            vm.showWelcome = false
+    //                        vm.alertItem = AlertContext.invalidData
+                            return
+                        }
+                    }
+                    vm.showWelcome = false
+                    vm.checkQuery(query: query.selected, queryType: query.queryType)
+                }
+                
+                
+                /*
                 if query.queryType == .category{
                     if query.selected == ""{
                         vm.alertItem = AlertContext.noSelection
@@ -136,7 +170,7 @@ struct MealDBView: View {
                         //If the user selected a category that isn't supported, return with the error
                         vm.resetValues()
                         vm.meals = []
-                        vm.alertItem = AlertContext.invalidData
+//                        vm.alertItem = AlertContext.invalidData
                         return
                     }
                 }
@@ -151,10 +185,10 @@ struct MealDBView: View {
                 }
                 if query.queryType == .category ||
                     query.queryType == .ingredient{
-                    if query.selected == ""{
-                        vm.alertItem = AlertContext.noSelection
-                        return
-                    }
+//                    if query.selected == ""{
+//                        vm.alertItem = AlertContext.noSelection
+//                        return
+//                    }
                     vm.checkQuery(query: query.selected, queryType: query.queryType)
                 }
                 if query.queryType == .keyword{
@@ -185,6 +219,7 @@ struct MealDBView: View {
                  vm.checkQuery(query: query.selected, queryType: query.queryType)
                  }
                  query.getHistory()
+                 */
                  */
             }
             .onChange(of: vm.scrollViewContentOffset, perform: { newValue in

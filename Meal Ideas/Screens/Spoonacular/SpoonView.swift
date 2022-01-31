@@ -136,61 +136,90 @@ struct SpoonView: View {
                       dismissButton: .default(Text("OK"), action: stopLoading))
             }
             .onAppear {
-                query.getHistory()
-                query.getFavorites()
-                vm.surpriseMeal = nil
-                if query.queryType == .category{
-                    if query.selected == ""{
-                        vm.alertItem = AlertContext.noSelection
-                        return
-                    }
-                    if !vm.sourceCategories.contains(query.selected){
-                        //If the user selected a category that isn't supported, return with the error
-                        vm.resetValues()
-                        vm.meals = []
-                        vm.alertItem = AlertContext.invalidData
-                        return
-                    }
-                }
-
-
                 if query.queryType == vm.originalQueryType && query.selected == vm.originalQuery{
                     //nothing changed, don't do anything
                     return
                 }
+                query.getHistory()
+                query.getFavorites()
+                vm.surpriseMeal = nil
                 
-
-                if query.queryType == .none ||
-                    query.queryType == .random{
-                    return
-                }
-                if query.queryType == .category ||
-                    query.queryType == .ingredient{
-                    if query.selected == ""{
-                        vm.alertItem = AlertContext.noSelection
-                        return
-                    }
-                    vm.resetValues()
-                    vm.checkQuery(query: query.selected, queryType: query.queryType)
-                }
-                if query.queryType == .keyword{
-                    query.selected = query.keyword
-                    vm.checkQuery(query: query.selected, queryType: query.queryType)
-                }
+                
                 if query.queryType == .custom{
-                    if !vm.sourceCategories.contains(query.customCategory){
+                    if !vm.sourceCategories.contains(query.customCategory) &&
+                        query.customCategory != ""{
                         //If the user selected a category that isn't supported, return with the error
                         vm.resetValues()
                         vm.meals = []
-                        vm.alertItem = AlertContext.invalidData
+                        vm.showWelcome = false
+
+//                        vm.alertItem = AlertContext.invalidData
                         return
                     } else {
                         vm.customFilter(keyword: query.customKeyword,
                                         category: query.customCategory,
                                         ingredient: query.customIngredient)
+                        return
                     }
-
                 }
+                if query.queryType == .none ||
+                    query.queryType == .random{
+                    return
+                } else {
+                        if !vm.sourceCategories.contains(query.customCategory) &&
+                            query.customCategory != ""{
+                            //If the user selected a category that isn't supported, return with the error
+                            vm.resetValues()
+                            vm.meals = []
+                            vm.showWelcome = false
+    //                        vm.alertItem = AlertContext.invalidData
+                            return
+                        }
+                    
+                    vm.showWelcome = false
+                    vm.checkQuery(query: query.selected, queryType: query.queryType)
+                }
+                
+
+//                if query.queryType == .category{
+////                    if query.selected == ""{
+////                        vm.alertItem = AlertContext.noSelection
+////                        return
+////                    }
+//                    if !vm.sourceCategories.contains(query.selected){
+//                        //If the user selected a category that isn't supported, return with the error
+//                        vm.resetValues()
+//                        vm.meals = []
+//                        vm.alertItem = AlertContext.invalidData
+//                        return
+//                    }
+//                }
+
+
+//                if query.queryType == vm.originalQueryType && query.selected == vm.originalQuery{
+//                    //nothing changed, don't do anything
+//                    return
+//                }
+//
+//
+//                if query.queryType == .none ||
+//                    query.queryType == .random{
+//                    return
+//                }
+//                if query.queryType == .category ||
+//                    query.queryType == .ingredient{
+//                    if query.selected == ""{
+//                        vm.alertItem = AlertContext.noSelection
+//                        return
+//                    }
+//                    vm.resetValues()
+//                    vm.checkQuery(query: query.selected, queryType: query.queryType)
+//                }
+//                if query.queryType == .keyword{
+//                    query.selected = query.keyword
+//                    vm.checkQuery(query: query.selected, queryType: query.queryType)
+//                }
+
                 //
                 //                if query.queryType == .category ||
                 //                    query.queryType == .ingredient{

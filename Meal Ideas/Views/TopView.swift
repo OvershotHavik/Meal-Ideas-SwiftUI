@@ -76,9 +76,7 @@ struct TopView: View{
 
                 } label: {// Menu label
                 Image(systemName: "slider.horizontal.3")
-//                        .padding(14)
-//                        .background(Color(uiColor: Color.lightBlue))
-//                        .cornerRadius(10)
+                        .padding()
             }
                 .font(.title)
             

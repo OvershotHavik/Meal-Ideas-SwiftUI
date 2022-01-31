@@ -21,7 +21,7 @@ struct MyIdeasView: View {
                     }
 
                     if vm.meals.isEmpty && vm.showWelcome == false{
-                        NoResultsView(message: "No meals found for your search. \nCreate a new one by tapping the edit icon")
+                        NoResultsView(message: "No meals found for your search. \nCreate a new one by tapping the edit icon at the top left.")
                             .offset(y: UI.verticalSpacing)
                     }
 
@@ -125,33 +125,28 @@ struct MyIdeasView: View {
             }
             
             .onAppear {
+                if query.queryType == vm.originalQueryType && query.selected == vm.originalQuery{
+                    //nothing changed, don't do anything
+                    return
+                }
                 vm.getAllMeals() // updates the meals if the user created/deleted and came back 
                 vm.surpriseMeal = nil
                 query.getHistory()
                 query.getFavorites()
-                vm.surpriseMeal = nil
-
-                if query.queryType == .none ||
-                    query.queryType == .random{
-                    return
-                }
-                if query.queryType == .category ||
-                    query.queryType == .ingredient{
-                    if query.selected == ""{
-                        vm.alertItem = AlertContext.noSelection
-                        return
-                    }
-                    vm.checkQuery(query: query.selected, queryType: query.queryType)
-                }
-                
-                if query.queryType == .keyword{
-                    vm.checkQuery(query: query.selected, queryType: query.queryType)
-                }
                 
                 if query.queryType == .custom{
                     vm.customFilter(keyword: query.customKeyword,
                                     category: query.customCategory,
                                     ingredient: query.customIngredient)
+                    return
+                }
+                
+                if query.queryType == .none ||
+                    query.queryType == .random{
+                    return
+                } else {
+                    vm.showWelcome = false
+                    vm.checkQuery(query: query.selected, queryType: query.queryType)
                 }
             }
 

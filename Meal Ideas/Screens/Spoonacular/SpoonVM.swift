@@ -45,8 +45,6 @@ import CoreData
                 }
                 offsetBy += 10
                 getSpoonMeals(query: query, queryType: queryType)
-                
-
             }
         }
     }
@@ -81,22 +79,8 @@ import CoreData
                     if let safeTotalResults = catMeals.totalResults{
                         totalMealCount = safeTotalResults
                     }
-                    
                     determineMoreToShow()
-//                    if offsetBy == 0{
-//                        if meals.count < 10{
-//                            moreToShow = false
-//                        } else {
-//                            moreToShow = true
-//                        }
-//
-//                    } else {
-//                        if meals.count < offsetBy{
-//                            moreToShow = false
-//                        } else {
-//                            moreToShow = true
-//                        }
-//                    }
+
                     
                 case .ingredient:
                     let modifiedIngredient = query.replacingOccurrences(of: " ", with: "%20").lowercased()
@@ -109,20 +93,8 @@ import CoreData
                     
                     print("ingredient")
                     determineMoreToShow()
-//                    if offsetBy == 0{
-//                        if meals.count < 10{
-//                            moreToShow = false
-//                        } else {
-//                            moreToShow = true
-//                        }
-//
-//                    } else {
-//                        if meals.count < offsetBy{
-//                            moreToShow = false
-//                        } else {
-//                            moreToShow = true
-//                        }
-//                    }
+                    
+                    
                 case .keyword:
                     let safeKeyword = query.replacingOccurrences(of: " ", with: "%20").lowercased()
                     print(safeKeyword)
@@ -135,27 +107,15 @@ import CoreData
                     }
                     print("spoon keyword meals count: \(meals.count)")
                     determineMoreToShow()
-//                    if offsetBy == 0{
-//                        if meals.count < 10{
-//                            moreToShow = false
-//                        } else {
-//                            moreToShow = true
-//                        }
-//
-//                    } else {
-//                        if meals.count < offsetBy{
-//                            moreToShow = false
-//                        } else {
-//                            moreToShow = true
-//                        }
-//                    }
-
+                    
                     
                 case .none:
                     let meal = try await NetworkManager.shared.spoonQuery(query: query, queryType: .none)
                     if let safeMeal = meal.first{
                         individualMeal = safeMeal
                     }
+                    
+                    
                 case .custom:
                     print("Custom not setup yet in spoonVM")
                 }
@@ -187,6 +147,7 @@ import CoreData
         if isLoading == true {
             return
         }
+        isLoading = true
         showWelcome = false
         allResultsShown = false
         surpriseMealReady = false
@@ -241,20 +202,8 @@ import CoreData
                     
                     print("spoon custom meals count: \(meals.count)")
                     determineMoreToShow()
-//                    if offsetBy == 0{
-//                        if meals.count < 10{
-//                            moreToShow = false
-//                        } else {
-//                            moreToShow = true
-//                        }
-//
-//                    } else {
-//                        if meals.count < offsetBy{
-//                            moreToShow = false
-//                        } else {
-//                            moreToShow = true
-//                        }
-//                    }
+                    isLoading = false
+                
                     
         } catch {
             if let miError = error as? MIError{
