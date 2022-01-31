@@ -20,7 +20,9 @@ struct MyIdeasView: View {
                         NoResultsView(message: "Welcome to Meal Ideas!")
                     }
 
-                    if vm.meals.isEmpty && vm.showWelcome == false{
+                    if vm.meals.isEmpty &&
+                        vm.showWelcome == false &&
+                        vm.isLoading == false{
                         NoResultsView(message: "No meals found for your search. \nCreate a new one by tapping the edit icon at the top left.")
                             .offset(y: UI.verticalSpacing)
                     }

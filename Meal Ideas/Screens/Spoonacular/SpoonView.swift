@@ -54,7 +54,7 @@ struct SpoonView: View {
                                     }
                                                                                                   .foregroundColor(.primary)
                                                                                                   .onAppear{
-                                                                                                      print("mealIndex: \(mealIndex)")
+//                                                                                                      print("mealIndex: \(mealIndex)")
                                                                                                       if query.queryType != .random && vm.moreToShow{
                                                                                                           if mealIndex == vm.meals.count - 1 {
                                                                                                               if query.queryType == .custom{
@@ -143,14 +143,14 @@ struct SpoonView: View {
                     //nothing changed, don't do anything
                     return
                 }
-
+                vm.resetValues()
                 
                 
                 if query.queryType == .custom{
                     if !vm.sourceCategories.contains(query.customCategory) &&
                         query.customCategory != ""{
                         //If the user selected a category that isn't supported, return with the error
-                        vm.resetValues()
+//                        vm.resetValues()
                         vm.meals = []
                         vm.showWelcome = false
 //                        vm.alertItem = AlertContext.invalidData
@@ -169,7 +169,7 @@ struct SpoonView: View {
                         if !vm.sourceCategories.contains(query.customCategory) &&
                             query.customCategory != ""{
                             //If the user selected a category that isn't supported, return with no meals
-                            vm.resetValues()
+//                            vm.resetValues()
                             vm.meals = []
                             vm.showWelcome = false
     //                        vm.alertItem = AlertContext.invalidData

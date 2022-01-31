@@ -211,6 +211,7 @@ import CoreData
                 surpriseMeal = first
                 surpriseMealReady = true
                 withAnimation(Animation.easeIn.delay(1)){
+                    isLoading = false
                     meals.insert(first, at: 0)
                     meals = meals.unique()
                 }
