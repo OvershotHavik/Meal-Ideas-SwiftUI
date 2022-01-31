@@ -89,6 +89,23 @@ enum SpoonTags: String{
     case keyword = "&titleMatch="
 }
 
+
+enum SectionHeaders: String{
+    //Edit Meal
+    case mealInfo = "Meal Information"
+    case category = "Category"
+    case ingredients = "Ingredients"
+    case sides = "Sides"
+    case prep = "Prep Time"
+    case instructions = "Instructions / Recipe"
+    case source = "Source"
+    case modified = "Modified Dates"
+    
+    //Custom Filter
+    case none = "No Filter"
+}
+
+
 /*
 //Uncomment this section to clear the alerts. The network calls will not work but the app can be used for user meals
 final class APIKey{

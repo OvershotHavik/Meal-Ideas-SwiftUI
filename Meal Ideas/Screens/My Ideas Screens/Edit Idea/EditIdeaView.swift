@@ -11,6 +11,7 @@ enum FormTextField{ // will need changed to match this form
     case mealName
 }
 
+
 struct EditIdeaView: View {
     @StateObject var vm: EditIdeaVM
     
@@ -23,7 +24,7 @@ struct EditIdeaView: View {
     var body: some View {
         ZStack {
             Form{
-                Section(header: Text("Meal Information")) {
+                Section(header: Text(SectionHeaders.mealInfo.rawValue)) {
                     MealNameTextField(vm: vm)
                     
                     MealPhotoButtonView(vm: vm)
@@ -38,7 +39,7 @@ struct EditIdeaView: View {
                     }
                 }
                 
-                Section(header: Text("Category")){
+                Section(header: Text(SectionHeaders.category.rawValue)){
                     CategorySelectView(vm: vm)
                         .foregroundColor(.blue)
                     if !vm.categories.isEmpty{
@@ -51,13 +52,13 @@ struct EditIdeaView: View {
                 
                 
                 
-                Section(header: Text("Ingredients")){
+                Section(header: Text(SectionHeaders.ingredients.rawValue)){
                     IngredientSelectView(vm: vm)
                         .foregroundColor(.blue)
                     IngredientHStack(vm: vm)
                 }
                 
-                Section(header: Text("Sides")){
+                Section(header: Text(SectionHeaders.sides.rawValue)){
                     SidesButtonView(vm: vm)
                         .foregroundColor(.blue)
                     if !vm.sides.isEmpty{
@@ -69,10 +70,12 @@ struct EditIdeaView: View {
                 }
                 
                 
-                Section(header: Text("Prep Time")){
+                Section(header: Text(SectionHeaders.prep.rawValue)){
                     PrepTimePickerView(vm: vm)
                 }
-                Section(header: Text("Instructions")){
+                
+                
+                Section(header: Text(SectionHeaders.instructions.rawValue)){
                     MealInstructionsButtonView(vm: vm)
                         .foregroundColor(.blue)
                         .modifier(MealInstructionsActionSheet(vm: vm))
@@ -89,7 +92,7 @@ struct EditIdeaView: View {
                                         .fill(Color(.systemGray3)))
                         .frame(height: 150)
                 }
-                Section(header: Text("Source")){
+                Section(header: Text(SectionHeaders.source.rawValue)){
                     TextField("Website", text: $vm.source)
                         .textFieldStyle(CustomRoundedCornerTextField())
                 }
@@ -106,7 +109,7 @@ struct EditIdeaView: View {
 //                        .listRowBackground(Color.red)
                 }
                 if vm.meal != nil{
-                    Section(header: Text("Modified Dates")){
+                    Section(header: Text(SectionHeaders.modified.rawValue)){
                         if let safeModified = vm.meal?.modified{
                             Text("Last Modified on: \(vm.convertDate(date:safeModified))")
                         }

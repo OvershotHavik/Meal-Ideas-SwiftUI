@@ -56,7 +56,7 @@ struct CustomFilterView: View {
                 
             }
             if vm.source == .myIdeas{
-                Section(header: Text("No filter")){
+                Section(header: Text(SectionHeaders.none.rawValue)){
                     Button {
                         print("Show All tapped")
                         query.showAllUserMealIdeas = true
