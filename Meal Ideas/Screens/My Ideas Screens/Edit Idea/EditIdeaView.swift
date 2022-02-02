@@ -129,7 +129,12 @@ struct EditIdeaView: View {
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading:
                                 Button {
-            vm.showingBackAlert = true
+//            vm.showingBackAlert = true
+            vm.checkForChanges()
+            if vm.showingBackAlert == false {
+                //no changes were made, don't show the alert and just pop the view
+                dismiss()
+            }
         } label: {
             HStack{
                 Image(systemName: "chevron.left")
@@ -172,9 +177,12 @@ struct EditIdeaView: View {
         }
         .onChange(of: mealPhotoLoader.image, perform: { NewItem in
             vm.mealPhoto = mealPhotoLoader.image
+            vm.safeMealPhoto = mealPhotoLoader.image
         })
         .onChange(of: mealInstructionsLoader.image, perform: { NewItem in
             vm.instructionsPhoto = mealInstructionsLoader.image
+            vm.safeInstructionsPhoto = mealInstructionsLoader.image
+
         })
         
         // MARK: - Save alert

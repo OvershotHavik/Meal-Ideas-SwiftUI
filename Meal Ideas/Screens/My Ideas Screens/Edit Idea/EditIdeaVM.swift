@@ -48,6 +48,13 @@ final class EditIdeaVM: ObservableObject{
     @Published var favorited = false
     @Published var userMealID: UUID?
     
+    // for verification
+    @Published var safeMealPhoto = UIImage()
+    @Published var safeInstructionsPhoto = UIImage()
+    @Published var safeMealIngredients: [UserIngredient] = []
+
+
+    
     // MARK: - Prep Time
     @Published var hourSelection = 0
     @Published var minuteSelection = 0
@@ -278,6 +285,7 @@ final class EditIdeaVM: ObservableObject{
             let UserIngredient = UserIngredient(name: ingredients[index],
                                                 measurement: measurements[index])
             self.userIngredients.append(UserIngredient)
+            self.safeMealIngredients.append(UserIngredient)
         }
         
         
@@ -305,5 +313,56 @@ final class EditIdeaVM: ObservableObject{
         let day = dateFormatter.string(from: date)
         return "\(time)\n\(day)"
     }
+// MARK: - Check For Changes before showing the back alert
+    func checkForChanges(){
+        if let safeMeal = meal{
+            guard let safeMealName = safeMeal.mealName,
+                  let safeRecipe = safeMeal.recipe,
+                  let safeSource = safeMeal.source else {
+                      showingBackAlert = true
+                      return}
 
+            if mealPhoto != safeMealPhoto ||
+                mealName != safeMealName ||
+                categories != safeMeal.category as? [String] ||
+                userIngredients != safeMealIngredients ||
+                recipe != safeRecipe ||
+                instructionsPhoto != safeInstructionsPhoto ||
+                sides != safeMeal.sides as? [String] ||
+                hourSelection != Int(safeMeal.prepHour) ||
+                minuteSelection != Int(safeMeal.prepMinute) ||
+                secondSelection != Int(safeMeal.prepSecond) ||
+                source != safeSource
+            {
+                //user made changes, show the alert
+                showingBackAlert = true
+            } else {
+                //no changes made, don't show the alert
+                showingBackAlert = false
+            }
+                
+                
+                
+                
+        } else {
+            if mealPhoto == UIImage() &&
+                mealName == "" &&
+                categories == [] &&
+                userIngredients == [] &&
+                recipe == "" &&
+                instructionsPhoto == UIImage() &&
+                sides == [] &&
+                hourSelection == 0 &&
+                minuteSelection == 0 &&
+                secondSelection == 0 &&
+                source == "" {
+                //no changes made, don't show the alert
+                showingBackAlert = false
+            } else {
+                //user made changes, show the alert
+                showingBackAlert = true
+            }
+            
+        }
+    }
 }
