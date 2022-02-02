@@ -94,12 +94,7 @@ final class EditIdeaVM: ObservableObject{
     // MARK: - Check if name is already in use
     func checkNameAlreadyInUse(){
         if allMeals.contains(where: {$0.mealName == mealName}){
-            //If the meal name already exists, return true so user will need to change it
-            if meal != nil {
-                if meal?.mealName == mealName{
-                    //if the name is already in use by this meal, return false since it's already named this and is OK
-                }
-            }
+            //If the meal name already exists, show alert
             self.alertItem = AlertContext.nameInUse
         }
     }
@@ -315,6 +310,7 @@ final class EditIdeaVM: ObservableObject{
     }
 // MARK: - Check For Changes before showing the back alert
     func checkForChanges(){
+        //user came into the view with a meal
         if let safeMeal = meal{
             guard let safeMealName = safeMeal.mealName,
                   let safeRecipe = safeMeal.recipe,
@@ -340,11 +336,8 @@ final class EditIdeaVM: ObservableObject{
                 //no changes made, don't show the alert
                 showingBackAlert = false
             }
-                
-                
-                
-                
         } else {
+            //New meal not saved yet
             if mealPhoto == UIImage() &&
                 mealName == "" &&
                 categories == [] &&
@@ -362,7 +355,6 @@ final class EditIdeaVM: ObservableObject{
                 //user made changes, show the alert
                 showingBackAlert = true
             }
-            
         }
     }
 }
