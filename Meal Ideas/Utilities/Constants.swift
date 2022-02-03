@@ -116,7 +116,13 @@ enum ImageNames: String{
     case placeholderMeal = "Placeholder"
     case createMealImage = "CreateAMealImage"
     case filterMenuImage = "FilterMenuImage"
-    case topViewImage = "TopViewImage"
+    case createAMealShort = "CreateAMealShort"
+    case adaptiveFilterImage = "AdaptiveFilterImage"
+    case tabBarImage = "TabBarImage"
+    case topViewEditHighlightImage = "TopViewEditHighlightImage"
+    case addCustomItemImage = "AddCustomItemImage"
+    case topViewFavoritesHighlighted = "TopViewFavoritesHighlighted"
+    case myIdeasList = "MyIdeasList"
 }
 /*
 //Uncomment this section to clear the alerts. The network calls will not work but the app can be used for user meals
