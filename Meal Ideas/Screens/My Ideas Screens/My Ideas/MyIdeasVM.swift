@@ -39,7 +39,7 @@ import CoreData
             userCategories = userCategories.unique()
             userIngredients = userIngredients.unique()
             if userIngredients.isEmpty{
-                userIngredients.append(UI.noIngredient)
+                userIngredients.append(Messages.noIngredient.rawValue)
             }
 
 

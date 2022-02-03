@@ -27,7 +27,7 @@ final class ImageLoaderFromData: ObservableObject{
     
     func loadFromData(mealPhotoData: Data){
         DispatchQueue.global().async { [weak self] in
-            let tempImage = UIImage(data: mealPhotoData) ?? UIImage(imageLiteralResourceName: UI.placeholderMeal)
+            let tempImage = UIImage(data: mealPhotoData) ?? UIImage(imageLiteralResourceName: ImageNames.placeholderMeal.rawValue)
             DispatchQueue.main.async {
                 self?.image = tempImage
                 self?.isLoading = false
@@ -40,7 +40,7 @@ struct RemoteImage: View{
     //helper for the placeholder and to use the placeholder or the actual image if it gets one
     var image: Image?
     var body: some View{
-        image?.resizable() ?? Image(UI.placeholderMeal).resizable() // If image is nil, use the image in asset as a placeholder
+        image?.resizable() ?? Image(ImageNames.placeholderMeal.rawValue).resizable() // If image is nil, use the image in asset as a placeholder
             
     }
 }

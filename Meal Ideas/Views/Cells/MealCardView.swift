@@ -27,7 +27,7 @@ struct MealCardView: View {
                 if mealPhotoData != nil{
                     ZStack{
                         if let safeData = mealPhotoData{
-                            Image(uiImage: (UIImage(data: safeData) ?? UIImage(imageLiteralResourceName: UI.placeholderMeal)))
+                            Image(uiImage: (UIImage(data: safeData) ?? UIImage(imageLiteralResourceName: ImageNames.placeholderMeal.rawValue)))
                                 .resizable()
 
                         }

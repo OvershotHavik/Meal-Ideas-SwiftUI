@@ -26,7 +26,7 @@ struct MyIdeasDetailView: View {
                         
                         
                     } else {
-                        Image(UI.placeholderMeal)
+                        Image(uiImage: UIImage(imageLiteralResourceName: ImageNames.placeholderMeal.rawValue))
                             .resizable()
                             .modifier(MealPhotoModifier())
                     }

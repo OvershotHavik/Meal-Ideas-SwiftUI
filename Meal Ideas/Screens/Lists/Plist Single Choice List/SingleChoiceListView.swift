@@ -15,7 +15,7 @@ struct SingleChoiceListView: View {
     var body: some View {
         VStack{
             if vm.listItems.isEmpty{
-                NoResultsView(message: UI.noCategory)
+                NoResultsView(message: Messages.noCategory.rawValue)
             }
             List(vm.searchResults, id: \.self, selection: $vm.singleChoiceString) {item in
                     HStack{

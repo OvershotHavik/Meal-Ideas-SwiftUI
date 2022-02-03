@@ -51,7 +51,7 @@ actor AsyncImageLoader {
                 try self.persistImage(safeImage, for: urlRequest)
                 return safeImage
             }
-            return UIImage(imageLiteralResourceName: UI.placeholderMeal)
+            return UIImage(imageLiteralResourceName: ImageNames.placeholderMeal.rawValue)
         }
 
         images[urlRequest] = .inProgress(task)

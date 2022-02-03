@@ -44,7 +44,6 @@ struct MealPhotoUIImageView: View{
             }
         }
     }
-
 }
 // MARK: - Core Data Meal Photo View
 struct CDPhotoView: View{
@@ -66,7 +65,7 @@ struct CDPhotoView: View{
                     loadingView()
                 }
             } else {
-                Image(UI.placeholderMeal)
+                Image(uiImage: UIImage(imageLiteralResourceName: ImageNames.placeholderMeal.rawValue))
                     .resizable()
             }
         }

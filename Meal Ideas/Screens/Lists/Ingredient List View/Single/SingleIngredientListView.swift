@@ -42,8 +42,8 @@ struct SingleIngredientListView: View {
 //                UITableView.appearance().backgroundColor =  .secondarySystemBackground
 //                UITableViewCell.appearance().backgroundColor = Color.lightBlue
             }
-            if vm.itemList.contains(UI.noIngredient){
-                NoResultsView(message: UI.noIngredient)
+            if vm.itemList.contains(Messages.noIngredient.rawValue){
+                NoResultsView(message: Messages.noIngredient.rawValue)
             }
             
             if vm.isLoading{

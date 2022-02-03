@@ -15,17 +15,9 @@ final class Constants{
 class UI{
     static let topViewOffsetSpacing = CGFloat(95)
     static let verticalSpacing = CGFloat(25)
-    static let placeholderMeal = "Placeholder"
-    static let placeholderImage = Image(UI.placeholderMeal).resizable()
-    static let noIngredient = "No meals have been created that contain ingredients."
-    static let noCategory = "No meals have been created that contain any categories."
-//    static let horizontalSpacing = CGFloat(12)
-//    static let cornerRadius = CGFloat(12)
-//    static let backgroundColor = UIColor.systemGray5
-//    static let closeButtonImage = "xmark"
-//    static let largeConfig = UIImage.SymbolConfiguration(pointSize: 25, weight: .bold, scale: .large)
-//    static let mediumConfig = UIImage.SymbolConfiguration(pointSize: 25, weight: .medium, scale: .medium)
-//    static let createImagePlaceholder = UIImage(systemName: "camera.on.rectangle")
+//    static let placeholderMeal = "Placeholder"
+//    static let placeholderImage = Image(UI.placeholderMeal).resizable()
+
 }
 enum PList: String{
     case categories = "Categories"
@@ -107,14 +99,25 @@ enum SectionHeaders: String{
 }
 
 enum Messages: String{
-    case welcome = "Welcome to Meal Ideas!\n\nTo get started: \nTap Surprise me for a Random meal\n\n Or type in a keyword in the search bar \n\n Or click the filter button for Category, Ingredient, or custom filters of the three"
+//    case welcome = "Welcome to Meal Ideas!\n\nTo get started: \nTap Surprise me for a Random meal\n\n Or type in a keyword in the search bar \n\n Or click the filter button for Category, Ingredient, or custom filters of the three"
+    case welcome = "Welcome to Meal Ideas!"
     case noMealsMyIdeas = "No meals found for your search. \n You can create a new one to match this search \nby tapping the edit icon at the top left."
+    case noIngredient = "No meals have been created that contain ingredients."
+    case noCategory = "No meals have been created that contain any categories."
     case noMealsFound = "No meals found for your search"
     case tapToCreate = "Tap the + to create a meal"
     case noFavorites = "No favorites saved yet"
     case noHistory = "No meals viewed"
+
 }
 
+
+enum ImageNames: String{
+    case placeholderMeal = "Placeholder"
+    case createMealImage = "CreateAMealImage"
+    case filterMenuImage = "FilterMenuImage"
+    case topViewImage = "TopViewImage"
+}
 /*
 //Uncomment this section to clear the alerts. The network calls will not work but the app can be used for user meals
 final class APIKey{
