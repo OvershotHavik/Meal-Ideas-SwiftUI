@@ -59,6 +59,10 @@ import CoreData
     }
     // MARK: - Check Query
     func checkQuery(query: String, queryType: QueryType){
+        if allMeals.isEmpty{
+            alertItem = AlertContext.noMeals
+            return
+        }
         print("My Ideas Query: \(query), queryType: \(queryType.rawValue)")
         showWelcome = false
         allResultsShown  = false

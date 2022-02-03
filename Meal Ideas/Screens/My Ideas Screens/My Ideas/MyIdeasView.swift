@@ -65,11 +65,15 @@ struct MyIdeasView: View {
                             }
 
                             //Used for surprise me, when get random meals is toggled it will take user directly to the first meal at random that they have created
-                            NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: vm.surpriseMeal,
-                                                                                              favorited: vm.checkForFavorite(id: vm.surpriseMeal?.userMealID,
-                                                                                                                             favoriteArray: query.favoritesArray),
-                                                                                              showingHistory: false)),
-                                           isActive: $vm.getRandomMeals) {EmptyView()}
+                            //Only proceed if the user has created a meal, if not then an alert will be shown via the checkQuery function
+                            if !vm.allMeals.isEmpty{
+                                NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: vm.surpriseMeal,
+                                                                                                  favorited: vm.checkForFavorite(id: vm.surpriseMeal?.userMealID,
+                                                                                                                                 favoriteArray: query.favoritesArray),
+                                                                                                  showingHistory: false)),
+                                               isActive: $vm.getRandomMeals) {EmptyView()}
+                            }
+
 
                             //Bring up category view when selected in the menu
                             NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: nil, listItems: vm.userCategories, singleChoiceString: query.selected, title: .oneCategory)),
