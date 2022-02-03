@@ -12,8 +12,6 @@ enum QueryType: String{
     case category = "Category"
     case ingredient = "Ingredient"
     case keyword = "Keyword"
-//    case history = "book"
-//    case favorite = "heart.fill"
     case custom = "Custom"
     case none = "None"
 }
@@ -32,6 +30,7 @@ final class Query: ObservableObject{
         didSet{
             if queryType != originalQueryType{
                 selected = ""
+                customCategory = ""
                 if queryType != .keyword{
                     keyword = ""
                 }
