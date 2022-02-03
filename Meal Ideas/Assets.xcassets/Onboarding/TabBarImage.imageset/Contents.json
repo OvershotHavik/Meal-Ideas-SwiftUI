@@ -15,7 +15,7 @@
       "scale" : "1x"
     },
     {
-      "filename" : "Top View - Light.svg",
+      "filename" : "Tab Bar - Light.svg",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -26,7 +26,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "Top View - Dark.svg",
+      "filename" : "Tab Bar - Dark.svg",
       "idiom" : "universal",
       "scale" : "2x"
     },

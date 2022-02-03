@@ -10,40 +10,39 @@ import SwiftUI
 struct OnboardingPageView: View{
     @Binding var shouldShowOnboarding: Bool
     var image: String
-    var primaryText: String
-    var secondaryText: String
+    var title: OnboardingTitles
+    var secondary: OnboardingSecondary
     var showsDismissButton: Bool
     var body: some View{
-        VStack {
-            Image(systemName: image)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 150, height: 150)
-                .padding()
-            Text(primaryText)
-                .font(.title)
-                .multilineTextAlignment(.center)
-                .padding()
-            
-            Text(secondaryText)
-                .font(.title2)
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
-                .padding()
-            if showsDismissButton{
-                Button {
-                    shouldShowOnboarding.toggle()
-                    print("shouldShowOnboarding: \(shouldShowOnboarding)")
-                } label: {
-                    Text("Get Started")
-                        .bold()
-                        .foregroundColor(.primary)
-                        .frame(width: 200, height: 50)
-                        .background(.blue)
-                        .cornerRadius(6)
+        GeometryReader{ screenBounds in
+            VStack(spacing: 10) {
+                Image(uiImage: UIImage(imageLiteralResourceName: image))
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: screenBounds.size.width, height: screenBounds.size.height/4)
+                Text(title.rawValue)
+                    .font(.title)
+                    .multilineTextAlignment(.center)
+                
+                Text(secondary.rawValue)
+                    .font(.title2)
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+                if showsDismissButton{
+                    Button {
+                        shouldShowOnboarding.toggle()
+                        print("shouldShowOnboarding: \(shouldShowOnboarding)")
+                    } label: {
+                        Text("Get Started")
+                            .bold()
+                            .foregroundColor(.primary)
+                            .frame(width: 200, height: 50)
+                            .background(.blue)
+                            .cornerRadius(6)
+                    }
                 }
-
             }
         }
+        .padding()
     }
 }
