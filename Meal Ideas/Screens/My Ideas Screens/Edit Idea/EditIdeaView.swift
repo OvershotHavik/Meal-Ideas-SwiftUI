@@ -89,7 +89,7 @@ struct EditIdeaView: View {
                     Text("And/Or type in below:")
                     TextEditor(text: $vm.recipe)
                         .background(RoundedRectangle(cornerRadius: 10)
-                                        .fill(Color(.systemGray3)))
+                                        .fill(Color(UIColor.tertiarySystemBackground)))
                         .frame(height: 150)
                 }
                 Section(header: Text(SectionHeaders.source.rawValue)){

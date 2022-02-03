@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct MealIdeasTabView: View {
+//    @AppStorage("shouldShowOnboarding") var shouldShowOnboarding: Bool = true
+    @State private var shouldShowOnboarding = true
+
     @EnvironmentObject var query: Query
     @EnvironmentObject var userEnvironment: UserEnvironment
     
@@ -30,6 +33,9 @@ struct MealIdeasTabView: View {
                     Label("Settings", systemImage: "gearshape.fill")
                 }
         }
+        .fullScreenCover(isPresented: $shouldShowOnboarding, content: {
+            OnboardingView(shouldShowOnboarding: $shouldShowOnboarding)
+        })
         .onAppear{
             query.getFavorites()
             query.getHistory()

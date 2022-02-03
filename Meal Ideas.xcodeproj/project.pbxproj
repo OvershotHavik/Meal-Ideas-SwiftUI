@@ -44,6 +44,8 @@
 		B3627BF9275F756B004A6519 /* EditMealsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3627BF8275F756B004A6519 /* EditMealsListView.swift */; };
 		B3627BFB275F75C8004A6519 /* EditMealsListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3627BFA275F75C8004A6519 /* EditMealsListVM.swift */; };
 		B3627BFD275FC680004A6519 /* MyIdeasVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3627BFC275FC67F004A6519 /* MyIdeasVM.swift */; };
+		B372F1DA27AB1D1E00DCB991 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B372F1D927AB1D1D00DCB991 /* OnboardingView.swift */; };
+		B372F1DC27AC0F8700DCB991 /* OnboardingPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B372F1DB27AC0F8600DCB991 /* OnboardingPageView.swift */; };
 		B374E7DA278496C800422E9C /* MealDBFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B374E7D7278496C800422E9C /* MealDBFunctions.swift */; };
 		B374E7DB278496C800422E9C /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = B374E7D8278496C800422E9C /* APIKey.swift */; };
 		B374E7DC278496C800422E9C /* SpoonFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B374E7D9278496C800422E9C /* SpoonFunctions.swift */; };
@@ -171,6 +173,8 @@
 		B3627BF8275F756B004A6519 /* EditMealsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMealsListView.swift; sourceTree = "<group>"; };
 		B3627BFA275F75C8004A6519 /* EditMealsListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMealsListVM.swift; sourceTree = "<group>"; };
 		B3627BFC275FC67F004A6519 /* MyIdeasVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyIdeasVM.swift; sourceTree = "<group>"; };
+		B372F1D927AB1D1D00DCB991 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		B372F1DB27AC0F8600DCB991 /* OnboardingPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageView.swift; sourceTree = "<group>"; };
 		B374E7D7278496C800422E9C /* MealDBFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealDBFunctions.swift; sourceTree = "<group>"; };
 		B374E7D8278496C800422E9C /* APIKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		B374E7D9278496C800422E9C /* SpoonFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpoonFunctions.swift; sourceTree = "<group>"; };
@@ -412,6 +416,15 @@
 				B3627BFA275F75C8004A6519 /* EditMealsListVM.swift */,
 			);
 			path = "Edit Meals List";
+			sourceTree = "<group>";
+		};
+		B372F1D827AB1D0300DCB991 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				B372F1D927AB1D1D00DCB991 /* OnboardingView.swift */,
+				B372F1DB27AC0F8600DCB991 /* OnboardingPageView.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		B374E7D6278496C800422E9C /* Ignored */ = {
@@ -689,6 +702,7 @@
 		B3CA2373274810C900CA9C68 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				B372F1D827AB1D0300DCB991 /* Onboarding */,
 				B32934FF27A1E1CB00951C47 /* Settings */,
 				B3132586279F006C004FDE3C /* Custom Filter */,
 				B3859936277358700046AE4D /* Magnify Image */,
@@ -868,6 +882,7 @@
 			files = (
 				B329350D27A5492D00951C47 /* PhotoPicker.swift in Sources */,
 				B3A668C9276FA9D400533988 /* HistoryListView.swift in Sources */,
+				B372F1DA27AB1D1E00DCB991 /* OnboardingView.swift in Sources */,
 				B3606D97274C1F6E00E61972 /* MyMealModel.swift in Sources */,
 				B3606DB6274D6A4400E61972 /* IngredientVGrid.swift in Sources */,
 				B3CEDDA22756FB4400BB832B /* Double+Ext.swift in Sources */,
@@ -935,6 +950,7 @@
 				B375C99327629F140013895F /* MultiIngredientListView.swift in Sources */,
 				B3CA23782748112500CA9C68 /* MyIdeasView.swift in Sources */,
 				B3627BFB275F75C8004A6519 /* EditMealsListVM.swift in Sources */,
+				B372F1DC27AC0F8700DCB991 /* OnboardingPageView.swift in Sources */,
 				B3CEDDBE2757000F00BB832B /* SpoonJSON.swift in Sources */,
 				B3606DB4274D69F300E61972 /* BadgesHStack.swift in Sources */,
 				B3BC347C27906AD9000F7677 /* AllResultsShownText.swift in Sources */,
