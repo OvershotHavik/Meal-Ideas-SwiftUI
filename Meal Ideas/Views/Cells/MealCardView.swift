@@ -98,18 +98,21 @@ struct HistoryFavoriteHStack: View{
     var favorited: Bool
     var body: some View{
         HStack{
-            if inHistory == true {
-                Image(systemName: "book") // If in history is true, then show book, if not, show nothing
-                    .padding([.leading, .top])
-                    .opacity(0.50)
-            }
-            Spacer()
             if favorited == true {
                 Image(systemName:"heart.fill") // If favorited is true, then show book, if not, show nothing
                     .foregroundColor(.pink)
                     .padding([.trailing, .top])
             }
+            
+            Spacer()
+            
+            if inHistory == true {
+                Image(systemName: "book") // If in history is true, then show book, if not, show nothing
+                    .padding([.leading, .top])
+                    .opacity(0.50)
+            }
         }
+        .padding()
         .frame(height: 30)
     }
 }
