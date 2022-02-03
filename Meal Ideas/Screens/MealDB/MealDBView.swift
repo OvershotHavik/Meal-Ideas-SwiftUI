@@ -127,13 +127,14 @@ struct MealDBView: View {
 
             
             .onAppear{
+                query.getHistory()
+                query.getFavorites()
+                vm.surpriseMeal = nil
                 if query.queryType == vm.originalQueryType && query.selected == vm.originalQuery{
                     //nothing changed, don't do anything
                     return
                 }
-                query.getHistory()
-                query.getFavorites()
-                vm.surpriseMeal = nil
+
                 
                 if query.queryType == .custom{
                     vm.customFilter(keyword: query.customKeyword,
