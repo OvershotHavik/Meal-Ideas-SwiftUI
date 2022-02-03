@@ -19,7 +19,7 @@ struct OnboardingPageView: View{
                 Image(uiImage: UIImage(imageLiteralResourceName: image))
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: screenBounds.size.width, height: screenBounds.size.height/4)
+                    .frame(width: screenBounds.size.width, height: screenBounds.size.height/3)
                 Text(title.rawValue)
                     .font(.title)
                     .multilineTextAlignment(.center)
@@ -28,6 +28,7 @@ struct OnboardingPageView: View{
                     .font(.title2)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
+                Spacer()
                 if showsDismissButton{
                     Button {
                         shouldShowOnboarding.toggle()
@@ -41,6 +42,7 @@ struct OnboardingPageView: View{
                             .cornerRadius(6)
                     }
                 }
+                Spacer()
             }
         }
         .padding()

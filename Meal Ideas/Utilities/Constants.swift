@@ -85,7 +85,7 @@ enum SpoonTags: String{
 
 enum SectionHeaders: String{
     //Edit Meal
-    case mealInfo = "Meal Information"
+    case mealInfo = "Meal Name and Photo"
     case category = "Category"
     case ingredients = "Ingredients"
     case sides = "Sides"
@@ -114,15 +114,14 @@ enum Messages: String{
 
 enum ImageNames: String{
     case placeholderMeal = "Placeholder"
-    case createMealImage = "CreateAMealImage"
     case filterMenuImage = "FilterMenuImage"
-    case createAMealShort = "CreateAMealShort"
     case adaptiveFilterImage = "AdaptiveFilterImage"
     case tabBarImage = "TabBarImage"
     case topViewEditHighlightImage = "TopViewEditHighlightImage"
     case addCustomItemImage = "AddCustomItemImage"
     case topViewFavoritesHighlighted = "TopViewFavoritesHighlighted"
     case myIdeasList = "MyIdeasList"
+    case createAMealImage = "CreateAMealImage"
 }
 /*
 //Uncomment this section to clear the alerts. The network calls will not work but the app can be used for user meals
