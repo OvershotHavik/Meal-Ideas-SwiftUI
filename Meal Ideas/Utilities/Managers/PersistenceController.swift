@@ -35,6 +35,10 @@ struct PersistenceController {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
+        
+        container.viewContext.automaticallyMergesChangesFromParent = true
+        container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        
     }
 // MARK: - Save Data with completion
     func saveData(completion: @escaping (Result<MISuccess, MIError>) throws -> Void ){

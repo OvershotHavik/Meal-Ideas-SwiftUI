@@ -23,103 +23,109 @@ struct EditIdeaView: View {
     
     var body: some View {
         ZStack {
-            Form{
-                Section(header: Text(SectionHeaders.mealInfo.rawValue)) {
-                    MealNameTextField(vm: vm)
+            GeometryReader{ screenBounds in
+                Form{
+                    Section(header: Text(SectionHeaders.mealInfo.rawValue)) {
+                        MealNameTextField(vm: vm)
+                        
+                        MealPhotoButtonView(vm: vm)
+                            .foregroundColor(.blue)
+                            .modifier(MealPhotoActionSheet(vm: vm))
+                        
+                        if mealPhotoLoader.isLoading{
+                            loadingView()
+//                                .frame(width: 100)
+                        }
+                        if vm.mealPhoto != UIImage(){
+                            MealPhotoView(vm: vm)
+                                .frame(height: screenBounds.size.height/3)
+                        }
+                    }
                     
-                    MealPhotoButtonView(vm: vm)
-                        .foregroundColor(.blue)
-                        .modifier(MealPhotoActionSheet(vm: vm))
-                    if mealPhotoLoader.isLoading{
-                        loadingView()
-                            .frame(width: 100)
-                    }
-                    if vm.mealPhoto != UIImage(){
-                        MealPhotoView(vm: vm)
-                    }
-                }
-                
-                Section(header: Text(SectionHeaders.category.rawValue)){
-                    CategorySelectView(vm: vm)
-                        .foregroundColor(.blue)
-                    if !vm.categories.isEmpty{
-                        BadgesHStack(title: "Categories",
-                                     items: vm.categories,
-                                     topColor: .blue,
-                                     bottomColor: .blue)
-                    }
-                }
-                
-                
-                
-                Section(header: Text(SectionHeaders.ingredients.rawValue)){
-                    IngredientSelectView(vm: vm)
-                        .foregroundColor(.blue)
-                    IngredientHStack(vm: vm)
-                }
-                
-                Section(header: Text(SectionHeaders.sides.rawValue)){
-                    SidesButtonView(vm: vm)
-                        .foregroundColor(.blue)
-                    if !vm.sides.isEmpty{
-                        BadgesHStack(title: "Possible Sides",
-                                     items: vm.sides,
-                                     topColor: .green,
-                                     bottomColor: .green)
-                    }
-                }
-                
-                
-                Section(header: Text(SectionHeaders.prep.rawValue)){
-                    PrepTimePickerView(vm: vm)
-                }
-                
-                
-                Section(header: Text(SectionHeaders.instructions.rawValue)){
-                    MealInstructionsButtonView(vm: vm)
-                        .foregroundColor(.blue)
-                        .modifier(MealInstructionsActionSheet(vm: vm))
-                    if mealInstructionsLoader.isLoading{
-                        loadingView()
-                            .frame(width: 100)
-                    }
-                    if vm.instructionsPhoto != UIImage(){
-                        InstructionPhotoView(vm: vm)
-                    }
-                    Text("And/Or type in below:")
-                    TextEditor(text: $vm.recipe)
-                        .background(RoundedRectangle(cornerRadius: 10)
-                                        .fill(Color(UIColor.tertiarySystemBackground)))
-                        .frame(height: 150)
-                }
-                Section(header: Text(SectionHeaders.source.rawValue)){
-                    TextField("Website", text: $vm.source)
-                        .textFieldStyle(CustomRoundedCornerTextField())
-                }
-                
-                
-                // MARK: - Save Button
-                SaveButtonView(vm: vm)
-//                    .listRowBackground(Color.green)
-                
-                if vm.meal != nil{
-                    //Only show and add space if the meal was passed in
-//                    Spacer(minLength: 5)
-                    DeleteButtonView(vm: vm, showingDeleteAlert: $vm.showingDeleteAlert)
-//                        .listRowBackground(Color.red)
-                }
-                if vm.meal != nil{
-                    Section(header: Text(SectionHeaders.modified.rawValue)){
-                        if let safeModified = vm.meal?.modified{
-                            Text("Last Modified on: \(vm.convertDate(date:safeModified))")
-                        }
-                        if let safeCreated = vm.meal?.created{
-                            Text("Created on: \(vm.convertDate(date: safeCreated))")
+                    Section(header: Text(SectionHeaders.category.rawValue)){
+                        CategorySelectView(vm: vm)
+                            .foregroundColor(.blue)
+                        if !vm.categories.isEmpty{
+                            BadgesHStack(title: "Categories",
+                                         items: vm.categories,
+                                         topColor: .blue,
+                                         bottomColor: .blue)
                         }
                     }
+                    
+                    
+                    
+                    Section(header: Text(SectionHeaders.ingredients.rawValue)){
+                        IngredientSelectView(vm: vm)
+                            .foregroundColor(.blue)
+                        IngredientHStack(vm: vm)
+                    }
+                    
+                    Section(header: Text(SectionHeaders.sides.rawValue)){
+                        SidesButtonView(vm: vm)
+                            .foregroundColor(.blue)
+                        if !vm.sides.isEmpty{
+                            BadgesHStack(title: "Possible Sides",
+                                         items: vm.sides,
+                                         topColor: .green,
+                                         bottomColor: .green)
+                        }
+                    }
+                    
+                    
+                    Section(header: Text(SectionHeaders.prep.rawValue)){
+                        PrepTimePickerView(vm: vm)
+                    }
+                    
+                    
+                    Section(header: Text(SectionHeaders.instructions.rawValue)){
+                        MealInstructionsButtonView(vm: vm)
+                            .foregroundColor(.blue)
+                            .modifier(MealInstructionsActionSheet(vm: vm))
+                        if mealInstructionsLoader.isLoading{
+                            loadingView()
+//                                .frame(width: 100)
+                        }
+                        if vm.instructionsPhoto != UIImage(){
+                            InstructionPhotoView(vm: vm)
+                                .frame(height: screenBounds.size.height/3)
+                        }
+                        Text("And/Or type in below:")
+                        TextEditor(text: $vm.recipe)
+                            .background(RoundedRectangle(cornerRadius: 10)
+                                            .fill(Color(UIColor.tertiarySystemBackground)))
+                            .frame(height: 150)
+                    }
+                    Section(header: Text(SectionHeaders.source.rawValue)){
+                        TextField("Website", text: $vm.source)
+                            .textFieldStyle(CustomRoundedCornerTextField())
+                    }
+                    
+                    
+                    // MARK: - Save Button
+                    SaveButtonView(vm: vm)
+    //                    .listRowBackground(Color.green)
+                    
+                    if vm.meal != nil{
+                        //Only show and add space if the meal was passed in
+    //                    Spacer(minLength: 5)
+                        DeleteButtonView(vm: vm, showingDeleteAlert: $vm.showingDeleteAlert)
+    //                        .listRowBackground(Color.red)
+                    }
+                    if vm.meal != nil{
+                        Section(header: Text(SectionHeaders.modified.rawValue)){
+                            if let safeModified = vm.meal?.modified{
+                                Text("Last Modified on: \(vm.convertDate(date:safeModified))")
+                            }
+                            if let safeCreated = vm.meal?.created{
+                                Text("Created on: \(vm.convertDate(date: safeCreated))")
+                            }
+                        }
+                    }
+                    
                 }
-                
             }
+
             
             if vm.isLoading{
                 loadingView()
@@ -289,6 +295,7 @@ struct MealPhotoView: View{
                 .resizable()
                 .aspectRatio(contentMode: .fit)
             
+            
             Button {
                 vm.mealPhoto = UIImage()
             } label: {
@@ -372,7 +379,6 @@ struct InstructionPhotoView: View{
             Image(uiImage: vm.instructionsPhoto)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 100)
             Button {
                 vm.instructionsPhoto = UIImage()
             } label: {

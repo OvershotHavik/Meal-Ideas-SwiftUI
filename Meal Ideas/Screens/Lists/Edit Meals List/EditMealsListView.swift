@@ -16,7 +16,7 @@ struct EditMealsListView: View {
             if vm.savedMeals.isEmpty{
                 NoResultsView(message: Messages.tapToCreate.rawValue)
             }
-            ForEach(vm.searchResults) {meal in
+            ForEach(vm.searchResults.sorted{$0.mealName ?? "" < $1.mealName ?? ""}) {meal in
                 NavigationLink(destination: EditIdeaView(vm: EditIdeaVM(meal: meal))) {
                     Text(meal.mealName ?? "No name")
                 }
