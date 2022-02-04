@@ -116,6 +116,7 @@ struct SpoonView: View {
                             source: $vm.source)
                 }
             }
+            .padding(.bottom)
             .background(vm.backgroundColor)
             .navigationBarTitleDisplayMode(.inline)
             .navigationViewStyle(.stack)

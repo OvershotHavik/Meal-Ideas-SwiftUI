@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct MealIdeasTabView: View {
-//    @AppStorage("shouldShowOnboarding") var shouldShowOnboarding: Bool = true
-    @State private var shouldShowOnboarding = true
+    @AppStorage("shouldShowOnboarding") var shouldShowOnboarding: Bool = true
+//    @State private var shouldShowOnboarding = true
 
     @EnvironmentObject var query: Query
     @EnvironmentObject var userEnvironment: UserEnvironment

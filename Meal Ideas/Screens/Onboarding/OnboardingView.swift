@@ -27,7 +27,6 @@ enum OnboardingSecondary: String{
     case adaptiveFilter = "For My Ideas, the filters will only show choices for ingredients or categories for meals that have been created with them."
     case additionalSources = "Not sure what to make? \n\nNeed some more inspiration? \n\nYou can search other sources. \n\nWhichever search type you select will cary over to the other sources automatically."
     case favoritesAndHistory = "Each source keeps track of the meals you have viewed, along with favorited meals. \n\nThese can be viewed here."
-    
 }
 
 
