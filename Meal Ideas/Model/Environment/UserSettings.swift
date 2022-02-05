@@ -7,20 +7,11 @@
 
 import SwiftUI
 
-
-struct UserSettings: Codable{
-    var topLeftColor : String = ""
-    var bottomRightColor : String = ""
-}
-
-
 final class UserEnvironment: ObservableObject{
     // TODO:  Rename the app storage to not include the number
     @AppStorage("userSettings1") private var userSettingsData: Data?
     @Published var topLeftColor: Color = Color(uiColor: .lightBlue)
     @Published var bottomRightColor: Color = Color(uiColor: .darkBlue)
-//    @Published var bottomRightColor = Color(.sRGB, red: 0, green: 0.2479205846, blue: 0.5144915803, opacity: 1)
-//    @Published var bottomRightColor = Color(uiColor: .darkBlue)
     @Published var userSettings = UserSettings()
     @Published var alertItem: AlertItem?
     
@@ -51,7 +42,7 @@ final class UserEnvironment: ObservableObject{
             alertItem = AlertContext.invalidUserData
         }
     }
-    
+    // MARK: - Convert String to Color top left
     func convertStringToColorTopLeft(){
         if userSettings.topLeftColor != "" {
             let rgbArray = userSettings.topLeftColor.components(separatedBy: ",")
@@ -64,7 +55,7 @@ final class UserEnvironment: ObservableObject{
         }
     }
     
-    
+    // MARK: - Convert String to Color bottom RIght 
     func convertStringToColorBottomRight(){
         if userSettings.bottomRightColor != "" {
             let rgbArray = userSettings.bottomRightColor.components(separatedBy: ",")
