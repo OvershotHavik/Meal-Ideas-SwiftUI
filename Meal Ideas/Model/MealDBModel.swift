@@ -227,16 +227,3 @@ struct MealDBResults {
         }
     }
 }
-/*
-struct MealDBMultiMeal: Codable {
-    struct Results: Decodable {
-        let meals: [Meal]
-    }
-    struct Meal : Decodable{
-        var strMeal : String?
-        var strMealThumb: URL?
-        var idMeal : String?
-    }
-}
-
-*/

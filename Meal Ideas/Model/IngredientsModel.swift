@@ -56,7 +56,6 @@ struct Ingredients: Codable{
         }
         
         var id: String
-//        var idIngredient: String
         var strIngredient: String
         var strDescription: String?
         var strMeasurement: String

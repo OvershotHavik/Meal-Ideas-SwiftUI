@@ -57,14 +57,3 @@ class SpoonacularResults{
     class Results: Recipe{
     }
 }
-//MARK: - Spoon Keyword Results
-class SpoonacularKeywordResults: Codable{
-    class DataResult: Codable{
-        var results: [result]
-    }
-    class result: Codable, Identifiable{
-        var id: Int
-        var title: String
-        var image: String?
-    }
-}

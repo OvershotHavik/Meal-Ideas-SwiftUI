@@ -64,7 +64,6 @@ final class Query: ObservableObject{
         let request = NSFetchRequest<Favorites>(entityName: EntityName.favorites.rawValue)
         do {
             favoritesArray = try PersistenceController.shared.container.viewContext.fetch(request)
-//            print("favorites count: \(favoritesArray.count)")
         } catch let error {
             print("error fetching: \(error.localizedDescription)")
         }
@@ -76,7 +75,6 @@ final class Query: ObservableObject{
         let request = NSFetchRequest<History>(entityName: EntityName.history.rawValue)
         do {
             historyArray = try PersistenceController.shared.container.viewContext.fetch(request)
-//            print("History count: \(historyArray.count)")
         } catch let e {
             print("error fetching history: \(e.localizedDescription)")
         }
