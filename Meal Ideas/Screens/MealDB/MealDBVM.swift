@@ -295,4 +295,16 @@ import SwiftUI
         }
     }
     
+    // MARK: - Stop Loading
+    func stopLoading(){
+        if isLoading{
+            DispatchQueue.main.asyncAfter(deadline: .now() + 7.5) {
+                if self.isLoading == true{
+                    print("loading for 7.5 seconds, stopping and displaying alert")
+                    self.isLoading = false
+                    self.alertItem = AlertContext.unableToComplete
+                }
+            }
+        }
+    }
 }

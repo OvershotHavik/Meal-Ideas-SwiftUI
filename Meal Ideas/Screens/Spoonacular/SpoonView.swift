@@ -183,7 +183,9 @@ struct SpoonView: View {
                     vm.checkQuery(query: query.selected, queryType: query.queryType)
                 }
             }
-            
+            .onChange(of: vm.isLoading, perform: { _ in
+                vm.stopLoading()
+            })
             .onChange(of: vm.scrollViewContentOffset, perform: { newValue in
                 vm.autoHideTopView()
             })

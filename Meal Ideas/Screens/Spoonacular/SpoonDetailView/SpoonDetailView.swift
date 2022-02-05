@@ -57,8 +57,8 @@ struct SpoonDetailView: View {
                     RecipeView(recipe: vm.instructions)
                 }
                 LinkView(url: vm.meal?.sourceUrl, title: "Visit Source")
-                
             }
+            
             .padding()
             .toolbar{
                 ToolbarItem(placement: .principal, content: {

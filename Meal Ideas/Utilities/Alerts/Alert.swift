@@ -24,7 +24,7 @@ struct AlertContext{
                                              dismissButton: .default(Text("OK")))
     // MARK: - Network Alerts
     static let invalidData       = AlertItem(title: Text("No Meals"),
-                                             message: Text("No meals where found for your search."),
+                                             message: Text("No meals were found for your search."),
                                              dismissButton: .default(Text("OK")))
     
     static let invalidResponse   = AlertItem(title: Text("Server Error"),
