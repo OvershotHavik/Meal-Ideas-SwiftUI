@@ -26,6 +26,7 @@ struct SingleIngredientListView: View {
                         dismiss()
                     }
             }
+            .padding(.bottom)
             .toolbar{
                 ToolbarItem(placement: .principal) {
                     Text(Titles.oneIngredient.rawValue)

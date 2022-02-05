@@ -33,6 +33,7 @@ struct EditItemList: View {
                 vm.listItems.remove(atOffsets: IndexSet)
             }
         }
+        .padding(.bottom)
         //Add a new item
         .alert(isPresented: $vm.showTextAlert,
                TextAlert(title: "Add a new \(vm.listType)", message: "This will be available for future meals", action: { result in

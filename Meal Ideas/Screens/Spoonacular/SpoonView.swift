@@ -145,8 +145,14 @@ struct SpoonView: View {
                     //nothing changed, don't do anything
                     return
                 }
+                if query.queryType == .category ||
+                    query.queryType == .ingredient{
+                    if query.selected == ""{
+                        //nothing selected, if we let it go it brings back random results
+                        return
+                    }
+                }
                 vm.resetValues()
-                
                 
                 if query.queryType == .custom{
                     if !vm.sourceCategories.contains(query.customCategory) &&
