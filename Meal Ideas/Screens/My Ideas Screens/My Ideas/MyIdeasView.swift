@@ -137,6 +137,13 @@ struct MyIdeasView: View {
                     //nothing changed, don't do anything
                     return
                 }
+                if query.queryType == .category ||
+                    query.queryType == .ingredient{
+                    if query.selected == ""{
+                        //nothing selected, if we let it go it brings back random results
+                        return
+                    }
+                }
                 
                 if query.queryType == .custom{
                     vm.customFilter(keyword: query.customKeyword,
