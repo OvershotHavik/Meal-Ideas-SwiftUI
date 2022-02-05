@@ -25,7 +25,7 @@ final class  MultiChoiceListVM: ObservableObject {
         if searchText.isEmpty {
             return listItems
         } else {
-            return listItems.filter { $0.contains(searchText) }
+            return listItems.filter { $0.containsIgnoringCase(find: searchText) }
         }
     }
     

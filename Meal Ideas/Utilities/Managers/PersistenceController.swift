@@ -109,7 +109,6 @@ struct PersistenceController {
                     let history = myIdeasHistory[index]
                     container.viewContext.delete(history)
                     
-                    
 
                 }
                 guard let index = indexSet.first else {return}
@@ -217,7 +216,6 @@ struct PersistenceController {
                         }
                     }
                 }
-                    
             }catch let e {
                 print("Error fetching CDUserCategory: \(e.localizedDescription)")
             }
@@ -255,16 +253,13 @@ struct PersistenceController {
                         }
                     }
                 }
-
                     
-                    
+                
             }catch let e {
                 print("Error fetching CDUserCategory: \(e.localizedDescription)")
             }
-            
         }
         saveData()
-
     }
 // MARK: - Delete Meal
     func deleteMeal(meal: UserMeals){

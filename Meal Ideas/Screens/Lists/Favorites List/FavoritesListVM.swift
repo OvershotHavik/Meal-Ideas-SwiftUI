@@ -16,7 +16,7 @@ final class FavoritesListVM: ObservableObject{
         if searchText.isEmpty {
             return favoritesArray
         } else {
-            return favoritesArray.filter { $0.mealName!.contains(searchText) }
+            return favoritesArray.filter { $0.mealName!.containsIgnoringCase(find: searchText) }
         }
     }
     init(source: Source){

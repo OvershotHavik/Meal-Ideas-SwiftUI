@@ -60,9 +60,6 @@ struct MyIdeasDetailView: View {
             .padding()
             .navigationBarTitleDisplayMode(.inline)
             .toolbar{
-                ToolbarItem(placement: .principal, content: {
-                    Text(vm.meal?.mealName ?? "")
-                })
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         vm.favorited.toggle()

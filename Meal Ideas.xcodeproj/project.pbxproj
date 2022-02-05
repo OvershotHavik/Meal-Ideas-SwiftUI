@@ -266,20 +266,19 @@
 		B32934FF27A1E1CB00951C47 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				B329350427A1E7D000951C47 /* Edit User Items */,
 				B329350027A1E1F000951C47 /* SettingsView.swift */,
 				B329350227A1E1FD00951C47 /* SettingsVM.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
 		};
-		B329350427A1E7D000951C47 /* Edit User Items */ = {
+		B329350427A1E7D000951C47 /* Edit User Items List */ = {
 			isa = PBXGroup;
 			children = (
 				B329350527A1E80000951C47 /* EditItemList.swift */,
 				B329350727A1E80E00951C47 /* EditItemListVM.swift */,
 			);
-			path = "Edit User Items";
+			path = "Edit User Items List";
 			sourceTree = "<group>";
 		};
 		B329350B27A46D6400951C47 /* Environment */ = {
@@ -442,6 +441,7 @@
 		B375C98D276255B00013895F /* Lists */ = {
 			isa = PBXGroup;
 			children = (
+				B329350427A1E7D000951C47 /* Edit User Items List */,
 				B3627BF7275F754B004A6519 /* Edit Meals List */,
 				B3A668C3276FA6A100533988 /* History List */,
 				B3A668BE276F9C7F00533988 /* Favorites List */,

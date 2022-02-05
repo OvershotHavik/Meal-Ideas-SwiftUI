@@ -22,7 +22,7 @@ import SwiftUI
         if searchText.isEmpty {
             return ingredients
         } else {
-            return ingredients.filter { $0.strIngredient.contains(searchText) }
+            return ingredients.filter { $0.strIngredient.containsIgnoringCase(find: searchText) }
         }
     }
     

@@ -61,9 +61,6 @@ struct SpoonDetailView: View {
             
             .padding()
             .toolbar{
-                ToolbarItem(placement: .principal, content: {
-                    Text(vm.meal?.title ?? "")
-                })
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         vm.favorited.toggle()

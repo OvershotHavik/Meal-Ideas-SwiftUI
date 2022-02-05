@@ -18,7 +18,7 @@ final class EditMealsListVM: ObservableObject{
         if searchText.isEmpty {
             return savedMeals
         } else {
-            return savedMeals.filter { $0.mealName!.contains(searchText) }
+            return savedMeals.filter { $0.mealName!.containsIgnoringCase(find: searchText) }
         }
     }
     init() {

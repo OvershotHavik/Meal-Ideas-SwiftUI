@@ -18,7 +18,7 @@ final class SingleChoiceListVM: ObservableObject {
         if searchText.isEmpty {
             return listItems
         } else {
-            return listItems.filter { $0.contains(searchText) }
+            return listItems.filter { $0.containsIgnoringCase(find: searchText) }
         }
     }
     init(PList: PList?, listItems: [String], singleChoiceString: String?, title: Titles){

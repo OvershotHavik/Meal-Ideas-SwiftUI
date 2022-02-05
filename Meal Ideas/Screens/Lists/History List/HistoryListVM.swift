@@ -17,7 +17,7 @@ final class HistoryListVM: ObservableObject{
         if searchText.isEmpty {
             return historyArray
         } else {
-            return historyArray.filter { $0.mealName!.contains(searchText) }
+            return historyArray.filter { $0.mealName!.containsIgnoringCase(find: searchText) }
         }
     }
     
