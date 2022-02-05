@@ -31,6 +31,7 @@ final class Query: ObservableObject{
             if queryType != originalQueryType{
                 selected = ""
                 customCategory = ""
+                customIngredient = ""
                 if queryType != .keyword{
                     keyword = ""
                 }
@@ -70,7 +71,6 @@ final class Query: ObservableObject{
     }
     
     // MARK: - Get History
-    
     func getHistory(){
         let request = NSFetchRequest<History>(entityName: EntityName.history.rawValue)
         do {
@@ -79,6 +79,4 @@ final class Query: ObservableObject{
             print("error fetching history: \(e.localizedDescription)")
         }
     }
-    
-
 }
