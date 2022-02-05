@@ -17,7 +17,6 @@ struct HistoryCell: View {
         HStack{
             if let safeDate = timeStamp{
                 Text(convertDate(date: safeDate))
-                
             }
             Text(mealName)
             Spacer()

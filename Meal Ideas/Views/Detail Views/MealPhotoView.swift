@@ -6,32 +6,7 @@
 //
 
 import SwiftUI
-/*
-struct MealPhotoView: View {
-    var mealPhoto: String
-    @State var imageToZoom : Image?
-    var body: some View {
-        HStack {
-            LoadRemoteImageView(urlString: mealPhoto)
-                .frame(width: 200, height: 200)
-                .clipShape(Circle())
-        }
-        .onAppear(perform: getImage)
-    }
-        
 
-        
-    func getImage(){
-        let imageLoader = ImageLoader()
-        imageLoader.load(fromURLString: mealPhoto)
-        if let safeImage = imageLoader.image{
-            imageToZoom = safeImage
-            print("image to zoom set")
-        }
-    }
-}
- */
-//Used for Spoon and mealDB since sometimes we are passing a nil meal initially, the above was failing to load properly
 struct MealPhotoUIImageView: View{
     var mealPhoto: UIImage
     

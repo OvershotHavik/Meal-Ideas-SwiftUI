@@ -12,14 +12,11 @@ struct loadingView: View{
         ZStack{
             VStack{
                 Spacer()
-                ProgressView() // Optional title
+                ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: .primary))
                     .scaleEffect(2) // doubles the size
                 Spacer()
             }
-//            Color(.systemBackground)
-//                .ignoresSafeArea()
-
         }
     }
 }

@@ -10,7 +10,6 @@ import SwiftUI
 struct IngredientCell: View {
     var ingredient: Ingredients.Meals
     var selected: Bool
-    @State private var image: UIImage?
 
     var body: some View {
         let modifiedMealDB = ingredient.strIngredient.replacingOccurrences(of: " ", with: "%20")

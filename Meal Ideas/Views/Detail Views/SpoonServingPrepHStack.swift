@@ -16,14 +16,24 @@ struct SpoonServingPrepHStack: View {
             //if either are nil, hide the icon as well
             if let safePrepTime = prepTime{
                 Image(systemName: "timer")
-                Text("\(safePrepTime) min")
-                // TODO:  depending how this comes through may want to convert it to hours: minutes
+                Text(minutesToHoursAndMinutes(minutes: safePrepTime))
             }
 
             if let safeServings = servings{
                 Image(systemName: "person.fill")
                 Text("\(safeServings)")
             }
+        }
+    }
+    
+    func minutesToHoursAndMinutes (minutes : Int) -> String{
+        let hours = minutes / 60
+        let leftoverMinutes = minutes % 60
+        
+        if hours != 0{
+            return   "\(hours)h \(leftoverMinutes)m"
+        } else {
+            return  "\(leftoverMinutes) min"
         }
     }
 }

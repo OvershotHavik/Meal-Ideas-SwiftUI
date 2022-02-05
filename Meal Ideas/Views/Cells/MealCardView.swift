@@ -17,6 +17,8 @@ struct MealCardView: View {
     @StateObject var imageLoader = ImageLoaderFromData()
     let placeholder = UIImage(imageLiteralResourceName: ImageNames.placeholderMeal.rawValue)
     @State var mealImage = UIImage()
+    
+    
     var body: some View {
         ZStack{
             Color(UIColor.tertiarySystemBackground)
@@ -39,7 +41,6 @@ struct MealCardView: View {
                 } else {
                     LoadRemoteImageView(urlString: mealPhoto)
                         .modifier(MealCardPhotoModifier())
-
                 }
 
                 Text("\(mealName)\n") // adds an extra line to the meal name. If it is only 1 line, then it adds a blank line below. If it is already 2 lines, then the third "blank" line gets cut off. This will keep all meal cards aligned correctly
@@ -50,12 +51,10 @@ struct MealCardView: View {
         }
         .onAppear{
             if let safeData = mealPhotoData{
-//                imageLoader.loadFromData(mealPhotoData: safeData)
                 CacheManager.shared.returnImageFromData(photoData: safeData) { imageFromData in
                     if let safeImage = imageFromData{
                         mealImage = safeImage
                     }
-                    
                 }
             }
         }
@@ -95,3 +94,57 @@ struct HistoryFavoriteHStack: View{
         .frame(height: 30)
     }
 }
+
+
+
+
+
+
+/*
+struct aSpoonServingPrepHStack: View {
+    var prepTime: Int?
+    var servings: Int?
+    @State private var convertedTime: String?
+    var body: some View {
+        HStack{
+            //if either are nil, hide the icon as well
+            if prepTime != nil{
+                Image(systemName: "timer")
+                Text(convertedTime ?? "")
+            }
+
+            if let safeServings = servings{
+                Image(systemName: "person.fill")
+                Text("\(safeServings)")
+            }
+        }
+        .onAppear{
+            if let safePrepTime = prepTime{
+                let result = minutesToHoursAndMinutes(safePrepTime)
+                
+                if result.hours != 0{
+                    convertedTime = "\(result.hours) h \(result.leftMinutes) m"
+                } else {
+                    convertedTime = "\(result.leftMinutes) min"
+                }
+            }
+        }
+    }
+        
+    func minutesToHoursAndMinutes (minutes : Int) -> String{
+        
+        let hours = minutes / 60
+        let leftoverMinutes = minutes % 60
+        
+        if hours != 0{
+            return   "\(hours) h \(leftoverMinutes) m"
+        } else {
+            return  "\(leftoverMinutes) min"
+        }
+//        return (minutes / 60, (minutes % 60))
+    }
+    
+    
+}
+
+*/

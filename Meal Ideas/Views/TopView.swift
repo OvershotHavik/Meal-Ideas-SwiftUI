@@ -23,8 +23,6 @@ struct TopView: View{
                 Text("Surprise \nMe")
                     .lineLimit(2)
             })
-//                .buttonStyle(.borderedProminent)
-//                .accentColor(Color(uiColor: Color.lightBlue))
 
             TextField("Search...", text: $query.keyword)
                 .textFieldStyle(CustomRoundedCornerTextField())
@@ -73,7 +71,6 @@ struct TopView: View{
                 }
                 
 
-
                 } label: {// Menu label
                 Image(systemName: "slider.horizontal.3")
                         .padding()
@@ -86,34 +83,3 @@ struct TopView: View{
         .background(BackgroundGradientView())
     }
 }
-
-
-
-
-// MARK: - Keyword Search View
-/*
-struct KeywordSearchView: View{
-    @EnvironmentObject var query : Query
-    @Binding var keywordSearchTapped : Bool
-    var body: some View{
-        HStack{
-            Spacer()
-            Image(systemName: "magnifyingglass")
-                .foregroundColor(.gray)
-            TextField("Search...", text: $query.keyword)
-                .textFieldStyle(CustomRoundedCornerTextField())
-//                .frame(width: 250)
-                .onSubmit {
-                    query.selected = ""
-                    query.queryType = .keyword
-                    keywordSearchTapped.toggle()
-                    print("Top View Keyword search: \(query.keyword)")
-                }
-            Spacer()
-            // Random icon - Search - Filter
-            //use a menu to choose which ingredient or category
-            
-        }
-    }
-}
-*/
