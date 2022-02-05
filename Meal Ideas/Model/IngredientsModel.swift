@@ -7,10 +7,6 @@
 
 import SwiftUI
 
-struct ListOfItems{
-    static var title = [String]()
-    static var image = [Image]()
-}
 struct Ingredients: Codable{
     struct mealDBIngredients: Decodable{
         var meals : [Meals]
@@ -60,10 +56,6 @@ struct Ingredients: Codable{
         var strDescription: String?
         var strMeasurement: String
         var strType: String?
-    }
-    struct SpoonacularIngredient: Codable {
-        var name : String
-        var imageID : String
     }
 }
 //used for custom ingredients/categories/sides

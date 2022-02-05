@@ -10,7 +10,6 @@ import CoreData
 
 final class EditMealsListVM: ObservableObject{
     @Published var savedMeals: [UserMeals] = []
-    @Published var TextFieldText: String = ""
     @Published var showingDeleteAlert = false
     @Published var selectedIndexSet: IndexSet?
     private let pc = PersistenceController.shared

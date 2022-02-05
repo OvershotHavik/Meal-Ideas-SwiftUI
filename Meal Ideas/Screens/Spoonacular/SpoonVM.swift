@@ -280,17 +280,7 @@ import CoreData
             }
         }
     }
-    
-    // MARK: - Get Meal From ID
-    func getMealFromID(mealID: Int) async -> SpoonacularResults.Recipe?{
         
-        getSpoonMeals(query: "\(mealID)", queryType: .none)
-        if let safeMeal = individualMeal{
-            return safeMeal
-        }
-        return nil
-    }
-    
     
     // MARK: - Check For History
     func checkForHistory(id: Int?, historyArray: [History]) -> Bool{

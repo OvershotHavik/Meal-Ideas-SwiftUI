@@ -15,9 +15,9 @@ struct AlertItem: Identifiable {
 }
 
 struct AlertContext{
-    static let noSelection       = AlertItem(title: Text("No Selection"),
-                                             message: Text("Please choose something to search by."),
-                                             dismissButton: .default(Text("OK")))
+//    static let noSelection       = AlertItem(title: Text("No Selection"),
+//                                             message: Text("Please choose something to search by."),
+//                                             dismissButton: .default(Text("OK")))
     
     static let noMeals       = AlertItem(title: Text("No Meals"),
                                              message: Text("No meals have been created. \nTap the Edit icon to create one."),

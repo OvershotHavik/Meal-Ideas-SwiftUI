@@ -52,9 +52,6 @@ struct PDFKitRepresentedView: UIViewRepresentable {
 }
 
 struct ZoomImageView : View {
-    
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-    
     var image:UIImage
     @State private var isShareSheetShowing = false
     var body: some View {

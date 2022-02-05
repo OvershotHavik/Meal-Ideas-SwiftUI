@@ -15,15 +15,6 @@ enum QueryType: String{
     case custom = "Custom"
     case none = "None"
 }
-enum QueryName: String{
-    case ingredients = "Ingredients"
-    case category = "Category"
-    case random = "Random"
-    case keyword = "Keyword"
-    case favorites = "Favorites"
-    case sides = "Sides"
-}
-
 
 final class Query: ObservableObject{
     @Published var queryType = QueryType.none{
