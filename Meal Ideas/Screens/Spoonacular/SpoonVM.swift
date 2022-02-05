@@ -243,6 +243,8 @@ import CoreData
                     
                     print("spoon custom meals count: \(meals.count)")
                     determineMoreToShow()
+                    isLoading = false
+
                 } catch {
                     if let miError = error as? MIError{
                         isLoading = false
