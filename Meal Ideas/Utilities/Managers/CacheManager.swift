@@ -8,6 +8,7 @@
 import SwiftUI
 
 class CacheManager{
+    //For core data images in user meals meal card
     static let shared = CacheManager()
     private init(){}// prevents the CacheManager from being duplicated
     private let cache : NSCache<NSData, UIImage> = {
