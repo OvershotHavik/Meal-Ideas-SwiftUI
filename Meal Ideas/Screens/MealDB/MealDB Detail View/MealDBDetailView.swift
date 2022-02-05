@@ -14,13 +14,13 @@ struct MealDBDetailView: View {
         ZStack{
             vm.backgroundColor
                 .ignoresSafeArea()
+            if vm.isLoading{
+                loadingView()
+            }
             VStack{
                 ScrollView{
                     Spacer(minLength: 5)
-                    
-                    if vm.isLoading{
-                        loadingView()
-                    }
+
                     MealPhotoUIImageView(mealPhoto: vm.mealPhoto)
                     
                     MealNameView(name: vm.meal?.strMeal ?? "")
