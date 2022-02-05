@@ -64,7 +64,7 @@ struct PersistenceController {
         }
     }
     // MARK: - Delete In List
-    func deleteInList(indexSet: IndexSet, entityName: EntityName){
+    func deleteInList(indexSet: IndexSet, entityName: EntityName, source: Source){
         switch entityName {
         case .userMeals:
             let request = NSFetchRequest<UserMeals>(entityName: "UserMeals")
@@ -87,11 +87,33 @@ struct PersistenceController {
             
         case .history:
             let request = NSFetchRequest<History>(entityName: EntityName.history.rawValue)
+            guard let index = indexSet.first else {return}
+
             do{
                 let savedHistory = try container.viewContext.fetch(request).sorted{$0.timeStamp ?? Date() > $1.timeStamp ?? Date()}
+                switch source {
+                case .spoonacular:
+                    let spoonHistory = savedHistory.filter{$0.spoonID != 0}.sorted{$0.timeStamp ?? Date() > $1.timeStamp ?? Date()}
+                    let history = spoonHistory[index]
+                    container.viewContext.delete(history)
+                    
+                    
+                case .mealDB:
+                    let mealDBHistory = savedHistory.filter {$0.mealDBID != nil}.sorted{$0.timeStamp ?? Date() > $1.timeStamp ?? Date()}
+                    let history = mealDBHistory[index]
+                    container.viewContext.delete(history)
+                    
+                    
+                case .myIdeas:
+                    let myIdeasHistory = savedHistory.filter{$0.userMealID != nil}.sorted{$0.timeStamp ?? Date() > $1.timeStamp ?? Date()}
+                    let history = myIdeasHistory[index]
+                    container.viewContext.delete(history)
+                    
+                    
+
+                }
                 guard let index = indexSet.first else {return}
                 let history = savedHistory[index]
-                print(history)
                 container.viewContext.delete(history)
             } catch let e{
                 print("Error fetching history: \(e.localizedDescription)")
@@ -100,11 +122,28 @@ struct PersistenceController {
             
         case .favorites:
             let request = NSFetchRequest<Favorites>(entityName: EntityName.favorites.rawValue)
+            guard let index = indexSet.first else {return}
             do {
                 let savedFavorites = try container.viewContext.fetch(request)
-                guard let index = indexSet.first else {return}
-                let favorite = savedFavorites[index]
-                container.viewContext.delete(favorite)
+                switch source {
+                case .spoonacular:
+                    let spoonFavorites = savedFavorites.filter{$0.spoonID != 0}.sorted{$0.mealName ?? "" < $1.mealName ?? ""}
+                    let favorite = spoonFavorites[index]
+                    container.viewContext.delete(favorite)
+                    
+                    
+                case .mealDB:
+                    let mealDBFavorites = savedFavorites.filter {$0.mealDBID != nil}.sorted{$0.mealName ?? "" < $1.mealName ?? ""}
+                    let favorite = mealDBFavorites[index]
+                    container.viewContext.delete(favorite)
+                    
+                    
+                case .myIdeas:
+                    let myFavorites = savedFavorites.filter{$0.userMealID != nil}.sorted{$0.mealName ?? "" < $1.mealName ?? ""}
+                    let favorite = myFavorites[index]
+                    container.viewContext.delete(favorite)
+                }
+
             } catch let e{
                 print("Error fetching favorites: \(e.localizedDescription)")
             }

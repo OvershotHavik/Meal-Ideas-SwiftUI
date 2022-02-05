@@ -41,7 +41,8 @@ final class EditMealsListVM: ObservableObject{
         if let safeIndexSet = selectedIndexSet{
             withAnimation {
                 PersistenceController.shared.deleteInList(indexSet: safeIndexSet,
-                                                          entityName: .userMeals)
+                                                          entityName: .userMeals,
+                                                          source: .myIdeas)
                 fetchMeals()
             }
         }

@@ -69,7 +69,8 @@ struct HistoryListView: View {
             }
             .onDelete{ IndexSet in
                 PersistenceController.shared.deleteInList(indexSet: IndexSet,
-                                                          entityName: .history)
+                                                          entityName: .history,
+                                                          source: vm.source)
                 query.getHistory()
                 vm.searchText = ""
                 vm.filteredHistory(history: query.historyArray)

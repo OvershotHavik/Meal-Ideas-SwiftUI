@@ -49,7 +49,8 @@ struct FavoritesListView: View {
             }
             .onDelete{ IndexSet in
                 PersistenceController.shared.deleteInList(indexSet: IndexSet,
-                                                          entityName: .favorites)
+                                                          entityName: .favorites,
+                                                          source: vm.source)
                 query.getFavorites()
                 vm.filteredFavorites(favorites: query.favoritesArray)
             }

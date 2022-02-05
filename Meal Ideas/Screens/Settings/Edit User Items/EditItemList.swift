@@ -29,7 +29,9 @@ struct EditItemList: View {
                 }
             }
             .onDelete{IndexSet in
-                PersistenceController.shared.deleteInList(indexSet: IndexSet, entityName: vm.entityName)
+                PersistenceController.shared.deleteInList(indexSet: IndexSet,
+                                                          entityName: vm.entityName,
+                                                          source: .myIdeas)
                 vm.listItems.remove(atOffsets: IndexSet)
             }
         }

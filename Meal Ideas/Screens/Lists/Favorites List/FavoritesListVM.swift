@@ -36,7 +36,7 @@ final class FavoritesListVM: ObservableObject{
             
             
         case .myIdeas:
-            let myFavorites = favorites.filter{$0.spoonID == 0 && $0.mealDBID == nil}.sorted{$0.mealName ?? "" < $1.mealName ?? ""}
+            let myFavorites = favorites.filter{$0.userMealID != nil}.sorted{$0.mealName ?? "" < $1.mealName ?? ""}
             favoritesArray = myFavorites
         }
     }
