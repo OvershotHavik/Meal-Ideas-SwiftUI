@@ -116,31 +116,8 @@ final class NetworkManager {
             print(url)
             return try await mealDBNetworkCall(url: url)
         }
-
-        
     }
-    /*
-Original random meal
-    func mealDBRandom() async throws -> [MealDBResults.Meal]{
-        guard let url = URL(string: BaseURL.mealDBRandom) else {
-            throw MIError.invalidURL
-        }
-        print(url)
-        let (data, response) = try await URLSession.shared.data(from: url)
-
-        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
-            throw MIError.invalidResponsetest
-        }
-
-        do{
-            let results = try JSONDecoder().decode(MealDBResults.Results.self, from: data)
-
-            return results.mealsv
-        } catch {
-            throw MIError.invalidData
-        }
-    }
-    */
+// MARK: - MealDB Network Call
     func mealDBNetworkCall(url: URL) async throws -> [MealDBResults.Meal]{
         let (data, response) = try await URLSession.shared.data(from: url)
         
@@ -243,29 +220,7 @@ Original random meal
             throw MIError.invalidData
         }
     }
-    /*
-    // MARK: - Spoon Keyword Query
-    func spoonKeywordQuery(query: String) async throws -> [SpoonacularKeywordResults.result]{
-        guard let url = URL(string: BaseURL.spoonKeyword + query) else {
-            throw MIError.invalidURL
-        }
-        print(url)
-        //Keyword returns an array of "results" instead of "meals" that's why this is different
-        let (data, response) = try await URLSession.shared.data(from: url)
-        
-        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
-            throw MIError.invalidResponse
-        }
-        
-        do{
-            let results = try JSONDecoder().decode(SpoonacularKeywordResults.DataResult.self, from: data)
-            
-            return results.results
-        } catch {
-            throw MIError.invalidData
-        }
-    }
-    */
+
     // MARK: - Spoon Single Meal
     func spoonSingleMeal(query: String) async throws -> SpoonacularResults.Recipe{
         guard let url = URL(string: BaseURL.spoonSingleBase + query + BaseURL.SpoonSingleSuffix) else {
