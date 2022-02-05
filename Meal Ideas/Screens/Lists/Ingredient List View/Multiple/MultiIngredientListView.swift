@@ -18,7 +18,7 @@ struct MultiIngredientListView: View {
                 loadingView()
                     .offset(y: UI.verticalSpacing)
             }
-            List(vm.searchResults){ ingredient in
+            List(vm.searchResults.sorted{$0.strIngredient < $1.strIngredient}){ ingredient in
                 
                 let selected = vm.selectedArray.contains(ingredient.strIngredient)
                 IngredientCell(ingredient: ingredient, selected: selected)

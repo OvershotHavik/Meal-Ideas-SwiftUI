@@ -16,7 +16,7 @@ struct SingleIngredientListView: View {
     
     var body: some View {
         ZStack{
-            List(vm.searchResults, selection: $vm.selection){ ingredient in
+            List(vm.searchResults.sorted{$0.strIngredient < $1.strIngredient}, selection: $vm.selection){ ingredient in
                 
                 let selected = ingredient.strIngredient == vm.selection
                 IngredientCell(ingredient: ingredient, selected: selected)

@@ -17,7 +17,7 @@ struct SingleChoiceListView: View {
             if vm.listItems.isEmpty{
                 NoResultsView(message: Messages.noCategory.rawValue)
             }
-            List(vm.searchResults, id: \.self, selection: $vm.singleChoiceString) {item in
+            List(vm.searchResults.sorted{$0 < $1}, id: \.self, selection: $vm.singleChoiceString) {item in
                 HStack{
                     Text(item)
                     Spacer()
