@@ -203,7 +203,6 @@ import CoreData
     }
     // MARK: - Filter Meals
     func filterMeals(query: String, queryType: QueryType){
-        // TODO:  Animate the meals leaving and coming in
         getAllMeals()
         isLoading = true
         

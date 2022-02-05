@@ -36,9 +36,8 @@ struct AlertContext{
                                            message: Text("There was an error saving or retrieving your settings"),
                                            dismissButton: .default(Text("OK")))
     
-    // TODO:  Fix errors to make more sense for end user
     static let invalidURL         = AlertItem(title: Text("Server Error"),
-                                              message: Text("Invalid URL."),
+                                              message: Text("Invalid URL. Try searching for something else."),
                                               dismissButton: .default(Text("OK")))
     
     static let unableToComplete   = AlertItem(title: Text("Server Error"),

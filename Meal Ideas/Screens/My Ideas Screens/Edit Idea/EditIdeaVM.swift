@@ -190,7 +190,6 @@ final class EditIdeaVM: ObservableObject{
                 self.alertItem = AlertItem(title: Text("Success!"),
                                            message: Text("\(self.mealName) saved"),
                                            dismissButton: .default(Text("OK")))
-                // TODO:  Make it so it pops the view back to the previous view
             case .failure(_):
                 self.alertItem = AlertContext.unableToSave
             }

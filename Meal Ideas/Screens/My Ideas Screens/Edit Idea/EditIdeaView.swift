@@ -405,7 +405,6 @@ struct MealPhotoActionSheet: ViewModifier{
                 }
                 buttons.append(camera)
                 if vm.mealPhoto != UIImage(){
-                    // TODO:  make sure this actually works once photo data is saved
                     let remove = ActionSheet.Button.destructive(Text("Remove Photo")){
                         //remove photo from meal
                         vm.mealPhoto = UIImage()
@@ -443,7 +442,6 @@ struct MealInstructionsActionSheet: ViewModifier{
                 }
                 buttons.append(camera)
                 if vm.instructionsPhoto != UIImage(){
-                    // TODO:  make sure this actually works once photo data is saved
                     let remove = ActionSheet.Button.destructive(Text("Remove Photo")){
                         //remove photo from meal
                         vm.instructionsPhoto = UIImage()
@@ -460,9 +458,7 @@ struct PrepTimePickerView: View{
     var body: some View{
         HStack {
             GeometryReader { geometry in
-                HStack(spacing: 0){
-                    
-                    // TODO:  Disable keyboard when selecting picker
+                HStack(spacing: 0){                    
                     BasePicker(selecting: $vm.hourSelection, data: vm.hours, label: "h")
                         .frame(width: geometry.size.width/3, height: geometry.size.height, alignment: .center)
                     

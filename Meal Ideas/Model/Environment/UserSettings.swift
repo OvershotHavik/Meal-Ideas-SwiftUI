@@ -8,8 +8,7 @@
 import SwiftUI
 
 final class UserEnvironment: ObservableObject{
-    // TODO:  Rename the app storage to not include the number
-    @AppStorage("userSettings1") private var userSettingsData: Data?
+    @AppStorage("userSettings") private var userSettingsData: Data?
     @Published var topLeftColor: Color = Color(uiColor: .lightBlue)
     @Published var bottomRightColor: Color = Color(uiColor: .darkBlue)
     @Published var userSettings = UserSettings()

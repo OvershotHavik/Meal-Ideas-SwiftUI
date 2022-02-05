@@ -127,7 +127,6 @@ final class APIKey{
 final class BaseURL{
     static let ingredientsList = "https://www.themealdb.com/api/json/v1/1/list.php?i=list"
     static let ingredientImage = "https://www.themealdb.com/images/ingredients/"
-    
 
 //    static let mealDBRandom = APIKey.mealDB + "randomselection.php" // 10 meals in one call
     static let mealDBRandom = "https://www.themealdb.com/api/json/v1/1/random.php" // single meal
@@ -148,5 +147,4 @@ final class BaseURL{
     
     static let spoonSingleBase = "https://api.spoonacular.com/recipes/"
     static let SpoonSingleSuffix = "/information?includeNutrition=false" + APIKey.spoon
-
 }
