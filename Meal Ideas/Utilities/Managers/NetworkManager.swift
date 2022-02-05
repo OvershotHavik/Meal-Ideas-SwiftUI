@@ -11,6 +11,7 @@ import UIKit
 
 final class NetworkManager {
     static let shared = NetworkManager()
+    private init() {}
     private let cache = NSCache<NSString, UIImage>()
     
     //fromURLString is what the call will be, but urlString is what is used within the function

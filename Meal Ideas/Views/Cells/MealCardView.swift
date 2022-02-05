@@ -15,35 +15,27 @@ struct MealCardView: View {
     var favorited: Bool
     var inHistory: Bool
     @StateObject var imageLoader = ImageLoaderFromData()
-
+    let placeholder = UIImage(imageLiteralResourceName: ImageNames.placeholderMeal.rawValue)
+    @State var mealImage = UIImage()
     var body: some View {
         ZStack{
             Color(UIColor.tertiarySystemBackground)
-//                .opacity(0.25)
 
             VStack{
                 HistoryFavoriteHStack(inHistory: inHistory,
                                       favorited: favorited)
                 if mealPhotoData != nil{
                     ZStack{
-                        if let safeData = mealPhotoData{
-                            Image(uiImage: (UIImage(data: safeData) ?? UIImage(imageLiteralResourceName: ImageNames.placeholderMeal.rawValue)))
+                        if mealImage != UIImage(){
+                            Image(uiImage: mealImage)
                                 .resizable()
-
-                        }
-//                        Image(uiImage: imageLoader.image)
-//                            .resizable()
-
-
-                        if imageLoader.isLoading{
-                            loadingView()
+                        } else {
+                            Image(uiImage: placeholder)
+                                .resizable()
                         }
                     }
                     .modifier(MealCardPhotoModifier())
-                        
-//                        Image(uiImage: (UIImage(data: safeData) ?? UIImage(imageLiteralResourceName: UI.placeholderMeal)))
-
-                    
+                   
                 } else {
                     LoadRemoteImageView(urlString: mealPhoto)
                         .modifier(MealCardPhotoModifier())
@@ -58,28 +50,17 @@ struct MealCardView: View {
         }
         .onAppear{
             if let safeData = mealPhotoData{
-                imageLoader.loadFromData(mealPhotoData: safeData)
-            }
-            
-
-        }
-//        .frame(width: 160, height: 210)
-//        .frame(idealWidth: 160, idealHeight: 210)
-        .cornerRadius(10)
-//        .shadow(color: .black, radius: 5, x: 0, y: 0)
-    }
-    /*
-    func loadImage(){
-        DispatchQueue.global(qos: .background).async { [weak self] in
-            if let safeData = self?.mealPhotoData{
-                let tempImage = UIImage(data: safeData)
-                DispatchQueue.main.async { [weak self] in
-                    self?.image = tempImage
+//                imageLoader.loadFromData(mealPhotoData: safeData)
+                CacheManager.shared.returnImageFromData(photoData: safeData) { imageFromData in
+                    if let safeImage = imageFromData{
+                        mealImage = safeImage
+                    }
+                    
                 }
             }
         }
+        .cornerRadius(10)
     }
-     */
 }
 
 struct MealCardView_Previews: PreviewProvider {
@@ -92,8 +73,6 @@ struct MealCardView_Previews: PreviewProvider {
 }
 // MARK: - History Favorites H Stack
 struct HistoryFavoriteHStack: View{
-    
-    //need to change accordingly
     var inHistory: Bool
     var favorited: Bool
     var body: some View{
