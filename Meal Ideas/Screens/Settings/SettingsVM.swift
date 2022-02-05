@@ -13,17 +13,7 @@ import CoreData
     @Published var userIngredients: [String] = []
     @Published var userCategories: [String] = []
     @Published var userSides: [String] = []
-//    @Published var topLeftColor: UIColor = .red
-
     @Published var alertItem : AlertItem?
-//    // TODO:  Rename the app storage to not include the number
-//    @AppStorage("userSettings1") private var userSettingsData: Data?
-
-    init(){
-//        getUserItems()
-//        retrieveUserSettings()
-    }
-
 
     // MARK: - Update Color
     func updateColor(color: Color) -> String{
@@ -37,10 +27,6 @@ import CoreData
                        green: &green,
                        blue: &blue,
                        alpha: &alpha)
-        
-
         return "\(red),\(green),\(blue),\(alpha)"
     }
-    
-
 }

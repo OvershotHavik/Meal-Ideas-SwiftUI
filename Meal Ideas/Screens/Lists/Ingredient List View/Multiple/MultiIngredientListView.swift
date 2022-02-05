@@ -11,7 +11,7 @@ struct MultiIngredientListView: View {
     @StateObject var vm: MultiIngredientListVM
     @EnvironmentObject var query: Query
     @Environment(\.dismiss) var dismiss
-
+    
     var body: some View {
         VStack{
             if vm.isLoading{
@@ -19,7 +19,7 @@ struct MultiIngredientListView: View {
                     .offset(y: UI.verticalSpacing)
             }
             List(vm.searchResults){ ingredient in
-
+                
                 let selected = vm.selectedArray.contains(ingredient.strIngredient)
                 IngredientCell(ingredient: ingredient, selected: selected)
                     .onTapGesture {
@@ -47,7 +47,6 @@ struct MultiIngredientListView: View {
                     } label: {
                         Image(systemName: "plus")
                     }
-
                 }
             }
             .searchable(text: $vm.searchText)
@@ -57,14 +56,5 @@ struct MultiIngredientListView: View {
                       dismissButton: alertItem.dismissButton)
             }
         }
-
     }
 }
-
-/*
-struct IngredientsListView_Previews: PreviewProvider {
-    static var previews: some View {
-        SingleIngredientListView(vm: SingleIngredientsListVM())
-    }
-}
-*/

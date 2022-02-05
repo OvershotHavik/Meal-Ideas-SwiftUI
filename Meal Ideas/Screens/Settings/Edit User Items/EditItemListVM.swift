@@ -81,8 +81,4 @@ import CoreData
             PersistenceController.shared.addUserItem(entityName: .CDSides, item: item)
         }
     }
-    // MARK: - Delete User Item
-
-    
-
 }

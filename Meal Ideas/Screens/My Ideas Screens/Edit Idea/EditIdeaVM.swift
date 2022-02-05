@@ -21,7 +21,7 @@ final class EditIdeaVM: ObservableObject{
     @Published var allMeals: [UserMeals] = []
     @Published var meal : UserMeals?
     @Published var alertItem: AlertItem?
-
+    
     
     // MARK: - UI Adjustments
     @Published var isMPActionSheetPresented = false
@@ -34,7 +34,7 @@ final class EditIdeaVM: ObservableObject{
     @Published var isShowPhotoLibrary = false
     @Published var imagePickerSelection : ImagePickerSelection?
     @Published var imageSource: UIImagePickerController.SourceType = .camera
-
+    
     
     // MARK: - Meal Variables
     @Published var mealPhoto = UIImage()
@@ -52,8 +52,8 @@ final class EditIdeaVM: ObservableObject{
     @Published var safeMealPhoto = UIImage()
     @Published var safeInstructionsPhoto = UIImage()
     @Published var safeMealIngredients: [UserIngredient] = []
-
-
+    
+    
     
     // MARK: - Prep Time
     @Published var hourSelection = 0
@@ -62,11 +62,11 @@ final class EditIdeaVM: ObservableObject{
     @Published var hours = [Int](0..<25)
     @Published var minutes = [Int](0..<60)
     @Published var seconds = [Int](0..<60)
-  
+    
     
     // MARK: - used for Core Data
     private let pc = PersistenceController.shared
-
+    
     init(meal: UserMeals?){
         self.meal = meal
         convertMeal()
@@ -78,7 +78,7 @@ final class EditIdeaVM: ObservableObject{
     func deleteIngredient(at offsets: IndexSet){
         userIngredients.remove(atOffsets: offsets)
     }
-
+    
     
     // MARK: - Get All Meals
     func getAllMeals(){
@@ -111,7 +111,7 @@ final class EditIdeaVM: ObservableObject{
             //if true, return
             return
         }
-
+        
         print("Save meal...")
         var mealPhotoData: Data?
         
@@ -161,7 +161,7 @@ final class EditIdeaVM: ObservableObject{
             safeMeal.modified = Date()
             safeMeal.userMealID = userMealID
             print("usermealID: \(String(describing: safeMeal.userMealID))")
-
+            
         } else {
             let newMealCD = UserMeals(context: pc.container.viewContext)
             newMealCD.mealName = mealName
@@ -181,22 +181,22 @@ final class EditIdeaVM: ObservableObject{
             newMealCD.userMealID = UUID()
             print("usermealID: \(String(describing: newMealCD.userMealID))")
         }
-
+        
         
         pc.saveData(){ result in
             switch result {
             case .success(_):
                 print("Successfully saved \(self.mealName)")
                 self.alertItem = AlertItem(title: Text("Success!"),
-                                      message: Text("\(self.mealName) saved"),
-                                      dismissButton: .default(Text("OK")))
+                                           message: Text("\(self.mealName) saved"),
+                                           dismissButton: .default(Text("OK")))
                 // TODO:  Make it so it pops the view back to the previous view
             case .failure(_):
                 self.alertItem = AlertContext.unableToSave
             }
         }
     }
-
+    
     // MARK: - Check name Before Save
     func checkNameAlreadyInUseSave() -> Bool{
         if allMeals.contains(where: {$0.mealName == mealName}){
@@ -239,7 +239,7 @@ final class EditIdeaVM: ObservableObject{
                 print("Updated favorites for \(mealName)")
                 try pc.container.viewContext.save()
             }
-
+            
         } catch let error {
             print("error fetching: \(error.localizedDescription)")
         }
@@ -250,11 +250,11 @@ final class EditIdeaVM: ObservableObject{
         print("Delete meal...")
         if let safeMeal = meal{
             pc.clearHistory(meal: safeMeal)
-                PersistenceController.shared.deleteFavorite(source: .mealDB,
-                                                            mealName: safeMeal.mealName ?? "",
-                                                            mealDBID: nil,
-                                                            spoonID: nil,
-                                                            userMealID: safeMeal.userMealID)
+            PersistenceController.shared.deleteFavorite(source: .mealDB,
+                                                        mealName: safeMeal.mealName ?? "",
+                                                        mealDBID: nil,
+                                                        spoonID: nil,
+                                                        userMealID: safeMeal.userMealID)
             pc.deleteMeal(meal: safeMeal)
             pc.saveData()
         }
@@ -269,9 +269,6 @@ final class EditIdeaVM: ObservableObject{
         self.mealName = safeMeal.mealName ?? ""
         
         //Meal photo is being assigned in the view via a task to an image loader
-//        if let safeMealPhotoData = safeMeal.mealPhoto{
-//            self.mealPhoto = UIImage(data: safeMealPhotoData) ?? UIImage()
-//        }
         
         self.categories = safeMeal.category as? [String] ?? []
         let ingredients = safeMeal.ingredients as? [String] ?? []
@@ -283,15 +280,12 @@ final class EditIdeaVM: ObservableObject{
             self.safeMealIngredients.append(UserIngredient)
         }
         
-        
         self.hourSelection = Int(safeMeal.prepHour)
         self.minuteSelection = Int(safeMeal.prepMinute)
         self.secondSelection = Int(safeMeal.prepSecond)
         
         //Instructions photo is being assigned in the view via a task to an image loader
-//        if let safeInstructionsData = safeMeal.instructionsPhoto{
-//            self.instructionsPhoto = UIImage(data: safeInstructionsData) ?? UIImage()
-//        }
+
         self.recipe = safeMeal.recipe ?? ""
         
         self.sides = safeMeal.sides as? [String] ?? []
@@ -308,7 +302,7 @@ final class EditIdeaVM: ObservableObject{
         let day = dateFormatter.string(from: date)
         return "\(time)\n\(day)"
     }
-// MARK: - Check For Changes before showing the back alert
+    // MARK: - Check For Changes before showing the back alert
     func checkForChanges(){
         //user came into the view with a meal
         if let safeMeal = meal{
@@ -317,7 +311,6 @@ final class EditIdeaVM: ObservableObject{
                   let safeSource = safeMeal.source else {
                       showingBackAlert = true
                       return}
-
             if mealPhoto != safeMealPhoto ||
                 mealName != safeMealName ||
                 categories != safeMeal.category as? [String] ||

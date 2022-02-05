@@ -19,13 +19,11 @@ struct SpoonView: View {
                     if vm.showWelcome{
                         NoResultsView(message: Messages.welcome.rawValue)
                             .frame(height: 500)
-                    }
-                    
+                    }                    
                     if vm.meals.isEmpty && vm.showWelcome == false && vm.isLoading == false{
                         NoResultsView(message: Messages.noMealsFound.rawValue)
                             .offset(y: UI.verticalSpacing)
                     }
-                    
                     TrackableScrollView(.vertical, contentOffset: $vm.scrollViewContentOffset){
                         Spacer(minLength: UI.topViewOffsetSpacing)
                         
@@ -39,9 +37,8 @@ struct SpoonView: View {
                             if vm.meals.count != 0{
                                 Text("Meals shown: \(vm.meals.count)") // total meals that have loaded
                             }
-//                            LazyVGrid(columns: columns, alignment: .center) {
                             LazyVGrid(columns: [GridItem(.adaptive(minimum: 160))], alignment: .center) {
-
+                                
                                 ForEach(vm.meals.indices, id: \.self) { mealIndex in
                                     let meal = vm.meals[mealIndex]
                                     NavigationLink(destination: SpoonDetailView(vm: SpoonDetailVM(meal: meal,
@@ -58,7 +55,7 @@ struct SpoonView: View {
                                     }
                                                                                                   .foregroundColor(.primary)
                                                                                                   .onAppear{
-//                                                                                                      print("mealIndex: \(mealIndex)")
+                                                                                                      //                                                                                                      print("mealIndex: \(mealIndex)")
                                                                                                       if query.queryType != .random && vm.moreToShow{
                                                                                                           if mealIndex == vm.meals.count - 1 {
                                                                                                               if query.queryType == .custom{
@@ -155,10 +152,8 @@ struct SpoonView: View {
                     if !vm.sourceCategories.contains(query.customCategory) &&
                         query.customCategory != ""{
                         //If the user selected a category that isn't supported, return with the error
-//                        vm.resetValues()
                         vm.meals = []
                         vm.showWelcome = false
-//                        vm.alertItem = AlertContext.invalidData
                         return
                     } else {
                         vm.customFilter(keyword: query.customKeyword,
@@ -171,16 +166,13 @@ struct SpoonView: View {
                     query.queryType == .random{
                     return
                 } else {
-                        if !vm.sourceCategories.contains(query.customCategory) &&
-                            query.customCategory != ""{
-                            //If the user selected a category that isn't supported, return with no meals
-//                            vm.resetValues()
-                            vm.meals = []
-                            vm.showWelcome = false
-    //                        vm.alertItem = AlertContext.invalidData
-                            return
-                        }
-                    
+                    if !vm.sourceCategories.contains(query.customCategory) &&
+                        query.customCategory != ""{
+                        //If the user selected a category that isn't supported, return with no meals
+                        vm.meals = []
+                        vm.showWelcome = false
+                        return
+                    }
                     vm.showWelcome = false
                     vm.checkQuery(query: query.selected, queryType: query.queryType)
                 }
@@ -192,14 +184,13 @@ struct SpoonView: View {
             .onChange(of: vm.keywordSearchTapped, perform: { newValue in
                 print("Keyword: \(query.keyword)")
                 query.selected = query.keyword
-
+                
                 vm.checkQuery(query: query.selected, queryType: .keyword)
             })
             .onChange(of: vm.getRandomMeals, perform: { newValue in
                 print("Random tapped in Spoon")
                 vm.checkQuery(query: query.selected, queryType: query.queryType)
             })
-            
         }
         .accentColor(.primary)
         .navigationViewStyle(StackNavigationViewStyle())
@@ -208,7 +199,6 @@ struct SpoonView: View {
     func stopLoading(){
         vm.isLoading = false
     }
-    
 }
 
 // MARK: - Preview

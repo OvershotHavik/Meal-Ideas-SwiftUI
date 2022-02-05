@@ -12,7 +12,6 @@ import CoreData
     
     @Published var meal: MealDBResults.Meal?
     @Published var mealID: String
-
     
     init(meal : MealDBResults.Meal?, favorited: Bool, mealID: String, showingHistory: Bool){
         self.mealID = mealID
@@ -62,7 +61,7 @@ import CoreData
                 //add to favorites
                 print("add to favorite")
                 PersistenceController.shared.saveFavorites(mealName: safeMeal.strMeal ?? "",
-                                    mealDBID: safeMeal.id,
+                                                           mealDBID: safeMeal.id,
                                                            spoonID: nil,
                                                            userMealID: nil)
                 
@@ -92,7 +91,6 @@ import CoreData
             }
         }
     }
-    
 }
 
 

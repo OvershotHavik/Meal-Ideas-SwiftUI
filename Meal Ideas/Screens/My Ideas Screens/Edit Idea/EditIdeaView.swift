@@ -7,19 +7,12 @@
 
 import SwiftUI
 
-enum FormTextField{ // will need changed to match this form
-    case mealName
-}
-
-
 struct EditIdeaView: View {
     @StateObject var vm: EditIdeaVM
-    
     @Environment(\.dismiss) var dismiss
     @StateObject var mealPhotoLoader = ImageLoaderFromData()
     @StateObject var mealInstructionsLoader = ImageLoaderFromData()
     
-    @FocusState private var focusedTextField: FormTextField?
     
     var body: some View {
         ZStack {
@@ -34,7 +27,6 @@ struct EditIdeaView: View {
                         
                         if mealPhotoLoader.isLoading{
                             loadingView()
-//                                .frame(width: 100)
                         }
                         if vm.mealPhoto != UIImage(){
                             MealPhotoView(vm: vm)
@@ -52,9 +44,6 @@ struct EditIdeaView: View {
                                          bottomColor: .blue)
                         }
                     }
-                    
-                    
-                    
                     Section(header: Text(SectionHeaders.ingredients.rawValue)){
                         IngredientSelectView(vm: vm)
                             .foregroundColor(.blue)
@@ -71,12 +60,9 @@ struct EditIdeaView: View {
                                          bottomColor: .green)
                         }
                     }
-                    
-                    
                     Section(header: Text(SectionHeaders.prep.rawValue)){
                         PrepTimePickerView(vm: vm)
                     }
-                    
                     
                     Section(header: Text(SectionHeaders.instructions.rawValue)){
                         MealInstructionsButtonView(vm: vm)
@@ -84,7 +70,6 @@ struct EditIdeaView: View {
                             .modifier(MealInstructionsActionSheet(vm: vm))
                         if mealInstructionsLoader.isLoading{
                             loadingView()
-//                                .frame(width: 100)
                         }
                         if vm.instructionsPhoto != UIImage(){
                             InstructionPhotoView(vm: vm)
@@ -100,17 +85,11 @@ struct EditIdeaView: View {
                         TextField("Website", text: $vm.source)
                             .textFieldStyle(CustomRoundedCornerTextField())
                     }
-                    
-                    
                     // MARK: - Save Button
                     SaveButtonView(vm: vm)
-    //                    .listRowBackground(Color.green)
                     
                     if vm.meal != nil{
-                        //Only show and add space if the meal was passed in
-    //                    Spacer(minLength: 5)
                         DeleteButtonView(vm: vm, showingDeleteAlert: $vm.showingDeleteAlert)
-    //                        .listRowBackground(Color.red)
                     }
                     if vm.meal != nil{
                         Section(header: Text(SectionHeaders.modified.rawValue)){
@@ -122,20 +101,15 @@ struct EditIdeaView: View {
                             }
                         }
                     }
-                    
                 }
             }
-
-            
             if vm.isLoading{
                 loadingView()
             }
         }
-
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading:
                                 Button {
-//            vm.showingBackAlert = true
             vm.checkForChanges()
             if vm.showingBackAlert == false {
                 //no changes were made, don't show the alert and just pop the view
@@ -162,11 +136,6 @@ struct EditIdeaView: View {
             }
         }
         .task{
-            if vm.mealName.isEmpty{
-                focusedTextField = .mealName
-            }
-            // TODO:  Change the background to the background gradient?
-            //            UITableView.appearance().backgroundColor = .clear
             if let safeData = vm.meal?.mealPhoto{
                 mealPhotoLoader.loadFromData(mealPhotoData: safeData)
             }else {
@@ -178,8 +147,6 @@ struct EditIdeaView: View {
             } else {
                 mealInstructionsLoader.isLoading = false
             }
-            
-            
         }
         .onChange(of: mealPhotoLoader.image, perform: { NewItem in
             vm.mealPhoto = mealPhotoLoader.image
@@ -188,7 +155,6 @@ struct EditIdeaView: View {
         .onChange(of: mealInstructionsLoader.image, perform: { NewItem in
             vm.instructionsPhoto = mealInstructionsLoader.image
             vm.safeInstructionsPhoto = mealInstructionsLoader.image
-
         })
         
         // MARK: - Save alert
@@ -237,7 +203,6 @@ struct EditIdeaView: View {
                 }
             }
         }
-        
     }
     // MARK: - Delete meal from VM and dismiss the view
     func deleteMeal(){
@@ -268,7 +233,6 @@ struct MealNameTextField: View{
                     .foregroundColor(vm.mealName == "" ? Color.red : Color.clear)
             }
             .font(.title)
-//            .focused($focusedTextField, equals: .mealName)
             .onSubmit {
                 vm.checkNameAlreadyInUse()
             }
@@ -294,8 +258,6 @@ struct MealPhotoView: View{
             Image(uiImage: vm.mealPhoto)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-            
-            
             Button {
                 vm.mealPhoto = UIImage()
             } label: {
@@ -304,7 +266,6 @@ struct MealPhotoView: View{
             .buttonStyle(.bordered)
             .accentColor(.red)
         }
-        
     }
 }
 // MARK: - Category Select View
@@ -455,7 +416,6 @@ struct MealPhotoActionSheet: ViewModifier{
                 return ActionSheet(title: Text("Select where you want to get the photo from"), message: nil, buttons: buttons)
             })
     }
-    
 }
 
 // MARK: - Meal Instructions Action Sheet
@@ -512,59 +472,8 @@ struct PrepTimePickerView: View{
                     BasePicker(selecting: $vm.secondSelection, data: vm.seconds, label: "s")
                         .frame(width: geometry.size.width/3, height: geometry.size.height, alignment: .center)
                 }
-                
             }
             .frame(height: 75)
         }
     }
 }
-
-
-/*
- //This "works" but due to an ios 15 bug the pickers aren't picking up correctly
- 
- // MARK: - Prep Time Picker View
- struct PrepTimePickerView: View{
- @StateObject var vm: EditIdeaVM
- var body: some View{
- GeometryReader { geometry in
- HStack(spacing: 10){
- Picker(selection: $vm.hourSelection, label: Text("Hours")){
- ForEach(0 ..< vm.hours.count) { index in
- Text("\(vm.hours[index]) h").tag(index)
- }
- }
- .pickerStyle(.wheel)
- .frame(width: geometry.size.width/3, height: geometry.size.height, alignment: .center)
- .compositingGroup()
- .clipped(antialiased: false)
- 
- 
- Picker(selection: $vm.minuteSelection, label: Text("Minutes")){
- ForEach(0 ..< vm.minutes.count) { index in
- Text("\(vm.minutes[index]) m").tag(index)
- }
- }
- .pickerStyle(.wheel)
- .frame(width: geometry.size.width/3, height: geometry.size.height, alignment: .center)
- .compositingGroup()
- .clipped(antialiased: false)
- 
- 
- Picker(selection: $vm.secondSelection, label: Text("Seconds")){
- ForEach(0 ..< vm.seconds.count) { index in
- Text("\(vm.seconds[index]) s").tag(index)
- }
- }
- .pickerStyle(.wheel)
- .frame(width: geometry.size.width/3, height: geometry.size.height, alignment: .center)
- .compositingGroup()
- .clipped(antialiased: false)
- 
- }
- }
- 
- }
- }
- */
-

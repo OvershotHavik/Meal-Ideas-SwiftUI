@@ -53,7 +53,6 @@ struct CustomFilterView: View {
                             .foregroundColor(.red)
                     }
                 }
-                
             }
             if vm.source == .myIdeas{
                 Section(header: Text(SectionHeaders.none.rawValue)){
@@ -65,11 +64,9 @@ struct CustomFilterView: View {
                     } label: {
                         Text("Show all your ideas")
                             .foregroundColor(.blue)
-                        
                     }
                 }
             }
-            
         }
         .toolbar{
             ToolbarItem(placement: .principal, content: {
@@ -100,7 +97,6 @@ struct CustomCategoryNL: View{
         }
                                                          .foregroundColor(.blue)
     }
-
 }
 
 
@@ -111,6 +107,5 @@ struct CustomIngredientNL: View{
         NavigationLink(destination: SingleIngredientListView(vm: IngredientListVM(itemList: vm.userIngredients, selection: nil))) {
             Text("Select an ingredient")
         }                                                         .foregroundColor(.blue)
-
     }
 }

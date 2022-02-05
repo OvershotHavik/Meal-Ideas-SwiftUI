@@ -26,7 +26,6 @@ struct MealDBView: View {
                             .offset(y: UI.verticalSpacing)
                     }
                     
-                    
                     TrackableScrollView(.vertical, contentOffset: $vm.scrollViewContentOffset){
                         
                         Spacer(minLength: UI.topViewOffsetSpacing)
@@ -35,7 +34,6 @@ struct MealDBView: View {
                             if vm.meals.count != 0{
                                 Text("Meals shown: \(vm.meals.count)")
                             }
-//                            LazyVGrid(columns: columns, alignment: .center) {
                             LazyVGrid(columns: [GridItem(.adaptive(minimum: 160))], alignment: .center) {
                                 ForEach(vm.meals.indices, id: \.self) { mealIndex in
                                     let meal = vm.meals[mealIndex]
@@ -60,7 +58,7 @@ struct MealDBView: View {
                                                                                         favorited: vm.checkForFavorite(id: vm.surpriseMeal?.id,
                                                                                                                        favoriteArray: query.favoritesArray),
                                                                                         mealID: vm.surpriseMeal?.id ?? "",
-                                                                                          showingHistory: false)),
+                                                                                        showingHistory: false)),
                                        isActive: $vm.surpriseMealReady) {EmptyView()}
                         
                         //Bring up category view when selected in the menu
@@ -82,7 +80,7 @@ struct MealDBView: View {
                                        selection: $query.menuSelection)  { EmptyView()}
                         
                         Spacer()
-
+                        
                         if vm.allResultsShown{
                             AllResultsShownText()
                         }
@@ -101,7 +99,6 @@ struct MealDBView: View {
             .background(vm.backgroundColor)
             .navigationBarTitleDisplayMode(.inline)
             .navigationViewStyle(.stack)
-//            .navigationViewStyle(StackNavigationViewStyle())
             .toolbar {
                 ToolbarItem(placement: .principal, content: {
                     Text(Titles.mainTitle.rawValue)
@@ -118,15 +115,11 @@ struct MealDBView: View {
                     }
                 }
             }
-            
-            
             .alert(item: $vm.alertItem) { alertItem in
                 Alert(title: alertItem.title,
                       message: alertItem.message,
                       dismissButton: .default(Text("OK"), action: stopLoading))
             }
-
-            
             .onAppear{
                 query.getHistory()
                 query.getFavorites()
@@ -135,7 +128,6 @@ struct MealDBView: View {
                     //nothing changed, don't do anything
                     return
                 }
-
                 
                 if query.queryType == .custom{
                     vm.customFilter(keyword: query.customKeyword,
@@ -156,7 +148,6 @@ struct MealDBView: View {
                             vm.resetValues()
                             vm.meals = []
                             vm.showWelcome = false
-    //                        vm.alertItem = AlertContext.invalidData
                             return
                         }
                     }
@@ -176,17 +167,14 @@ struct MealDBView: View {
                 print("Random tapped in mealDB")
                 vm.checkQuery(query: query.selected, queryType: query.queryType)
             })
-            
         }
         .accentColor(.primary)
         .navigationViewStyle(StackNavigationViewStyle())
-        
     }
     // MARK: - Stop Loading
     func stopLoading(){
         vm.isLoading = false
     }
-    
 }
 // MARK: - Preview
 struct MealDBView_Previews: PreviewProvider {

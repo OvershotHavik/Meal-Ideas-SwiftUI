@@ -9,7 +9,6 @@ import SwiftUI
 import CoreData
 
 final class  MultiChoiceListVM: ObservableObject {
-//    @EnvironmentObject var editIdeaVM: EditIdeaVM
     @ObservedObject var editVM: EditIdeaVM
     @Published var listItems: [String] = []
     @Published var PList: PList
@@ -39,7 +38,7 @@ final class  MultiChoiceListVM: ObservableObject {
         fetchPlist()
         
     }
-// MARK: - Fetch Plist
+    // MARK: - Fetch Plist
     func fetchPlist(){
         PListManager.loadItemsFromLocalPlist(XcodePlist: PList,
                                              classToDecodeTo: [NewItem].self,
@@ -98,7 +97,7 @@ final class  MultiChoiceListVM: ObservableObject {
                 print("added item: \(item)")
             }
             selectedArray = editVM.sides
-
+            
             
         default: print("plist selection checkArray  not setup in MultiChoiceListVM")
         }
@@ -138,7 +137,7 @@ final class  MultiChoiceListVM: ObservableObject {
         if listType == .side{
             editVM.sides.append(item)
         }
-            
+        
         listItems.append(item)
         listItems = listItems.sorted{$0 < $1}
     }

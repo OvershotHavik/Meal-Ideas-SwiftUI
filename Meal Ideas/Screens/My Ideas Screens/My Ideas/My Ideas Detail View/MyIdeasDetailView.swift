@@ -15,16 +15,13 @@ struct MyIdeasDetailView: View {
         ZStack{
             vm.backgroundColor
                 .ignoresSafeArea()
-//            BackgroundGradientView()
             VStack{
                 ScrollView{
                     Spacer(minLength: 5)
-
+                    
                     if let safeData = vm.meal?.mealPhoto{
                         CDPhotoView(photoData: safeData)
                             .modifier(MealPhotoModifier())
-                        
-                        
                     } else {
                         Image(uiImage: UIImage(imageLiteralResourceName: ImageNames.placeholderMeal.rawValue))
                             .resizable()
@@ -50,20 +47,14 @@ struct MyIdeasDetailView: View {
                                          bottomColor: .green)
                         }
                     }
-
-                    
-//                    IngredientVGrid(ingredients: vm.meal?.ingredients as! [String],
-//                                    measurements: vm.meal?.measurements as! [String?])
                     DetailViewIngredientListView(ingredients: vm.meal?.ingredients as! [String],
                                                  measurements: vm.meal?.measurements as! [String])
                     if vm.meal?.instructionsPhoto != nil{
                         CDPhotoView(photoData: vm.meal?.instructionsPhoto)
                             .frame(width: 200, height: 200)
                     }
-
                     RecipeView(recipe: vm.meal?.recipe ?? "No recipe Provided")
                 }
-                
                 LinkView(url: vm.meal?.source, title: "Visit Source")
             }
             .padding()
@@ -81,17 +72,8 @@ struct MyIdeasDetailView: View {
                         Image(systemName: vm.favorited ? "heart.fill" : "heart")
                             .foregroundColor(.pink)
                     }
-                    
                 }
             }
         }
     }
 }
-
-/*
-struct MyIdeasDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        MyIdeasDetailView(vm: MyIdeasDetailVM(meal: MockData.userMealSample))
-    }
-}
-*/

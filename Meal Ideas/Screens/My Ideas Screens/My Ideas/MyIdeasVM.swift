@@ -17,12 +17,12 @@ import CoreData
     @Published var userCategories : [String] = []
     @Published var userIngredients: [String] = []
     
-
+    
     init(){
         super.init(sourceCategory: .categories)
         getAllMeals()
     }
-// MARK: - get All Meals
+    // MARK: - get All Meals
     func getAllMeals(){
         //used to get all meals, runs on on appear of the view, and if all meals changes, goes through check query
         let request = NSFetchRequest<UserMeals>(entityName: EntityName.userMeals.rawValue)
@@ -30,7 +30,7 @@ import CoreData
             userCategories = []
             userIngredients = []
             allMeals = try pc.container.viewContext.fetch(request)
-
+            
             for meal in allMeals{
                 userCategories.append(contentsOf: meal.category as? [String] ?? [])
                 userIngredients.append(contentsOf: meal.ingredients as? [String] ?? [])
@@ -41,8 +41,8 @@ import CoreData
             if userIngredients.isEmpty{
                 userIngredients.append(Messages.noIngredient.rawValue)
             }
-
-
+            
+            
         } catch let error {
             print("error fetching: \(error.localizedDescription)")
         }
@@ -166,7 +166,7 @@ import CoreData
                 ingredient != "" {
                 for meal in allMeals{
                     if let safeCategories = meal.category as? [String],
-                        let safeIngredients = meal.ingredients as? [String]{
+                       let safeIngredients = meal.ingredients as? [String]{
                         if safeCategories.contains(category){
                             if safeIngredients.contains(ingredient){
                                 print("meal matches ingredient and category: \(meal.mealName ?? "")")
@@ -184,7 +184,7 @@ import CoreData
                 ingredient != "" {
                 for meal in allMeals{
                     if let safeCategories = meal.category as? [String],
-                        let safeIngredients = meal.ingredients as? [String]{
+                       let safeIngredients = meal.ingredients as? [String]{
                         if safeCategories.contains(category){
                             if safeIngredients.contains(ingredient){
                                 if let safeName = meal.mealName{
@@ -206,7 +206,7 @@ import CoreData
         // TODO:  Animate the meals leaving and coming in
         getAllMeals()
         isLoading = true
-
+        
         switch queryType {
         case .random:
             print("My Ideas Random")
@@ -220,9 +220,9 @@ import CoreData
                     meals = meals.unique()
                 }
             }
-
-        case .category:
             
+            
+        case .category:
             print("My Ideas category")
             for meal in allMeals{
                 if let safeCategories = meal.category as? [String]{
@@ -233,7 +233,7 @@ import CoreData
                 }
             }
             totalMealCount = meals.count
-
+            
             
         case .ingredient:
             print("My Ideas ingredients")
@@ -246,7 +246,7 @@ import CoreData
                 }
             }
             totalMealCount = meals.count
-
+            
             
         case .keyword:
             print("My Ideas keyword")
@@ -260,7 +260,8 @@ import CoreData
                 }
             }
             totalMealCount = meals.count
-
+            
+            
         case .custom:
             print("Custom not setup yet in my ideas")
         case .none:
@@ -268,7 +269,7 @@ import CoreData
         }
         isLoading = false
     }
-
+    
     // MARK: - Check For Favorite
     func checkForFavorite(id: UUID?, favoriteArray: [Favorites]) -> Bool{
         if favoriteArray.contains(where: {$0.userMealID == id} ){

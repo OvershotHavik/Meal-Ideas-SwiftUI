@@ -27,15 +27,16 @@ final class FavoritesListVM: ObservableObject{
         switch source {
         case .spoonacular:
             let spoonFavorites = favorites.filter{$0.spoonID != 0}.sorted{$0.mealName ?? "" < $1.mealName ?? ""}
-            print("Spoon Favorites: ")
             favoritesArray = spoonFavorites
+            
+            
         case .mealDB:
             let mealDBFavorites = favorites.filter {$0.mealDBID != nil}.sorted{$0.mealName ?? "" < $1.mealName ?? ""}
-            print("MealDB Favorites: ")
             favoritesArray = mealDBFavorites
+            
+            
         case .myIdeas:
             let myFavorites = favorites.filter{$0.spoonID == 0 && $0.mealDBID == nil}.sorted{$0.mealName ?? "" < $1.mealName ?? ""}
-            print("My Favorites")
             favoritesArray = myFavorites
         }
     }
@@ -47,7 +48,6 @@ final class FavoritesListVM: ObservableObject{
             
             do {
                 allMeals = try PersistenceController.shared.container.viewContext.fetch(request)
-                print("Meals Fetched in Fetch Favorite")
             }catch let e{
                 print("error fetching meal in fetch Favorites: \(e.localizedDescription)")
             }
@@ -64,7 +64,6 @@ final class FavoritesListVM: ObservableObject{
         let mealIDInt: Int = Int(spoonID)
         print("Spoon meal ID: \(mealIDInt)")
         let mealID = "\(mealIDInt)"
-//        isLoading = true
         Task { () -> SpoonacularResults.Recipe? in
             do {
                 let meal = try await NetworkManager.shared.spoonSingleMeal(query: mealID)
@@ -79,9 +78,7 @@ final class FavoritesListVM: ObservableObject{
     
     // MARK: - Fetch MealDB Favorite
     func fetchMealDBMeal(mealDBID: String?) -> MealDBResults.Meal?{
-
         print("Fetching MealDB Single Named mealID: \(mealDBID ?? "")")
-//        isLoading = false
         Task { () -> MealDBResults.Meal? in
             do {
                 let results = try await NetworkManager.shared.mealDBQuery(query: mealDBID ?? "", queryType: .none)
@@ -96,27 +93,4 @@ final class FavoritesListVM: ObservableObject{
         }
         return nil
     }
-
-     
-    /*
-    func filteredFavorites(favorites: [Favorites], source: Source) -> [Favorites]{
-        switch source {
-        case .spoonacular:
-            let spoonFavorites = favorites.filter{$0.spoonID != 0}.sorted{$0.mealName ?? "" < $1.mealName ?? ""}
-            print("Spoon Favorites: ")
-            print(spoonFavorites)
-            return spoonFavorites
-        case .mealDB:
-            let mealDBFavorites = favorites.filter {$0.mealDBID != nil}
-            print("MealDB Favorites: ")
-            print(mealDBFavorites)
-            return mealDBFavorites
-        case .myIdeas:
-            let myFavorites = favorites.filter{$0.spoonID == 0 && $0.mealDBID == nil}
-            print("My Favorites")
-            print(myFavorites)
-            return myFavorites
-        }
-    }
-    */
 }

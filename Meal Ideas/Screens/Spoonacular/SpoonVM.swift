@@ -18,13 +18,13 @@ import CoreData
     // MARK: - Check Query
     func checkQuery(query: String, queryType: QueryType){
         print("Spoon query: \(query) Type: \(queryType.rawValue)")
-
+        
         if isLoading == true {
             return
         }
         surpriseMealReady = false
         showWelcome = false
-
+        
         if originalQueryType != queryType {
             offsetBy = 0
             meals = []
@@ -66,13 +66,13 @@ import CoreData
                             meals.insert(first, at: 0)
                         }
                     }
-
+                    
                     
                 case .category:
                     let modifiedCategory = query.replacingOccurrences(of: " ", with: "%20").lowercased()
                     print(modifiedCategory)
                     let modified = modifiedCategory + "&offset=\(offsetBy)"
-
+                    
                     let catMeals = try await NetworkManager.shared
                         .spoonComplexQuery(query: modified, queryType: .category)
                     meals.append(contentsOf: catMeals.results)
@@ -80,7 +80,7 @@ import CoreData
                         totalMealCount = safeTotalResults
                     }
                     determineMoreToShow()
-
+                    
                     
                 case .ingredient:
                     let modifiedIngredient = query.replacingOccurrences(of: " ", with: "%20").lowercased()
@@ -90,8 +90,6 @@ import CoreData
                     if let safeTotalResults = ingMeals.totalResults{
                         totalMealCount = safeTotalResults
                     }
-                    
-                    print("ingredient")
                     determineMoreToShow()
                     
                     
@@ -115,17 +113,16 @@ import CoreData
                         individualMeal = safeMeal
                     }
                     
-                    
                 case .custom:
                     print("Custom not setup yet in spoonVM")
                 }
-
+                
                 isLoading = false
                 print("More to show: \(moreToShow)")
             } catch {
                 if let miError = error as? MIError{
                     isLoading = false
-
+                    
                     switch miError {
                         //only ones that would come through should be invalidURL or invalid data, but wanted to keep the other cases
                     case .invalidURL:
@@ -141,7 +138,7 @@ import CoreData
             }
         }
     }
-
+    
     // MARK: - Custom Filter
     func customFilter(keyword: String, category: String, ingredient: String){
         if keyword == "" &&
@@ -157,9 +154,7 @@ import CoreData
         showWelcome = false
         allResultsShown = false
         surpriseMealReady = false
-        
-        
-        
+
         if originalCustomKeyword != keyword ||
             originalCustomCategory != category ||
             originalCustomIngredient != ingredient{
@@ -171,7 +166,7 @@ import CoreData
             print("Keyword: \(keyword), category: \(category), ingredient: \(ingredient)")
             
             Task {
-            
+                
                 do {
                     if keyword != ""{
                         print("Keyword provided: \(keyword)")
@@ -180,7 +175,7 @@ import CoreData
                         let keywordString = SpoonTags.keyword.rawValue + modifiedKeyword
                         customURLString += keywordString
                     }
-
+                    
                     if category != "" {
                         print("Category provided: \(category)")
                         let modifiedCategory = category.replacingOccurrences(of: " ", with: "%20").lowercased()
@@ -189,7 +184,7 @@ import CoreData
                         let categoryString = SpoonTags.category.rawValue + modifiedCategory
                         customURLString += categoryString
                     }
-            
+                    
                     if ingredient != ""{
                         print("Ingredient provided: \(ingredient)")
                         let modifiedIngredient = ingredient.replacingOccurrences(of: " ", with: "%20").lowercased()
@@ -211,25 +206,25 @@ import CoreData
                     print("spoon custom meals count: \(meals.count)")
                     determineMoreToShow()
                     isLoading = false
-                
                     
-        } catch {
-            if let miError = error as? MIError{
-                isLoading = false
-
-                switch miError {
-                    //only ones that would come through should be invalidURL or invalid data, but wanted to keep the other cases
-                case .invalidURL:
-                    alertItem = AlertContext.invalidURL
-                case .invalidData:
-                    alertItem = AlertContext.invalidData
-                default: alertItem = AlertContext.invalidResponse // generic error if wanted..
+                    
+                } catch {
+                    if let miError = error as? MIError{
+                        isLoading = false
+                        
+                        switch miError {
+                            //only ones that would come through should be invalidURL or invalid data, but wanted to keep the other cases
+                        case .invalidURL:
+                            alertItem = AlertContext.invalidURL
+                        case .invalidData:
+                            alertItem = AlertContext.invalidData
+                        default: alertItem = AlertContext.invalidResponse // generic error if wanted..
+                        }
+                    } else {
+                        alertItem = AlertContext.invalidResponse // generic error would go here
+                        isLoading = false
+                    }
                 }
-            } else {
-                alertItem = AlertContext.invalidResponse // generic error would go here
-                isLoading = false
-            }
-        }
             }
             
         }else {
@@ -248,24 +243,10 @@ import CoreData
                     
                     print("spoon custom meals count: \(meals.count)")
                     determineMoreToShow()
-//                    if offsetBy == 0{
-//                        if meals.count < 10{
-//                            moreToShow = false
-//                        } else {
-//                            moreToShow = true
-//                        }
-//
-//                    } else {
-//                        if meals.count < offsetBy{
-//                            moreToShow = false
-//                        } else {
-//                            moreToShow = true
-//                        }
-//                    }
                 } catch {
                     if let miError = error as? MIError{
                         isLoading = false
-
+                        
                         switch miError {
                             //only ones that would come through should be invalidURL or invalid data, but wanted to keep the other cases
                         case .invalidURL:
@@ -280,7 +261,6 @@ import CoreData
                     }
                 }
             }
-
         }
     }
     // MARK: - Determine More To Show
@@ -301,7 +281,6 @@ import CoreData
         }
     }
     
-    
     // MARK: - Get Meal From ID
     func getMealFromID(mealID: Int) async -> SpoonacularResults.Recipe?{
         
@@ -312,11 +291,10 @@ import CoreData
         return nil
     }
     
-
+    
     // MARK: - Check For History
     func checkForHistory(id: Int?, historyArray: [History]) -> Bool{
         if historyArray.contains(where: {$0.spoonID == Double(id ?? 0)}){
-//            print("History meal id: \(id ?? 0)")
             return true
         } else {
             return false
@@ -325,38 +303,9 @@ import CoreData
     // MARK: - Check For Favorite
     func checkForFavorite(id: Int?, favoriteArray: [Favorites]) -> Bool{
         if favoriteArray.contains(where: {$0.spoonID == Double(id ?? 0)}){
-//            print("favorited meal id: \(id ?? 0)")
             return true
         } else {
             return false
         }
     }
-    
-    // MARK: - Fetch Plsit for category verification
-//    func fetchPlist(plist: PList){
-//        if sourceCategories.isEmpty{
-//            PListManager.loadItemsFromLocalPlist(XcodePlist: plist,
-//                                                 classToDecodeTo: [NewItem].self,
-//                                                 completionHandler: { [weak self] result in
-//                if let self = self {
-//                    switch result {
-//                    case .success(let itemArray):
-//                        self.sourceCategories = itemArray.map{$0.itemName}
-//                    case .failure(let e): print(e)
-//                    }
-//                }
-//            })
-//        }
-//    }
 }
-//@objc private func post(_ sender: UIButton) {
-//    Task {
-//        // defer { dismiss(animated: true) } -- Doesn't work
-//        defer { Task { await dismiss(animated: true) } }
-//        do {
-//            try await doSomethingAsync()
-//        } catch {
-//            print(error)
-//        }
-//    }
-//}

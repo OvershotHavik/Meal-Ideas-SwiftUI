@@ -32,7 +32,6 @@ struct EditItemList: View {
                 PersistenceController.shared.deleteInList(indexSet: IndexSet, entityName: vm.entityName)
                 vm.listItems.remove(atOffsets: IndexSet)
             }
-            
         }
         //Add a new item
         .alert(isPresented: $vm.showTextAlert,
@@ -61,7 +60,6 @@ struct EditItemList: View {
                 vm.getUserItems() // once updated, get the list again
                 vm.showEditAlert = false
             }
-            
         },
                          //Delete Tapped
                          secondaryAction: {
@@ -88,15 +86,15 @@ struct EditItemList: View {
                 } label: {
                     Image(systemName: "plus")
                 }
-
+                
             }
         }
     }
 }
 /*
-struct EditItemList_Previews: PreviewProvider {
-    static var previews: some View {
-        EditItemList()
-    }
-}
-*/
+ struct EditItemList_Previews: PreviewProvider {
+ static var previews: some View {
+ EditItemList()
+ }
+ }
+ */

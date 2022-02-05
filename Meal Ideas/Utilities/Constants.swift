@@ -8,16 +8,10 @@
 import UIKit
 import SwiftUI
 
-final class Constants{
-//    static let 
-}
 
 class UI{
     static let topViewOffsetSpacing = CGFloat(95)
     static let verticalSpacing = CGFloat(25)
-//    static let placeholderMeal = "Placeholder"
-//    static let placeholderImage = Image(UI.placeholderMeal).resizable()
-
 }
 enum PList: String{
     case categories = "Categories"
@@ -99,7 +93,6 @@ enum SectionHeaders: String{
 }
 
 enum Messages: String{
-//    case welcome = "Welcome to Meal Ideas!\n\nTo get started: \nTap Surprise me for a Random meal\n\n Or type in a keyword in the search bar \n\n Or click the filter button for Category, Ingredient, or custom filters of the three"
     case welcome = "Welcome to Meal Ideas!"
     case noMealsMyIdeas = "No meals found for your search. \n You can create a new one to match this search \nby tapping the edit icon at the top left."
     case noIngredient = "No meals have been created that contain ingredients."
@@ -147,11 +140,6 @@ final class BaseURL{
     
     static let spoonRandom = "https://api.spoonacular.com/recipes/random?number=1" + APIKey.spoon
 
-//    static let spoonCategories = "https://api.spoonacular.com/recipes/complexSearch?" + APIKey.spoon + "&number=10&addRecipeInformation=true&fillIngredients=true&type="
-//
-//    static let spoonIngredients = "https://api.spoonacular.com/recipes/complexSearch?" + APIKey.spoon + "&number=10&addRecipeInformation=true&fillIngredients=true&includeIngredients="
-//
-//    static let spoonKeyword = "https://api.spoonacular.com/recipes/complexSearch?" + APIKey.spoon + "&number=10&addRecipeInformation=true&&fillIngredients=true&titleMatch="
     
     static let spoonCategories = spoonComplexBase + SpoonTags.category.rawValue
     static let spoonIngredients = spoonComplexBase + SpoonTags.ingredient.rawValue

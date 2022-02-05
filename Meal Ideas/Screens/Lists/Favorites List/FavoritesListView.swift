@@ -16,7 +16,6 @@ struct FavoritesListView: View {
             NoResultsView(message: Messages.noFavorites.rawValue)
                 .navigationTitle(Titles.favorites.rawValue)
         }
-        
         List {
             ForEach(vm.searchResults) {favorite in
                 switch vm.source {
@@ -28,7 +27,7 @@ struct FavoritesListView: View {
                         FavoriteCell(mealName: favorite.mealName)
                             .navigationTitle(Titles.spoonFavorite.rawValue)
                     }
-                                                                                  
+                    
                     
                     
                 case .mealDB:
@@ -38,7 +37,7 @@ struct FavoritesListView: View {
                         FavoriteCell(mealName: favorite.mealName)
                             .navigationTitle(Titles.mealDBFavorite.rawValue)
                     }
-                                                                                    
+                    
                     
                 case .myIdeas:
                     NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: vm.fetchUserMeal(userMealID: favorite.userMealID),
@@ -55,14 +54,11 @@ struct FavoritesListView: View {
                 vm.filteredFavorites(favorites: query.favoritesArray)
             }
             .listStyle(.plain)
-            
         }
         .searchable(text: $vm.searchText)
-
         .onAppear {
             vm.filteredFavorites(favorites: query.favoritesArray)
         }
-        
     }
 }
 

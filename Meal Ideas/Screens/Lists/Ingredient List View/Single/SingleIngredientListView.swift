@@ -17,7 +17,7 @@ struct SingleIngredientListView: View {
     var body: some View {
         ZStack{
             List(vm.searchResults, selection: $vm.selection){ ingredient in
-
+                
                 let selected = ingredient.strIngredient == vm.selection
                 IngredientCell(ingredient: ingredient, selected: selected)
                     .onTapGesture {
@@ -37,11 +37,6 @@ struct SingleIngredientListView: View {
                       message: alertItem.message,
                       dismissButton: alertItem.dismissButton)
             }
-
-            .onAppear {
-//                UITableView.appearance().backgroundColor =  .secondarySystemBackground
-//                UITableViewCell.appearance().backgroundColor = Color.lightBlue
-            }
             if vm.itemList.contains(Messages.noIngredient.rawValue){
                 NoResultsView(message: Messages.noIngredient.rawValue)
             }
@@ -54,10 +49,3 @@ struct SingleIngredientListView: View {
         .background(Color(uiColor: .secondarySystemBackground))
     }
 }
-/*
-struct IngredientsListView_Previews: PreviewProvider {
-    static var previews: some View {
-        SingleIngredientListView(vm: SingleIngredientsListVM())
-    }
-}
-*/

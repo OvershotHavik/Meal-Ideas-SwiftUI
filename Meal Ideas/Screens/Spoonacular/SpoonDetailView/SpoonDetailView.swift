@@ -15,15 +15,13 @@ struct SpoonDetailView: View {
         ZStack{
             vm.backgroundColor
                 .ignoresSafeArea()
-//            BackgroundGradientView()
             VStack{
                 ScrollView{
                     Spacer(minLength: 5)
-
+                    
                     if vm.isLoading{
                         loadingView()
                     }
-                    //                MealPhotoView(mealPhoto: vm.meal?.image ?? "")
                     MealPhotoUIImageView(mealPhoto: vm.mealPhoto)
                     
                     MealNameView(name: vm.meal?.title.withoutHtmlTags ?? "")
@@ -52,17 +50,14 @@ struct SpoonDetailView: View {
                                      topColor: .pink,
                                      bottomColor: .pink)
                     }
-                    
-                    //                IngredientVGrid(ingredients: vm.ingredients,
-                    //                                measurements: vm.measurements)
+
                     DetailViewIngredientListView(ingredients: vm.ingredients,
                                                  measurements: vm.measurements)
-                    
                     
                     RecipeView(recipe: vm.instructions)
                 }
                 LinkView(url: vm.meal?.sourceUrl, title: "Visit Source")
-               
+                
             }
             .padding()
             .toolbar{
@@ -78,7 +73,6 @@ struct SpoonDetailView: View {
                         Image(systemName: vm.favorited ? "heart.fill" : "heart")
                             .foregroundColor(.pink)
                     }
-                    
                 }
             }
             .alert(item: $vm.alertItem) { alertItem in
@@ -86,15 +80,6 @@ struct SpoonDetailView: View {
                       message: alertItem.message,
                       dismissButton: .default(Text("OK")))
             }
-//            .onAppear(perform: vm.addToHistory)
         }
     }
 }
-
-/*
- struct SpoonDetailView_Previews: PreviewProvider {
- static var previews: some View {
- SpoonDetailView(vm: SpoonDetailVM)
- }
- }
- */

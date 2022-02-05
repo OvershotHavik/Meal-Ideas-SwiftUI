@@ -29,8 +29,6 @@ final class MyIdeasDetailVM: DetailBaseVM{
                                                            spoonID: nil,
                                                            userMealID: safeMeal.userMealID)
             }
-            
-            
         } else {
             //remove from favorite
             print("remove from favorites")
@@ -41,7 +39,6 @@ final class MyIdeasDetailVM: DetailBaseVM{
                                                             spoonID: nil,
                                                             userMealID: safeMeal.userMealID)
             }
-
         }
     }
     // MARK: - Add To History
@@ -58,5 +55,4 @@ final class MyIdeasDetailVM: DetailBaseVM{
             }
         }
     }
-
 }

@@ -37,7 +37,6 @@ final class HistoryListVM: ObservableObject{
             print("MealDB History Count: \(mealDBHistory.count)")
             historyArray = mealDBHistory
         case .myIdeas:
-//            let myIdeasHistory = history.filter{$0.spoonID == 0 && $0.mealDBID == nil}.sorted{$0.timeStamp ?? Date() > $1.timeStamp ?? Date()}
             let myIdeasHistory = history.filter{$0.userMealID != nil}.sorted{$0.timeStamp ?? Date() > $1.timeStamp ?? Date()}
             print("My Ideas history count: \(myIdeasHistory.count)")
             historyArray = myIdeasHistory
@@ -51,7 +50,6 @@ final class HistoryListVM: ObservableObject{
             
             do {
                 allMeals = try PersistenceController.shared.container.viewContext.fetch(request)
-//                print("Meals Fetched in Fetch Favorite")
             }catch let e{
                 print("error fetching meal in fetch Favorites: \(e.localizedDescription)")
             }
@@ -70,7 +68,6 @@ final class HistoryListVM: ObservableObject{
         let mealIDInt: Int = Int(spoonID)
         print("Spoon meal ID: \(mealIDInt)")
         let mealID = "\(mealIDInt)"
-//        isLoading = true
         Task { () -> SpoonacularResults.Recipe? in
             do {
                 let meal = try await NetworkManager.shared.spoonSingleMeal(query: mealID)
@@ -87,7 +84,6 @@ final class HistoryListVM: ObservableObject{
     func fetchMealDBMeal(mealDBID: String?) -> MealDBResults.Meal?{
 
         print("Fetching MealDB Single Named mealID: \(mealDBID ?? "")")
-//        isLoading = false
         Task { () -> MealDBResults.Meal? in
             do {
                 let results = try await NetworkManager.shared.mealDBQuery(query: mealDBID ?? "", queryType: .none)
@@ -109,38 +105,28 @@ final class HistoryListVM: ObservableObject{
         case .spoonacular:
             if let safeDouble: Double = Double(id ?? ""){
                 if favoritesArray.contains(where: {$0.spoonID == safeDouble}){
-//                    print("favorited meal id: \(id ?? "")")
                     return true
                 } else {
                     return false
                 }
             }
+            
+            
         case .mealDB:
             if favoritesArray.contains(where: {$0.mealDBID == id}){
-//                print("favorited meal id: \(id ?? "")")
                 return true
             } else {
                 return false
             }
-        case .myIdeas:
-
-            if favoritesArray.contains(where: {$0.userMealID == userMealID}){
-                //                        print("Favorite meal id: \(safeUUID)")
-                return true
-                
             
-                
-//            if favoritesArray.contains(where: {$0.mealName == id}){
-//                print("favorited meal id: \(id ?? "")")
-//                return true
-                
+            
+        case .myIdeas:
+            if favoritesArray.contains(where: {$0.userMealID == userMealID}){
+                return true
             } else {
                 return false
             }
         }
-
         return false
     }
-    
-
 }

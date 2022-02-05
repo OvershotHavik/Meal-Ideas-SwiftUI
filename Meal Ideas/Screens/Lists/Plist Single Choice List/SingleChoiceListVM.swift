@@ -8,7 +8,7 @@
 import SwiftUI
 
 final class SingleChoiceListVM: ObservableObject {
-
+    
     @Published var listItems: [String]
     @Published var PList: PList?
     @Published var title: Titles
@@ -43,7 +43,6 @@ final class SingleChoiceListVM: ObservableObject {
                 }
             })
         }
-
     }
 }
 

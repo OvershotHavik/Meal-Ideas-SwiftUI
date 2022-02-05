@@ -13,7 +13,7 @@ import CoreData
     //For the alert to add items to the list
     @Published var showTextAlert = false
     @Published var listType: ListType
-
+    
     init(editVM: EditIdeaVM, listType: ListType){
         self.editVM = editVM
         self.listType = listType
@@ -48,7 +48,7 @@ import CoreData
                                                        strDescription: nil,
                                                        strMeasurement: "",
                                                        strType: nil)
-
+                
                 userIngredients.insert(listIngredient, at: 0)
             }
             print("user ingredient count: \(userIngredients.count)")
@@ -60,7 +60,6 @@ import CoreData
     // MARK: - Item Item to selected array and to
     func addItem(item: String){
         //add item to the selected array and add it to the list so user can uncheck it if they want
-        
         selectedArray.append(item)
         let UUID = UUID()
         let listIngredient = Ingredients.Meals(id: UUID.uuidString,
@@ -70,12 +69,11 @@ import CoreData
                                                strType: nil)
         ingredients.insert(listIngredient, at: 0)
         ingredients = ingredients.sorted{$0.strIngredient < $1.strIngredient}
-
+        
         //Convert the string to a user ingredient to be added to the array of User Ingredients to then be shown on the previous screen or unchecked here
         let userIngredient = UserIngredient(id: UUID,
                                             name: item,
                                             measurement: "")
         editVM.userIngredients.insert(userIngredient, at: 0)
-        
     }
 }

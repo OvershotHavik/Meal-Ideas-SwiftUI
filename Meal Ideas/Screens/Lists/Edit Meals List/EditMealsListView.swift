@@ -11,7 +11,6 @@ struct EditMealsListView: View {
     @StateObject var vm = EditMealsListVM()
     
     var body: some View {
-
         List {
             if vm.savedMeals.isEmpty{
                 NoResultsView(message: Messages.tapToCreate.rawValue)
@@ -27,7 +26,6 @@ struct EditMealsListView: View {
             }
         }
         .searchable(text: $vm.searchText)
-        
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal, content: {
@@ -43,9 +41,6 @@ struct EditMealsListView: View {
         }
         .onAppear{
             vm.fetchMeals()
-//            UITableView.appearance().backgroundColor =  .secondarySystemBackground
-//            UITableViewCell.appearance().backgroundColor = .secondarySystemBackground
-
         }
         // MARK: - Delete Alert
         .alert("Delete Meal", isPresented: $vm.showingDeleteAlert) {
@@ -54,11 +49,7 @@ struct EditMealsListView: View {
         } message: {
             Text("Are you sure you want to delete the meal?")
         }
-        
     }
-    
-
-    
 }
 
 struct TestCoreDataView_Previews: PreviewProvider {

@@ -9,8 +9,8 @@ import SwiftUI
 
 struct MealIdeasTabView: View {
     @AppStorage("shouldShowOnboarding") var shouldShowOnboarding: Bool = true
-//    @State private var shouldShowOnboarding = true
-
+    //    @State private var shouldShowOnboarding = true
+    
     @EnvironmentObject var query: Query
     @EnvironmentObject var userEnvironment: UserEnvironment
     
@@ -22,7 +22,7 @@ struct MealIdeasTabView: View {
                 }
             MealDBView(vm: MealDBVM(sourceCategory: .mealDBCategories))
                 .tabItem {
-                    Label("The Meal DB", systemImage: "fork.knife.circle.fill")
+                    Label("The MealDB", systemImage: "fork.knife.circle.fill")
                 }
             SpoonView(vm: SpoonVM(sourceCategory: .spoonCategories))
                 .tabItem {

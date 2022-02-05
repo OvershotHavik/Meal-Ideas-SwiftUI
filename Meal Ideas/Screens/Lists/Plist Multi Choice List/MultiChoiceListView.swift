@@ -47,7 +47,7 @@ struct MultiChoiceListView: View {
             ToolbarItem(placement: .principal) {
                 Text(title.rawValue)
             }
-
+            
             ToolbarItem(placement: .navigationBarTrailing){
                 Button {
                     print("Bring up the new item alert with text field")
@@ -57,15 +57,7 @@ struct MultiChoiceListView: View {
                 }
             }
         }
-
         .searchable(text: $vm.searchText)
         .navigationBarTitleDisplayMode(.inline)
     }
 }
-/*
-struct MultiChoiceListView_Previews: PreviewProvider {
-    static var previews: some View {
-        MultiChoiceListView()
-    }
-}
-*/

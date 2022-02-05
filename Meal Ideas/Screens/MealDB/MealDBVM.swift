@@ -84,11 +84,11 @@ import SwiftUI
                                                                         queryType: .keyword)
                     allResultsShown = true
                     
+                    
                 case .custom:
                     () // Custom is not being used in mealDB due to limitations in their API
                 }
                 isLoading = false
-                //                totalMealCount = meals.count
             }catch{
                 if let miError = error as? MIError{
                     switch miError {
@@ -110,7 +110,6 @@ import SwiftUI
     // MARK: - Check For Favorite
     func checkForFavorite(id: String?, favoriteArray: [Favorites]) -> Bool{
         if favoriteArray.contains(where: {$0.mealDBID == id}){
-            //            print("favorited meal id: \(id ?? "")")
             return true
         } else {
             return false
@@ -119,7 +118,6 @@ import SwiftUI
     // MARK: - Check For History
     func checkForHistory(id: String?, historyArray: [History]) -> Bool{
         if historyArray.contains(where: {$0.mealDBID == id}){
-            //            print("History meal id: \(id ?? "")")
             return true
         } else {
             return false
@@ -134,7 +132,6 @@ import SwiftUI
             //Nothing provided, return
             return
         }
-        
         showWelcome = false
         allResultsShown = false
         surpriseMealReady = false
@@ -149,10 +146,7 @@ import SwiftUI
             print("Keyword: \(keyword), category: \(category), ingredient: \(ingredient)")
             
             Task {
-                
                 do {
-                    
-                    
                     // MARK: - Just keyword provided
                     if keyword != "" &&
                         category == "" &&
@@ -200,7 +194,6 @@ import SwiftUI
                         allResultsShown = true
                     }
                     
-                    
                     // MARK: - Keyword and ingredient
                     if keyword != "" &&
                         category == "" &&
@@ -234,7 +227,6 @@ import SwiftUI
                         let catMeals = try await NetworkManager.shared.mealDBQuery(query: safeCategory, queryType: .category)
                         print("CatMeals count: \(catMeals.count)")
                         
-                        
                         let modifiedIngredient = ingredient.replacingOccurrences(of: " ", with: "_")
                         
                         let ingMeals = try await NetworkManager.shared.mealDBQuery(query: modifiedIngredient,
@@ -245,7 +237,6 @@ import SwiftUI
                         print("meals count: \(meals.count)")
                         allResultsShown = true
                     }
-                    
                     
                     // MARK: - All three provided
                     if keyword != "" &&
@@ -259,7 +250,6 @@ import SwiftUI
                         }
                         let catMeals = try await NetworkManager.shared.mealDBQuery(query: safeCategory, queryType: .category)
                         print("CatMeals count: \(catMeals.count)")
-                        
                         
                         let modifiedIngredient = ingredient.replacingOccurrences(of: " ", with: "_")
                         
@@ -282,7 +272,6 @@ import SwiftUI
                     }
                     
                     
-                    
                 } catch {
                     if let miError = error as? MIError{
                         isLoading = false
@@ -301,9 +290,8 @@ import SwiftUI
                     }
                 }
             }
-            
         }else {
-            // call same request again and add offset since user scroleld to get more results
+            // call same request again and add offset since user scrolled to get more results
         }
     }
     

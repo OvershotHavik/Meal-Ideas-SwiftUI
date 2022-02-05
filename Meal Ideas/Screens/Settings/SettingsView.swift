@@ -10,89 +10,78 @@ import SwiftUI
 struct SettingsView: View {
     @StateObject var vm = SettingsVM()
     @EnvironmentObject var userEnvironment: UserEnvironment
-
     var body: some View {
         NavigationView{
-            ZStack{
-                Color(UIColor.secondarySystemBackground)
-                    .ignoresSafeArea()
-                Form {
-                    Section(header: Text("Change Gradient Colors")){
-                        SampleTopView()
-
-                            .frame(height: 100)
-                            .frame(maxWidth: .infinity)
-                        // MARK: - Top Left
-                        ColorPicker("Top Left", selection: Binding(get: {
-                            userEnvironment.topLeftColor
-                        }, set: { newValue in
-                            userEnvironment.userSettings.topLeftColor = vm.updateColor(color: newValue)
-                            userEnvironment.topLeftColor = newValue
-                            userEnvironment.saveChanges()
-                        }))
-                            .onAppear{
-                                userEnvironment.convertStringToColorTopLeft()
-                            }
-                        // MARK: - Bottom Right
-                        ColorPicker("Bottom Right", selection: Binding(get: {
-                            userEnvironment.bottomRightColor
-                        }, set: { newValue in
-                            userEnvironment.userSettings.bottomRightColor = vm.updateColor(color: newValue)
-                            userEnvironment.bottomRightColor = newValue
-                            userEnvironment.saveChanges()
-                        }))
-                            .onAppear{
-                                userEnvironment.convertStringToColorBottomRight()
-                            }
-                        if userEnvironment.topLeftColor !=  Color(uiColor: .lightBlue) ||
-                            userEnvironment.bottomRightColor != Color(uiColor: .darkBlue){
-                            Button {
-                                print("Reset values")
-                                userEnvironment.topLeftColor = Color(uiColor: .lightBlue)
-                                userEnvironment.userSettings.topLeftColor = vm.updateColor(color: Color(uiColor: .lightBlue))
-
-                                
-                                userEnvironment.bottomRightColor = Color(uiColor: .darkBlue)
-                                userEnvironment.userSettings.bottomRightColor = vm.updateColor(color: Color(uiColor: .darkBlue))
-                                
-                                
-                                userEnvironment.saveChanges()
-                            } label: {
-                                Text("Reset Colors")
-                                    .foregroundColor(.blue)
-                            }
-                        }
-
-
-                    }
-
+            Form {
+                Section(header: Text("Change Gradient Colors")){
+                    SampleTopView()
                     
-                    Section(header: Text("Edit Your Items")){
-                        NavigationLink(destination: EditItemList(vm: EditItemListVM(title: .editCategories,
-                                                                                    listType: .category,
-                                                                                    entityName: .CDCategory))) {
-                            Text(Titles.editCategories.rawValue)
-                                .foregroundColor(.blue)
+                        .frame(height: 100)
+                        .frame(maxWidth: .infinity)
+                    // MARK: - Top Left
+                    ColorPicker("Top Left", selection: Binding(get: {
+                        userEnvironment.topLeftColor
+                    }, set: { newValue in
+                        userEnvironment.userSettings.topLeftColor = vm.updateColor(color: newValue)
+                        userEnvironment.topLeftColor = newValue
+                        userEnvironment.saveChanges()
+                    }))
+                        .onAppear{
+                            userEnvironment.convertStringToColorTopLeft()
                         }
-                        
-                        NavigationLink(destination: EditItemList(vm: EditItemListVM(title: .editIngredients,
-                                                                                    listType: .ingredient,
-                                                                                    entityName: .CDIngredient))) {
-                            Text(Titles.editIngredients.rawValue)
-                                .foregroundColor(.blue)
+                    // MARK: - Bottom Right
+                    ColorPicker("Bottom Right", selection: Binding(get: {
+                        userEnvironment.bottomRightColor
+                    }, set: { newValue in
+                        userEnvironment.userSettings.bottomRightColor = vm.updateColor(color: newValue)
+                        userEnvironment.bottomRightColor = newValue
+                        userEnvironment.saveChanges()
+                    }))
+                        .onAppear{
+                            userEnvironment.convertStringToColorBottomRight()
                         }
-                        
-                        NavigationLink(destination: EditItemList(vm: EditItemListVM(title: .editSides,
-                                                                                    listType: .side,
-                                                                                    entityName: .CDSides))) {
-                            Text(Titles.editSides.rawValue)
+                    if userEnvironment.topLeftColor !=  Color(uiColor: .lightBlue) ||
+                        userEnvironment.bottomRightColor != Color(uiColor: .darkBlue){
+                        Button {
+                            print("Reset values")
+                            userEnvironment.topLeftColor = Color(uiColor: .lightBlue)
+                            userEnvironment.userSettings.topLeftColor = vm.updateColor(color: Color(uiColor: .lightBlue))
+                            
+                            
+                            userEnvironment.bottomRightColor = Color(uiColor: .darkBlue)
+                            userEnvironment.userSettings.bottomRightColor = vm.updateColor(color: Color(uiColor: .darkBlue))
+                            
+                            
+                            userEnvironment.saveChanges()
+                        } label: {
+                            Text("Reset Colors")
                                 .foregroundColor(.blue)
                         }
                     }
                 }
+                Section(header: Text("Edit Your Items")){
+                    NavigationLink(destination: EditItemList(vm: EditItemListVM(title: .editCategories,
+                                                                                listType: .category,
+                                                                                entityName: .CDCategory))) {
+                        Text(Titles.editCategories.rawValue)
+                            .foregroundColor(.blue)
+                    }
+                    
+                    NavigationLink(destination: EditItemList(vm: EditItemListVM(title: .editIngredients,
+                                                                                listType: .ingredient,
+                                                                                entityName: .CDIngredient))) {
+                        Text(Titles.editIngredients.rawValue)
+                            .foregroundColor(.blue)
+                    }
+                    
+                    NavigationLink(destination: EditItemList(vm: EditItemListVM(title: .editSides,
+                                                                                listType: .side,
+                                                                                entityName: .CDSides))) {
+                        Text(Titles.editSides.rawValue)
+                            .foregroundColor(.blue)
+                    }
+                }
             }
-
-//            .background()
             .navigationBarTitleDisplayMode(.inline)
             .alert(item: $vm.alertItem) { alertItem in
                 Alert(title: alertItem.title,
@@ -104,14 +93,10 @@ struct SettingsView: View {
                     Text(Titles.settings.rawValue)
                 })
             }
-            
         }
         .foregroundColor(.primary)
         .navigationViewStyle(StackNavigationViewStyle())
-
     }
-    
-
 }
 
 struct SettingsView_Previews: PreviewProvider {
@@ -132,7 +117,6 @@ struct SampleTopView: View{
                 .textFieldStyle(CustomRoundedCornerTextField())
             
             Image(systemName: "slider.horizontal.3")
-            
         }
         .padding()
         .foregroundColor(.primary)

@@ -14,15 +14,13 @@ struct MealDBDetailView: View {
         ZStack{
             vm.backgroundColor
                 .ignoresSafeArea()
-//            BackgroundGradientView()
             VStack{
                 ScrollView{
                     Spacer(minLength: 5)
-
+                    
                     if vm.isLoading{
                         loadingView()
                     }
-                    //                    MealPhotoView(mealPhoto: vm.meal?.strMealThumb ?? "")
                     MealPhotoUIImageView(mealPhoto: vm.mealPhoto)
                     
                     MealNameView(name: vm.meal?.strMeal ?? "")
@@ -31,9 +29,6 @@ struct MealDBDetailView: View {
                                  items: [vm.meal?.strCategory ?? ""],
                                  topColor: .blue,
                                  bottomColor: .blue)
-                    
-                    //                    IngredientVGrid(ingredients: vm.meal?.ingredientsArray ?? [],
-                    //                                    measurements: vm.meal?.measurementsArray ?? [])
                     DetailViewIngredientListView(ingredients: vm.meal?.ingredientsArray ?? [],
                                                  measurements: vm.meal?.measurementsArray ?? [])
                     
@@ -44,7 +39,6 @@ struct MealDBDetailView: View {
                 
                 LinkView(url: vm.meal?.strSource ?? "", title: "Visit Source")
             }
-//            .padding(.horizontal)
             .padding()
             .navigationBarTitleDisplayMode(.inline)
             .toolbar{
@@ -62,15 +56,6 @@ struct MealDBDetailView: View {
                     }
                 }
             }
-        }
-        
+        }        
     }
 }
-
-/*
- struct MealDBDetailView_Previews: PreviewProvider {
- static var previews: some View {
- MealDBDetailView(meal: MealDBResults.Meal())
- }
- }
- */

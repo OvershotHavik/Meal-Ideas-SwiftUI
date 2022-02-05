@@ -34,6 +34,8 @@ struct HistoryListView: View {
                                                                    userMealID: nil))
                     }
                                                                                   .navigationBarTitle(Titles.spoonHistory.rawValue)
+                    
+                    
                 case .mealDB:
                     NavigationLink(destination: MealDBDetailView(vm: MealDBDetailVM(meal: vm.fetchMealDBMeal(mealDBID: history.mealDBID),
                                                                                     favorited: vm.checkForFavorite(favoritesArray: query.favoritesArray,
@@ -48,6 +50,8 @@ struct HistoryListView: View {
                                                                    userMealID: nil))
                     }
                                                                                     .navigationBarTitle(Titles.mealDBHistory.rawValue)
+                    
+                    
                 case .myIdeas:
                     NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: vm.fetchUserMeal(userMealID: history.userMealID),
                                                                                       favorited: vm.checkForFavorite(favoritesArray: query.favoritesArray,
@@ -63,7 +67,6 @@ struct HistoryListView: View {
                                                                                       .navigationBarTitle(Titles.myIdeasHistory.rawValue)
                 }
             }
-            
             .onDelete{ IndexSet in
                 PersistenceController.shared.deleteInList(indexSet: IndexSet,
                                                           entityName: .history)
@@ -85,12 +88,10 @@ struct HistoryListView: View {
                 .modifier(DeleteActionSheet(vm: vm))
             }
         }
-        
         .onAppear {
             vm.filteredHistory(history: query.historyArray)
         }
     }
-    
 }
 
 struct HistoryListView_Previews: PreviewProvider {

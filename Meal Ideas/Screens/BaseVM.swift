@@ -28,7 +28,7 @@ class BaseVM: ObservableObject{
     @Published var scrollViewContentOffset = CGFloat(0)
     @Published var largestY = CGFloat(0)
     @Published var showTopView = true
-
+    
     //Custom filter
     @Published var customKeyword: String?
     @Published var customCategory: String?
@@ -76,9 +76,7 @@ class BaseVM: ObservableObject{
                 showTopView = true
                 largestY = scrollViewContentOffset
             }
-        }
-
-//        print("offset value: \(scrollViewContentOffset)")
+        }        
     }
     
     // MARK: - Fetch Plsit for category verification
@@ -97,7 +95,6 @@ class BaseVM: ObservableObject{
             })
         }
     }
-
 }
 
 

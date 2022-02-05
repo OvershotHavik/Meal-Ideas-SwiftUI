@@ -48,7 +48,7 @@ struct OnboardingPageView: View{
         .padding()
     }
 }
-
+// MARK: - Onboarding Page View with System Name 
 struct OnboardingPageViewSystemName: View{
     @Binding var shouldShowOnboarding: Bool
     var image: String

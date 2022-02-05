@@ -21,8 +21,7 @@ import UIKit
         getInstructions()
         getMealPhoto()
         fetchMeal()
-        addToHistory()
-        
+        addToHistory()        
     }
     // MARK: - Get Ingredients and Measurements
     func getIngredientsAndMeasurements(){
@@ -130,7 +129,7 @@ import UIKit
             }
         }
     }
-
+    
     // MARK: - Favorite Toggled
     func favoriteToggled(){
         if favorited == true {
@@ -140,7 +139,6 @@ import UIKit
                                                        mealDBID: nil,
                                                        spoonID: meal?.id,
                                                        userMealID: nil)
-            
         } else {
             //remove from favorite
             print("remove from favorites")

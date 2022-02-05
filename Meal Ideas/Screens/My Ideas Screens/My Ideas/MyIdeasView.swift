@@ -12,24 +12,20 @@ struct MyIdeasView: View {
     @EnvironmentObject var query: Query
     
     var body: some View {
-        
         NavigationView{
             GeometryReader{ screenBounds in
                 ZStack(alignment: .top){
-                    
                     VStack(spacing: 10){
                         if vm.showWelcome{
                             NoResultsView(message: Messages.welcome.rawValue)
                                 .frame(height: 500)
                         }
-                        
                         if vm.meals.isEmpty &&
                             vm.showWelcome == false &&
                             vm.isLoading == false{
                             NoResultsView(message: Messages.noMealsMyIdeas.rawValue)
                                 .offset(y: UI.verticalSpacing)
                         }
-                        
                         TrackableScrollView(.vertical, contentOffset: $vm.scrollViewContentOffset){
                             Spacer(minLength: UI.topViewOffsetSpacing)
                             
@@ -57,7 +53,6 @@ struct MyIdeasView: View {
                                     }
                                 }
                             }
-                            
                             //Used for surprise me, when get random meals is toggled it will take user directly to the first meal at random that they have created
                             //Only proceed if the user has created a meal, if not then an alert will be shown via the checkQuery function
                             if !vm.allMeals.isEmpty{
@@ -67,8 +62,6 @@ struct MyIdeasView: View {
                                                                                                   showingHistory: false)),
                                                isActive: $vm.getRandomMeals) {EmptyView()}
                             }
-                            
-                            
                             //Bring up category view when selected in the menu
                             NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: nil, listItems: vm.userCategories, singleChoiceString: query.selected, title: .oneCategory)),
                                            tag: QueryType.category,
@@ -94,7 +87,6 @@ struct MyIdeasView: View {
                             }
                         }
                     }
-                    
                     if vm.isLoading{
                         loadingView()
                     }
@@ -108,7 +100,7 @@ struct MyIdeasView: View {
             .padding(.bottom)
             .background(vm.backgroundColor)
             .navigationBarTitleDisplayMode(.inline)
-            .navigationViewStyle(.stack)            
+            .navigationViewStyle(.stack)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     NavigationLink(destination: EditMealsListView(vm: EditMealsListVM())) {
@@ -136,7 +128,6 @@ struct MyIdeasView: View {
                       message: alertItem.message,
                       dismissButton: .default(Text("OK")))
             }
-            
             .onAppear {
                 query.getHistory()
                 query.getFavorites()
@@ -146,7 +137,7 @@ struct MyIdeasView: View {
                     //nothing changed, don't do anything
                     return
                 }
-
+                
                 if query.queryType == .custom{
                     vm.customFilter(keyword: query.customKeyword,
                                     category: query.customCategory,
@@ -162,8 +153,6 @@ struct MyIdeasView: View {
                     vm.checkQuery(query: query.selected, queryType: query.queryType)
                 }
             }
-            
-            
             .onChange(of: vm.scrollViewContentOffset, perform: { newValue in
                 vm.autoHideTopView()
             })
@@ -177,7 +166,6 @@ struct MyIdeasView: View {
                 query.selected = query.keyword
                 vm.checkQuery(query: query.selected, queryType: query.queryType)
             })
-            
             .onChange(of: vm.getRandomMeals, perform: { newValue in
                 print("Random tapped in User Meals")
                 if vm.getRandomMeals == true {
@@ -189,10 +177,3 @@ struct MyIdeasView: View {
         .navigationViewStyle(StackNavigationViewStyle())
     }
 }
-/*
- struct MyIdeasView_Previews: PreviewProvider {
- static var previews: some View {
- MyIdeasView(vm:MyIdeasVM())
- }
- }
- */
