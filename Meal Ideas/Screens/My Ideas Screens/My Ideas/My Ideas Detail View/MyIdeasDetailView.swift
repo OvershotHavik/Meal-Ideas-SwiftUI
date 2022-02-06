@@ -47,8 +47,8 @@ struct MyIdeasDetailView: View {
                                          bottomColor: .green)
                         }
                     }
-                    DetailViewIngredientListView(ingredients: vm.meal?.ingredients as! [String],
-                                                 measurements: vm.meal?.measurements as! [String])
+                    DetailViewIngredientListView(ingredients: vm.meal?.ingredients as? [String] ?? [],
+                                                 measurements: vm.meal?.measurements as? [String] ?? [])
                     if vm.meal?.instructionsPhoto != nil{
                         CDPhotoView(photoData: vm.meal?.instructionsPhoto)
                             .frame(width: 200, height: 200)
@@ -66,8 +66,10 @@ struct MyIdeasDetailView: View {
                         vm.favoriteToggled()
                         query.getFavorites()
                     } label: {
-                        Image(systemName: vm.favorited ? "heart.fill" : "heart")
-                            .foregroundColor(.pink)
+                        if vm.meal != nil{
+                            Image(systemName: vm.favorited ? "heart.fill" : "heart")
+                                .foregroundColor(.pink)
+                        }
                     }
                 }
             }

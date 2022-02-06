@@ -35,7 +35,7 @@ struct MealCardView: View {
                             Image(uiImage: mealImage)
                                 .resizable()
                         } else {
-                            Color.red
+                            Color.gray
                                 .clipShape(Circle())
 //                            Image(uiImage: placeholder)
 //                                .resizable()

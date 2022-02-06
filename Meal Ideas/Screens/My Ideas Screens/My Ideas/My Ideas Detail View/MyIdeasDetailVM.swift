@@ -22,22 +22,22 @@ final class MyIdeasDetailVM: DetailBaseVM{
     func favoriteToggled(){
         if favorited == true {
             //add to favorites
-            print("add to favorite")
             if let safeMeal = meal{
                 PersistenceController.shared.saveFavorites(mealName: safeMeal.mealName ?? "",
                                                            mealDBID: nil,
                                                            spoonID: nil,
                                                            userMealID: safeMeal.userMealID)
+                print("add to favorite")
             }
         } else {
             //remove from favorite
-            print("remove from favorites")
             if let safeMeal = meal {
                 PersistenceController.shared.deleteFavorite(source: .mealDB,
                                                             mealName: safeMeal.mealName ?? "",
                                                             mealDBID: nil,
                                                             spoonID: nil,
                                                             userMealID: safeMeal.userMealID)
+                print("remove from favorites")
             }
         }
     }

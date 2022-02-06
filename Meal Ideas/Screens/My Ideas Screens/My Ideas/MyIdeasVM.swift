@@ -57,6 +57,7 @@ import CoreData
         meals = allMeals
         allResultsShown = true
     }
+
     // MARK: - Check Query
     func checkQuery(query: String, queryType: QueryType){
         if allMeals.isEmpty{
@@ -67,16 +68,28 @@ import CoreData
         showWelcome = false
         allResultsShown  = false
         surpriseMealReady = false
+        isLoading = true
+        
         if originalQueryType != queryType {
             meals = []
             self.originalQueryType = queryType
             self.originalQuery = query
-            filterMeals(query: query, queryType: queryType)
+            if originalQueryType == .random{
+                //due to the way the random works, the delay brings back a nil value and messes it up, so need to skip the delay
+                filterMeals(query: query, queryType: queryType)
+            } else {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25, execute: { [ weak self]  in
+                    self?.filterMeals(query: query, queryType: queryType)
+                })
+            }
         } else {
             if originalQuery != query{
                 meals = []
                 self.originalQuery = query
-                filterMeals(query: query, queryType: queryType)
+//                filterMeals(query: query, queryType: queryType)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25, execute: { [ weak self]  in
+                    self?.filterMeals(query: query, queryType: queryType)
+                })
             } else {
                 // nothing happens, query and query type didn't change
                 if queryType == .random{
@@ -88,118 +101,125 @@ import CoreData
     
     // MARK: - Custom Filter
     func customFilter(keyword: String, category: String, ingredient: String){
+        isLoading = true
         showWelcome = false
         allResultsShown = false
         surpriseMealReady = false
-        
-        if originalCustomKeyword != keyword ||
-            originalCustomCategory != category ||
-            originalCustomIngredient != ingredient{
-            meals = []
-            self.originalCustomKeyword = keyword
-            self.originalCustomCategory = category
-            self.originalCustomIngredient = ingredient
-            print("Keyword: \(keyword), category: \(category), ingredient: \(ingredient)")
-            
-            
-            // MARK: - Just keyword provided
-            if keyword != "" &&
-                category == "" &&
-                ingredient == ""{
-                filterMeals(query: keyword, queryType: .keyword)
-            }
-            
-            // MARK: - Just Category provided
-            if keyword == "" &&
-                category != "" &&
-                ingredient == ""{
-                filterMeals(query: category, queryType: .category)
-            }
-            
-            // MARK: - Just ingredient provided
-            if keyword == "" &&
-                category == "" &&
-                ingredient != ""{
-                filterMeals(query: ingredient, queryType: .ingredient)
-            }
-            // MARK: - Keyword and category
-            if keyword != "" &&
-                category != "" &&
-                ingredient == "" {
+        Task{
+            if originalCustomKeyword != keyword ||
+                originalCustomCategory != category ||
+                originalCustomIngredient != ingredient{
+                meals = []
+                self.originalCustomKeyword = keyword
+                self.originalCustomCategory = category
+                self.originalCustomIngredient = ingredient
+                print("Keyword: \(keyword), category: \(category), ingredient: \(ingredient)")
                 
-                for meal in allMeals{
-                    if let safeCategories = meal.category as? [String]{
-                        if safeCategories.contains(category){
-                            if let safeName = meal.mealName{
-                                if safeName.containsIgnoringCase(find: keyword){
-                                    print("meal matches cat and keyword: \(meal.mealName ?? "")")
-                                    meals.append(meal)
-                                }
-                            }
-                        }
-                    }
+                
+                // MARK: - Just keyword provided
+                if keyword != "" &&
+                    category == "" &&
+                    ingredient == ""{
+                    filterMeals(query: keyword, queryType: .keyword)
                 }
-                print("Meals count: \(meals.count)")
-            }
-            // MARK: - Keyword and ingredient
-            if keyword != "" &&
-                category == "" &&
-                ingredient != "" {
-                for meal in allMeals{
-                    if let safeIngredients = meal.ingredients as? [String]{
-                        if safeIngredients.contains(ingredient){
-                            if let safeName = meal.mealName{
-                                if safeName.containsIgnoringCase(find: keyword){
-                                    print("meal matches ingredient and keyword: \(meal.mealName ?? "")")
-                                    meals.append(meal)
-                                }
-                            }
-                        }
-                    }
+                
+                // MARK: - Just Category provided
+                if keyword == "" &&
+                    category != "" &&
+                    ingredient == ""{
+                    filterMeals(query: category, queryType: .category)
                 }
-                print("Meals count: \(meals.count)")
-            }
-            
-            // MARK: - Category and ingredient
-            if keyword == "" &&
-                category != "" &&
-                ingredient != "" {
-                for meal in allMeals{
-                    if let safeCategories = meal.category as? [String],
-                       let safeIngredients = meal.ingredients as? [String]{
-                        if safeCategories.contains(category){
-                            if safeIngredients.contains(ingredient){
-                                print("meal matches ingredient and category: \(meal.mealName ?? "")")
-                                meals.append(meal)
-                            }
-                        }
-                    }
+                
+                // MARK: - Just ingredient provided
+                if keyword == "" &&
+                    category == "" &&
+                    ingredient != ""{
+                    filterMeals(query: ingredient, queryType: .ingredient)
                 }
-                print("Meals count: \(meals.count)")
-            }
-            
-            // MARK: - All three provided
-            if keyword != "" &&
-                category != "" &&
-                ingredient != "" {
-                for meal in allMeals{
-                    if let safeCategories = meal.category as? [String],
-                       let safeIngredients = meal.ingredients as? [String]{
-                        if safeCategories.contains(category){
-                            if safeIngredients.contains(ingredient){
+                // MARK: - Keyword and category
+                if keyword != "" &&
+                    category != "" &&
+                    ingredient == "" {
+                    
+                    for meal in allMeals{
+                        if let safeCategories = meal.category as? [String]{
+                            if safeCategories.contains(category){
                                 if let safeName = meal.mealName{
                                     if safeName.containsIgnoringCase(find: keyword){
-                                        print("meal matches all three: \(meal.mealName ?? "")")
+                                        print("meal matches cat and keyword: \(meal.mealName ?? "")")
                                         meals.append(meal)
+                                        isLoading = false
                                     }
                                 }
                             }
                         }
                     }
+                    print("Meals count: \(meals.count)")
                 }
-                print("Meals count: \(meals.count)")
+                // MARK: - Keyword and ingredient
+                if keyword != "" &&
+                    category == "" &&
+                    ingredient != "" {
+                    for meal in allMeals{
+                        if let safeIngredients = meal.ingredients as? [String]{
+                            if safeIngredients.contains(ingredient){
+                                if let safeName = meal.mealName{
+                                    if safeName.containsIgnoringCase(find: keyword){
+                                        print("meal matches ingredient and keyword: \(meal.mealName ?? "")")
+                                        meals.append(meal)
+                                        isLoading = false
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    print("Meals count: \(meals.count)")
+                }
+                
+                // MARK: - Category and ingredient
+                if keyword == "" &&
+                    category != "" &&
+                    ingredient != "" {
+                    for meal in allMeals{
+                        if let safeCategories = meal.category as? [String],
+                           let safeIngredients = meal.ingredients as? [String]{
+                            if safeCategories.contains(category){
+                                if safeIngredients.contains(ingredient){
+                                    print("meal matches ingredient and category: \(meal.mealName ?? "")")
+                                    meals.append(meal)
+                                    isLoading = false
+                                }
+                            }
+                        }
+                    }
+                    print("Meals count: \(meals.count)")
+                }
+                
+                // MARK: - All three provided
+                if keyword != "" &&
+                    category != "" &&
+                    ingredient != "" {
+                    for meal in allMeals{
+                        if let safeCategories = meal.category as? [String],
+                           let safeIngredients = meal.ingredients as? [String]{
+                            if safeCategories.contains(category){
+                                if safeIngredients.contains(ingredient){
+                                    if let safeName = meal.mealName{
+                                        if safeName.containsIgnoringCase(find: keyword){
+                                            print("meal matches all three: \(meal.mealName ?? "")")
+                                            meals.append(meal)
+                                            isLoading = false
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    print("Meals count: \(meals.count)")
+                }
             }
         }
+ 
     }
     // MARK: - Filter Meals
     func filterMeals(query: String, queryType: QueryType){
@@ -213,11 +233,11 @@ import CoreData
             if let first = shuffled.first{
                 surpriseMeal = first
                 surpriseMealReady = true
-                withAnimation(Animation.easeIn.delay(1)){
-                    isLoading = false
-                    meals.insert(first, at: 0)
-                    meals = meals.unique()
-                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: { [ weak self]  in
+                    self?.meals.insert(first, at: 0)
+                    self?.meals = self?.meals.unique() ?? []
+                    self?.isLoading = false
+                })
             }
             
             

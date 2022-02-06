@@ -104,6 +104,9 @@ struct MyIdeasView: View {
                 query.getHistory()
                 query.getFavorites()
                 vm.surpriseMeal = nil
+                if query.selected != vm.originalQuery{
+                    vm.meals = []
+                }
                 vm.getAllMeals() // updates the meals if the user created/deleted and came back
                 if query.queryType == vm.originalQueryType && query.selected == vm.originalQuery{
                     //nothing changed, don't do anything
@@ -136,11 +139,6 @@ struct MyIdeasView: View {
                 vm.autoHideTopView()
             })
 
-            .onChange(of: query.selected, perform: { _ in
-                //Clears the grid so the pictures load correctly
-                vm.meals = []
-                vm.allResultsShown = false
-            })
             .onChange(of: query.showAllUserMealIdeas, perform: { newValue in
                 if query.showAllUserMealIdeas == true{
                     vm.showAllMeals()
