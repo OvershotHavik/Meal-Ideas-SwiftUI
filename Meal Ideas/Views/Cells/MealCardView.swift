@@ -17,7 +17,7 @@ struct MealCardView: View {
     @StateObject var imageLoader = ImageLoaderFromData()
     let placeholder = UIImage(imageLiteralResourceName: ImageNames.placeholderMeal.rawValue)
     @State var mealImage = UIImage()
-    
+    @State var isLoading = false
     
     var body: some View {
         ZStack{
@@ -28,12 +28,17 @@ struct MealCardView: View {
                                       favorited: favorited)
                 if mealPhotoData != nil{
                     ZStack{
+                        if isLoading{
+                            loadingView()
+                        }
                         if mealImage != UIImage(){
                             Image(uiImage: mealImage)
                                 .resizable()
                         } else {
-                            Image(uiImage: placeholder)
-                                .resizable()
+                            Color.red
+                                .clipShape(Circle())
+//                            Image(uiImage: placeholder)
+//                                .resizable()
                         }
                     }
                     .modifier(MealCardPhotoModifier())
@@ -51,9 +56,11 @@ struct MealCardView: View {
         }
         .onAppear{
             if let safeData = mealPhotoData{
+                isLoading = true
                 CacheManager.shared.returnImageFromData(photoData: safeData) { imageFromData in
                     if let safeImage = imageFromData{
                         mealImage = safeImage
+                        isLoading = false
                     }
                 }
             }

@@ -135,6 +135,12 @@ struct MyIdeasView: View {
             .onChange(of: vm.scrollViewContentOffset, perform: { newValue in
                 vm.autoHideTopView()
             })
+
+            .onChange(of: query.selected, perform: { _ in
+                //Clears the grid so the pictures load correctly
+                vm.meals = []
+                vm.allResultsShown = false
+            })
             .onChange(of: query.showAllUserMealIdeas, perform: { newValue in
                 if query.showAllUserMealIdeas == true{
                     vm.showAllMeals()
