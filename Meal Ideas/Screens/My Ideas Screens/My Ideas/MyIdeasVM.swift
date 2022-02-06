@@ -50,12 +50,14 @@ import CoreData
     
     // MARK: - Show All Meals
     func showAllMeals(){
+        print("Show all meals")
         showWelcome = false
         allResultsShown  = false
         surpriseMealReady = false
         
         meals = allMeals
         allResultsShown = true
+        isLoading = false
     }
 
     // MARK: - Check Query

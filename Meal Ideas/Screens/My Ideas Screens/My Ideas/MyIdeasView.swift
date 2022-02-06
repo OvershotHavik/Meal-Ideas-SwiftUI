@@ -104,10 +104,14 @@ struct MyIdeasView: View {
                 query.getHistory()
                 query.getFavorites()
                 vm.surpriseMeal = nil
-                if query.selected != vm.originalQuery{
-                    vm.meals = []
-                }
+//                if query.selected != vm.originalQuery{
+//                    vm.meals = []
+//                }
                 vm.getAllMeals() // updates the meals if the user created/deleted and came back
+                if query.showAllUserMealIdeas == true{
+                    vm.showAllMeals()
+                    return
+                }
                 if query.queryType == vm.originalQueryType && query.selected == vm.originalQuery{
                     //nothing changed, don't do anything
                     return
@@ -139,11 +143,11 @@ struct MyIdeasView: View {
                 vm.autoHideTopView()
             })
 
-            .onChange(of: query.showAllUserMealIdeas, perform: { newValue in
-                if query.showAllUserMealIdeas == true{
-                    vm.showAllMeals()
-                }
-            })
+//            .onChange(of: query.showAllUserMealIdeas, perform: { newValue in
+//                if query.showAllUserMealIdeas == true{
+//                    vm.showAllMeals()
+//                }
+//            })
             .onChange(of: vm.keywordSearchTapped, perform: { newValue in
                 print("Keyword: \(query.keyword)")
                 query.selected = query.keyword

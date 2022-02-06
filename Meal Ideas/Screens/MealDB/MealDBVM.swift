@@ -302,7 +302,7 @@ import SwiftUI
                 if self.isLoading == true{
                     print("loading for 7.5 seconds, stopping and displaying alert")
                     self.isLoading = false
-                    self.alertItem = AlertContext.unableToComplete
+//                    self.alertItem = AlertContext.unableToComplete
                 }
             }
         }
