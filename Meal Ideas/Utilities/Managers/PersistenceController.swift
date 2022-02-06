@@ -70,7 +70,6 @@ struct PersistenceController {
             let request = NSFetchRequest<UserMeals>(entityName: "UserMeals")
             do {
                 let savedMeals = try container.viewContext.fetch(request)
-                print("Meals Fetched in delete meal")
                 guard let index = indexSet.first else {return}
                 let meal = savedMeals[index]
                 clearHistory(meal: meal)

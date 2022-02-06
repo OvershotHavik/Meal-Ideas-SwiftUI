@@ -12,13 +12,11 @@ final class PListManager{
   
     //MARK: - Items from xCode plist generic
     static func loadItemsFromLocalPlist<T>(XcodePlist: PList, classToDecodeTo: [T].Type, completionHandler: @escaping (Result <Array<T>, Error>) -> Void) where T: Decodable {
-        print("In item From local Plist")
         var xcodePlistData = Data()
         // Local plist stored in xcode
         if let path = Bundle.main.path(forResource: XcodePlist.rawValue, ofType: "plist"),
             let data = FileManager.default.contents(atPath: path){
             xcodePlistData = data
-            print("xcode plist data: \(xcodePlistData)")
         }
         do {
             let arrayOfItemsFromLocalPlist = try PropertyListDecoder().decode(classToDecodeTo.self, from: xcodePlistData)
