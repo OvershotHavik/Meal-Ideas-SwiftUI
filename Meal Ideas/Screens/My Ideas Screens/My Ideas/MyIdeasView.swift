@@ -33,53 +33,25 @@ struct MyIdeasView: View {
                                 if vm.meals.count != 0{
                                     Text("Meals shown: \(vm.meals.count)")
                                 }
-                                //                                LazyVGrid(columns: columns, alignment: .center) {
-                                LazyVGrid(columns: [GridItem(.adaptive(minimum: 160))], alignment: .center) {
-                                    ForEach(vm.meals.indices, id: \.self) {mealIndex in
-                                        let meal = vm.meals[mealIndex]
-                                        NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: meal,
-                                                                                                          favorited: vm.checkForFavorite(id: meal.userMealID,
-                                                                                                                                         favoriteArray: query.favoritesArray),
-                                                                                                          showingHistory: false))) {
-                                            MealCardView(mealPhoto: "",
-                                                         mealPhotoData: meal.mealPhoto,
-                                                         mealName: meal.mealName ?? "",
-                                                         favorited: vm.checkForFavorite(id: meal.userMealID,
-                                                                                        favoriteArray: query.favoritesArray),
-                                                         inHistory: vm.checkForHistory(id: meal.userMealID,
-                                                                                       historyArray: query.historyArray))
-                                        }
-                                                                                                          .foregroundColor(.primary)
-                                    }
-                                }
+                                MyIdeasGrid(vm: vm)
                             }
-                            //Used for surprise me, when get random meals is toggled it will take user directly to the first meal at random that they have created
+
                             //Only proceed if the user has created a meal, if not then an alert will be shown via the checkQuery function
                             if !vm.allMeals.isEmpty{
-                                NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: vm.surpriseMeal,
-                                                                                                  favorited: vm.checkForFavorite(id: vm.surpriseMeal?.userMealID,
-                                                                                                                                 favoriteArray: query.favoritesArray),
-                                                                                                  showingHistory: false)),
-                                               isActive: $vm.getRandomMeals) {EmptyView()}
+                                MyIdeaSurpriseNL(vm: vm)
                             }
                             //Bring up category view when selected in the menu
-                            NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: nil, listItems: vm.userCategories, singleChoiceString: query.selected, title: .oneCategory)),
-                                           tag: QueryType.category,
-                                           selection: $query.menuSelection) {EmptyView()}
+                            MenuCategoryNL(plist: nil,
+                                           listItems: vm.userCategories)
                             
                             //Bring up ingredient view when selected in the menu
-                            NavigationLink(destination: SingleIngredientListView(vm: IngredientListVM(itemList: vm.userIngredients, selection: query.selected)),
-                                           tag: QueryType.ingredient,
-                                           selection: $query.menuSelection) { EmptyView()}
+                            MenuIngredientsNL(userIngredients: vm.userIngredients)
                             
-                            //Bring up the Custom filter view
-                            NavigationLink(destination: CustomFilterView(vm: CustomFilterVM(source: .myIdeas,
-                                                                                            plist: nil,
-                                                                                            userIngredients: vm.userIngredients,
-                                                                                            userCategories: vm.userCategories)),
-                                           tag: QueryType.custom,
-                                           selection: $query.menuSelection) { EmptyView()}
-                            
+                            //Bring up the Custom filter view when selected in the menu
+                            MenuCustomNL(source: .myIdeas,
+                                         userIngredients: vm.userIngredients,
+                                         userCategories: vm.userCategories,
+                                         plist: nil)
                             Spacer()
                             
                             if vm.allResultsShown{
@@ -182,5 +154,45 @@ struct MyIdeasView: View {
         }
         .accentColor(.primary)
         .navigationViewStyle(StackNavigationViewStyle())
+    }
+}
+
+
+// MARK: - My Ideas Surprise NL
+struct MyIdeaSurpriseNL: View{
+    //Used for surprise me, when get random meals is toggled it will take user directly to the first meal at random that they have created
+    @EnvironmentObject var query: Query
+    @StateObject var vm: MyIdeasVM
+    var body: some View{
+        NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: vm.surpriseMeal,
+                                                                          favorited: vm.checkForFavorite(id: vm.surpriseMeal?.userMealID,
+                                                                                                         favoriteArray: query.favoritesArray),
+                                                                          showingHistory: false)),
+                       isActive: $vm.getRandomMeals) {EmptyView()}
+    }
+}
+// MARK: - My Ideas Grid
+struct MyIdeasGrid: View{
+    @EnvironmentObject var query: Query
+    @StateObject var vm: MyIdeasVM
+    var body: some View{
+        LazyVGrid(columns: [GridItem(.adaptive(minimum: 160))], alignment: .center) {
+            ForEach(vm.meals.indices, id: \.self) {mealIndex in
+                let meal = vm.meals[mealIndex]
+                NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: meal,
+                                                                                  favorited: vm.checkForFavorite(id: meal.userMealID,
+                                                                                                                 favoriteArray: query.favoritesArray),
+                                                                                  showingHistory: false))) {
+                    MealCardView(mealPhoto: "",
+                                 mealPhotoData: meal.mealPhoto,
+                                 mealName: meal.mealName ?? "",
+                                 favorited: vm.checkForFavorite(id: meal.userMealID,
+                                                                favoriteArray: query.favoritesArray),
+                                 inHistory: vm.checkForHistory(id: meal.userMealID,
+                                                               historyArray: query.historyArray))
+                }
+                                                                                  .foregroundColor(.primary)
+            }
+        }
     }
 }
