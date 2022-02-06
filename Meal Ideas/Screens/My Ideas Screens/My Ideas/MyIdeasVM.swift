@@ -16,7 +16,6 @@ import CoreData
     @Published var surpriseMeal : UserMeals?
     @Published var userCategories : [String] = []
     @Published var userIngredients: [String] = []
-    @Published var tempRandomMeals: [UserMeals] = []
     
     init(){
         super.init(sourceCategory: .categories)
