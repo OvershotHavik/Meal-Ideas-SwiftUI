@@ -16,7 +16,7 @@ import CoreData
     @Published var surpriseMeal : UserMeals?
     @Published var userCategories : [String] = []
     @Published var userIngredients: [String] = []
-    
+    @Published var tempRandomMeals: [UserMeals] = []
     
     init(){
         super.init(sourceCategory: .categories)
@@ -241,12 +241,12 @@ import CoreData
             let shuffled = allMeals.shuffled()
             if let first = shuffled.first{
                 surpriseMeal = first
-                surpriseMealReady = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: { [ weak self]  in
-                    self?.meals.insert(first, at: 0)
-                    self?.meals = self?.meals.unique() ?? []
-                    self?.isLoading = false
-                })
+                surpriseMealReady = true                
+                withAnimation(.easeIn(duration: 1)){
+                    meals.insert(first, at: 0)
+                    meals = meals.unique()
+                    isLoading = false
+                }
             }
             
             
