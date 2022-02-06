@@ -49,6 +49,7 @@ struct CustomFilterView: View {
             Section{
                 Button {
                     print("Go back to the view to perform search")
+                    showAllUserMealIdeas = false
                     dismiss()
                     
                 } label: {

@@ -97,10 +97,7 @@ struct MealDBView: View {
                 query.getHistory()
                 query.getFavorites()
                 vm.surpriseMeal = nil
-                if query.queryType == vm.originalQueryType && query.selected == vm.originalQuery{
-                    //nothing changed, don't do anything
-                    return
-                }
+
                 if query.queryType == .category ||
                     query.queryType == .ingredient{
                     if query.selected == ""{
@@ -115,7 +112,10 @@ struct MealDBView: View {
                                     ingredient: query.customIngredient)
                     return
                 }
-                
+                if query.queryType == vm.originalQueryType && query.selected == vm.originalQuery{
+                    //nothing changed, don't do anything
+                    return
+                }
                 if query.queryType == .none ||
                     query.queryType == .random{
                     return

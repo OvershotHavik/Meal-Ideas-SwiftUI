@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		B3132588279F008F004FDE3C /* CustomFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3132587279F008F004FDE3C /* CustomFilterView.swift */; };
-		B313258A279F00A0004FDE3C /* CustomFilterVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3132589279F00A0004FDE3C /* CustomFilterVM.swift */; };
 		B32934FE27A07D6C00951C47 /* TextAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32934FD27A07D6C00951C47 /* TextAlert.swift */; };
 		B329350127A1E1F000951C47 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B329350027A1E1F000951C47 /* SettingsView.swift */; };
 		B329350327A1E1FD00951C47 /* SettingsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B329350227A1E1FD00951C47 /* SettingsVM.swift */; };
@@ -128,7 +127,6 @@
 
 /* Begin PBXFileReference section */
 		B3132587279F008F004FDE3C /* CustomFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFilterView.swift; sourceTree = "<group>"; };
-		B3132589279F00A0004FDE3C /* CustomFilterVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFilterVM.swift; sourceTree = "<group>"; };
 		B32934FD27A07D6C00951C47 /* TextAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAlert.swift; sourceTree = "<group>"; };
 		B329350027A1E1F000951C47 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B329350227A1E1FD00951C47 /* SettingsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVM.swift; sourceTree = "<group>"; };
@@ -264,7 +262,6 @@
 			isa = PBXGroup;
 			children = (
 				B3132587279F008F004FDE3C /* CustomFilterView.swift */,
-				B3132589279F00A0004FDE3C /* CustomFilterVM.swift */,
 			);
 			path = "Custom Filter";
 			sourceTree = "<group>";
@@ -861,7 +858,6 @@
 				B3A668C2276F9CB700533988 /* FavoritesListVM.swift in Sources */,
 				B375C98527621B060013895F /* SingleChoiceListView.swift in Sources */,
 				B3CEDDB82756FEA300BB832B /* SpoonServingPrepHStack.swift in Sources */,
-				B313258A279F00A0004FDE3C /* CustomFilterVM.swift in Sources */,
 				B3627BFD275FC680004A6519 /* MyIdeasVM.swift in Sources */,
 				B3606DC4274D8E7C00E61972 /* MealDBDetailView.swift in Sources */,
 				B3A668C7276FA6E200533988 /* HistoryListVM.swift in Sources */,

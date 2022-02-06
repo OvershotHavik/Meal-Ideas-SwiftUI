@@ -99,16 +99,17 @@ struct SpoonView: View {
                 query.getHistory()
                 query.getFavorites()
                 vm.surpriseMeal = nil
-                if query.queryType == vm.originalQueryType && query.selected == vm.originalQuery{
-                    //nothing changed, don't do anything
-                    return
-                }
+
                 if query.queryType == .category ||
                     query.queryType == .ingredient{
                     if query.selected == ""{
                         //nothing selected, if we let it go it brings back random results
                         return
                     }
+                }
+                if query.queryType == vm.originalQueryType && query.selected == vm.originalQuery{
+                    //nothing changed, don't do anything
+                    return
                 }
                 vm.resetValues()
                 

@@ -104,18 +104,12 @@ struct MyIdeasView: View {
                 query.getHistory()
                 query.getFavorites()
                 vm.surpriseMeal = nil
-//                if query.selected != vm.originalQuery{
-//                    vm.meals = []
-//                }
                 vm.getAllMeals() // updates the meals if the user created/deleted and came back
                 if query.showAllUserMealIdeas == true{
                     vm.showAllMeals()
                     return
                 }
-                if query.queryType == vm.originalQueryType && query.selected == vm.originalQuery{
-                    //nothing changed, don't do anything
-                    return
-                }
+
                 if query.queryType == .category ||
                     query.queryType == .ingredient{
                     if query.selected == ""{
@@ -128,6 +122,10 @@ struct MyIdeasView: View {
                     vm.customFilter(keyword: query.customKeyword,
                                     category: query.customCategory,
                                     ingredient: query.customIngredient)
+                    return
+                }
+                if query.queryType == vm.originalQueryType && query.selected == vm.originalQuery{
+                    //nothing changed, don't do anything
                     return
                 }
                 

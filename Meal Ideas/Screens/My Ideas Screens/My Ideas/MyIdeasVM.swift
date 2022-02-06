@@ -103,6 +103,13 @@ import CoreData
     
     // MARK: - Custom Filter
     func customFilter(keyword: String, category: String, ingredient: String){
+        if keyword == "" &&
+            category == "" &&
+            ingredient == ""{
+            print("nothing provided for custom")
+            //nothing provided
+            return
+        }
         isLoading = true
         showWelcome = false
         allResultsShown = false
