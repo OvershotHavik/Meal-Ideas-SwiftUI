@@ -69,7 +69,7 @@ struct PersistenceController {
         case .userMeals:
             let request = NSFetchRequest<UserMeals>(entityName: "UserMeals")
             do {
-                let savedMeals = try container.viewContext.fetch(request)
+                let savedMeals = try container.viewContext.fetch(request).sorted{$0.mealName ?? "" < $1.mealName ?? ""}
                 guard let index = indexSet.first else {return}
                 let meal = savedMeals[index]
                 clearHistory(meal: meal)
