@@ -67,7 +67,6 @@ struct TopView: View{
                     } else {
                         Text(QueryType.custom.rawValue)
                     }
-                    
                 }
                 
 
@@ -76,7 +75,6 @@ struct TopView: View{
                         .padding()
             }
                 .font(.title)
-            
         }
         .padding()
         .foregroundColor(.primary)
