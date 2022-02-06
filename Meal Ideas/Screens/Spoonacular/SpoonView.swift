@@ -37,66 +37,24 @@ struct SpoonView: View {
                             if vm.meals.count != 0{
                                 Text("Meals shown: \(vm.meals.count)") // total meals that have loaded
                             }
-                            LazyVGrid(columns: [GridItem(.adaptive(minimum: 160))], alignment: .center) {
-                                
-                                ForEach(vm.meals.indices, id: \.self) { mealIndex in
-                                    let meal = vm.meals[mealIndex]
-                                    NavigationLink(destination: SpoonDetailView(vm: SpoonDetailVM(meal: meal,
-                                                                                                  mealID: nil,
-                                                                                                  favorited: vm.checkForFavorite(id: meal.id,
-                                                                                                                                 favoriteArray: query.favoritesArray),
-                                                                                                  showingHistory: false))) {
-                                        MealCardView(mealPhoto: meal.image ?? "",
-                                                     mealName: meal.title,
-                                                     favorited: vm.checkForFavorite(id: meal.id,
-                                                                                    favoriteArray: query.favoritesArray),
-                                                     inHistory: vm.checkForHistory(id: meal.id,
-                                                                                   historyArray: query.historyArray))
-                                    }
-                                                                                                  .foregroundColor(.primary)
-                                                                                                  .onAppear{
-                                                                                                      //                                                                                                      print("mealIndex: \(mealIndex)")
-                                                                                                      if query.queryType != .random && vm.moreToShow{
-                                                                                                          if mealIndex == vm.meals.count - 1 {
-                                                                                                              if query.queryType == .custom{
-                                                                                                                  vm.customFilter(keyword: query.customKeyword,
-                                                                                                                                  category: query.customCategory,
-                                                                                                                                  ingredient: query.customIngredient)
-                                                                                                              } else {
-                                                                                                                  print("check query called")
-                                                                                                                  vm.checkQuery(query: query.selected, queryType: query.queryType)
-                                                                                                              }
-                                                                                                          }
-                                                                                                      }
-                                                                                                  }
-                                }
-                            }
+                            SpoonGrid(vm: vm)
                         }
                         
-                        //Used for surprise me, when get random meals is toggled it will take user directly to the first meal at random that they have created
-                        NavigationLink(destination: SpoonDetailView(vm: SpoonDetailVM(meal: vm.surpriseMeal,
-                                                                                      mealID: vm.surpriseMeal?.id, favorited: vm.checkForFavorite(id: vm.surpriseMeal?.id,
-                                                                                                                                                  favoriteArray: query.favoritesArray),
-                                                                                      showingHistory: false)),
-                                       isActive: $vm.surpriseMealReady) {EmptyView()}
+                        //Used for surprise meal to bring up a random meal
+                        SpoonSurpriseNL(vm: vm)
                         
                         //Bring up category view when selected in the menu
-                        NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: .spoonCategories, listItems: [], singleChoiceString: query.selected, title: .oneCategory)),
-                                       tag: QueryType.category,
-                                       selection: $query.menuSelection) {EmptyView()}
+                        MenuCategoryNL(plist: .spoonCategories,
+                                       listItems: [])
                         
                         //Bring up ingredient view when selected in the menu
-                        NavigationLink(destination: SingleIngredientListView(vm: IngredientListVM(itemList: [], selection: query.selected)),
-                                       tag: QueryType.ingredient,
-                                       selection: $query.menuSelection) { EmptyView()}
+                        MenuIngredientsNL(userIngredients: [])
                         
-                        //bring up the custom filter view
-                        NavigationLink(destination: CustomFilterView(vm: CustomFilterVM(source: .spoonacular,
-                                                                                        plist: .spoonCategories,
-                                                                                        userIngredients: [],
-                                                                                        userCategories: [])),
-                                       tag: QueryType.custom,
-                                       selection: $query.menuSelection)  { EmptyView()}
+                        //Bring up the Custom filter view when selected in the menu
+                        MenuCustomNL(source: .spoonacular,
+                                     userIngredients: [],
+                                     userCategories: [],
+                                     plist: .spoonCategories)
                         Spacer()
                         
                         if vm.allResultsShown{
@@ -217,3 +175,56 @@ struct SpoonView_Previews: PreviewProvider {
 }
 
 
+// MARK: - SpoonSurpriseNL
+struct SpoonSurpriseNL: View{
+    @EnvironmentObject var query: Query
+    @StateObject var vm: SpoonVM
+    var body: some View{
+        NavigationLink(destination: SpoonDetailView(vm: SpoonDetailVM(meal: vm.surpriseMeal,
+                                                                      mealID: vm.surpriseMeal?.id, favorited: vm.checkForFavorite(id: vm.surpriseMeal?.id,
+                                                                                                                                  favoriteArray: query.favoritesArray),
+                                                                      showingHistory: false)),
+                       isActive: $vm.surpriseMealReady) {EmptyView()}
+    }
+}
+
+// MARK: - Spoon Grid
+struct SpoonGrid: View{
+    @EnvironmentObject var query: Query
+    @StateObject var vm: SpoonVM
+    var body: some View{
+        LazyVGrid(columns: [GridItem(.adaptive(minimum: 160))], alignment: .center) {
+            ForEach(vm.meals.indices, id: \.self) { mealIndex in
+                let meal = vm.meals[mealIndex]
+                NavigationLink(destination: SpoonDetailView(vm: SpoonDetailVM(meal: meal,
+                                                                              mealID: nil,
+                                                                              favorited: vm.checkForFavorite(id: meal.id,
+                                                                                                             favoriteArray: query.favoritesArray),
+                                                                              showingHistory: false))) {
+                    MealCardView(mealPhoto: meal.image ?? "",
+                                 mealName: meal.title,
+                                 favorited: vm.checkForFavorite(id: meal.id,
+                                                                favoriteArray: query.favoritesArray),
+                                 inHistory: vm.checkForHistory(id: meal.id,
+                                                               historyArray: query.historyArray))
+                }
+                                                                              .foregroundColor(.primary)
+                                                                              .onAppear{
+                                                                                  //                                                                                                      print("mealIndex: \(mealIndex)")
+                                                                                  if query.queryType != .random && vm.moreToShow{
+                                                                                      if mealIndex == vm.meals.count - 1 {
+                                                                                          if query.queryType == .custom{
+                                                                                              vm.customFilter(keyword: query.customKeyword,
+                                                                                                              category: query.customCategory,
+                                                                                                              ingredient: query.customIngredient)
+                                                                                          } else {
+                                                                                              print("check query called")
+                                                                                              vm.checkQuery(query: query.selected, queryType: query.queryType)
+                                                                                          }
+                                                                                      }
+                                                                                  }
+                                                                              }
+            }
+        }
+    }
+}

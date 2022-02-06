@@ -160,7 +160,7 @@ struct MyIdeasView: View {
 
 // MARK: - My Ideas Surprise NL
 struct MyIdeaSurpriseNL: View{
-    //Used for surprise me, when get random meals is toggled it will take user directly to the first meal at random that they have created
+    //Used for surprise meal to bring up a random meal
     @EnvironmentObject var query: Query
     @StateObject var vm: MyIdeasVM
     var body: some View{

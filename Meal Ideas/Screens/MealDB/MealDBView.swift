@@ -34,50 +34,23 @@ struct MealDBView: View {
                             if vm.meals.count != 0{
                                 Text("Meals shown: \(vm.meals.count)")
                             }
-                            LazyVGrid(columns: [GridItem(.adaptive(minimum: 160))], alignment: .center) {
-                                ForEach(vm.meals.indices, id: \.self) { mealIndex in
-                                    let meal = vm.meals[mealIndex]
-                                    NavigationLink(destination: MealDBDetailView(vm: MealDBDetailVM(meal: meal,
-                                                                                                    favorited: vm.checkForFavorite(id: meal.id,
-                                                                                                                                   favoriteArray: query.favoritesArray),
-                                                                                                    mealID: meal.id ?? "",
-                                                                                                    showingHistory: false))) {
-                                        MealCardView(mealPhoto: meal.strMealThumb ?? "",
-                                                     mealName: meal.strMeal ?? "",
-                                                     favorited: vm.checkForFavorite(id: meal.id,
-                                                                                    favoriteArray: query.favoritesArray),
-                                                     inHistory: vm.checkForHistory(id: meal.id,
-                                                                                   historyArray: query.historyArray))
-                                    }
-                                                                                                    .foregroundColor(.primary)
-                                }
-                            }
+                            MealDBGrid(vm: vm)
                         }
-                        //Used for surprise me, when get random meals is toggled it will take user directly to the first meal at random that they have created
-                        NavigationLink(destination: MealDBDetailView(vm: MealDBDetailVM(meal: vm.surpriseMeal,
-                                                                                        favorited: vm.checkForFavorite(id: vm.surpriseMeal?.id,
-                                                                                                                       favoriteArray: query.favoritesArray),
-                                                                                        mealID: vm.surpriseMeal?.id ?? "",
-                                                                                        showingHistory: false)),
-                                       isActive: $vm.surpriseMealReady) {EmptyView()}
+                        //Used for surprise meal to bring up a random meal
+                        MealDBSurpriseNL(vm: vm)
                         
                         //Bring up category view when selected in the menu
-                        NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: .mealDBCategories, listItems: [], singleChoiceString: query.selected, title: .oneCategory)),
-                                       tag: QueryType.category,
-                                       selection: $query.menuSelection) {EmptyView()}
+                        MenuCategoryNL(plist: .mealDBCategories,
+                                       listItems: [])
                         
                         //Bring up ingredient view when selected in the menu
-                        NavigationLink(destination: SingleIngredientListView(vm: IngredientListVM(itemList: [], selection: query.selected)),
-                                       tag: QueryType.ingredient,
-                                       selection: $query.menuSelection) { EmptyView()}
+                        MenuIngredientsNL(userIngredients: [])
                         
-                        //bring up the custom filter view
-                        NavigationLink(destination: CustomFilterView(vm: CustomFilterVM(source: .mealDB,
-                                                                                        plist: .mealDBCategories,
-                                                                                        userIngredients: [],
-                                                                                        userCategories: [])),
-                                       tag: QueryType.custom,
-                                       selection: $query.menuSelection)  { EmptyView()}
+                        //Bring up the Custom filter view when selected in the menu
+                        MenuCustomNL(source: .mealDB,
+                                     userIngredients: [],
+                                     userCategories: [],
+                                     plist: .mealDBCategories)
                         
                         Spacer()
                         
@@ -193,3 +166,42 @@ struct MealDBView_Previews: PreviewProvider {
     }
 }
 
+// MARK: - MealDB Surprise NL
+struct MealDBSurpriseNL: View{
+    @EnvironmentObject var query: Query
+    @StateObject var vm: MealDBVM
+    var body: some View{
+        NavigationLink(destination: MealDBDetailView(vm: MealDBDetailVM(meal: vm.surpriseMeal,
+                                                                        favorited: vm.checkForFavorite(id: vm.surpriseMeal?.id,
+                                                                                                       favoriteArray: query.favoritesArray),
+                                                                        mealID: vm.surpriseMeal?.id ?? "",
+                                                                        showingHistory: false)),
+                       isActive: $vm.surpriseMealReady) {EmptyView()}
+    }
+}
+// MARK: - MealDB Grid
+struct MealDBGrid: View{
+    @EnvironmentObject var query: Query
+    @StateObject var vm: MealDBVM
+    
+    var body: some View{
+        LazyVGrid(columns: [GridItem(.adaptive(minimum: 160))], alignment: .center) {
+            ForEach(vm.meals.indices, id: \.self) { mealIndex in
+                let meal = vm.meals[mealIndex]
+                NavigationLink(destination: MealDBDetailView(vm: MealDBDetailVM(meal: meal,
+                                                                                favorited: vm.checkForFavorite(id: meal.id,
+                                                                                                               favoriteArray: query.favoritesArray),
+                                                                                mealID: meal.id ?? "",
+                                                                                showingHistory: false))) {
+                    MealCardView(mealPhoto: meal.strMealThumb ?? "",
+                                 mealName: meal.strMeal ?? "",
+                                 favorited: vm.checkForFavorite(id: meal.id,
+                                                                favoriteArray: query.favoritesArray),
+                                 inHistory: vm.checkForHistory(id: meal.id,
+                                                               historyArray: query.historyArray))
+                }
+                                                                                .foregroundColor(.primary)
+            }
+        }
+    }
+}
