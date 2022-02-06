@@ -15,6 +15,10 @@ struct Meal_IdeasApp: App {
     var body: some Scene {
         WindowGroup {
             MealIdeasTabView()
+//            CustomFilterView(vm: CustomFilterVM(source: .myIdeas,
+//                                                  plist: .categories,
+//                                                  userIngredients: [],
+//                                                  userCategories: []))
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .environmentObject(query)
                 .environmentObject(userEnvironment)
