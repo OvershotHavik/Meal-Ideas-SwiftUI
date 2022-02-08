@@ -41,8 +41,20 @@ struct OnboardingPageView: View{
                             .background(.blue)
                             .cornerRadius(6)
                     }
+                    Spacer()
+                } else {
+                    VStack{
+                        HStack(spacing: 10){
+                            Text("Swipe to Continue")
+                            Image(systemName: "chevron.right")
+                        }
+                        Rectangle()
+                            .fill(.clear)
+                            .frame(height: 20)
+                    }
+
+                    
                 }
-                Spacer()
             }
         }
         .padding()

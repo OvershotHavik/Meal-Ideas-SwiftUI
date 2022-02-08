@@ -43,8 +43,8 @@ enum Source: String{
 
 enum Titles: String{
     case mainTitle = "Meal Ideas"
-    case oneCategory = "Select One Category"
-    case oneIngredient = "Select One Ingredient"
+    case oneCategory = "Categories"
+    case oneIngredient = "Ingredients"
     case customFilter = "Customized Filter"
     
     case myIdeas = "My Ideas"
@@ -94,7 +94,7 @@ enum SectionHeaders: String{
 
 enum Messages: String{
     case welcome = "Welcome to Meal Ideas!"
-    case noMealsMyIdeas = "No meals found for your search. \n You can create a new one to match this search \nby tapping the edit icon at the top left."
+    case noMealsMyIdeas = "No meals found for your search. \n You can create a new one to match this search by tapping the edit icon at the top left."
     case noIngredient = "No meals have been created that contain ingredients."
     case noCategory = "No meals have been created that contain any categories."
     case noMealsFound = "No meals found for your search"
