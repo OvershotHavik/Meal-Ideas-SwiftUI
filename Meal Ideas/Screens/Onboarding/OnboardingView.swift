@@ -20,15 +20,15 @@ enum OnboardingTitles: String{
 }
 
 enum OnboardingSecondary: String{
-    case welcome = "To get started, tap the Edit button at the top left."
+    case welcome = "To get to your meals, use the Edit button at the top left."
     case myIdeasList = "Here is where you can select a meal to edit. \n\nTap the + to create a new meal."
     case createYourFirst = "Here you will be able to fill in the information for your meal. \n\nThe only thing that is required is the meal name. \n\nHowever, the more you add the better the filters will work."
     case addCustom = "Not seeing a category, ingredient, or side you want? \n\nTap the + to add your own custom ones! \n\nThese can be edited in the Settings tab."
     case searchForIdeas = "Tap Surprise Me for a random meal. \n\nOr search by keyword in the text field. \n\nOr tap the filter icon to get more options."
-    case adaptiveFilter = "For My Ideas only: \nThe filters will only show choices for \ningredients or categories for meals that have been created with them. \n\nThe other sources only list categories that are supported by them."
+    case adaptiveFilter = "For My Ideas only: \nThe filters will only show choices for ingredients or categories for meals that have been created with them. \n\nThe other sources only list categories that are supported by them."
     case additionalSources = "Not sure what to make? \n\nNeed some more inspiration? \n\nYou can search other sources! \n\nWhichever search type you select will cary over to the other sources automatically."
-    case favoritesAndHistory = "Each source keeps track of the meals you have viewed, \nalong with favorited meals. \n\nThese can be viewed here."
-    case cloudKitEnabled = "Any meals you create, custom items, favorites and history \nfor each source is synced across all your iOS devices."
+    case favoritesAndHistory = "Each source keeps track of the meals you have viewed, along with favorited meals. \n\nThese can be viewed here."
+    case cloudKitEnabled = "Any meals you create, custom items, favorites and history for each source is synced across all your iOS devices."
 }
 
 

@@ -14,9 +14,11 @@ struct PDFKitRepresentedView: UIViewRepresentable {
     typealias UIViewType = PDFView
 
     var image: UIImage
+    var website: String?
     
-    init(_ image: UIImage) {
+    init(_ image: UIImage, website: String?) {
         self.image = image
+        self.website = website
     }
 
     func makeUIView(context _: UIViewRepresentableContext<PDFKitRepresentedView>) -> UIViewType {
@@ -53,19 +55,24 @@ struct PDFKitRepresentedView: UIViewRepresentable {
 
 struct ZoomImageView : View {
     var image:UIImage
+    var website: String?
     @State private var isShareSheetShowing = false
     var body: some View {
         ZStack {
-        PDFKitRepresentedView(image)
+            PDFKitRepresentedView(image, website: website)
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    print("Share tapped")
-                    presentShareAS()
-                } label: {
-                    Image(systemName: "square.and.arrow.up")
-                        .foregroundColor(.blue)
+                if website != nil{
+                    if website != ""{
+                        Button {
+                            print("Share tapped")
+                            presentShareAS()
+                        } label: {
+                            Image(systemName: "square.and.arrow.up")
+                                .foregroundColor(.blue)
+                        }
+                    }
                 }
             }
         }
@@ -73,13 +80,15 @@ struct ZoomImageView : View {
     // MARK: - Present Share Action Sheet
     func presentShareAS(){
         isShareSheetShowing.toggle()
-        let shareActionSheet = UIActivityViewController(activityItems: [image],  applicationActivities: nil)
-        
-        let scenes = UIApplication.shared.connectedScenes
-        let windowScene = scenes.first as? UIWindowScene
-        let window = windowScene?.windows.first
-        
-        window?.rootViewController?.present(shareActionSheet, animated: true, completion: nil)
+        if let safeWebsite = website{
+            let shareActionSheet = UIActivityViewController(activityItems: [safeWebsite],  applicationActivities: nil)
+            
+            let scenes = UIApplication.shared.connectedScenes
+            let windowScene = scenes.first as? UIWindowScene
+            let window = windowScene?.windows.first
+            
+            window?.rootViewController?.present(shareActionSheet, animated: true, completion: nil)
+        }
     }
 }
  

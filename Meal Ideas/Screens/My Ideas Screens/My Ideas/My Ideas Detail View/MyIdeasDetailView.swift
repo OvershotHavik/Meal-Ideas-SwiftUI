@@ -20,7 +20,7 @@ struct MyIdeasDetailView: View {
                     Spacer(minLength: 5)
                     
                     if let safeData = vm.meal?.mealPhoto{
-                        CDPhotoView(photoData: safeData)
+                        CDPhotoView(photoData: safeData, website: vm.meal?.source)
                             .modifier(MealPhotoModifier())
                     } else {
                         Image(uiImage: UIImage(imageLiteralResourceName: ImageNames.placeholderMeal.rawValue))
@@ -60,7 +60,18 @@ struct MyIdeasDetailView: View {
             .padding()
             .navigationBarTitleDisplayMode(.inline)
             .toolbar{
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    if let website = vm.meal?.source{
+                        if website != ""{
+                            Button {
+                                print("Share tapped")
+                                vm.presentShareAS(website: website)
+                            } label: {
+                                Image(systemName: "square.and.arrow.up")
+                                    .foregroundColor(.blue)
+                            }
+                        }
+                    }
                     Button {
                         vm.favorited.toggle()
                         vm.favoriteToggled()

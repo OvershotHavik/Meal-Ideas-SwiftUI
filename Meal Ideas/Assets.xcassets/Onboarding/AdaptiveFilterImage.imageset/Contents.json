@@ -15,7 +15,7 @@
       "scale" : "1x"
     },
     {
-      "filename" : "Category - Light.svg",
+      "filename" : "P - Adaptive - Light.svg",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -26,7 +26,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "Category - Dark.svg",
+      "filename" : "P - Adaptive - Dark.svg",
       "idiom" : "universal",
       "scale" : "2x"
     },
