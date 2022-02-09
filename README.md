@@ -47,3 +47,8 @@ As of 2/5/2022 App is fully functional at this time, ready for beta testers.
 
 Test Flight
 0.1.0 - 2/6/2022 - First beta test for family and friends
+
+Verizon 0.1.1 update:
+- Updated the onboarding images to show the phone instead of just the screenshots to clear some confusion.  Also added a "Swipe to continue" at the bottom since the page dots are hard to see in light mode.
+- Adjusted some text line breaks and shortened titles so they didn't get cut off.
+- Added a share button on the meal detail screens, and updated the zoomed image view so now it shares the URL of the meal if one is provided. The share button is not visible if source is not provided.
