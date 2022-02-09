@@ -21,7 +21,7 @@ struct MealDBDetailView: View {
                 ScrollView{
                     Spacer(minLength: 5)
 
-                    MealPhotoUIImageView(mealPhoto: vm.mealPhoto)
+                    MealPhotoUIImageView(mealPhoto: vm.mealPhoto, website: vm.meal?.strSource)
                     
                     MealNameView(name: vm.meal?.strMeal ?? "")
                     
@@ -42,14 +42,27 @@ struct MealDBDetailView: View {
             .padding()
             .navigationBarTitleDisplayMode(.inline)
             .toolbar{
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    if let website = vm.meal?.strSource{
+                        if website != ""{
+                            Button {
+                                print("Share tapped")
+                                vm.presentShareAS(website: website)
+                            } label: {
+                                Image(systemName: "square.and.arrow.up")
+                                    .foregroundColor(.blue)
+                            }
+                        }
+                    }
                     Button {
                         vm.favorited.toggle()
                         vm.favoriteToggled()
                         query.getFavorites()
                     } label: {
-                        Image(systemName: vm.favorited ? "heart.fill" : "heart")
-                            .foregroundColor(.pink)
+                        if vm.meal != nil{
+                            Image(systemName: vm.favorited ? "heart.fill" : "heart")
+                                .foregroundColor(.pink)
+                        }
                     }
                 }
             }

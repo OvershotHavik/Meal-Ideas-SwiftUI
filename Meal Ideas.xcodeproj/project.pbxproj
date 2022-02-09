@@ -18,6 +18,7 @@
 		B32D0308275E6C91003ACE14 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32D0307275E6C91003ACE14 /* Constants.swift */; };
 		B345CC48277F64420065B78A /* MultiWheelPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B345CC47277F64420065B78A /* MultiWheelPicker.swift */; };
 		B345CC4A277F6F470065B78A /* UserPrepHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B345CC49277F6F470065B78A /* UserPrepHStack.swift */; };
+		B35CEAEF27B40C7200D49250 /* DetailBaseVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35CEAEE27B40C7200D49250 /* DetailBaseVM.swift */; };
 		B3606D932748224800E61972 /* Color+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3606D922748224800E61972 /* Color+Ext.swift */; };
 		B3606D97274C1F6E00E61972 /* MyMealModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3606D96274C1F6E00E61972 /* MyMealModel.swift */; };
 		B3606D99274C1FB600E61972 /* MealDBModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3606D98274C1FB500E61972 /* MealDBModel.swift */; };
@@ -137,6 +138,7 @@
 		B32D0307275E6C91003ACE14 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B345CC47277F64420065B78A /* MultiWheelPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiWheelPicker.swift; sourceTree = "<group>"; };
 		B345CC49277F6F470065B78A /* UserPrepHStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPrepHStack.swift; sourceTree = "<group>"; };
+		B35CEAEE27B40C7200D49250 /* DetailBaseVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBaseVM.swift; sourceTree = "<group>"; };
 		B3606D922748224800E61972 /* Color+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Ext.swift"; sourceTree = "<group>"; };
 		B3606D96274C1F6E00E61972 /* MyMealModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMealModel.swift; sourceTree = "<group>"; };
 		B3606D98274C1FB500E61972 /* MealDBModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDBModel.swift; sourceTree = "<group>"; };
@@ -291,6 +293,15 @@
 				B329350927A3136F00951C47 /* UserSettings.swift */,
 			);
 			path = Environment;
+			sourceTree = "<group>";
+		};
+		B35CEAED27B40C4400D49250 /* Base View Managers */ = {
+			isa = PBXGroup;
+			children = (
+				B374E7E12787839D00422E9C /* BaseVM.swift */,
+				B35CEAEE27B40C7200D49250 /* DetailBaseVM.swift */,
+			);
+			path = "Base View Managers";
 			sourceTree = "<group>";
 		};
 		B3606D8F2748221E00E61972 /* Views */ = {
@@ -496,12 +507,12 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
-		B3859936277358700046AE4D /* Magnify Image */ = {
+		B3859936277358700046AE4D /* Zoom Image */ = {
 			isa = PBXGroup;
 			children = (
 				B385993927736A1B0046AE4D /* ZoomImageView.swift */,
 			);
-			path = "Magnify Image";
+			path = "Zoom Image";
 			sourceTree = "<group>";
 		};
 		B39484A927AFF22A001C259B /* Navigation Links */ = {
@@ -661,16 +672,16 @@
 		B3CA2373274810C900CA9C68 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				B35CEAED27B40C4400D49250 /* Base View Managers */,
 				B372F1D827AB1D0300DCB991 /* Onboarding */,
 				B32934FF27A1E1CB00951C47 /* Settings */,
 				B3132586279F006C004FDE3C /* Custom Filter */,
-				B3859936277358700046AE4D /* Magnify Image */,
+				B3859936277358700046AE4D /* Zoom Image */,
 				B375C98D276255B00013895F /* Lists */,
 				B375C98C276255860013895F /* My Ideas Screens */,
 				B3CA2375274810E200CA9C68 /* MealDB */,
 				B3CA2376274810EB00CA9C68 /* Spoonacular */,
 				B3CA23712748108C00CA9C68 /* MealIdeasTabView.swift */,
-				B374E7E12787839D00422E9C /* BaseVM.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -921,6 +932,7 @@
 				B3CEDDAC2756FD3800BB832B /* MealDBDetailVM.swift in Sources */,
 				B345CC48277F64420065B78A /* MultiWheelPicker.swift in Sources */,
 				B3CEDDA62756FC7700BB832B /* IngredientCell.swift in Sources */,
+				B35CEAEF27B40C7200D49250 /* DetailBaseVM.swift in Sources */,
 				B3D32CD8277FAA0E00FA4ACA /* BackgroundGradientView.swift in Sources */,
 				B3C7EB7E279C795100BB7519 /* MultiIngredientListVM.swift in Sources */,
 				B3606DAB274D5E4A00E61972 /* MyIdeasDetailView.swift in Sources */,

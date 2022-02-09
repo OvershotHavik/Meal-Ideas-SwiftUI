@@ -7,18 +7,6 @@
 
 import Foundation
 
-//Notepad for what still needs worked on or where I left off etc...
-
-/*
- Search for ToDo's throughout the project, been adding things here and there as well
-  
- - [ ] Add some form of statement that we are not responsible for the pictures stored in the app
- 
- - [ ] Animate the meal cards appearing /disappearing
-
- */
-
-
 /*
  Future versions
  - [ ] Figure out how to get the amount of times a meal has been favorites in CloudKit and display it under an open heart on the meal card. For future release
@@ -30,7 +18,6 @@ import Foundation
  - [ ] maybe offer to change from a grid to a list?
  - [ ]Maybe offer the photo picker to allow users to save more than one photo for instructions, would have to use a page view or something to allow them to be viewed on the detail view
  - [ ] add servings or created by if we do end up sharing to community
- 
  
  
  */

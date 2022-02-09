@@ -96,16 +96,3 @@ class BaseVM: ObservableObject{
         }
     }
 }
-
-
-class DetailBaseVM: ObservableObject{
-    @Published var isLoading = false
-    @Published var alertItem : AlertItem?
-    @Published var ingredients: [String] = []
-    @Published var measurements: [String] = []
-    @Published var instructions: String = ""
-    @Published var mealPhoto = UIImage()
-    @Published var favorited = false
-    @Published var showingHistory =  false
-    @Published var backgroundColor = Color(UIColor.secondarySystemBackground)
-}
