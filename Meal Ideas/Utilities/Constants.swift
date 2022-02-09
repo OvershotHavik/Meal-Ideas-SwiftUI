@@ -45,7 +45,7 @@ enum Titles: String{
     case mainTitle = "Meal Ideas"
     case oneCategory = "Categories"
     case oneIngredient = "Ingredients"
-    case customFilter = "Customized Filter"
+    case customFilter = "Custom Filter"
     
     case myIdeas = "My Ideas"
     case history = "History"
