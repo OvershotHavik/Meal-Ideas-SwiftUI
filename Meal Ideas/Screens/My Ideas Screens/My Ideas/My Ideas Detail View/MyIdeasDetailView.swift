@@ -47,8 +47,20 @@ struct MyIdeasDetailView: View {
                                          bottomColor: .green)
                         }
                     }
-                    DetailViewIngredientListView(ingredients: vm.meal?.ingredients as? [String] ?? [],
-                                                 measurements: vm.meal?.measurements as? [String] ?? [])
+                    VStack{
+                        Text(Messages.shareIngredient.rawValue)
+                        DetailViewIngredientListView(ingredients: vm.meal?.ingredients as? [String] ?? [],
+                                                     measurements: vm.meal?.measurements as? [String] ?? [])
+                        if !query.ingredientsToShare.isEmpty{
+                            Button  {
+                                vm.shareIngredientTapped(ingredientsToShare: query.ingredientsToShare)
+                            } label: {
+                                Text("Share selected ingredients")
+                            }
+                        }
+                    }
+
+                    
                     if vm.meal?.instructionsPhoto != nil{
                         CDPhotoView(photoData: vm.meal?.instructionsPhoto)
                             .frame(width: 200, height: 200)

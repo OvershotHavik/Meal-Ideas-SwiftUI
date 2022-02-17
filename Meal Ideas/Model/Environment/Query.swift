@@ -49,6 +49,7 @@ final class Query: ObservableObject{
     @Published var customKeyword = ""
     private var originalQueryType: QueryType?
     @Published var showAllUserMealIdeas = false
+    @Published var ingredientsToShare: [String] = []
     
     
     // MARK: - Get Favorites
@@ -69,5 +70,23 @@ final class Query: ObservableObject{
         } catch let e {
             print("error fetching history: \(e.localizedDescription)")
         }
+    }
+    
+    // MARK: - ModifyIngredientsToShare
+    func modifyIngredientsToShare(selectedIngredient: String){
+        if let repeatItem = ingredientsToShare.firstIndex(of: selectedIngredient){
+            ingredientsToShare.remove(at: repeatItem)
+            print("duplicate item: \(selectedIngredient), removed from array")
+        } else {
+            ingredientsToShare.append(selectedIngredient)
+//            ingredientsToShare = editVM.userIngredients.sorted{$0.name < $1.name}
+            print("added item: \(selectedIngredient)")
+        }
+        print(ingredientsToShare)
+    }
+    
+    // MARK: - Clear ingredients to share
+    func clearIngredientsToShare(){
+        ingredientsToShare = []
     }
 }

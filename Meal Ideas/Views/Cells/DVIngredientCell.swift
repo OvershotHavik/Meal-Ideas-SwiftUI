@@ -10,8 +10,9 @@ import SwiftUI
 struct DetailViewIngredientCell: View {
     var ingredient: String
     var measurement: String
-    var selected: Bool
+    @State var selected: Bool
     @State var image : UIImage?
+    @EnvironmentObject var query: Query
     
     var body: some View {
             ZStack(alignment: .leading){
@@ -39,6 +40,17 @@ struct DetailViewIngredientCell: View {
                     }
                 }
                 .contentShape(Rectangle())
+                .onTapGesture {
+                    print("ingredient: \(ingredient), measurement: \(measurement)")
+                    var ingredientToShare = ""
+                    if measurement == "" {
+                        ingredientToShare = ingredient
+                    } else {
+                        ingredientToShare = "\(ingredient) - \(measurement)"
+                    }
+                    query.modifyIngredientsToShare(selectedIngredient: ingredientToShare)
+                    selected.toggle()
+                }
             }
             .onAppear{
                 getImage(ingredientName: ingredient)

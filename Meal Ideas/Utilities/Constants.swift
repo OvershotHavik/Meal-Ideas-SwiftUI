@@ -101,6 +101,7 @@ enum Messages: String{
     case tapToCreate = "Tap the + to create a meal"
     case noFavorites = "No favorites saved yet"
     case noHistory = "No meals viewed"
+    case shareIngredient = "Tap an ingredient to add it to a list to share"
 
 }
 
