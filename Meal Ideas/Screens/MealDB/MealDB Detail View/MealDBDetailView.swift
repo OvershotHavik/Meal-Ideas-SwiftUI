@@ -29,6 +29,9 @@ struct MealDBDetailView: View {
                                  items: [vm.meal?.strCategory ?? ""],
                                  topColor: .blue,
                                  bottomColor: .blue)
+                    if vm.meal?.ingredientsArray != []{
+                        Text(Messages.addToShoppingList.rawValue)
+                    }
                     DetailViewIngredientListView(ingredients: vm.meal?.ingredientsArray ?? [],
                                                  measurements: vm.meal?.measurementsArray ?? [],
                                                  mealName: vm.meal?.strMeal ?? "")

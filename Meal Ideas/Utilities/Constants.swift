@@ -51,6 +51,7 @@ enum Titles: String{
     case myIdeas = "My Ideas"
     case history = "History"
     case favorites = "Favorites"
+    case shoppingList = "Shopping List"
     
     case settings = "Settings"
     case editCategories = "Edit Categories"
@@ -62,13 +63,13 @@ enum Titles: String{
     case multiIngredients = "Select Ingredients"
     case multiSides = "Select Sides"
     
-    case spoonFavorite = "Favorites from Spoonacular"
-    case mealDBFavorite = "Favorites from The Meal DB"
-    case myIdeasFavorite = "Favorites from My Ideas"
+    case spoonFavorite = "Spoonacular Favorites"
+    case mealDBFavorite = "The Meal DB Favorites"
+    case myIdeasFavorite = "My Ideas Favorites"
     
-    case spoonHistory = "History from Spoonacular"
-    case mealDBHistory = "History from The Meal DB"
-    case myIdeasHistory = "History from My Ideas"
+    case spoonHistory = "Spoonacular History"
+    case mealDBHistory = "The Meal DB History"
+    case myIdeasHistory = "My Ideas History"
 }
 
 enum SpoonTags: String{
@@ -102,8 +103,8 @@ enum Messages: String{
     case tapToCreate = "Tap the + to create a meal"
     case noFavorites = "No favorites saved yet"
     case noHistory = "No meals viewed"
-    case shareIngredient = "Tap an ingredient to add it to a list to share"
-
+    case addToShoppingList = "Tap an ingredient to add it to the shopping list"
+    case noShoppingList = "Nothing selected for your shopping list"
 }
 
 

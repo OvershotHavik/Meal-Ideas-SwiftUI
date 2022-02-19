@@ -13,7 +13,9 @@ struct DetailViewIngredientCell: View {
     @State var selected: Bool
     @State var image : UIImage?
     var mealName : String
+    var inShoppingList = false
     @EnvironmentObject var query: Query
+    @EnvironmentObject var shopping: Shopping
     
     var body: some View {
         ZStack(alignment: .leading){
@@ -31,40 +33,42 @@ struct DetailViewIngredientCell: View {
                         .font(.body)
                         .padding(.horizontal)
                 }
-                
                 Spacer()
-                if selected == true{
+                if selected{
                     Image(systemName: "checkmark")
                 }
             }
             .contentShape(Rectangle())
             .onTapGesture {
                 print("ingredient: \(ingredient), measurement: \(measurement)")
-                
-                //                    var ingredientToShare = ""
-                //                    if measurement == "" {
-                //                        ingredientToShare = ingredient
-                //                    } else {
-                //                        ingredientToShare = "\(ingredient) - \(measurement)"
-                //                    }
-                //                    query.modifyIngredientsToShare(selectedIngredient: ingredientToShare)
                 selected.toggle()
-                if selected{
-                    PersistenceController.shared.addToShoppingList(mealName: mealName,
-                                                                   ingredient: ingredient,
-                                                                   measurement: measurement,
-                                                                   checkedOff: false) // checked off is used in shopping list, not a reflection of the selected status in this view
+                if inShoppingList == false{
+                    if selected{
+                        PersistenceController.shared.addToShoppingList(mealName: mealName,
+                                                                       ingredient: ingredient,
+                                                                       measurement: measurement,
+                                                                       checkedOff: false) // checked off is used in shopping list, not a reflection of the selected status in this view
+                    } else {
+                        PersistenceController.shared.removeFromShoppingList(mealName: mealName,
+                                                                            ingredient: ingredient,
+                                                                            measurement: measurement,
+                                                                            checkedOff: false) // checked off is used in shopping list, not a reflection of the selected status in this view
+                    }
                 } else {
-                    PersistenceController.shared.removeFromShoppingList(mealName: mealName,
+                    // only runs for shopping list to change the core data object
+                    PersistenceController.shared.updateShoppingListItem(mealName: mealName,
                                                                         ingredient: ingredient,
-                                                                        measurement: measurement,
-                                                                        checkedOff: false) // checked off is used in shopping list, not a reflection of the selected status in this view
+                                                                        checkedOff: selected)
+                    shopping.getShoppingList()
                 }
-                //                    checkedOff = selected
             }
         }
         .onAppear{
             getImage(ingredientName: ingredient)
+            if inShoppingList == false{
+                selected = shopping.checkShoppingList(mealName: mealName,
+                                                      ingredient: ingredient)
+            }
         }
         
     }
@@ -80,10 +84,3 @@ struct DetailViewIngredientCell: View {
     }
     
 }
-/*
- struct DVIngredientCell_Previews: PreviewProvider {
- static var previews: some View {
- DVIngredientCell()
- }
- }
- */

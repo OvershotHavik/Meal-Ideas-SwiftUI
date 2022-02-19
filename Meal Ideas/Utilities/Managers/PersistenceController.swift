@@ -627,5 +627,37 @@ struct PersistenceController {
             print("Error fetching Shopping list: \(e.localizedDescription)")
         }
     }
+    
+    // MARK: - Update SHopping List Item
+    func updateShoppingListItem(mealName: String, ingredient: String, checkedOff: Bool){
+        let request = NSFetchRequest<ShoppingList>(entityName: EntityName.ShoppingList.rawValue)
+
+        do {
+            let savedItems = try container.viewContext.fetch(request)
+            guard let index = savedItems.firstIndex(where: {$0.mealName == mealName && $0.ingredient == ingredient}) else
+            {return}
+            let shoppingListItem = savedItems[index]
+            shoppingListItem.checkedOff = checkedOff
+            saveData()
+        }catch let e {
+            print("Error fetching Shopping list: \(e.localizedDescription)")
+        }
+    }
+    
+    func removeCheckedItems(){
+        let request = NSFetchRequest<ShoppingList>(entityName: EntityName.ShoppingList.rawValue)
+
+        do{
+            let savedItems = try container.viewContext.fetch(request)
+            for item in savedItems{
+                if item.checkedOff{
+                    container.viewContext.delete(item)
+                }
+            }
+            saveData()
+        }catch let e {
+            print("Error fetching Shopping list: \(e.localizedDescription)")
+        }
+    }
 }
 

@@ -16,8 +16,8 @@ struct MyIdeasDetailView: View {
         ZStack{
             vm.backgroundColor
                 .ignoresSafeArea()
-            VStack{
-                ScrollView{
+            ScrollView{
+                VStack(spacing: 10){
                     Spacer(minLength: 5)
                     
                     if let safeData = vm.meal?.mealPhoto{
@@ -48,10 +48,13 @@ struct MyIdeasDetailView: View {
                                          bottomColor: .green)
                         }
                     }
-                    Text(Messages.shareIngredient.rawValue)
-                    DetailViewIngredientListView(ingredients: vm.meal?.ingredients as? [String] ?? [],
-                                                 measurements: vm.meal?.measurements as? [String] ?? [],
-                                                 mealName: vm.meal?.mealName ?? "")
+                    if vm.meal?.ingredients as? [String] != []{
+                        Text(Messages.addToShoppingList.rawValue)
+                        DetailViewIngredientListView(ingredients: vm.meal?.ingredients as? [String] ?? [],
+                                                     measurements: vm.meal?.measurements as? [String] ?? [],
+                                                     mealName: vm.meal?.mealName ?? "")
+                    }
+
                     if vm.meal?.instructionsPhoto != nil{
                         CDPhotoView(photoData: vm.meal?.instructionsPhoto)
                             .frame(width: 200, height: 200)

@@ -54,4 +54,16 @@ class DetailBaseVM: ObservableObject{
 
         return false
     }
+    
+//    @Published var allShoppingList: [ShoppingList] = []
+//    func getShoppingList(){
+//        let request = NSFetchRequest<ShoppingList>(entityName: EntityName.ShoppingList.rawValue)
+//        do {
+//            allShoppingList = try PersistenceController.shared.container.viewContext.fetch(request)
+//            print("stop for all shopping list")
+//        } catch let error {
+//            print("error fetching: \(error.localizedDescription)")
+//        }
+//    }
+    
 }

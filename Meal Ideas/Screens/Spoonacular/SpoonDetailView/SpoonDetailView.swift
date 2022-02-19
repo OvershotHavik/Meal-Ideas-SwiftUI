@@ -51,6 +51,9 @@ struct SpoonDetailView: View {
                                      bottomColor: .pink)
                     }
 
+                    if !vm.ingredients.isEmpty{
+                        Text(Messages.addToShoppingList.rawValue)
+                    }
                     DetailViewIngredientListView(ingredients: vm.ingredients,
                                                  measurements: vm.measurements,
                                                  mealName: vm.meal?.title ?? "")
