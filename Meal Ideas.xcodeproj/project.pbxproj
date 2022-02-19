@@ -57,6 +57,8 @@
 		B39484AB27AFF264001C259B /* MenuCustomNL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39484AA27AFF264001C259B /* MenuCustomNL.swift */; };
 		B39484AD27AFF2B7001C259B /* MenuIngredientNL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39484AC27AFF2B7001C259B /* MenuIngredientNL.swift */; };
 		B39484AF27AFF307001C259B /* MenuCategoryNL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39484AE27AFF307001C259B /* MenuCategoryNL.swift */; };
+		B398AFD127C1379A00A69A21 /* ShoppingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B398AFD027C1379A00A69A21 /* ShoppingListView.swift */; };
+		B398AFD327C137A900A69A21 /* ShoppingListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B398AFD227C137A900A69A21 /* ShoppingListVM.swift */; };
 		B3A668C0276F9CA600533988 /* FavoritesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A668BF276F9CA600533988 /* FavoritesListView.swift */; };
 		B3A668C2276F9CB700533988 /* FavoritesListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A668C1276F9CB700533988 /* FavoritesListVM.swift */; };
 		B3A668C7276FA6E200533988 /* HistoryListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A668C6276FA6E200533988 /* HistoryListVM.swift */; };
@@ -177,6 +179,8 @@
 		B39484AA27AFF264001C259B /* MenuCustomNL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCustomNL.swift; sourceTree = "<group>"; };
 		B39484AC27AFF2B7001C259B /* MenuIngredientNL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuIngredientNL.swift; sourceTree = "<group>"; };
 		B39484AE27AFF307001C259B /* MenuCategoryNL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCategoryNL.swift; sourceTree = "<group>"; };
+		B398AFD027C1379A00A69A21 /* ShoppingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListView.swift; sourceTree = "<group>"; };
+		B398AFD227C137A900A69A21 /* ShoppingListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListVM.swift; sourceTree = "<group>"; };
 		B3A668BF276F9CA600533988 /* FavoritesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesListView.swift; sourceTree = "<group>"; };
 		B3A668C1276F9CB700533988 /* FavoritesListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesListVM.swift; sourceTree = "<group>"; };
 		B3A668C6276FA6E200533988 /* HistoryListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListVM.swift; sourceTree = "<group>"; };
@@ -525,6 +529,15 @@
 			path = "Navigation Links";
 			sourceTree = "<group>";
 		};
+		B398AFCF27C1377800A69A21 /* Shopping List */ = {
+			isa = PBXGroup;
+			children = (
+				B398AFD027C1379A00A69A21 /* ShoppingListView.swift */,
+				B398AFD227C137A900A69A21 /* ShoppingListVM.swift */,
+			);
+			path = "Shopping List";
+			sourceTree = "<group>";
+		};
 		B3A668BE276F9C7F00533988 /* Favorites List */ = {
 			isa = PBXGroup;
 			children = (
@@ -672,6 +685,7 @@
 		B3CA2373274810C900CA9C68 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				B398AFCF27C1377800A69A21 /* Shopping List */,
 				B35CEAED27B40C4400D49250 /* Base View Managers */,
 				B372F1D827AB1D0300DCB991 /* Onboarding */,
 				B32934FF27A1E1CB00951C47 /* Settings */,
@@ -866,6 +880,7 @@
 				B3CA234A274808D600CA9C68 /* PersistenceController.swift in Sources */,
 				B3D32CDC278399E300FA4ACA /* DVIngredientCell.swift in Sources */,
 				B375C98927621B380013895F /* MultiChoiceListView.swift in Sources */,
+				B398AFD127C1379A00A69A21 /* ShoppingListView.swift in Sources */,
 				B3A668C2276F9CB700533988 /* FavoritesListVM.swift in Sources */,
 				B375C98527621B060013895F /* SingleChoiceListView.swift in Sources */,
 				B3CEDDB82756FEA300BB832B /* SpoonServingPrepHStack.swift in Sources */,
@@ -903,6 +918,7 @@
 				B3F2242727AE869900AF8BBD /* CacheManager.swift in Sources */,
 				B39484AD27AFF2B7001C259B /* MenuIngredientNL.swift in Sources */,
 				B3A668CB276FB8C900533988 /* FavoriteCell.swift in Sources */,
+				B398AFD327C137A900A69A21 /* ShoppingListVM.swift in Sources */,
 				B3CEDDC4275700E300BB832B /* ThingsToDo.swift in Sources */,
 				B3627BF9275F756B004A6519 /* EditMealsListView.swift in Sources */,
 				B345CC4A277F6F470065B78A /* UserPrepHStack.swift in Sources */,

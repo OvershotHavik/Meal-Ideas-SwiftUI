@@ -27,6 +27,7 @@ enum EntityName: String{
     case CDIngredient = "CDIngredient"
     case CDCategory = "CDCategory"
     case CDSides = "CDSides"
+    case ShoppingList = "ShoppingList"
 }
 
 enum ListType: String{
