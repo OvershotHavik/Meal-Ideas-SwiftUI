@@ -52,7 +52,8 @@ struct SpoonDetailView: View {
                     }
 
                     DetailViewIngredientListView(ingredients: vm.ingredients,
-                                                 measurements: vm.measurements)
+                                                 measurements: vm.measurements,
+                                                 mealName: vm.meal?.title ?? "")
                     
                     RecipeView(recipe: vm.instructions)
                 }

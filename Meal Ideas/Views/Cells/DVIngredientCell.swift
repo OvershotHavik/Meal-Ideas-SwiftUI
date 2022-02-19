@@ -12,50 +12,61 @@ struct DetailViewIngredientCell: View {
     var measurement: String
     @State var selected: Bool
     @State var image : UIImage?
+    var mealName : String
     @EnvironmentObject var query: Query
     
     var body: some View {
-            ZStack(alignment: .leading){
-                HStack{
-                    NavigationLink(destination: ZoomImageView(image: image ?? UIImage(imageLiteralResourceName: "Placeholder"))){
-                        
-                        Image(uiImage: image ?? UIImage(imageLiteralResourceName: "Placeholder"))
-                            .resizable()
-                    }
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 50)
-                        .clipShape(Circle())
-                    VStack(alignment: .leading){
-                        Text(ingredient)
-                            .font(.body)
-                            .padding(.horizontal)
-                        Text(measurement)
-                            .font(.body)
-                            .padding(.horizontal)
-                    }
-
-                    Spacer()
-                    if selected == true{
-                        Image(systemName: "checkmark")
-                    }
+        ZStack(alignment: .leading){
+            HStack{
+                Image(uiImage: image ?? UIImage(imageLiteralResourceName: "Placeholder"))
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 50)
+                    .clipShape(Circle())
+                VStack(alignment: .leading){
+                    Text(ingredient)
+                        .font(.body)
+                        .padding(.horizontal)
+                    Text(measurement)
+                        .font(.body)
+                        .padding(.horizontal)
                 }
-                .contentShape(Rectangle())
-                .onTapGesture {
-                    print("ingredient: \(ingredient), measurement: \(measurement)")
-                    var ingredientToShare = ""
-                    if measurement == "" {
-                        ingredientToShare = ingredient
-                    } else {
-                        ingredientToShare = "\(ingredient) - \(measurement)"
-                    }
-                    query.modifyIngredientsToShare(selectedIngredient: ingredientToShare)
-                    selected.toggle()
+                
+                Spacer()
+                if selected == true{
+                    Image(systemName: "checkmark")
                 }
             }
-            .onAppear{
-                getImage(ingredientName: ingredient)
+            .contentShape(Rectangle())
+            .onTapGesture {
+                print("ingredient: \(ingredient), measurement: \(measurement)")
+                
+                //                    var ingredientToShare = ""
+                //                    if measurement == "" {
+                //                        ingredientToShare = ingredient
+                //                    } else {
+                //                        ingredientToShare = "\(ingredient) - \(measurement)"
+                //                    }
+                //                    query.modifyIngredientsToShare(selectedIngredient: ingredientToShare)
+                selected.toggle()
+                if selected{
+                    PersistenceController.shared.addToShoppingList(mealName: mealName,
+                                                                   ingredient: ingredient,
+                                                                   measurement: measurement,
+                                                                   checkedOff: false) // checked off is used in shopping list, not a reflection of the selected status in this view
+                } else {
+                    PersistenceController.shared.removeFromShoppingList(mealName: mealName,
+                                                                        ingredient: ingredient,
+                                                                        measurement: measurement,
+                                                                        checkedOff: false) // checked off is used in shopping list, not a reflection of the selected status in this view
+                }
+                //                    checkedOff = selected
             }
-
+        }
+        .onAppear{
+            getImage(ingredientName: ingredient)
+        }
+        
     }
     func getImage(ingredientName: String){
         let modifiedMealDB = ingredientName.replacingOccurrences(of: " ", with: "%20")
@@ -67,12 +78,12 @@ struct DetailViewIngredientCell: View {
             }
         }
     }
-
+    
 }
 /*
-struct DVIngredientCell_Previews: PreviewProvider {
-    static var previews: some View {
-        DVIngredientCell()
-    }
-}
-*/
+ struct DVIngredientCell_Previews: PreviewProvider {
+ static var previews: some View {
+ DVIngredientCell()
+ }
+ }
+ */

@@ -30,7 +30,8 @@ struct MealDBDetailView: View {
                                  topColor: .blue,
                                  bottomColor: .blue)
                     DetailViewIngredientListView(ingredients: vm.meal?.ingredientsArray ?? [],
-                                                 measurements: vm.meal?.measurementsArray ?? [])
+                                                 measurements: vm.meal?.measurementsArray ?? [],
+                                                 mealName: vm.meal?.strMeal ?? "")
                     
                     RecipeView(recipe: vm.meal?.strInstructions ?? "")
                     

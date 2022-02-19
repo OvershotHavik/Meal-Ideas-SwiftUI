@@ -27,6 +27,10 @@ struct MealIdeasTabView: View {
                 .tabItem {
                     Label("Spoonacular", systemImage: "fork.knife.circle.fill")
                 }
+            ShoppingListView(vm: ShoppingListVM())
+                .tabItem {
+                    Label("Shopping List", systemImage: "list.dash")
+                }
             SettingsView()
                 .tabItem {
                     Label("Settings", systemImage: "gearshape.fill")
