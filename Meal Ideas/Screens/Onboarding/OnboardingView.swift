@@ -28,7 +28,7 @@ enum OnboardingSecondary: String{
     case adaptiveFilter = "For My Ideas only: \nThe filters will only show choices for ingredients or categories for meals that have been created with them. \n\nThe other sources only list categories that are supported by them."
     case additionalSources = "Not sure what to make? \n\nNeed some more inspiration? \n\nYou can search other sources! \n\nWhichever search type you select will cary over to the other sources automatically."
     case favoritesAndHistory = "Each source keeps track of the meals you have viewed, along with favorited meals. \n\nThese can be viewed here."
-    case cloudKitEnabled = "Any meals you create, custom items, favorites and history for each source is synced across all your iOS devices."
+    case cloudKitEnabled = "Any meals you create, custom items, shopping list, favorites and history for each source is synced across all your iOS devices."
 }
 
 

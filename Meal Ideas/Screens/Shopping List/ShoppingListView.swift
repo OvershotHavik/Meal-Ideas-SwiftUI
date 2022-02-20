@@ -26,13 +26,13 @@ struct ShoppingListView: View {
                                                          selected: i.checkedOff,
                                                          mealName: i.mealName ?? "",
                                                          inShoppingList: true)
-                                
                             }
                         }
                     }
                 }
                 .searchable(text: $vm.searchText)
 
+                // MARK: - Clear Checked Alert
                 .alert("Are you sure you want to clear checked items?", isPresented: $vm.showingClearCheckedAlert) {
                     Button("Clear Checked Items", role: .destructive) {
                         withAnimation {
@@ -41,10 +41,10 @@ struct ShoppingListView: View {
                             vm.allShoppingList = shopping.allShoppingList
                             vm.mealNames = shopping.mealNames
                         }
-
                     }
                     Button("Cancel", role: .cancel) { }
                 }
+                // MARK: - Clear All Alert
                 .alert("Are you sure you want to clear all items?", isPresented: $vm.showingClearAllAlert) {
                     Button("Clear All Items", role: .destructive) {
                         withAnimation {
@@ -53,7 +53,6 @@ struct ShoppingListView: View {
                             vm.allShoppingList = shopping.allShoppingList
                             vm.mealNames = shopping.mealNames
                         }
-
                     }
                     Button("Cancel", role: .cancel) { }
                 }
