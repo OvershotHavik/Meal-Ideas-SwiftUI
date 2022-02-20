@@ -49,7 +49,8 @@ struct ShoppingListView: View {
                 }
                 .accentColor(.red)
                 .padding()
-                
+
+                /*
                 Form {
                     ForEach(shopping.mealNames, id: \.self){ meal in
                         Section(header: Text(meal)){
@@ -65,12 +66,31 @@ struct ShoppingListView: View {
                         }
                     }
                 }
+                 */
+                Form {
+                    ForEach(vm.mealNames, id: \.self){ meal in
+                        Section(header: Text(meal)){
+                            let filteredMeals = vm.searchResults.filter({$0.mealName == meal})
+                            ForEach(filteredMeals, id: \.self) { i in
+                                DetailViewIngredientCell(ingredient: i.ingredient ?? "",
+                                                         measurement: i.measurement ?? "",
+                                                         selected: i.checkedOff,
+                                                         mealName: i.mealName ?? "",
+                                                         inShoppingList: true)
+                                
+                            }
+                        }
+                    }
+                }
+                .searchable(text: $vm.searchText)
                 .navigationTitle(Text(Titles.shoppingList.rawValue))
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .onAppear{
             shopping.getShoppingList()
+            vm.allShoppingList = shopping.allShoppingList
+            vm.mealNames = shopping.mealNames
         }
     }
 }
