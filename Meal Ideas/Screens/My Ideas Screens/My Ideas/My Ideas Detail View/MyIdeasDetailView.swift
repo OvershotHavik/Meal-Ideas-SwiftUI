@@ -16,8 +16,8 @@ struct MyIdeasDetailView: View {
         ZStack{
             vm.backgroundColor
                 .ignoresSafeArea()
-            ScrollView{
-                VStack(spacing: 10){
+            VStack(spacing: 10){
+                ScrollView{
                     Spacer(minLength: 5)
                     
                     if let safeData = vm.meal?.mealPhoto{

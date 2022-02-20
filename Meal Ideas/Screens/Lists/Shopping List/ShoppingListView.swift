@@ -62,12 +62,11 @@ struct ShoppingListView: View {
                 ToolbarItem(placement: .navigationBarLeading) {
                     if shopping.anyChecked{
                         Button {
-                            print("delete checked")
                             withAnimation {
                                 vm.showingClearCheckedAlert.toggle()
                             }
                         } label: {
-                            Text("Delete checked")
+                            Text("Remove Checked")
                         }
                         .accentColor(.red)
                     }
@@ -78,33 +77,22 @@ struct ShoppingListView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     if !shopping.allShoppingList.isEmpty{
                         Button  {
-                            print("Clear all")
                             withAnimation {
                                 vm.showingClearAllAlert.toggle()
                             }
                         } label: {
-                            Text("Clear all")
+                            Text("Clear All")
                         }
                         .accentColor(.red)
                     }
                 }
             }
         }
-
         .navigationViewStyle(StackNavigationViewStyle())
         .onAppear{
             shopping.getShoppingList()
             vm.allShoppingList = shopping.allShoppingList
             vm.mealNames = shopping.mealNames
         }
-
-    }
-}
-
-
-
-struct ShoppingListView_Previews: PreviewProvider {
-    static var previews: some View {
-        ShoppingListView()
     }
 }
