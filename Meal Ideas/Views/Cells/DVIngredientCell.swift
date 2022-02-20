@@ -16,6 +16,7 @@ struct DetailViewIngredientCell: View {
     var inShoppingList = false
     @EnvironmentObject var query: Query
     @EnvironmentObject var shopping: Shopping
+    @State var alpha: Double = 1
     
     var body: some View {
         ZStack(alignment: .leading){
@@ -25,6 +26,8 @@ struct DetailViewIngredientCell: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 50)
                     .clipShape(Circle())
+                    .opacity(alpha)
+
                 VStack(alignment: .leading){
                     Text(ingredient)
                         .font(.body)
@@ -33,15 +36,26 @@ struct DetailViewIngredientCell: View {
                         .font(.body)
                         .padding(.horizontal)
                 }
+                .opacity(alpha)
+
                 Spacer()
                 if selected{
+                    withAnimation(.easeIn(duration: 0.25).delay(0.25)){
                     Image(systemName: "checkmark")
+                        .padding(.horizontal)
+                    }
                 }
             }
             .contentShape(Rectangle())
             .onTapGesture {
                 print("ingredient: \(ingredient), measurement: \(measurement)")
                 selected.toggle()
+                withAnimation(.easeIn(duration: 0.25)){
+                    alpha = 0
+                }
+                withAnimation(.easeIn(duration: 0.25).delay(0.15)){
+                    alpha = 1
+                }
                 if inShoppingList == false{
                     if selected{
                         PersistenceController.shared.addToShoppingList(mealName: mealName,
