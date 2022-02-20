@@ -99,8 +99,6 @@ struct SpoonView: View {
                 query.getHistory()
                 query.getFavorites()
                 vm.surpriseMeal = nil
-
-                
                 if query.queryType == .category ||
                     query.queryType == .ingredient{
                     if query.selected == ""{

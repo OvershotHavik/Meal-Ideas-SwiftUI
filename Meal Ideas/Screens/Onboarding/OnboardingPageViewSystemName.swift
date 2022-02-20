@@ -1,13 +1,13 @@
 //
-//  OnboardingPageView.swift
+//  OnboardingPageViewSystemName.swift
 //  Meal Ideas
 //
-//  Created by Steve Plavetzky on 2/3/22.
+//  Created by Steve Plavetzky on 2/20/22.
 //
 
 import SwiftUI
 
-struct OnboardingPageView: View{
+struct OnboardingPageViewSystemName: View{
     @Binding var shouldShowOnboarding: Bool
     var image: String
     var title: OnboardingTitles
@@ -16,7 +16,7 @@ struct OnboardingPageView: View{
     var body: some View{
         GeometryReader{ screenBounds in
             VStack(spacing: 10) {
-                Image(uiImage: UIImage(imageLiteralResourceName: image))
+                Image(systemName: image)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: screenBounds.size.width, height: screenBounds.size.height/3)
@@ -41,18 +41,8 @@ struct OnboardingPageView: View{
                             .background(.blue)
                             .cornerRadius(6)
                     }
-                    Spacer()
-                } else {
-                    VStack{
-                        HStack(spacing: 10){
-                            Text("Swipe to Continue")
-                            Image(systemName: "chevron.right")
-                        }
-                        Rectangle()
-                            .fill(.clear)
-                            .frame(height: 20)
-                    }
                 }
+                Spacer()
             }
         }
         .padding()

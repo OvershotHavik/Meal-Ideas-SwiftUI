@@ -55,15 +55,4 @@ final class MyIdeasDetailVM: DetailBaseVM{
             }
         }
     }
-    
-    func shareIngredientTapped(ingredientsToShare: [String]){
-        if let safeMeal = meal{
-            var shareMessage = "\(safeMeal.mealName ?? "")\n"
-            for i in ingredientsToShare{
-                shareMessage += "\(i)\n"
-            }
-            print(shareMessage)
-        }
-        
-    }
 }

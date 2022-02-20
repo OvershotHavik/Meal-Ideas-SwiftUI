@@ -105,8 +105,6 @@ struct MyIdeasView: View {
                 query.getFavorites()
                 vm.surpriseMeal = nil
                 vm.getAllMeals() // updates the meals if the user created/deleted and came back
-                
-                
                 if query.showAllUserMealIdeas == true{
                     vm.showAllMeals()
                     return
