@@ -16,7 +16,7 @@ import CoreData
     @Published var customURLString = ""
     
     // MARK: - Check Query
-    func checkQuery(query: String, queryType: QueryType){
+    override func checkQuery(query: String, queryType: QueryType){
         print("Spoon query: \(query) Type: \(queryType.rawValue)")
         
         if isLoading == true {
@@ -140,7 +140,7 @@ import CoreData
     }
     
     // MARK: - Custom Filter
-    func customFilter(keyword: String, category: String, ingredient: String){
+    override func customFilter(keyword: String, category: String, ingredient: String){
         if keyword == "" &&
             category == "" &&
             ingredient == ""{

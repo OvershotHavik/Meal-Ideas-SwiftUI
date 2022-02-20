@@ -109,43 +109,16 @@ struct MyIdeasView: View {
                     vm.showAllMeals()
                     return
                 }
-
-                if query.queryType == .category ||
-                    query.queryType == .ingredient{
-                    if query.selected == ""{
-                        //nothing selected, if we let it go it brings back random results
-                        return
-                    }
-                }
-                
-                if query.queryType == .custom{
-                    vm.customFilter(keyword: query.customKeyword,
-                                    category: query.customCategory,
-                                    ingredient: query.customIngredient)
-                    return
-                }
-                if query.queryType == vm.originalQueryType && query.selected == vm.originalQuery{
-                    //nothing changed, don't do anything
-                    return
-                }
-                
-                if query.queryType == .none ||
-                    query.queryType == .random{
-                    return
-                } else {
-                    vm.showWelcome = false
-                    vm.checkQuery(query: query.selected, queryType: query.queryType)
-                }
+                vm.sourceOnAppear(queryType: query.queryType,
+                                  selected: query.selected,
+                                  customKeyword: query.customKeyword,
+                                  customCategory: query.customCategory,
+                                  customIngredient: query.customIngredient)
             }
             .onChange(of: vm.scrollViewContentOffset, perform: { newValue in
                 vm.autoHideTopView()
             })
 
-//            .onChange(of: query.showAllUserMealIdeas, perform: { newValue in
-//                if query.showAllUserMealIdeas == true{
-//                    vm.showAllMeals()
-//                }
-//            })
             .onChange(of: vm.keywordSearchTapped, perform: { newValue in
                 print("Keyword: \(query.keyword)")
                 query.selected = query.keyword
@@ -168,6 +141,7 @@ struct MyIdeasView: View {
 struct MyIdeaSurpriseNL: View{
     //Used for surprise meal to bring up a random meal
     @EnvironmentObject var query: Query
+    @EnvironmentObject var shopping: Shopping
     @StateObject var vm: MyIdeasVM
     var body: some View{
         NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: vm.surpriseMeal,
@@ -175,12 +149,15 @@ struct MyIdeaSurpriseNL: View{
                                                                                                          favoriteArray: query.favoritesArray),
                                                                           showingHistory: false)),
                        isActive: $vm.getRandomMeals) {EmptyView()}
+                       .environmentObject(shopping)
     }
 }
 // MARK: - My Ideas Grid
 struct MyIdeasGrid: View{
     @EnvironmentObject var query: Query
+    @EnvironmentObject var shopping: Shopping
     @StateObject var vm: MyIdeasVM
+
     var body: some View{
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 160))], alignment: .center) {
             ForEach(vm.meals.indices, id: \.self) {mealIndex in
@@ -196,6 +173,8 @@ struct MyIdeasGrid: View{
                                                                 favoriteArray: query.favoritesArray),
                                  inHistory: vm.checkForHistory(id: meal.userMealID,
                                                                historyArray: query.historyArray))
+                        .environmentObject(shopping)
+
                 }
                                                                                   .foregroundColor(.primary)
             }

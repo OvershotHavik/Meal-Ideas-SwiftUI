@@ -10,13 +10,14 @@ import SwiftUI
 struct MyIdeasDetailView: View {
     @StateObject var vm : MyIdeasDetailVM
     @EnvironmentObject var query: Query
+    @EnvironmentObject var shopping: Shopping
     
     var body: some View {
         ZStack{
             vm.backgroundColor
                 .ignoresSafeArea()
-            VStack{
-                ScrollView{
+            ScrollView{
+                VStack(spacing: 10){
                     Spacer(minLength: 5)
                     
                     if let safeData = vm.meal?.mealPhoto{
@@ -47,8 +48,13 @@ struct MyIdeasDetailView: View {
                                          bottomColor: .green)
                         }
                     }
-                    DetailViewIngredientListView(ingredients: vm.meal?.ingredients as? [String] ?? [],
-                                                 measurements: vm.meal?.measurements as? [String] ?? [])
+                    if vm.meal?.ingredients as? [String] != []{
+                        Text(Messages.addToShoppingList.rawValue)
+                        DetailViewIngredientListView(ingredients: vm.meal?.ingredients as? [String] ?? [],
+                                                     measurements: vm.meal?.measurements as? [String] ?? [],
+                                                     mealName: vm.meal?.mealName ?? "")
+                    }
+
                     if vm.meal?.instructionsPhoto != nil{
                         CDPhotoView(photoData: vm.meal?.instructionsPhoto)
                             .frame(width: 200, height: 200)
@@ -58,6 +64,9 @@ struct MyIdeasDetailView: View {
                 LinkView(url: vm.meal?.source, title: "Visit Source")
             }
             .padding()
+            .onAppear{
+                shopping.getShoppingList()
+            }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar{
                 ToolbarItemGroup(placement: .navigationBarTrailing) {

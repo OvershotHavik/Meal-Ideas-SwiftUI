@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 class DetailBaseVM: ObservableObject{
     @Published var isLoading = false
@@ -18,6 +19,7 @@ class DetailBaseVM: ObservableObject{
     @Published var showingHistory =  false
     @Published var backgroundColor = Color(UIColor.secondarySystemBackground)
     @Published var isShareSheetShowing = false
+//    @Published var checkedOff = false // if this changes, update
     
     // MARK: - Present Share Action Sheet
     func presentShareAS(website: String?){

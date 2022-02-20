@@ -29,6 +29,8 @@ import UIKit
             print("meal not set in get ingredients")
             return
         }
+        ingredients = []
+        measurements = []
         for x in safeMeal.extendedIngredients{
             ingredients.append(x.name ?? "")
             if let safeAmount = x.amount,

@@ -257,6 +257,8 @@ struct PersistenceController {
             }catch let e {
                 print("Error fetching CDUserCategory: \(e.localizedDescription)")
             }
+        case .ShoppingList:
+            print("Shopping list not setup in delete from list")
         }
         saveData()
     }
@@ -333,15 +335,13 @@ struct PersistenceController {
         let request = NSFetchRequest<History>(entityName: EntityName.history.rawValue)
         do{
             let allHistory = try container.viewContext.fetch(request)
+            let filtered = allHistory.filter{$0.mealName == meal.mealName}
             
-
-                let filtered = allHistory.filter{$0.mealName == meal.mealName}
-                
-                for meal in filtered{
-                    print("Deleting meal: \(meal.mealName ?? "") from history")
-                    container.viewContext.delete(meal)
-                }
-                saveData()
+            for meal in filtered{
+                print("Deleting meal: \(meal.mealName ?? "") from history")
+                container.viewContext.delete(meal)
+            }
+            saveData()
             
         }catch let e{
             print("Error clearing history in edit meal: \(e.localizedDescription) ")
@@ -581,5 +581,85 @@ struct PersistenceController {
         default: print("Not setup in EditUserItems")
         }
         saveData()
+    }
+    
+    
+    // MARK: - Add To Shopping List
+    func addToShoppingList(mealName: String, ingredient: String?, measurement: String?, checkedOff: Bool){
+        let newShoppingListItem = ShoppingList(context: container.viewContext)
+        newShoppingListItem.mealName = mealName
+        newShoppingListItem.ingredient = ingredient
+        newShoppingListItem.measurement = measurement
+        newShoppingListItem.checkedOff = checkedOff
+        print("Adding \(mealName) - \(ingredient ?? "") - \(measurement ?? "") to shopping list")
+        saveData()
+    }
+    
+    // MARK: - Remove from shopping list
+    func removeFromShoppingList(mealName: String, ingredient: String?, measurement: String?, checkedOff: Bool){
+        let request = NSFetchRequest<ShoppingList>(entityName: EntityName.ShoppingList.rawValue)
+
+        do{
+            let savedItems = try container.viewContext.fetch(request)
+            guard let index = savedItems.firstIndex(where: {$0.mealName == mealName && $0.ingredient == ingredient && $0.measurement == measurement}) else {return}
+            let shoppingListItem = savedItems[index]
+            print("removing \(mealName) - \(ingredient ?? "") - \(measurement ?? "") from shopping list")
+            print("removing: \(shoppingListItem)")
+            container.viewContext.delete(shoppingListItem)
+            saveData()
+        }catch let e {
+            print("Error fetching Shopping list: \(e.localizedDescription)")
+        }
+    }
+    
+    // MARK: - Clear all shopping list
+    func clearAllShoppingList(){
+        let request = NSFetchRequest<ShoppingList>(entityName: EntityName.ShoppingList.rawValue)
+
+        do{
+            let savedItems = try container.viewContext.fetch(request)
+            for item in savedItems{
+                container.viewContext.delete(item)
+            }
+            print("Cleared shopping list")
+            saveData()
+        }catch let e {
+            print("Error fetching Shopping list: \(e.localizedDescription)")
+        }
+    }
+    
+    // MARK: - Update SHopping List Item
+    func updateShoppingListItem(mealName: String, ingredient: String, measurement: String, checkedOff: Bool){
+        let request = NSFetchRequest<ShoppingList>(entityName: EntityName.ShoppingList.rawValue)
+
+        do {
+            let savedItems = try container.viewContext.fetch(request)
+            let filtered = savedItems.filter({$0.mealName == mealName && $0.ingredient == ingredient && $0.measurement == measurement})
+            //Instead of doing the index, this goes through for any duplicates of the item to modify the record accordingly. 
+            for item in filtered{
+                let shoppingListItem = item
+                shoppingListItem.checkedOff = checkedOff
+                saveData()
+            }
+        }catch let e {
+            print("Error fetching Shopping list: \(e.localizedDescription)")
+        }
+    }
+    
+    // MARK: - remove Checked Items
+    func removeCheckedItems(){
+        let request = NSFetchRequest<ShoppingList>(entityName: EntityName.ShoppingList.rawValue)
+
+        do{
+            let savedItems = try container.viewContext.fetch(request)
+            for item in savedItems{
+                if item.checkedOff{
+                    container.viewContext.delete(item)
+                }
+            }
+            saveData()
+        }catch let e {
+            print("Error fetching Shopping list: \(e.localizedDescription)")
+        }
     }
 }

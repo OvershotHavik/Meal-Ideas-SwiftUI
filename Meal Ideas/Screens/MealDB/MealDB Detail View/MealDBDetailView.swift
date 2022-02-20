@@ -10,6 +10,7 @@ import SwiftUI
 struct MealDBDetailView: View {
     @StateObject var vm : MealDBDetailVM
     @EnvironmentObject var query: Query
+    @EnvironmentObject var shopping: Shopping
     var body: some View {
         ZStack{
             vm.backgroundColor
@@ -29,8 +30,12 @@ struct MealDBDetailView: View {
                                  items: [vm.meal?.strCategory ?? ""],
                                  topColor: .blue,
                                  bottomColor: .blue)
+                    if vm.meal?.ingredientsArray != []{
+                        Text(Messages.addToShoppingList.rawValue)
+                    }
                     DetailViewIngredientListView(ingredients: vm.meal?.ingredientsArray ?? [],
-                                                 measurements: vm.meal?.measurementsArray ?? [])
+                                                 measurements: vm.meal?.measurementsArray ?? [],
+                                                 mealName: vm.meal?.strMeal ?? "")
                     
                     RecipeView(recipe: vm.meal?.strInstructions ?? "")
                     
@@ -40,6 +45,9 @@ struct MealDBDetailView: View {
                 LinkView(url: vm.meal?.strSource ?? "", title: "Visit Source")
             }
             .padding()
+            .onAppear{
+                shopping.getShoppingList()
+            }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar{
                 ToolbarItemGroup(placement: .navigationBarTrailing) {

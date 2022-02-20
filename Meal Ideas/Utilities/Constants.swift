@@ -27,6 +27,7 @@ enum EntityName: String{
     case CDIngredient = "CDIngredient"
     case CDCategory = "CDCategory"
     case CDSides = "CDSides"
+    case ShoppingList = "ShoppingList"
 }
 
 enum ListType: String{
@@ -50,6 +51,7 @@ enum Titles: String{
     case myIdeas = "My Ideas"
     case history = "History"
     case favorites = "Favorites"
+    case shoppingList = "Shopping List"
     
     case settings = "Settings"
     case editCategories = "Edit Categories"
@@ -61,13 +63,13 @@ enum Titles: String{
     case multiIngredients = "Select Ingredients"
     case multiSides = "Select Sides"
     
-    case spoonFavorite = "Favorites from Spoonacular"
-    case mealDBFavorite = "Favorites from The Meal DB"
-    case myIdeasFavorite = "Favorites from My Ideas"
+    case spoonFavorite = "Spoonacular Favorites"
+    case mealDBFavorite = "The Meal DB Favorites"
+    case myIdeasFavorite = "My Ideas Favorites"
     
-    case spoonHistory = "History from Spoonacular"
-    case mealDBHistory = "History from The Meal DB"
-    case myIdeasHistory = "History from My Ideas"
+    case spoonHistory = "Spoonacular History"
+    case mealDBHistory = "The Meal DB History"
+    case myIdeasHistory = "My Ideas History"
 }
 
 enum SpoonTags: String{
@@ -97,11 +99,12 @@ enum Messages: String{
     case noMealsMyIdeas = "No meals found for your search. \n You can create a new one to match this search by tapping the edit icon at the top left."
     case noIngredient = "No meals have been created that contain ingredients."
     case noCategory = "No meals have been created that contain any categories."
-    case noMealsFound = "No meals found for your search"
-    case tapToCreate = "Tap the + to create a meal"
-    case noFavorites = "No favorites saved yet"
-    case noHistory = "No meals viewed"
-
+    case noMealsFound = "No meals found for your search."
+    case tapToCreate = "Tap the + to create a meal."
+    case noFavorites = "No favorites saved yet."
+    case noHistory = "No meals viewed."
+    case addToShoppingList = "Tap an ingredient to add it to the shopping list."
+    case noShoppingList = "No ingredients selected for your shopping list."
 }
 
 

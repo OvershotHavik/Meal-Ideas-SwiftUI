@@ -95,39 +95,32 @@ class BaseVM: ObservableObject{
             })
         }
     }
+}
+
+
+class DetailBaseVM: ObservableObject{
+    @Published var isLoading = false
+    @Published var alertItem : AlertItem?
+    @Published var ingredients: [String] = []
+    @Published var measurements: [String] = []
+    @Published var instructions: String = ""
+    @Published var mealPhoto = UIImage()
+    @Published var favorited = false
+    @Published var showingHistory =  false
+    @Published var backgroundColor = Color(UIColor.secondarySystemBackground)
+    @Published var isShareSheetShowing = false
     
-    @MainActor func checkQuery(query: String, queryType: QueryType){
-        //being overriden in sub classess
-    }
-    @MainActor func customFilter(keyword: String, category: String, ingredient: String){
-        //being overriden in sub classess
-    }
-    @MainActor func sourceOnAppear(queryType: QueryType, selected: String, customKeyword: String, customCategory: String, customIngredient: String){
-        
-        if queryType == .category ||
-            queryType == .ingredient{
-            if selected == ""{
-                //nothing selected, if we let it go it brings back random results
-                return
-            }
-        }
-        if queryType == .custom{
-            customFilter(keyword: customKeyword,
-                            category: customCategory,
-                            ingredient: customIngredient)
-            return
-        }
-        if queryType == originalQueryType && selected == originalQuery{
-            //nothing changed, don't do anything
-            return
-        }
-        
-        if queryType == .none ||
-            queryType == .random{
-            return
-        } else {
-            showWelcome = false
-            checkQuery(query: selected, queryType: queryType)
+    // MARK: - Present Share Action Sheet
+    func presentShareAS(website: String?){
+        isShareSheetShowing.toggle()
+        if let safeWebsite = website{
+            let shareActionSheet = UIActivityViewController(activityItems: [safeWebsite],  applicationActivities: nil)
+            
+            let scenes = UIApplication.shared.connectedScenes
+            let windowScene = scenes.first as? UIWindowScene
+            let window = windowScene?.windows.first
+            
+            window?.rootViewController?.present(shareActionSheet, animated: true, completion: nil)
         }
     }
 }

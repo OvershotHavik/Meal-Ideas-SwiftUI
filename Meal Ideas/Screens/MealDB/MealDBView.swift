@@ -98,42 +98,11 @@ struct MealDBView: View {
                 query.getFavorites()
                 vm.surpriseMeal = nil
 
-                if query.queryType == .category ||
-                    query.queryType == .ingredient{
-                    if query.selected == ""{
-                        //nothing selected, if we let it go it brings back random results
-                        return
-                    }
-                }
-                
-                if query.queryType == .custom{
-                    vm.customFilter(keyword: query.customKeyword,
-                                    category: query.customCategory,
-                                    ingredient: query.customIngredient)
-                    return
-                }
-                if query.queryType == vm.originalQueryType && query.selected == vm.originalQuery{
-                    //nothing changed, don't do anything
-                    return
-                }
-                if query.queryType == .none ||
-                    query.queryType == .random{
-                    return
-                } else {
-                    if query.queryType == .category{
-                        //Only do this check if the query type is categories
-                        if !vm.sourceCategories.contains(query.customCategory) &&
-                            query.customCategory != ""{
-                            //If the user selected a category that isn't supported, return with no meals
-                            vm.resetValues()
-                            vm.meals = []
-                            vm.showWelcome = false
-                            return
-                        }
-                    }
-                    vm.showWelcome = false
-                    vm.checkQuery(query: query.selected, queryType: query.queryType)
-                }
+                vm.sourceOnAppear(queryType: query.queryType,
+                                  selected: query.selected,
+                                  customKeyword: query.customKeyword,
+                                  customCategory: query.customCategory,
+                                  customIngredient: query.customIngredient)
             }
             .onChange(of: vm.isLoading, perform: { _ in
                 vm.stopLoading()
@@ -174,6 +143,7 @@ struct MealDBView_Previews: PreviewProvider {
 // MARK: - MealDB Surprise NL
 struct MealDBSurpriseNL: View{
     @EnvironmentObject var query: Query
+    @EnvironmentObject var shopping: Shopping
     @StateObject var vm: MealDBVM
     var body: some View{
         NavigationLink(destination: MealDBDetailView(vm: MealDBDetailVM(meal: vm.surpriseMeal,
@@ -182,11 +152,14 @@ struct MealDBSurpriseNL: View{
                                                                         mealID: vm.surpriseMeal?.id ?? "",
                                                                         showingHistory: false)),
                        isActive: $vm.surpriseMealReady) {EmptyView()}
+                       .environmentObject(shopping)
+
     }
 }
 // MARK: - MealDB Grid
 struct MealDBGrid: View{
     @EnvironmentObject var query: Query
+    @EnvironmentObject var shopping: Shopping
     @StateObject var vm: MealDBVM
     
     var body: some View{
@@ -204,6 +177,8 @@ struct MealDBGrid: View{
                                                                 favoriteArray: query.favoritesArray),
                                  inHistory: vm.checkForHistory(id: meal.id,
                                                                historyArray: query.historyArray))
+                        .environmentObject(shopping)
+
                 }
                                                                                 .foregroundColor(.primary)
             }

@@ -12,7 +12,7 @@ struct MealIdeasTabView: View {
     
     @EnvironmentObject var query: Query
     @EnvironmentObject var userEnvironment: UserEnvironment
-    
+    @EnvironmentObject var shopping: Shopping
     var body: some View {
         TabView{
             MyIdeasView(vm: MyIdeasVM())
@@ -27,6 +27,10 @@ struct MealIdeasTabView: View {
                 .tabItem {
                     Label("Spoonacular", systemImage: "fork.knife.circle.fill")
                 }
+            ShoppingListView(vm: ShoppingListVM())
+                .tabItem {
+                    Label("Shopping List", systemImage: "list.dash")
+                }
             SettingsView()
                 .tabItem {
                     Label("Settings", systemImage: "gearshape.fill")
@@ -39,6 +43,7 @@ struct MealIdeasTabView: View {
             query.getFavorites()
             query.getHistory()
             userEnvironment.retrieveUserSettings()
+            shopping.getShoppingList()
         }
     }
 }

@@ -99,7 +99,6 @@ struct SpoonView: View {
                 query.getHistory()
                 query.getFavorites()
                 vm.surpriseMeal = nil
-
                 if query.queryType == .category ||
                     query.queryType == .ingredient{
                     if query.selected == ""{
@@ -116,7 +115,7 @@ struct SpoonView: View {
                 if query.queryType == .custom{
                     if !vm.sourceCategories.contains(query.customCategory) &&
                         query.customCategory != ""{
-                        //If the user selected a category that isn't supported, return with the error
+                        //If the user selected a category that isn't supported, return with no meals found
                         vm.meals = []
                         vm.showWelcome = false
                         return
@@ -133,7 +132,7 @@ struct SpoonView: View {
                 } else {
                     if !vm.sourceCategories.contains(query.customCategory) &&
                         query.customCategory != ""{
-                        //If the user selected a category that isn't supported, return with no meals
+                        //If the user selected a category that isn't supported, return with no meals found
                         vm.meals = []
                         vm.showWelcome = false
                         return
@@ -184,6 +183,7 @@ struct SpoonView_Previews: PreviewProvider {
 // MARK: - SpoonSurpriseNL
 struct SpoonSurpriseNL: View{
     @EnvironmentObject var query: Query
+    @EnvironmentObject var shopping: Shopping
     @StateObject var vm: SpoonVM
     var body: some View{
         NavigationLink(destination: SpoonDetailView(vm: SpoonDetailVM(meal: vm.surpriseMeal,
@@ -191,12 +191,15 @@ struct SpoonSurpriseNL: View{
                                                                                                                                   favoriteArray: query.favoritesArray),
                                                                       showingHistory: false)),
                        isActive: $vm.surpriseMealReady) {EmptyView()}
+                       .environmentObject(shopping)
     }
 }
 
 // MARK: - Spoon Grid
 struct SpoonGrid: View{
     @EnvironmentObject var query: Query
+    @EnvironmentObject var shopping: Shopping
+
     @StateObject var vm: SpoonVM
     var body: some View{
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 160))], alignment: .center) {
@@ -213,6 +216,7 @@ struct SpoonGrid: View{
                                                                 favoriteArray: query.favoritesArray),
                                  inHistory: vm.checkForHistory(id: meal.id,
                                                                historyArray: query.historyArray))
+                        .environmentObject(shopping)
                 }
                                                                               .foregroundColor(.primary)
                                                                               .onAppear{

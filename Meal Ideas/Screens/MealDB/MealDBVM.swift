@@ -16,7 +16,7 @@ import SwiftUI
     @Published var surpriseMeal: MealDBResults.Meal?
     
     // MARK: - CheckQuery
-    func checkQuery(query: String, queryType: QueryType){
+    override func checkQuery(query: String, queryType: QueryType){
         print("MealDB Query: \(query), queryType: \(queryType.rawValue)")
         surpriseMealReady = false
         showWelcome = false
@@ -125,7 +125,7 @@ import SwiftUI
     }
     
     // MARK: - Custom Filter
-    func customFilter(keyword: String, category: String, ingredient: String){
+    override func customFilter(keyword: String, category: String, ingredient: String){
         if keyword == "" &&
             category == "" &&
             ingredient == ""{
