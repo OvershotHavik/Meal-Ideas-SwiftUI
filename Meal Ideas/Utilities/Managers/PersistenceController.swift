@@ -634,11 +634,12 @@ struct PersistenceController {
 
         do {
             let savedItems = try container.viewContext.fetch(request)
-            guard let index = savedItems.firstIndex(where: {$0.mealName == mealName && $0.ingredient == ingredient && $0.measurement == measurement}) else
-            {return}
-            let shoppingListItem = savedItems[index]
-            shoppingListItem.checkedOff = checkedOff
-            saveData()
+            let filtered = savedItems.filter({$0.mealName == mealName && $0.ingredient == ingredient && $0.measurement == measurement})
+            for item in filtered{
+                let shoppingListItem = item
+                shoppingListItem.checkedOff = checkedOff
+                saveData()
+            }
         }catch let e {
             print("Error fetching Shopping list: \(e.localizedDescription)")
         }
