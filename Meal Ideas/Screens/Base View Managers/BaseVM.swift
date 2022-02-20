@@ -95,4 +95,39 @@ class BaseVM: ObservableObject{
             })
         }
     }
+    
+    @MainActor func checkQuery(query: String, queryType: QueryType){
+        //being overriden in sub classess
+    }
+    @MainActor func customFilter(keyword: String, category: String, ingredient: String){
+        //being overriden in sub classess
+    }
+    @MainActor func sourceOnAppear(queryType: QueryType, selected: String, customKeyword: String, customCategory: String, customIngredient: String){
+        
+        if queryType == .category ||
+            queryType == .ingredient{
+            if selected == ""{
+                //nothing selected, if we let it go it brings back random results
+                return
+            }
+        }
+        if queryType == .custom{
+            customFilter(keyword: customKeyword,
+                            category: customCategory,
+                            ingredient: customIngredient)
+            return
+        }
+        if queryType == originalQueryType && selected == originalQuery{
+            //nothing changed, don't do anything
+            return
+        }
+        
+        if queryType == .none ||
+            queryType == .random{
+            return
+        } else {
+            showWelcome = false
+            checkQuery(query: selected, queryType: queryType)
+        }
+    }
 }

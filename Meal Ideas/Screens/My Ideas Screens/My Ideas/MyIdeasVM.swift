@@ -63,7 +63,7 @@ import CoreData
     }
 
     // MARK: - Check Query
-    func checkQuery(query: String, queryType: QueryType){
+     override func checkQuery(query: String, queryType: QueryType){
         if allMeals.isEmpty{
             alertItem = AlertContext.noMeals
             return
@@ -104,7 +104,7 @@ import CoreData
     }
     
     // MARK: - Custom Filter
-    func customFilter(keyword: String, category: String, ingredient: String){
+    override func customFilter(keyword: String, category: String, ingredient: String){
         if keyword == "" &&
             category == "" &&
             ingredient == ""{
@@ -125,26 +125,28 @@ import CoreData
             showWelcome = false
             allResultsShown = false
             surpriseMealReady = false
-            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25, execute: { [ weak self]  in
+                guard let allMeals = self?.allMeals else {return}
+
             // MARK: - Just keyword provided
             if keyword != "" &&
                 category == "" &&
                 ingredient == ""{
-                filterMeals(query: keyword, queryType: .keyword)
+                self?.filterMeals(query: keyword, queryType: .keyword)
             }
             
             // MARK: - Just Category provided
             if keyword == "" &&
                 category != "" &&
                 ingredient == ""{
-                filterMeals(query: category, queryType: .category)
+                self?.filterMeals(query: category, queryType: .category)
             }
             
             // MARK: - Just ingredient provided
             if keyword == "" &&
                 category == "" &&
                 ingredient != ""{
-                filterMeals(query: ingredient, queryType: .ingredient)
+                self?.filterMeals(query: ingredient, queryType: .ingredient)
             }
             // MARK: - Keyword and category
             if keyword != "" &&
@@ -157,14 +159,15 @@ import CoreData
                             if let safeName = meal.mealName{
                                 if safeName.containsIgnoringCase(find: keyword){
                                     print("meal matches cat and keyword: \(meal.mealName ?? "")")
-                                    meals.append(meal)
-                                    isLoading = false
+                                    self?.meals.append(meal)
                                 }
                             }
                         }
                     }
                 }
-                print("Meals count: \(meals.count)")
+                print("Meals count: \(self?.meals.count ?? 0)")
+                self?.isLoading = false
+
             }
             // MARK: - Keyword and ingredient
             if keyword != "" &&
@@ -176,14 +179,15 @@ import CoreData
                             if let safeName = meal.mealName{
                                 if safeName.containsIgnoringCase(find: keyword){
                                     print("meal matches ingredient and keyword: \(meal.mealName ?? "")")
-                                    meals.append(meal)
-                                    isLoading = false
+                                    self?.meals.append(meal)
                                 }
                             }
                         }
                     }
                 }
-                print("Meals count: \(meals.count)")
+                print("Meals count: \(self?.meals.count ?? 0)")
+                self?.isLoading = false
+
             }
             
             // MARK: - Category and ingredient
@@ -196,13 +200,14 @@ import CoreData
                         if safeCategories.contains(category){
                             if safeIngredients.contains(ingredient){
                                 print("meal matches ingredient and category: \(meal.mealName ?? "")")
-                                meals.append(meal)
-                                isLoading = false
+                                self?.meals.append(meal)
                             }
                         }
                     }
                 }
-                print("Meals count: \(meals.count)")
+                print("Meals count: \(self?.meals.count ?? 0)")
+                self?.isLoading = false
+
             }
             
             // MARK: - All three provided
@@ -217,16 +222,18 @@ import CoreData
                                 if let safeName = meal.mealName{
                                     if safeName.containsIgnoringCase(find: keyword){
                                         print("meal matches all three: \(meal.mealName ?? "")")
-                                        meals.append(meal)
-                                        isLoading = false
+                                        self?.meals.append(meal)
                                     }
                                 }
                             }
                         }
                     }
                 }
-                print("Meals count: \(meals.count)")
+                print("Meals count: \(self?.meals.count ?? 0)")
+                self?.isLoading = false
+
             }
+            })
         }
         
         
