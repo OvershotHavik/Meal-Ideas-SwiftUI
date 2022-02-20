@@ -16,57 +16,6 @@ struct ShoppingListView: View {
                 if shopping.allShoppingList.isEmpty{
                     NoResultsView(message: Messages.noShoppingList.rawValue)
                 }
-                HStack{
-                    if shopping.anyChecked{
-                        Button {
-                            print("delete checked")
-                            withAnimation {
-                                PersistenceController.shared.removeCheckedItems()
-                                shopping.getShoppingList()
-                            }
-
-                        } label: {
-                            Text("Delete checked items")
-                        }
-                        .buttonStyle(.borderedProminent)
-                    }
-                    
-                    Spacer()
-                    
-                    if !shopping.allShoppingList.isEmpty{
-                        Button  {
-                            print("Clear all")
-                            withAnimation {
-                                PersistenceController.shared.clearAllShoppingList()
-                                shopping.getShoppingList()
-                            }
-
-                        } label: {
-                            Text("Clear all items")
-                        }
-                        .buttonStyle(.borderedProminent)
-                    }
-                }
-                .accentColor(.red)
-                .padding()
-
-                /*
-                Form {
-                    ForEach(shopping.mealNames, id: \.self){ meal in
-                        Section(header: Text(meal)){
-                            let filteredMeals = shopping.allShoppingList.filter({$0.mealName == meal})
-                            ForEach(filteredMeals, id: \.self) { i in
-                                DetailViewIngredientCell(ingredient: i.ingredient ?? "",
-                                                         measurement: i.measurement ?? "",
-                                                         selected: i.checkedOff,
-                                                         mealName: i.mealName ?? "",
-                                                         inShoppingList: true)
-                                
-                            }
-                        }
-                    }
-                }
-                 */
                 Form {
                     ForEach(vm.mealNames, id: \.self){ meal in
                         Section(header: Text(meal)){
@@ -83,15 +32,73 @@ struct ShoppingListView: View {
                     }
                 }
                 .searchable(text: $vm.searchText)
-                .navigationTitle(Text(Titles.shoppingList.rawValue))
+
+                .alert("Are you sure you want to clear checked items?", isPresented: $vm.showingClearCheckedAlert) {
+                    Button("Clear Checked Items", role: .destructive) {
+                        withAnimation {
+                            PersistenceController.shared.removeCheckedItems()
+                            shopping.getShoppingList()
+                            vm.allShoppingList = shopping.allShoppingList
+                            vm.mealNames = shopping.mealNames
+                        }
+
+                    }
+                    Button("Cancel", role: .cancel) { }
+                }
+                .alert("Are you sure you want to clear all items?", isPresented: $vm.showingClearAllAlert) {
+                    Button("Clear All Items", role: .destructive) {
+                        withAnimation {
+                            PersistenceController.shared.clearAllShoppingList()
+                            shopping.getShoppingList()
+                            vm.allShoppingList = shopping.allShoppingList
+                            vm.mealNames = shopping.mealNames
+                        }
+
+                    }
+                    Button("Cancel", role: .cancel) { }
+                }
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    if shopping.anyChecked{
+                        Button {
+                            print("delete checked")
+                            withAnimation {
+                                vm.showingClearCheckedAlert.toggle()
+                            }
+                        } label: {
+                            Text("Delete checked")
+                        }
+                        .accentColor(.red)
+                    }
+                }
+                ToolbarItem(placement: .principal, content: {
+                    Text(Titles.shoppingList.rawValue)
+                })
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    if !shopping.allShoppingList.isEmpty{
+                        Button  {
+                            print("Clear all")
+                            withAnimation {
+                                vm.showingClearAllAlert.toggle()
+                            }
+                        } label: {
+                            Text("Clear all")
+                        }
+                        .accentColor(.red)
+                    }
+                }
             }
         }
+
         .navigationViewStyle(StackNavigationViewStyle())
         .onAppear{
             shopping.getShoppingList()
             vm.allShoppingList = shopping.allShoppingList
             vm.mealNames = shopping.mealNames
         }
+
     }
 }
 

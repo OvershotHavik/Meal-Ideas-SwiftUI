@@ -12,6 +12,8 @@ class ShoppingListVM: ObservableObject{
     @Published var allShoppingList: [ShoppingList] = []
     @Published var anyChecked = false
     @Published var mealNames: [String] = []
+    @Published var showingClearAllAlert = false
+    @Published var showingClearCheckedAlert = false
     
     var searchResults: [ShoppingList] {
         if searchText.isEmpty {
