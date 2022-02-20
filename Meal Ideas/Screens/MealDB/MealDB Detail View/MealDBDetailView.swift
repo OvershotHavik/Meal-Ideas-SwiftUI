@@ -10,6 +10,7 @@ import SwiftUI
 struct MealDBDetailView: View {
     @StateObject var vm : MealDBDetailVM
     @EnvironmentObject var query: Query
+    @EnvironmentObject var shopping: Shopping
     var body: some View {
         ZStack{
             vm.backgroundColor
@@ -44,6 +45,9 @@ struct MealDBDetailView: View {
                 LinkView(url: vm.meal?.strSource ?? "", title: "Visit Source")
             }
             .padding()
+            .onAppear{
+                shopping.getShoppingList()
+            }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar{
                 ToolbarItemGroup(placement: .navigationBarTrailing) {

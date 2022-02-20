@@ -10,7 +10,7 @@ import SwiftUI
 struct SpoonDetailView: View {
     @StateObject var vm: SpoonDetailVM
     @EnvironmentObject var query: Query
-    
+    @EnvironmentObject var shopping: Shopping
     var body: some View {
         ZStack{
             vm.backgroundColor
@@ -64,6 +64,9 @@ struct SpoonDetailView: View {
             }
             
             .padding()
+            .onAppear{
+                shopping.getShoppingList()
+            }
             .toolbar{
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     if let website = vm.meal?.sourceUrl{

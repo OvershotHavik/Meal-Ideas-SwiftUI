@@ -10,7 +10,7 @@ import SwiftUI
 struct MyIdeasDetailView: View {
     @StateObject var vm : MyIdeasDetailVM
     @EnvironmentObject var query: Query
-    
+    @EnvironmentObject var shopping: Shopping
     
     var body: some View {
         ZStack{
@@ -64,6 +64,9 @@ struct MyIdeasDetailView: View {
                 LinkView(url: vm.meal?.source, title: "Visit Source")
             }
             .padding()
+            .onAppear{
+                shopping.getShoppingList()
+            }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar{
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
