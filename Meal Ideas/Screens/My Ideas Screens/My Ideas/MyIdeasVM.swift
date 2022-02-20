@@ -53,10 +53,13 @@ import CoreData
         showWelcome = false
         allResultsShown  = false
         surpriseMealReady = false
-        
-        meals = allMeals
-        allResultsShown = true
-        isLoading = false
+        isLoading = true
+        meals = []
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25, execute: { [ weak self]  in
+            self?.meals = self?.allMeals ?? []
+            self?.allResultsShown = true
+            self?.isLoading = false
+        })
     }
 
     // MARK: - Check Query
