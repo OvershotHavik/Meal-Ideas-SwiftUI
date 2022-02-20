@@ -52,3 +52,12 @@ Verizon 0.1.1 update:
 - Updated the onboarding images to show the phone instead of just the screenshots to clear some confusion.  Also added a "Swipe to continue" at the bottom since the page dots are hard to see in light mode.
 - Adjusted some text line breaks and shortened titles so they didn't get cut off.
 - Added a share button on the meal detail screens, and updated the zoomed image view so now it shares the URL of the meal if one is provided. The share button is not visible if source is not provided.
+
+Version 0.2.0 Update:
+
+Shopping List added!
+
+- Tap on an ingredient from any meal, and it will get added to the shopping list tab at the bottom
+- Once added to the list, you can check them off as you pick them up at the store
+- You can clear the list either by checking them off and choosing "delete checked" or you can clear all
+- Any items added tot he shopping card will show checked off on the meal's detail view.
