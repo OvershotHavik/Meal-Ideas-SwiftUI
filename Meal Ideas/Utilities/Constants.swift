@@ -99,12 +99,12 @@ enum Messages: String{
     case noMealsMyIdeas = "No meals found for your search. \n You can create a new one to match this search by tapping the edit icon at the top left."
     case noIngredient = "No meals have been created that contain ingredients."
     case noCategory = "No meals have been created that contain any categories."
-    case noMealsFound = "No meals found for your search"
-    case tapToCreate = "Tap the + to create a meal"
-    case noFavorites = "No favorites saved yet"
-    case noHistory = "No meals viewed"
-    case addToShoppingList = "Tap an ingredient to add it to the shopping list"
-    case noShoppingList = "Nothing selected for your shopping list"
+    case noMealsFound = "No meals found for your search."
+    case tapToCreate = "Tap the + to create a meal."
+    case noFavorites = "No favorites saved yet."
+    case noHistory = "No meals viewed."
+    case addToShoppingList = "Tap an ingredient to add it to the shopping list."
+    case noShoppingList = "No ingredients selected for your shopping list."
 }
 
 
