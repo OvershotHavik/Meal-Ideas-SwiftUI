@@ -601,7 +601,7 @@ struct PersistenceController {
 
         do{
             let savedItems = try container.viewContext.fetch(request)
-            guard let index = savedItems.firstIndex(where: {$0.mealName == mealName && $0.ingredient == ingredient}) else {return}
+            guard let index = savedItems.firstIndex(where: {$0.mealName == mealName && $0.ingredient == ingredient && $0.measurement == measurement}) else {return}
             let shoppingListItem = savedItems[index]
             print("removing \(mealName) - \(ingredient ?? "") - \(measurement ?? "") from shopping list")
             print("removing: \(shoppingListItem)")
@@ -629,12 +629,12 @@ struct PersistenceController {
     }
     
     // MARK: - Update SHopping List Item
-    func updateShoppingListItem(mealName: String, ingredient: String, checkedOff: Bool){
+    func updateShoppingListItem(mealName: String, ingredient: String, measurement: String, checkedOff: Bool){
         let request = NSFetchRequest<ShoppingList>(entityName: EntityName.ShoppingList.rawValue)
 
         do {
             let savedItems = try container.viewContext.fetch(request)
-            guard let index = savedItems.firstIndex(where: {$0.mealName == mealName && $0.ingredient == ingredient}) else
+            guard let index = savedItems.firstIndex(where: {$0.mealName == mealName && $0.ingredient == ingredient && $0.measurement == measurement}) else
             {return}
             let shoppingListItem = savedItems[index]
             shoppingListItem.checkedOff = checkedOff
@@ -650,6 +650,7 @@ struct PersistenceController {
         do{
             let savedItems = try container.viewContext.fetch(request)
             for item in savedItems{
+
                 if item.checkedOff{
                     container.viewContext.delete(item)
                 }
@@ -661,3 +662,4 @@ struct PersistenceController {
     }
 }
 
+//when selecting multiple times to delete, not all items delete for some reason, they stay checked off on the list, but they don't get deleted, you have to toggle the check again for it to work 

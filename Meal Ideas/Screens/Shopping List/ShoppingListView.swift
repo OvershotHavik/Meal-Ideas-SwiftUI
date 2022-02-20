@@ -68,7 +68,7 @@ struct ShoppingListView: View {
                 .navigationTitle(Text(Titles.shoppingList.rawValue))
             }
         }
-
+        .navigationViewStyle(StackNavigationViewStyle())
         .onAppear{
             shopping.getShoppingList()
         }

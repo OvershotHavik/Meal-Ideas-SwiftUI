@@ -58,6 +58,7 @@ struct DetailViewIngredientCell: View {
                     // only runs for shopping list to change the core data object
                     PersistenceController.shared.updateShoppingListItem(mealName: mealName,
                                                                         ingredient: ingredient,
+                                                                        measurement: measurement,
                                                                         checkedOff: selected)
                     shopping.getShoppingList()
                 }
