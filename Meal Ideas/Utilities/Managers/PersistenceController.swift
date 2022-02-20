@@ -662,5 +662,3 @@ struct PersistenceController {
         }
     }
 }
-
-//when selecting multiple times to delete, not all items delete for some reason, they stay checked off on the list, but they don't get deleted, you have to toggle the check again for it to work 
