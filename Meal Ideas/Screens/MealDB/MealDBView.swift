@@ -10,6 +10,8 @@ import SwiftUI
 struct MealDBView: View {
     @StateObject var vm: MealDBVM
     @EnvironmentObject var query: Query
+    @EnvironmentObject var userEnvironment: UserEnvironment
+
     let columns = [GridItem(), GridItem()]
     
     var body: some View {
@@ -75,6 +77,7 @@ struct MealDBView: View {
             .toolbar {
                 ToolbarItem(placement: .principal, content: {
                     Text(Titles.mainTitle.rawValue)
+                        .foregroundColor(userEnvironment.topLeftColor.isLight() ? .black : .white)
                 })
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     
@@ -84,7 +87,7 @@ struct MealDBView: View {
                     }
                     NavigationLink(destination: HistoryListView(vm: HistoryListVM(source: .mealDB))) {
                         Image(systemName: "book")
-                            .foregroundColor(.primary)
+                            .foregroundColor(userEnvironment.topLeftColor.isLight() ? .black : .white)
                     }
                 }
             }

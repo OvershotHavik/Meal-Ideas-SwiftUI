@@ -10,6 +10,8 @@ import SwiftUI
 struct SpoonView: View {
     @StateObject var vm : SpoonVM
     @EnvironmentObject var query: Query
+    @EnvironmentObject var userEnvironment: UserEnvironment
+
     let columns = [GridItem(), GridItem()]
     
     var body: some View {
@@ -78,6 +80,7 @@ struct SpoonView: View {
             .toolbar {
                 ToolbarItem(placement: .principal, content: {
                     Text(Titles.mainTitle.rawValue)
+                        .foregroundColor(userEnvironment.topLeftColor.isLight() ? .black : .white)
                 })
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     NavigationLink(destination: FavoritesListView(vm: FavoritesListVM(source: .spoonacular))) {
@@ -86,7 +89,7 @@ struct SpoonView: View {
                     }
                     NavigationLink(destination: HistoryListView(vm: HistoryListVM(source: .spoonacular))) {
                         Image(systemName: "book")
-                            .foregroundColor(.primary)
+                            .foregroundColor(userEnvironment.topLeftColor.isLight() ? .black : .white)
                     }
                 }
             }

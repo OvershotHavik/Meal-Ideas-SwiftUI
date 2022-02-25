@@ -10,6 +10,7 @@ import SwiftUI
 struct MyIdeasView: View {
     @StateObject var vm : MyIdeasVM
     @EnvironmentObject var query: Query
+    @EnvironmentObject var userEnvironment: UserEnvironment
     
     var body: some View {
         NavigationView{
@@ -78,11 +79,12 @@ struct MyIdeasView: View {
                     NavigationLink(destination: EditMealsListView(vm: EditMealsListVM())) {
                         Image(systemName: "square.and.pencil")
                             .padding(.horizontal)
-                            .foregroundColor(.primary)
+                            .foregroundColor(userEnvironment.topLeftColor.isLight() ? .black : .white)
                     }
                 }
                 ToolbarItem(placement: .principal, content: {
                     Text(Titles.mainTitle.rawValue)
+                        .foregroundColor(userEnvironment.topLeftColor.isLight() ? .black : .white)
                 })
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     NavigationLink(destination: FavoritesListView(vm: FavoritesListVM(source: .myIdeas))) {
@@ -91,7 +93,7 @@ struct MyIdeasView: View {
                     }
                     NavigationLink(destination: HistoryListView(vm: HistoryListVM(source: .myIdeas))) {
                         Image(systemName: "book")
-                            .foregroundColor(.primary)
+                            .foregroundColor(userEnvironment.topLeftColor.isLight() ? .black : .white)
                     }
                 }
             }
@@ -130,6 +132,7 @@ struct MyIdeasView: View {
                     vm.checkQuery(query: query.selected, queryType: query.queryType)
                 }
             })
+ 
         }
         .accentColor(.primary)
         .navigationViewStyle(StackNavigationViewStyle())

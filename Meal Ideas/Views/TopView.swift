@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TopView: View{
     @EnvironmentObject var query : Query
+    @EnvironmentObject var userEnvironment: UserEnvironment
     @Binding var keywordSearchTapped: Bool
     @Binding var getRandomMeals : Bool
     @Binding var source: Source
@@ -23,6 +24,7 @@ struct TopView: View{
                 Text("Surprise \nMe")
                     .lineLimit(2)
             })
+                .foregroundColor(userEnvironment.topLeftColor.isLight() ? .black : .white)
 
             TextField("Search...", text: $query.keyword)
                 .textFieldStyle(CustomRoundedCornerTextField())
@@ -73,6 +75,8 @@ struct TopView: View{
                 } label: {// Menu label
                 Image(systemName: "slider.horizontal.3")
                         .padding()
+                        .foregroundColor(userEnvironment.topLeftColor.isLight() ? .black : .white)
+
             }
                 .font(.title)
         }

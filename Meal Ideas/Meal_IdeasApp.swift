@@ -15,11 +15,11 @@ struct Meal_IdeasApp: App {
     let shopping = Shopping()
     var body: some Scene {
         WindowGroup {
-            MealIdeasTabView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                .environmentObject(query)
-                .environmentObject(userEnvironment)
-                .environmentObject(shopping)
-        }
+                MealIdeasTabView()
+                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                    .environmentObject(query)
+                    .environmentObject(userEnvironment)
+                    .environmentObject(shopping)
+            }
     }
 }

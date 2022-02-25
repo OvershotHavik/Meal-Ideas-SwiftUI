@@ -9,7 +9,7 @@ import UIKit
 import SwiftUI
 
 
-class UI{
+enum UI{
     static let topViewOffsetSpacing = CGFloat(95)
     static let verticalSpacing = CGFloat(25)
 }
@@ -127,7 +127,7 @@ final class APIKey{
     
 }
 */
-final class BaseURL{
+enum BaseURL{
     static let ingredientsList = "https://www.themealdb.com/api/json/v1/1/list.php?i=list"
     static let ingredientImage = "https://www.themealdb.com/images/ingredients/"
 

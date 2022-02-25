@@ -112,14 +112,15 @@ struct SampleTopView: View{
         HStack(spacing: 5){
             Text("Surprise \nMe")
                 .lineLimit(2)
-            
+                .foregroundColor(userEnvironment.topLeftColor.isLight() ? .black : .white)
             TextField("Sample", text: $sample)
                 .textFieldStyle(CustomRoundedCornerTextField())
             
             Image(systemName: "slider.horizontal.3")
+                .foregroundColor(userEnvironment.bottomRightColor.isLight() ? .black : .white)
         }
         .padding()
-        .foregroundColor(.primary)
+        
         .background(BackgroundGradientView())
     }
 }
