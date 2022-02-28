@@ -115,6 +115,11 @@ enum Messages: String{
     case allResultsShown = "All results shown for this search"
 }
 
+enum ShoppingListMessage: String{
+    case add = "Added to the Shopping List tab."
+    case remove = " Removed from the Shopping List tab."
+}
+
 
 enum ImageNames: String{
     case placeholderMeal = "Placeholder"
