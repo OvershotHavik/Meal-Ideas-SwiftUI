@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MealIdeasTabView: View {
-    @AppStorage("shouldShowOnboarding") var shouldShowOnboarding: Bool = true
+    @AppStorage("shouldShowInitialOnboarding") var shouldShowInitialOnboarding: Bool = true
     
     @EnvironmentObject var query: Query
     @EnvironmentObject var userEnvironment: UserEnvironment
@@ -36,8 +36,8 @@ struct MealIdeasTabView: View {
                     Label("Settings", systemImage: "gearshape.fill")
                 }
         }
-        .fullScreenCover(isPresented: $shouldShowOnboarding, content: {
-            OnboardingView(shouldShowOnboarding: $shouldShowOnboarding)
+        .fullScreenCover(isPresented: $shouldShowInitialOnboarding, content: {
+            InitialOnboardingView(shouldShowInitialOnboarding: $shouldShowInitialOnboarding)
         })
         .onAppear{
             query.getFavorites()

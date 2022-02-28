@@ -65,14 +65,14 @@ import SwiftUI
                         modified = "Side"
                     }
                     meals = try await NetworkManager.shared.mealDBQuery(query: modified, queryType: .category)
-                    allResultsShown = true
+                    allResultsToggle()
                     
                 case .ingredient:
                     let modifiedIngredient = query.replacingOccurrences(of: " ", with: "_")
                     
                     meals = try await NetworkManager.shared.mealDBQuery(query: modifiedIngredient,
                                                                         queryType: .ingredient)
-                    allResultsShown = true
+                    allResultsToggle()
                     print("ing")
                     
                 case .none:
@@ -83,7 +83,7 @@ import SwiftUI
                     let modifiedKeyword = query.replacingOccurrences(of: " ", with: "%20")
                     meals = try await NetworkManager.shared.mealDBQuery(query: modifiedKeyword,
                                                                         queryType: .keyword)
-                    allResultsShown = true
+                    allResultsToggle()
                     
                     
                 case .custom:
@@ -193,7 +193,7 @@ import SwiftUI
                             }
                         }
                         print("Meals count: \(meals.count)")
-                        allResultsShown = true
+                        allResultsToggle()
                     }
                     
                     // MARK: - Keyword and ingredient
@@ -213,7 +213,7 @@ import SwiftUI
                             }
                         }
                         print("meals count: \(meals.count)")
-                        allResultsShown = true
+                        allResultsToggle()
                     }
                     
                     // MARK: - Category and ingredient
@@ -237,7 +237,7 @@ import SwiftUI
                         
                         meals = catMeals.filter{ingMeals.contains($0)}
                         print("meals count: \(meals.count)")
-                        allResultsShown = true
+                        allResultsToggle()
                     }
                     
                     // MARK: - All three provided
@@ -270,7 +270,7 @@ import SwiftUI
                             }
                         }
                         print("meals count: \(meals.count)")
-                        allResultsShown = true
+                        allResultsToggle()
                     }
                     
                     
@@ -306,6 +306,15 @@ import SwiftUI
                     self.isLoading = false
                 }
             }
+        }
+    }
+    
+    
+    func allResultsToggle(){
+        if meals.isEmpty{
+            allResultsShown = false // hide the alert
+        } else {
+            allResultsShown = true
         }
     }
     

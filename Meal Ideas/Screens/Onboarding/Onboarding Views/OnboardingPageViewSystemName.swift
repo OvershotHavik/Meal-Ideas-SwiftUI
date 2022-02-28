@@ -21,7 +21,7 @@ struct OnboardingPageViewSystemName: View{
                 Image(systemName: image)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: screenBounds.size.width, height: screenBounds.size.height/3)
+                    .frame(width: screenBounds.size.width/2, height: screenBounds.size.height/3)
                 Text(title.rawValue)
                     .font(.title)
                     .multilineTextAlignment(.center)
@@ -42,6 +42,17 @@ struct OnboardingPageViewSystemName: View{
                             .frame(width: 200, height: 50)
                             .background(.blue)
                             .cornerRadius(6)
+                    }
+                    Spacer()
+                }else {
+                    VStack{
+                        HStack(spacing: 10){
+                            Text("Swipe to Continue")
+                            Image(systemName: "chevron.right")
+                        }
+                        Rectangle()
+                            .fill(.clear)
+                            .frame(height: 20)
                     }
                 }
                 Spacer()

@@ -125,6 +125,8 @@ enum ShoppingListMessage: String{
 enum ImageNames: String{
     case placeholderMeal = "Placeholder"
     case filterMenuImage = "FilterMenuImage"
+    
+    //Onboarding
     case adaptiveFilterImage = "AdaptiveFilterImage"
     case tabBarImage = "TabBarImage"
     case topViewEditHighlightImage = "TopViewEditHighlightImage"
@@ -132,6 +134,13 @@ enum ImageNames: String{
     case topViewFavoritesHighlighted = "TopViewFavoritesHighlighted"
     case myIdeasList = "MyIdeasList"
     case createAMealImage = "CreateAMealImage"
+    
+    //shopping List Onboarding
+    case SLIcon = "ShoppingListIcon"
+    case SLAdd = "SLAdd"
+    case SLRemove = "SLRemoveChecked"
+    case SLSearchable = "SLSearchable"
+    case SLSeparation = "SLSeparation"
 }
 
 
@@ -166,4 +175,48 @@ enum BaseURL{
     
     static let spoonSingleBase = "https://api.spoonacular.com/recipes/"
     static let SpoonSingleSuffix = "/information?includeNutrition=false" + APIKey.spoon
+}
+
+
+enum OnboardingTitles: String{
+    //Original onboarding
+    case welcome = "Welcome to Meal Ideas!"
+    case myIdeasList = "Your Ideas"
+    case createYourFirst = "Create Your Meal Idea"
+    case addCustom = "Add Custom Items"
+    case searchForIdeas = "Searching for Ideas"
+    case adaptiveFilter = "Adaptive Filters"
+    case additionalSources = "Additional Sources"
+    case favoritesAndHistory = "Favorites and History"
+    case shoppingList = "Shopping List"
+    case cloudKitEnabled = "Sync Across Devices"
+    
+    //Shopping List
+    case onceAdded = "Add Ingredients"
+    case mealSeparation = "Meal Separation"
+    case searchable = "Search Across All Meals"
+    case clearingList = "Clear Shopping List"
+}
+
+
+enum OnboardingSecondary: String{
+    //Original Onboarding
+    case welcome = "To get to your meals, use the Edit button at the top left."
+    case myIdeasList = "Here is where you can select a meal to edit. \n\nTap the + to create a new meal."
+    case createYourFirst = "Here you will be able to fill in the information for your meal. \n\nThe only thing that is required is the meal name. \n\nHowever, the more you add the better the filters will work."
+    case addCustom = "Not seeing a category, ingredient, or side you want? \n\nTap the + to add your own custom ones! \n\nThese can be edited in the Settings tab."
+    case searchForIdeas = "Tap Surprise Me for a random meal. \n\nOr search by keyword in the text field. \n\nOr tap the filter icon to get more options."
+    case adaptiveFilter = "For My Ideas only: \nThe filters will only show choices for ingredients or categories for meals that have been created with them. \n\nThe other sources only list categories that are supported by them."
+    case additionalSources = "Not sure what to make? \n\nNeed some more inspiration? \n\nYou can search other sources! \n\nWhichever search type you select will cary over to the other sources automatically."
+    case favoritesAndHistory = "Each source keeps track of the meals you have viewed, along with favorited meals. \n\nThese can be viewed here."
+    case shoppingList = "You can tap ingredients to add them to the Shopping List. \n\nTap the Shopping List Tab to learn more."
+    case cloudKitEnabled = "Any meals you create, custom items, shopping list, favorites and history for each source is synced across your iPhone and iPad devices."
+    
+    //Shopping List
+    case shoppingListIntro = "You can now select ingredients from meals and store them in the shopping list tab."
+    case onceAdded = "When you tap an ingredient in the list, it will show a check mark. \n\nIt will remain checked until you either tap it again to remove it, or remove it from the shopping list."
+    case mealSeparation = "Each meal will get it's own section as you add ingredients from different meals."
+    case searchable = "You can pull down to search for an ingredient. \n\nIf the meal contains the ingredient, it will show it. \n\nOtherwise the meal won't show any ingredients below the title."
+    case clearingList = "You can check off items as you pick them up. \n\nAt the top of the screen either tap the \"Remove Checked\" or \"Clear All\" buttons."
+    case shoppingCloudKitEnabled = "Your shopping list will be synced across your iPhone and iPad devices."
 }

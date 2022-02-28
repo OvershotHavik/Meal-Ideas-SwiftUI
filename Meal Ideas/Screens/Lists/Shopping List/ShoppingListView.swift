@@ -10,7 +10,8 @@ import SwiftUI
 struct ShoppingListView: View {
     @StateObject var vm = ShoppingListVM()
     @EnvironmentObject var shopping : Shopping
-    
+    @AppStorage("shouldShowShoppingListOnboarding") var shouldShowShoppingListOnboarding: Bool = true
+
     
     var body: some View {
         NavigationView{
@@ -59,6 +60,9 @@ struct ShoppingListView: View {
                     Button("Cancel", role: .cancel) { }
                 }
             }
+            .fullScreenCover(isPresented: $shouldShowShoppingListOnboarding, content: {
+                ShoppingListOnboardingView(shouldShowShoppingListOnboarding: $shouldShowShoppingListOnboarding)
+            })
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -96,5 +100,6 @@ struct ShoppingListView: View {
             vm.allShoppingList = shopping.allShoppingList
             vm.mealNames = shopping.mealNames
         }
+        
     }
 }
