@@ -11,7 +11,8 @@ final class ImageLoader: ObservableObject{
     @Published var image: Image? = nil
     //If network call is good, pass up the actual image, if it's nil, it stays the placeholder
     func load(fromURLString urlString: String){
-        NetworkManager.shared.downloadImage(fromURLString: urlString) { uiImage in
+        NetworkManager.shared.downloadImage(fromURLString: urlString) {[weak self] uiImage in
+            guard let self = self else {return}
             guard let uiImage = uiImage else { return }
             DispatchQueue.main.async {
                 self.image = Image(uiImage: uiImage)
@@ -27,10 +28,11 @@ final class ImageLoaderFromData: ObservableObject{
     
     func loadFromData(mealPhotoData: Data){
         DispatchQueue.global().async { [weak self] in
+            guard let self = self else {return}
             let tempImage = UIImage(data: mealPhotoData) ?? UIImage(imageLiteralResourceName: ImageNames.placeholderMeal.rawValue)
             DispatchQueue.main.async {
-                self?.image = tempImage
-                self?.isLoading = false
+                self.image = tempImage
+                self.isLoading = false
             }
         }
     }

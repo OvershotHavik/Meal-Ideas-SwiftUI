@@ -297,6 +297,7 @@ import SwiftUI
         }
     }
     
+    
     func stopLoading(){
         if isLoading{
             DispatchQueue.main.asyncAfter(deadline: .now() + 7.5) {

@@ -219,6 +219,8 @@ struct EditIdeaView: View {
 
 struct MealNameTextField: View{
     @StateObject var vm: EditIdeaVM
+    
+    
     var body: some View{
         TextField(vm.meal?.mealName ?? "Meal Name*", text: $vm.mealName)
             .textFieldStyle(CustomRoundedCornerTextField())
@@ -236,6 +238,8 @@ struct MealNameTextField: View{
 
 struct MealPhotoButtonView: View{
     @StateObject var vm: EditIdeaVM
+    
+    
     var body: some View{
         Button {
             vm.isMPActionSheetPresented.toggle()
@@ -249,11 +253,15 @@ struct MealPhotoButtonView: View{
 
 struct MealPhotoView: View{
     @StateObject var vm: EditIdeaVM
+    
+    
     var body: some View{
         HStack{
-            Image(uiImage: vm.mealPhoto)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
+            NavigationLink(destination: ZoomImageView(image: vm.mealPhoto, website: nil)) {
+                Image(uiImage: vm.mealPhoto)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+            }
             Button {
                 vm.mealPhoto = UIImage()
             } label: {
@@ -268,6 +276,8 @@ struct MealPhotoView: View{
 
 struct CategorySelectView: View{
     @StateObject var vm: EditIdeaVM
+    
+    
     var body: some View{
         NavigationLink(destination: MultiChoiceListView(vm: MultiChoiceListVM(PList: .categories,
                                                                               editIdeaVM: vm,
@@ -281,6 +291,8 @@ struct CategorySelectView: View{
 
 struct IngredientSelectView: View{
     @StateObject var vm: EditIdeaVM
+    
+    
     var body: some View{
         
         NavigationLink(destination: MultiIngredientListView(vm: MultiIngredientListVM(editVM: vm,
@@ -293,6 +305,8 @@ struct IngredientSelectView: View{
 
 struct IngredientHStack: View{
     @StateObject var vm: EditIdeaVM
+    
+    
     var body: some View{
         ForEach($vm.userIngredients) {$ing in
             HStack{
@@ -310,6 +324,8 @@ struct IngredientHStack: View{
 
 struct SidesButtonView: View{
     @StateObject var vm: EditIdeaVM
+    
+    
     var body: some View{
         NavigationLink(destination: MultiChoiceListView(vm: MultiChoiceListVM(PList: .sides,
                                                                               editIdeaVM: vm,
@@ -321,9 +337,10 @@ struct SidesButtonView: View{
 }
 
 
-
 struct MealInstructionsButtonView: View{
     @StateObject var vm: EditIdeaVM
+    
+    
     var body: some View{
         Button {
             vm.isMIActionSheetPresented.toggle()
@@ -337,11 +354,15 @@ struct MealInstructionsButtonView: View{
 
 struct InstructionPhotoView: View{
     @StateObject var vm: EditIdeaVM
+    
+    
     var body: some View{
         HStack{
-            Image(uiImage: vm.instructionsPhoto)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
+            NavigationLink(destination: ZoomImageView(image: vm.instructionsPhoto, website: nil)) {
+                Image(uiImage: vm.instructionsPhoto)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+            }
             Button {
                 vm.instructionsPhoto = UIImage()
             } label: {
@@ -356,6 +377,8 @@ struct InstructionPhotoView: View{
 
 struct SaveButtonView: View{
     var vm: EditIdeaVM
+    
+    
     var body: some View{
         Button {
             vm.saveMeal()
@@ -371,6 +394,8 @@ struct SaveButtonView: View{
 struct DeleteButtonView: View{
     var vm: EditIdeaVM
     @Binding var showingDeleteAlert: Bool
+    
+    
     var body: some View{
         Button {
             showingDeleteAlert = true
@@ -386,6 +411,8 @@ struct DeleteButtonView: View{
 
 struct MealPhotoActionSheet: ViewModifier{
     @StateObject var vm: EditIdeaVM
+    
+    
     func body(content: Content) -> some View {
         content
             .actionSheet(isPresented: $vm.isMPActionSheetPresented, content: {
@@ -423,6 +450,8 @@ struct MealPhotoActionSheet: ViewModifier{
 
 struct MealInstructionsActionSheet: ViewModifier{
     @StateObject var vm: EditIdeaVM
+    
+    
     func body(content: Content) -> some View {
         content
             .actionSheet(isPresented: $vm.isMIActionSheetPresented, content: {
@@ -460,6 +489,8 @@ struct MealInstructionsActionSheet: ViewModifier{
 
 struct PrepTimePickerView: View{
     @StateObject var vm: EditIdeaVM
+    
+    
     var body: some View{
         HStack {
             GeometryReader { geometry in
