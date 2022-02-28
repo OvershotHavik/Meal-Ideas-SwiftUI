@@ -111,9 +111,10 @@ enum Messages: String{
     case noFavorites = "No favorites saved yet."
     case noHistory = "No meals viewed."
     case addToShoppingList = "Tap an ingredient to add it to the shopping list."
-    case noShoppingList = "No ingredients selected for your shopping list."
+    case noShoppingList = "Tap on ingredients in meals to add them to your shopping list."
     case allResultsShown = "All results shown for this search"
 }
+
 
 enum ShoppingListMessage: String{
     case add = "Added to the Shopping List tab."
@@ -132,6 +133,8 @@ enum ImageNames: String{
     case myIdeasList = "MyIdeasList"
     case createAMealImage = "CreateAMealImage"
 }
+
+
 /*
 //Uncomment this section to clear the alerts. The network calls will not work but the app can be used for user meals
 final class APIKey{
@@ -157,11 +160,9 @@ enum BaseURL{
     
     static let spoonRandom = "https://api.spoonacular.com/recipes/random?number=1" + APIKey.spoon
 
-    
     static let spoonCategories = spoonComplexBase + SpoonTags.category.rawValue
     static let spoonIngredients = spoonComplexBase + SpoonTags.ingredient.rawValue
     static let spoonKeyword = spoonComplexBase + SpoonTags.keyword.rawValue
-    
     
     static let spoonSingleBase = "https://api.spoonacular.com/recipes/"
     static let SpoonSingleSuffix = "/information?includeNutrition=false" + APIKey.spoon
