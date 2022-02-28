@@ -87,7 +87,8 @@ struct MealDBView: View {
                     }
                     NavigationLink(destination: HistoryListView(vm: HistoryListVM(source: .mealDB))) {
                         Image(systemName: "book")
-                            .foregroundColor(.primary)
+                            .foregroundColor(.primary
+                            )
                     }
                 }
             }

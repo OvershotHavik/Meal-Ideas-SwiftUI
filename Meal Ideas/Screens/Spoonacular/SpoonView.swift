@@ -101,48 +101,54 @@ struct SpoonView: View {
             .onAppear {
                 query.getHistory()
                 query.getFavorites()
-                vm.surpriseMeal = nil
-                if query.queryType == .category ||
-                    query.queryType == .ingredient{
-                    if query.selected == ""{
-                        //nothing selected, if we let it go it brings back random results
-                        return
-                    }
-                }
-                if query.queryType == vm.originalQueryType && query.selected == vm.originalQuery{
-                    //nothing changed, don't do anything
-                    return
-                }
-                vm.resetValues()
-                
-                if query.queryType == .custom{
-                    if !vm.sourceCategories.contains(query.customCategory) &&
-                        query.customCategory != ""{
-                        //If the user selected a category that isn't supported, return with no meals found
-                        vm.meals = []
-                        vm.showWelcome = false
-                        return
-                    } else {
-                        vm.customFilter(keyword: query.customKeyword,
-                                        category: query.customCategory,
-                                        ingredient: query.customIngredient)
-                        return
-                    }
-                }
-                if query.queryType == .none ||
-                    query.queryType == .random{
-                    return
-                } else {
-                    if !vm.sourceCategories.contains(query.customCategory) &&
-                        query.customCategory != ""{
-                        //If the user selected a category that isn't supported, return with no meals found
-                        vm.meals = []
-                        vm.showWelcome = false
-                        return
-                    }
-                    vm.showWelcome = false
-                    vm.checkQuery(query: query.selected, queryType: query.queryType)
-                }
+                vm.sourceOnAppear(queryType: query.queryType,
+                                  selected: query.selected,
+                                  customKeyword: query.customKeyword,
+                                  customCategory: query.customCategory,
+                                  customIngredient: query.customIngredient)
+//
+//                vm.surpriseMeal = nil
+//                if query.queryType == .category ||
+//                    query.queryType == .ingredient{
+//                    if query.selected == ""{
+//                        //nothing selected, if we let it go it brings back random results
+//                        return
+//                    }
+//                }
+//                if query.queryType == vm.originalQueryType && query.selected == vm.originalQuery{
+//                    //nothing changed, don't do anything
+//                    return
+//                }
+//                vm.resetValues()
+//
+//                if query.queryType == .custom{
+//                    if !vm.sourceCategories.contains(query.customCategory) &&
+//                        query.customCategory != ""{
+//                        //If the user selected a category that isn't supported, return with no meals found
+//                        vm.meals = []
+//                        vm.showWelcome = false
+//                        return
+//                    } else {
+//                        vm.customFilter(keyword: query.customKeyword,
+//                                        category: query.customCategory,
+//                                        ingredient: query.customIngredient)
+//                        return
+//                    }
+//                }
+//                if query.queryType == .none ||
+//                    query.queryType == .random{
+//                    return
+//                } else {
+//                    if !vm.sourceCategories.contains(query.customCategory) &&
+//                        query.customCategory != ""{
+//                        //If the user selected a category that isn't supported, return with no meals found
+//                        vm.meals = []
+//                        vm.showWelcome = false
+//                        return
+//                    }
+//                    vm.showWelcome = false
+//                    vm.checkQuery(query: query.selected, queryType: query.queryType)
+//                }
             }
             .onChange(of: vm.isLoading, perform: { _ in
                 vm.stopLoading()

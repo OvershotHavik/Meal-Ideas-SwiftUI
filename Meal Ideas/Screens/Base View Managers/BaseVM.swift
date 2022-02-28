@@ -43,7 +43,7 @@ class BaseVM: ObservableObject{
         fetchPlist(plist: sourceCategory)
     }
     
-    // MARK: - Reset Values
+
     func resetValues(){
         alertItem = nil
         isLoading = false
@@ -58,7 +58,7 @@ class BaseVM: ObservableObject{
         totalMealCount = 0
     }
     
-    // MARK: - Auto Hide Top View
+
     func autoHideTopView(){
         withAnimation(.easeOut){
             if scrollViewContentOffset < UI.topViewOffsetSpacing{
@@ -78,8 +78,8 @@ class BaseVM: ObservableObject{
             }
         }        
     }
+
     
-    // MARK: - Fetch Plsit for category verification
     func fetchPlist(plist: PList){
         if sourceCategories.isEmpty{
             PListManager.loadItemsFromLocalPlist(XcodePlist: plist,
@@ -96,12 +96,21 @@ class BaseVM: ObservableObject{
         }
     }
     
+    
     @MainActor func checkQuery(query: String, queryType: QueryType){
-        //being overriden in sub classess
+        //override in sub class
     }
+    
+    
     @MainActor func customFilter(keyword: String, category: String, ingredient: String){
-        //being overriden in sub classess
+        //override in sub class
     }
+    
+    
+    @MainActor func clearMeals(){
+        //override  in sub class
+    }
+    
     @MainActor func sourceOnAppear(queryType: QueryType, selected: String, customKeyword: String, customCategory: String, customIngredient: String){
         
         if queryType == .category ||
@@ -126,6 +135,17 @@ class BaseVM: ObservableObject{
             queryType == .random{
             return
         } else {
+            if queryType == .category{
+                //Only do this check if the query type is categories
+                if !sourceCategories.contains(customCategory) &&
+                    customCategory != ""{
+                    //If the user selected a category that isn't supported, return with no meals
+                    resetValues()
+                    clearMeals()
+                    showWelcome = false
+                    return
+                }
+            }
             showWelcome = false
             checkQuery(query: selected, queryType: queryType)
         }

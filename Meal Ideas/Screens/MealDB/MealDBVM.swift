@@ -307,4 +307,9 @@ import SwiftUI
             }
         }
     }
+    
+    
+    override func clearMeals() {
+        self.meals = []
+    }
 }

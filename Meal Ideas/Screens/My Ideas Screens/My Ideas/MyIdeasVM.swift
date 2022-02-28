@@ -322,5 +322,10 @@ import CoreData
             return false
         }
     }
+    
+    
+    override func clearMeals() {
+        self.meals = []
+    }
 }
 
