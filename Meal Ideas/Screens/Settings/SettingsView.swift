@@ -10,6 +10,8 @@ import SwiftUI
 struct SettingsView: View {
     @StateObject var vm = SettingsVM()
     @EnvironmentObject var userEnvironment: UserEnvironment
+    
+    
     var body: some View {
         NavigationView{
             Form {
@@ -18,7 +20,7 @@ struct SettingsView: View {
                     
                         .frame(height: 100)
                         .frame(maxWidth: .infinity)
-                    // MARK: - Top Left
+                    //Top Left
                     ColorPicker("Top Left", selection: Binding(get: {
                         userEnvironment.topLeftColor
                     }, set: { newValue in
@@ -29,7 +31,7 @@ struct SettingsView: View {
                         .onAppear{
                             userEnvironment.convertStringToColorTopLeft()
                         }
-                    // MARK: - Bottom Right
+                    //  Bottom Right
                     ColorPicker("Bottom Right", selection: Binding(get: {
                         userEnvironment.bottomRightColor
                     }, set: { newValue in
@@ -99,15 +101,12 @@ struct SettingsView: View {
     }
 }
 
-struct SettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsView()
-    }
-}
 
 struct SampleTopView: View{
     @EnvironmentObject var userEnvironment: UserEnvironment
     @State var sample = ""
+    
+    
     var body: some View{
         HStack(spacing: 5){
             Text("Surprise \nMe")

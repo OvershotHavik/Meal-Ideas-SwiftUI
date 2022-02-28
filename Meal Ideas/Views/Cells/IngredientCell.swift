@@ -32,12 +32,3 @@ struct IngredientCell: View {
         }
     }
 }
- 
-/*
-struct IngredientCell_Previews: PreviewProvider {
-    static var previews: some View {
-        IngredientCell(ingredient: Ingredients.Meals)
-    }
-}
-
-*/

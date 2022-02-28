@@ -21,6 +21,8 @@ final class SingleChoiceListVM: ObservableObject {
             return listItems.filter { $0.containsIgnoringCase(find: searchText) }
         }
     }
+    
+    
     init(PList: PList?, listItems: [String], singleChoiceString: String?, title: Titles){
         self.PList = PList
         self.listItems = listItems
@@ -28,6 +30,7 @@ final class SingleChoiceListVM: ObservableObject {
         self.title = title
         fetchPlist()
     }
+    
     
     func fetchPlist(){
         if let PList = PList {

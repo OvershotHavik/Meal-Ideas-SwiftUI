@@ -25,7 +25,7 @@ final class HistoryListVM: ObservableObject{
         self.source = source
     }
     
-    // MARK: - Filtered History by source
+
     func filteredHistory(history: [History]){
         switch source {
         case .spoonacular:
@@ -42,7 +42,8 @@ final class HistoryListVM: ObservableObject{
             historyArray = myIdeasHistory
         }
     }
-    // MARK: - Fetch User Meal
+
+
     func fetchUserMeal(userMealID: UUID?) -> UserMeals?{
         if let safeID = userMealID{
             let request = NSFetchRequest<UserMeals>(entityName: EntityName.userMeals.rawValue)
@@ -63,7 +64,7 @@ final class HistoryListVM: ObservableObject{
         return nil
     }
     
-    // MARK: - Fetch Spoon Meal
+
     func fetchSpoonMeal(spoonID: Double) ->  SpoonacularResults.Recipe?{
         let mealIDInt: Int = Int(spoonID)
         print("Spoon meal ID: \(mealIDInt)")
@@ -80,7 +81,7 @@ final class HistoryListVM: ObservableObject{
         return nil
     }
     
-    // MARK: - Fetch MealDB Meal
+
     func fetchMealDBMeal(mealDBID: String?) -> MealDBResults.Meal?{
 
         print("Fetching MealDB Single Named mealID: \(mealDBID ?? "")")
@@ -99,7 +100,7 @@ final class HistoryListVM: ObservableObject{
         return nil
     }
     
-    // MARK: - Check For Favorite
+
     func checkForFavorite(favoritesArray: [Favorites], id: String?, userMealID: UUID?) -> Bool{
         switch source {
         case .spoonacular:

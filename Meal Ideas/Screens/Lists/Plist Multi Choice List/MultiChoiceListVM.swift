@@ -29,6 +29,7 @@ final class  MultiChoiceListVM: ObservableObject {
         }
     }
     
+    
     init(PList: PList, editIdeaVM: EditIdeaVM, listType: ListType){
         self.PList = PList
         self.editVM = editIdeaVM
@@ -38,7 +39,8 @@ final class  MultiChoiceListVM: ObservableObject {
         fetchPlist()
         
     }
-    // MARK: - Fetch Plist
+
+
     func fetchPlist(){
         PListManager.loadItemsFromLocalPlist(XcodePlist: PList,
                                              classToDecodeTo: [NewItem].self,
@@ -70,7 +72,7 @@ final class  MultiChoiceListVM: ObservableObject {
         }
     }
     
-    // MARK: - Check Array
+
     func checkArray(item: String){
         //updates the array on the editIdeaVM as well as selectedArray to have the list view respond accordingly
         
@@ -102,7 +104,8 @@ final class  MultiChoiceListVM: ObservableObject {
         default: print("plist selection checkArray  not setup in MultiChoiceListVM")
         }
     }
-    // MARK: - Get Sides
+
+
     func getSides(){
         let request = NSFetchRequest<CDSides>(entityName: EntityName.CDSides.rawValue)
         do {
@@ -116,7 +119,7 @@ final class  MultiChoiceListVM: ObservableObject {
         }
     }
     
-    // MARK: - Get Categories
+
     func getCategories(){
         let request = NSFetchRequest<CDCategory>(entityName: EntityName.CDCategory.rawValue)
         do {
@@ -128,7 +131,8 @@ final class  MultiChoiceListVM: ObservableObject {
             print("error fetching: \(error.localizedDescription)")
         }
     }
-    // MARK: - Add Item
+
+
     func addItem(item: String){
         selectedArray.append(item)
         if listType == .category{

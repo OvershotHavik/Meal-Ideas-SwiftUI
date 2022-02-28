@@ -12,6 +12,7 @@ struct MyIdeasView: View {
     @EnvironmentObject var query: Query
     @EnvironmentObject var userEnvironment: UserEnvironment
 
+    
     var body: some View {
         NavigationView{
             GeometryReader{ screenBounds in
@@ -141,7 +142,6 @@ struct MyIdeasView: View {
 }
 
 
-// MARK: - My Ideas Surprise NL
 struct MyIdeaSurpriseNL: View{
     //Used for surprise meal to bring up a random meal
     @EnvironmentObject var query: Query
@@ -156,7 +156,8 @@ struct MyIdeaSurpriseNL: View{
                        .environmentObject(shopping)
     }
 }
-// MARK: - My Ideas Grid
+
+
 struct MyIdeasGrid: View{
     @EnvironmentObject var query: Query
     @EnvironmentObject var shopping: Shopping

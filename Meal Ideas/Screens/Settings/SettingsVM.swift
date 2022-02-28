@@ -15,7 +15,7 @@ import CoreData
     @Published var userSides: [String] = []
     @Published var alertItem : AlertItem?
 
-    // MARK: - Update Color
+
     func updateColor(color: Color) -> String{
         let uiColor = UIColor(color)
         var red: CGFloat = 0

@@ -19,7 +19,8 @@ final class UserEnvironment: ObservableObject{
         convertStringToColorTopLeft()
         convertStringToColorBottomRight()
     }
-    // MARK: - Save user settings
+
+    
     func saveChanges(){
         do {
             let data = try JSONEncoder().encode(userSettings)
@@ -29,7 +30,8 @@ final class UserEnvironment: ObservableObject{
             alertItem = AlertContext.invalidUserData
         }
     }
-    // MARK: - Retrieve user settings
+
+    
     func retrieveUserSettings(){
         guard let userSettingsData = userSettingsData else {return}
         
@@ -41,7 +43,8 @@ final class UserEnvironment: ObservableObject{
             alertItem = AlertContext.invalidUserData
         }
     }
-    // MARK: - Convert String to Color top left
+
+    
     func convertStringToColorTopLeft(){
         if userSettings.topLeftColor != "" {
             let rgbArray = userSettings.topLeftColor.components(separatedBy: ",")
@@ -54,7 +57,7 @@ final class UserEnvironment: ObservableObject{
         }
     }
     
-    // MARK: - Convert String to Color bottom RIght 
+
     func convertStringToColorBottomRight(){
         if userSettings.bottomRightColor != "" {
             let rgbArray = userSettings.bottomRightColor.components(separatedBy: ",")
@@ -66,5 +69,4 @@ final class UserEnvironment: ObservableObject{
             }
         }
     }
-     
 }

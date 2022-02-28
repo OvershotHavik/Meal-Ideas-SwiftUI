@@ -18,6 +18,7 @@ struct MealCardPhotoModifier: ViewModifier{
     }
 }
 
+
 struct MealPhotoModifier: ViewModifier{
     func body(content: Content) -> some View{
         content

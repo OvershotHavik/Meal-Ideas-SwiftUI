@@ -11,8 +11,7 @@ struct MealDBView: View {
     @StateObject var vm: MealDBVM
     @EnvironmentObject var query: Query
     @EnvironmentObject var userEnvironment: UserEnvironment
-
-    let columns = [GridItem(), GridItem()]
+    
     
     var body: some View {
         NavigationView{
@@ -132,19 +131,14 @@ struct MealDBView: View {
         .accentColor(.primary)
         .navigationViewStyle(StackNavigationViewStyle())
     }
-    // MARK: - Stop Loading
+
+
     func stopLoading(){
         vm.isLoading = false
     }
 }
-// MARK: - Preview
-struct MealDBView_Previews: PreviewProvider {
-    static var previews: some View {
-        MealDBView(vm: MealDBVM(sourceCategory: .mealDBCategories))
-    }
-}
 
-// MARK: - MealDB Surprise NL
+
 struct MealDBSurpriseNL: View{
     @EnvironmentObject var query: Query
     @EnvironmentObject var shopping: Shopping
@@ -160,7 +154,8 @@ struct MealDBSurpriseNL: View{
 
     }
 }
-// MARK: - MealDB Grid
+
+
 struct MealDBGrid: View{
     @EnvironmentObject var query: Query
     @EnvironmentObject var shopping: Shopping

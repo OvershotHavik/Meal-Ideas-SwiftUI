@@ -13,6 +13,8 @@ struct MenuCustomNL: View{
     var userIngredients: [String]
     var userCategories: [String]
     var plist: PList?
+    
+    
     var body: some View{
         NavigationLink(destination: CustomFilterView(keyword: $query.customKeyword,
                                                      category: $query.customCategory,

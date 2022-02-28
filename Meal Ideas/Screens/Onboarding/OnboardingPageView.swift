@@ -13,6 +13,8 @@ struct OnboardingPageView: View{
     var title: OnboardingTitles
     var secondary: OnboardingSecondary
     var showsDismissButton: Bool
+    
+    
     var body: some View{
         GeometryReader{ screenBounds in
             VStack(spacing: 10) {

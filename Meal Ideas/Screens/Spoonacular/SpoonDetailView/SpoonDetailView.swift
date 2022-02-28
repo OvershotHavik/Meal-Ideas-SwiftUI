@@ -11,6 +11,8 @@ struct SpoonDetailView: View {
     @StateObject var vm: SpoonDetailVM
     @EnvironmentObject var query: Query
     @EnvironmentObject var shopping: Shopping
+    
+    
     var body: some View {
         ZStack{
             vm.backgroundColor

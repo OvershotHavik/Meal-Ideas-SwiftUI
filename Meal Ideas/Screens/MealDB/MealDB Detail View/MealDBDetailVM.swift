@@ -13,6 +13,7 @@ import CoreData
     @Published var meal: MealDBResults.Meal?
     @Published var mealID: String
     
+    
     init(meal : MealDBResults.Meal?, favorited: Bool, mealID: String, showingHistory: Bool){
         self.mealID = mealID
         super.init()
@@ -23,7 +24,8 @@ import CoreData
         getMealPhoto()
         addToHistory()
     }
-    // MARK: - Fetch Meal
+
+
     func fetchMeal(){
         if meal == nil || meal?.ingredientsArray == []{
             print("No Meal Provided, Fetching MealDB Single Named mealID: \(mealID)")
@@ -41,7 +43,7 @@ import CoreData
         }
     }
     
-    // MARK: - Get Meal Photo
+
     func getMealPhoto(){
         if meal != nil{
             NetworkManager.shared.downloadImage(fromURLString: meal?.strMealThumb ?? "") { uiImage in
@@ -54,7 +56,8 @@ import CoreData
             }
         }
     }
-    // MARK: - Favorite Toggled
+
+
     func favoriteToggled(){
         if let safeMeal = meal{
             if favorited == true {
@@ -77,7 +80,8 @@ import CoreData
             }
         }
     }
-    // MARK: - Add To History
+
+
     func addToHistory(){
         //Only add to history if not already showing the meal in history list
         if showingHistory == false{

@@ -18,8 +18,8 @@ final class ImageLoader: ObservableObject{
             }
         }
     }
-
 }
+
 
 final class ImageLoaderFromData: ObservableObject{
     @Published var image = UIImage()
@@ -35,13 +35,13 @@ final class ImageLoaderFromData: ObservableObject{
         }
     }
 }
+
+
 struct RemoteImage: View{
-    
     //helper for the placeholder and to use the placeholder or the actual image if it gets one
     var image: Image?
     var body: some View{
         image?.resizable() ?? Image(ImageNames.placeholderMeal.rawValue).resizable() // If image is nil, use the image in asset as a placeholder
-            
     }
 }
 
@@ -53,7 +53,6 @@ struct LoadRemoteImageView: View{ // Used in the list view as a view
     
     var body: some View{
         RemoteImage(image: imageLoader.image)
-//            .clipShape(Circle())
             .onAppear {
                 imageLoader.load(fromURLString: urlString)
             }

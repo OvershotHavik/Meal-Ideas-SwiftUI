@@ -19,9 +19,3 @@ struct FavoriteCell: View {
         .contentShape(Rectangle())
     }
 }
-
-struct FavoriteCell_Previews: PreviewProvider {
-    static var previews: some View {
-        FavoriteCell(mealName: "Testing meal name")
-    }
-}

@@ -10,8 +10,9 @@ import SwiftUI
 struct LinkView: View {
     var url: String?
     var title: String
+    
+    
     var body: some View {
-        
         if let safeURL = url{
             if safeURL == ""{
                 //don't show a button
@@ -26,11 +27,5 @@ struct LinkView: View {
                 }
             }
         }
-    }
-}
-
-struct LinkView_Previews: PreviewProvider {
-    static var previews: some View {
-        LinkView(url: "www.google.com", title: "Visit Google")
     }
 }

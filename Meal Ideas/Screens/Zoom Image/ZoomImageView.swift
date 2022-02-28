@@ -8,7 +8,6 @@
 import SwiftUI
 import PDFKit
 
-
 struct PDFKitRepresentedView: UIViewRepresentable {
     //PDFKitRepresentedView
     typealias UIViewType = PDFView
@@ -21,6 +20,7 @@ struct PDFKitRepresentedView: UIViewRepresentable {
         self.website = website
     }
 
+    
     func makeUIView(context _: UIViewRepresentableContext<PDFKitRepresentedView>) -> UIViewType {
         // Create a `PDFView` and set its `PDFDocument`.
         let pdfView = PDFView()
@@ -39,6 +39,7 @@ struct PDFKitRepresentedView: UIViewRepresentable {
         return pdfView
     }
 
+    
     func updateUIView(_ pdfView: UIViewType, context _: UIViewRepresentableContext<PDFKitRepresentedView>) {
         if let pdfPage = PDFPage(image: image) {
             let pdfDoc = PDFDocument()
@@ -57,6 +58,8 @@ struct ZoomImageView : View {
     var image:UIImage
     var website: String?
     @State private var isShareSheetShowing = false
+    
+    
     var body: some View {
         ZStack {
             PDFKitRepresentedView(image, website: website)
@@ -77,7 +80,8 @@ struct ZoomImageView : View {
             }
         }
     }
-    // MARK: - Present Share Action Sheet
+
+
     func presentShareAS(){
         isShareSheetShowing.toggle()
         if let safeWebsite = website{

@@ -8,7 +8,6 @@
 import Foundation
 
 
-//MARK: - Spoonacular
 class SpoonacularResults{
     class DataResults: Codable {
         var recipes: [Recipe]

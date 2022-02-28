@@ -77,9 +77,11 @@ struct BasePicker: UIViewRepresentable {
         self.label = label
     }
     
+    
     func makeCoordinator() -> BasePicker.Coordinator {
         Coordinator(self)
     }
+    
     
     func makeUIView(context: UIViewRepresentableContext<BasePicker>) -> UIPickerView {
         let picker = UIPickerView()
@@ -89,10 +91,12 @@ struct BasePicker: UIViewRepresentable {
         return picker
     }
     
+    
     func updateUIView(_ view: UIPickerView, context: UIViewRepresentableContext<BasePicker>) {
         guard let row = data.firstIndex(of: selection.wrappedValue) else { return }
         view.selectRow(row, inComponent: 0, animated: false)
     }
+    
     
     class Coordinator: NSObject, UIPickerViewDataSource, UIPickerViewDelegate {
         var parent: BasePicker

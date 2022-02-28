@@ -16,13 +16,6 @@ struct BackgroundGradientView: View {
             userEnvironment.topLeftColor,
             userEnvironment.bottomRightColor
         ]), startPoint: .topLeading, endPoint: .bottomTrailing)
-//            .cornerRadius(20, corners: [.bottomLeft, .bottomRight])
             .ignoresSafeArea()
-    }
-}
-
-struct BackgroundGradientView_Previews: PreviewProvider {
-    static var previews: some View {
-        BackgroundGradientView()
     }
 }

@@ -18,6 +18,7 @@ import SwiftUI
          return cache
      }()
      
+     
      func returnImageFromData(photoData: Data, completion: @escaping (UIImage?) -> Void) {
          let cacheKey = NSData(data: photoData)
          

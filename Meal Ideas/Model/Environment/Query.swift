@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+
 enum QueryType: String{
     case random = "Random"
     case category = "Category"
@@ -51,7 +52,7 @@ final class Query: ObservableObject{
     @Published var showAllUserMealIdeas = false
     
     
-    // MARK: - Get Favorites
+
     func getFavorites(){
         let request = NSFetchRequest<Favorites>(entityName: EntityName.favorites.rawValue)
         do {
@@ -61,7 +62,7 @@ final class Query: ObservableObject{
         }
     }
     
-    // MARK: - Get History
+
     func getHistory(){
         let request = NSFetchRequest<History>(entityName: EntityName.history.rawValue)
         do {

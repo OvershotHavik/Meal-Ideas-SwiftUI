@@ -11,6 +11,7 @@ struct MealPhotoUIImageView: View{
     var mealPhoto: UIImage
     var website: String?
     
+    
     var body: some View{
         HStack {
             NavigationLink(destination: ZoomImageView(image: mealPhoto, website: website)) {
@@ -21,22 +22,21 @@ struct MealPhotoUIImageView: View{
         }
     }
 }
-// MARK: - Core Data Meal Photo View
+
+
 struct CDPhotoView: View{
     var photoData: Data?
     var image = UIImage()
     var website: String?
     @StateObject var imageLoader = ImageLoaderFromData()
 
+    
     var body: some View{
         ZStack{
             if photoData != nil{
-
                 NavigationLink(destination: ZoomImageView(image: imageLoader.image, website: website)) {
-
                     Image(uiImage: (imageLoader.image))
                         .resizable()
-                    
                 }
                 if imageLoader.isLoading{
                     loadingView()
@@ -54,12 +54,4 @@ struct CDPhotoView: View{
             }
         }
     }
-
 }
-/*
-struct MealPhotoView_Previews: PreviewProvider {
-    static var previews: some View {
-        MealPhotoView(mealPhoto: "Pizza")
-    }
-}
-*/

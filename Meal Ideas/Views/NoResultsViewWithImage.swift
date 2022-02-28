@@ -32,6 +32,7 @@ struct NoResultsViewWithImage: View {
     }
 }
 
+
 struct NoResultsView: View {
     let message: String
     var body: some View{
@@ -44,10 +45,5 @@ struct NoResultsView: View {
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
-}
-struct NoResultsView_Previews: PreviewProvider {
-    static var previews: some View {
-        NoResultsViewWithImage(imageName: ImageNames.placeholderMeal.rawValue, message: "no meals found")
     }
 }

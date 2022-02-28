@@ -9,6 +9,8 @@ import SwiftUI
 
 struct EditItemList: View {
     @StateObject var vm : EditItemListVM
+    
+    
     var body: some View {
         List {
             if vm.listItems.isEmpty{
@@ -89,15 +91,7 @@ struct EditItemList: View {
                 } label: {
                     Image(systemName: "plus")
                 }
-                
             }
         }
     }
 }
-/*
- struct EditItemList_Previews: PreviewProvider {
- static var previews: some View {
- EditItemList()
- }
- }
- */

@@ -16,6 +16,8 @@ enum MIError: Error {
     case unableToSave
     
 }
+
+
 //Used for Save meals
 enum MISuccess{
     case successfullySaved

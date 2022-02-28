@@ -11,6 +11,7 @@ struct SpoonServingPrepHStack: View {
     var prepTime: Int?
     var servings: Int?
     
+    
     var body: some View {
         HStack{
             //if either are nil, hide the icon as well
@@ -26,6 +27,7 @@ struct SpoonServingPrepHStack: View {
         }
     }
     
+    
     func minutesToHoursAndMinutes (minutes : Int) -> String{
         let hours = minutes / 60
         let leftoverMinutes = minutes % 60
@@ -35,11 +37,5 @@ struct SpoonServingPrepHStack: View {
         } else {
             return  "\(leftoverMinutes) min"
         }
-    }
-}
-
-struct SpoonBadgesHStack_Previews: PreviewProvider {
-    static var previews: some View {
-        SpoonServingPrepHStack(prepTime: 20, servings: 2)
     }
 }

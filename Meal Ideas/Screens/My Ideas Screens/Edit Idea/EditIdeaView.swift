@@ -85,7 +85,6 @@ struct EditIdeaView: View {
                         TextField("Website", text: $vm.source)
                             .textFieldStyle(CustomRoundedCornerTextField())
                     }
-                    // MARK: - Save Button
                     SaveButtonView(vm: vm)
                     
                     if vm.meal != nil{
@@ -157,7 +156,7 @@ struct EditIdeaView: View {
             vm.safeInstructionsPhoto = mealInstructionsLoader.image
         })
         
-        // MARK: - Save alert
+        // Save alert
         .alert(item: $vm.alertItem) { alertItem in
             Alert(title: alertItem.title,
                   message: alertItem.message,
@@ -172,14 +171,14 @@ struct EditIdeaView: View {
                 }
             }))
         }
-        // MARK: - Alert when back is pressed
+        //  Alert when back is pressed
         .alert("Any unsaved information will be lost", isPresented: $vm.showingBackAlert){
             Button("Save Changes", action: vm.saveMeal)
             Button("Discard changes and go back", role: .destructive, action: popView)
             //cancel is added automatically and stops the back process
         }
         
-        // MARK: - Delete Alert
+        //  Delete Alert
         .alert("Delete Meal", isPresented: $vm.showingDeleteAlert) {
             Button("Delete", role: .destructive, action: deleteMeal)
             Button("Cancel", role: .cancel) { }
@@ -187,7 +186,7 @@ struct EditIdeaView: View {
             Text("Are you sure you want to delete \(vm.meal?.mealName ?? vm.mealName)?")
         }
         
-        // MARK: - Image Picker sheet
+        // Image Picker sheet
         .sheet(isPresented: $vm.isShowPhotoLibrary){
             if let safeSelection = vm.imagePickerSelection{
                 //These are set by the action sheet when the user taps a button to select the photo
@@ -204,25 +203,20 @@ struct EditIdeaView: View {
             }
         }
     }
-    // MARK: - Delete meal from VM and dismiss the view
+    // Delete meal from VM and dismiss the view
     func deleteMeal(){
         vm.deleteMeal()
         dismiss()
     }
-    // MARK: - popView to go back after saved
+    
+    
+    //  popView to go back after saved
     func popView(){
         dismiss()
     }
 }
-// MARK: - Preview
 
-struct CreateIdeaView_Previews: PreviewProvider {
-    static var previews: some View {
-        EditIdeaView(vm: EditIdeaVM(meal: nil))
-    }
-}
 
-// MARK: - Meal Name Text FIeld
 struct MealNameTextField: View{
     @StateObject var vm: EditIdeaVM
     var body: some View{
@@ -238,7 +232,8 @@ struct MealNameTextField: View{
             }
     }
 }
-// MARK: - Meal Photo Button View
+
+
 struct MealPhotoButtonView: View{
     @StateObject var vm: EditIdeaVM
     var body: some View{
@@ -250,7 +245,8 @@ struct MealPhotoButtonView: View{
         }
     }
 }
-// MARK: - Meal Photo View
+
+
 struct MealPhotoView: View{
     @StateObject var vm: EditIdeaVM
     var body: some View{
@@ -268,7 +264,8 @@ struct MealPhotoView: View{
         }
     }
 }
-// MARK: - Category Select View
+
+
 struct CategorySelectView: View{
     @StateObject var vm: EditIdeaVM
     var body: some View{
@@ -280,7 +277,8 @@ struct CategorySelectView: View{
         }
     }
 }
-// MARK: - Ingredient Select View
+
+
 struct IngredientSelectView: View{
     @StateObject var vm: EditIdeaVM
     var body: some View{
@@ -291,7 +289,8 @@ struct IngredientSelectView: View{
         }
     }
 }
-// MARK: - Ingredient HStack
+
+
 struct IngredientHStack: View{
     @StateObject var vm: EditIdeaVM
     var body: some View{
@@ -307,7 +306,8 @@ struct IngredientHStack: View{
         .onDelete(perform: vm.deleteIngredient)
     }
 }
-// MARK: - Sides Button View
+
+
 struct SidesButtonView: View{
     @StateObject var vm: EditIdeaVM
     var body: some View{
@@ -320,7 +320,8 @@ struct SidesButtonView: View{
     }
 }
 
-// MARK: - Meal Instructions Button View
+
+
 struct MealInstructionsButtonView: View{
     @StateObject var vm: EditIdeaVM
     var body: some View{
@@ -332,7 +333,8 @@ struct MealInstructionsButtonView: View{
         }
     }
 }
-// MARK: - Instruction Photo View
+
+
 struct InstructionPhotoView: View{
     @StateObject var vm: EditIdeaVM
     var body: some View{
@@ -351,7 +353,7 @@ struct InstructionPhotoView: View{
     }
 }
 
-// MARK: - Save Button
+
 struct SaveButtonView: View{
     var vm: EditIdeaVM
     var body: some View{
@@ -365,7 +367,7 @@ struct SaveButtonView: View{
     }
 }
 
-// MARK: - Delete Button
+
 struct DeleteButtonView: View{
     var vm: EditIdeaVM
     @Binding var showingDeleteAlert: Bool
@@ -380,7 +382,8 @@ struct DeleteButtonView: View{
         }
     }
 }
-// MARK: - Meal Photo Action Sheet
+
+
 struct MealPhotoActionSheet: ViewModifier{
     @StateObject var vm: EditIdeaVM
     func body(content: Content) -> some View {
@@ -417,7 +420,7 @@ struct MealPhotoActionSheet: ViewModifier{
     }
 }
 
-// MARK: - Meal Instructions Action Sheet
+
 struct MealInstructionsActionSheet: ViewModifier{
     @StateObject var vm: EditIdeaVM
     func body(content: Content) -> some View {
@@ -453,6 +456,8 @@ struct MealInstructionsActionSheet: ViewModifier{
             })
     }
 }
+
+
 struct PrepTimePickerView: View{
     @StateObject var vm: EditIdeaVM
     var body: some View{

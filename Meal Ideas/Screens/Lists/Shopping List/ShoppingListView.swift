@@ -10,6 +10,8 @@ import SwiftUI
 struct ShoppingListView: View {
     @StateObject var vm = ShoppingListVM()
     @EnvironmentObject var shopping : Shopping
+    
+    
     var body: some View {
         NavigationView{
             VStack{
@@ -32,7 +34,7 @@ struct ShoppingListView: View {
                 }
                 .searchable(text: $vm.searchText)
 
-                // MARK: - Clear Checked Alert
+                // Clear Checked Alert
                 .alert("Are you sure you want to clear checked items?", isPresented: $vm.showingClearCheckedAlert) {
                     Button("Clear Checked Items", role: .destructive) {
                         withAnimation {
@@ -44,7 +46,7 @@ struct ShoppingListView: View {
                     }
                     Button("Cancel", role: .cancel) { }
                 }
-                // MARK: - Clear All Alert
+                // Clear All Alert
                 .alert("Are you sure you want to clear all items?", isPresented: $vm.showingClearAllAlert) {
                     Button("Clear All Items", role: .destructive) {
                         withAnimation {

@@ -19,8 +19,8 @@ struct ImagePicker: UIViewControllerRepresentable {
     
     var sourceType: UIImagePickerController.SourceType = .photoLibrary
 
+    
     func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
-
         let imagePicker = UIImagePickerController()
         imagePicker.allowsEditing = false
         imagePicker.sourceType = sourceType
@@ -28,9 +28,11 @@ struct ImagePicker: UIViewControllerRepresentable {
         return imagePicker
     }
 
+    
     func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<ImagePicker>) {
 
     }
+    
     
     final class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
      
@@ -40,6 +42,7 @@ struct ImagePicker: UIViewControllerRepresentable {
             self.parent = parent
         }
      
+        
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
      
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
@@ -48,6 +51,8 @@ struct ImagePicker: UIViewControllerRepresentable {
             parent.isLoading = false
             parent.presentationMode.wrappedValue.dismiss()
         }
+        
+        
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
             parent.isLoading = false
             parent.presentationMode.wrappedValue.dismiss()

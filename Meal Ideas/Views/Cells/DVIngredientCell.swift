@@ -18,6 +18,7 @@ struct DetailViewIngredientCell: View {
     @EnvironmentObject var shopping: Shopping
     @State var alpha: Double = 1
     
+    
     var body: some View {
         ZStack(alignment: .leading){
             HStack{
@@ -87,6 +88,8 @@ struct DetailViewIngredientCell: View {
         }
         
     }
+    
+    
     func getImage(ingredientName: String){
         let modifiedMealDB = ingredientName.replacingOccurrences(of: " ", with: "%20")
         let mealDBImages = "\(BaseURL.ingredientImage)\(modifiedMealDB).png"
@@ -97,5 +100,4 @@ struct DetailViewIngredientCell: View {
             }
         }
     }
-    
 }

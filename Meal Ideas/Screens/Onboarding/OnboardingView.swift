@@ -19,6 +19,7 @@ enum OnboardingTitles: String{
     case cloudKitEnabled = "Sync Across Devices"
 }
 
+
 enum OnboardingSecondary: String{
     case welcome = "To get to your meals, use the Edit button at the top left."
     case myIdeasList = "Here is where you can select a meal to edit. \n\nTap the + to create a new meal."
@@ -98,12 +99,5 @@ struct OnboardingView: View {
             }
             .tabViewStyle(PageTabViewStyle())
         }
-    }
-}
-
-
-struct OnboardingView_Previews: PreviewProvider {
-    static var previews: some View {
-        OnboardingView(shouldShowOnboarding: .constant(false))
     }
 }

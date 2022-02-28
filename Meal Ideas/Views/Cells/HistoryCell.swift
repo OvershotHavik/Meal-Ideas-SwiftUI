@@ -27,7 +27,8 @@ struct HistoryCell: View {
         }
         .contentShape(Rectangle())
     }
-    // MARK: - Convert Date
+
+
     func convertDate(date:Date)->String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "h:mma"
@@ -35,11 +36,5 @@ struct HistoryCell: View {
         dateFormatter.dateFormat = "E, MMM d"
         let day = dateFormatter.string(from: date)
         return "\(time)\n\(day)"
-    }
-}
-
-struct HistoryCell_Previews: PreviewProvider {
-    static var previews: some View {
-        HistoryCell(mealName: "Test Meal", timeStamp: Date(), favorited: true)
     }
 }

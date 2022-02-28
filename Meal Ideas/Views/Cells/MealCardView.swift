@@ -19,6 +19,7 @@ struct MealCardView: View {
     @State var mealImage = UIImage()
     @State var isLoading = false
     
+    
     var body: some View {
         ZStack{
             Color(UIColor.tertiarySystemBackground)
@@ -37,8 +38,6 @@ struct MealCardView: View {
                         } else {
                             Color.gray
                                 .clipShape(Circle())
-//                            Image(uiImage: placeholder)
-//                                .resizable()
                         }
                     }
                     .modifier(MealCardPhotoModifier())
@@ -77,7 +76,8 @@ struct MealCardView_Previews: PreviewProvider {
                      inHistory: true)
     }
 }
-// MARK: - History Favorites H Stack
+
+
 struct HistoryFavoriteHStack: View{
     var inHistory: Bool
     var favorited: Bool

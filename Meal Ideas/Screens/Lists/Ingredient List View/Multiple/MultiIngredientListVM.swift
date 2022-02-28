@@ -22,7 +22,7 @@ import CoreData
         selectedArray = editVM.userIngredients.compactMap{$0.name}
     }
     
-    // MARK: - Check Array
+
     func checkArray(item: String){
         if let repeatItem = selectedArray.firstIndex(of: item){
             editVM.userIngredients.remove(at: repeatItem)
@@ -35,7 +35,8 @@ import CoreData
         }
         selectedArray = editVM.userIngredients.compactMap{$0.name}
     }
-    // MARK: - Get Ingredients
+
+
     func getUserIngredients(){
         let request = NSFetchRequest<CDIngredient>(entityName: EntityName.CDIngredient.rawValue)
         do {
@@ -57,7 +58,7 @@ import CoreData
         }
     }
     
-    // MARK: - Item Item to selected array and to
+
     func addItem(item: String){
         //add item to the selected array and add it to the list so user can uncheck it if they want
         selectedArray.append(item)

@@ -11,6 +11,7 @@ import UIKit
     @Published var meal: SpoonacularResults.Recipe?
     @Published var mealID: Int?
     
+    
     init(meal: SpoonacularResults.Recipe?, mealID: Int?, favorited: Bool, showingHistory: Bool){
         super.init()
         self.mealID = mealID
@@ -23,7 +24,8 @@ import UIKit
         fetchMeal()
         addToHistory()        
     }
-    // MARK: - Get Ingredients and Measurements
+
+
     func getIngredientsAndMeasurements(){
         guard let safeMeal = meal else {
             print("meal not set in get ingredients")
@@ -56,7 +58,8 @@ import UIKit
             }
         }
     }
-    // MARK: - Get Instructions
+
+
     func getInstructions(){
         guard let safeMeal = meal else {
             print("meal not set in get instructions")
@@ -96,7 +99,8 @@ import UIKit
             }
         }
     }
-    // MARK: - Fetch Meal
+
+
     func fetchMeal() {
         guard let safeMealID = mealID else {
             print("no meal id in fetch meal ")
@@ -118,7 +122,8 @@ import UIKit
             }
         }
     }
-    // MARK: - Get Meal Photo
+
+
     func getMealPhoto(){
         if meal != nil{
             NetworkManager.shared.downloadImage(fromURLString: meal?.image ?? "") { uiImage in
@@ -132,7 +137,7 @@ import UIKit
         }
     }
     
-    // MARK: - Favorite Toggled
+
     func favoriteToggled(){
         if favorited == true {
             //add to favorites
@@ -149,16 +154,10 @@ import UIKit
                                                         mealDBID: nil,
                                                         spoonID: Double(meal?.id ?? 0),
                                                         userMealID: nil)
-            
-            
-            PersistenceController.shared.deleteFavorite(source: .spoonacular,
-                                                        mealName: meal?.title ?? "",
-                                                        mealDBID: nil,
-                                                        spoonID: Double(meal?.id ?? 0),
-                                                        userMealID: nil)
         }
     }
-    // MARK: - Add To History
+
+
     func addToHistory(){
         //Only add to history if not already showing the meal in history list
         if showingHistory == false{
@@ -172,5 +171,4 @@ import UIKit
             }
         }
     }
-
 }

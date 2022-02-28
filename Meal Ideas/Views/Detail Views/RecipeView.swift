@@ -9,6 +9,8 @@ import SwiftUI
 
 struct RecipeView: View {
     var recipe: String
+    
+    
     var body: some View {
         if recipe == ""{
             Text("No recipe Provided")
@@ -17,11 +19,5 @@ struct RecipeView: View {
             Text(recipe)
                 .font(.body)
         }
-    }
-}
-
-struct RecipeView_Previews: PreviewProvider {
-    static var previews: some View {
-        RecipeView(recipe: "recipe here")
     }
 }

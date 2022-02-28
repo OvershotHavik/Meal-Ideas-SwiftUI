@@ -13,12 +13,15 @@ enum UI{
     static let topViewOffsetSpacing = CGFloat(95)
     static let verticalSpacing = CGFloat(25)
 }
+
+
 enum PList: String{
     case categories = "Categories"
     case spoonCategories = "SpoonCategories"
     case mealDBCategories = "MealDBCategories"
     case sides = "Sides"
 }
+
 
 enum EntityName: String{
     case userMeals = "UserMeals"
@@ -30,17 +33,20 @@ enum EntityName: String{
     case ShoppingList = "ShoppingList"
 }
 
+
 enum ListType: String{
     case side = "Side"
     case ingredient = "Ingredient"
     case category = "Category"
 }
 
+
 enum Source: String{
     case spoonacular = "Spoonacular"
     case mealDB = "MealDB"
     case myIdeas = "MyIdeas"
 }
+
 
 enum Titles: String{
     case mainTitle = "Meal Ideas"
@@ -58,7 +64,6 @@ enum Titles: String{
     case editIngredients = "Edit Ingredients"
     case editSides = "Edit Sides"
     
-    
     case multiCategory = "Select Categories"
     case multiIngredients = "Select Ingredients"
     case multiSides = "Select Sides"
@@ -71,6 +76,7 @@ enum Titles: String{
     case mealDBHistory = "The Meal DB History"
     case myIdeasHistory = "My Ideas History"
 }
+
 
 enum SpoonTags: String{
     case category = "&type="
@@ -94,6 +100,7 @@ enum SectionHeaders: String{
     case none = "No Filter"
 }
 
+
 enum Messages: String{
     case welcome = "Welcome to Meal Ideas!"
     case noMealsMyIdeas = "No meals found for your search. \n You can create a new one to match this search by tapping the edit icon at the top left."
@@ -105,6 +112,7 @@ enum Messages: String{
     case noHistory = "No meals viewed."
     case addToShoppingList = "Tap an ingredient to add it to the shopping list."
     case noShoppingList = "No ingredients selected for your shopping list."
+    case allResultsShown = "All results shown for this search"
 }
 
 
@@ -127,6 +135,8 @@ final class APIKey{
     
 }
 */
+
+
 enum BaseURL{
     static let ingredientsList = "https://www.themealdb.com/api/json/v1/1/list.php?i=list"
     static let ingredientImage = "https://www.themealdb.com/images/ingredients/"

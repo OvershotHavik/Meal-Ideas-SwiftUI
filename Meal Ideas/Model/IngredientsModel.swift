@@ -58,6 +58,8 @@ struct Ingredients: Codable{
         var strType: String?
     }
 }
+
+
 //used for custom ingredients/categories/sides
 struct NewItem: Codable, Hashable{
     var itemName = String()

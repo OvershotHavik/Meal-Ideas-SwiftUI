@@ -70,13 +70,11 @@ struct TopView: View{
                         Text(QueryType.custom.rawValue)
                     }
                 }
-                
 
                 } label: {// Menu label
                 Image(systemName: "slider.horizontal.3")
                         .padding()
                         .foregroundColor(.primary)
-
             }
                 .font(.title)
         }

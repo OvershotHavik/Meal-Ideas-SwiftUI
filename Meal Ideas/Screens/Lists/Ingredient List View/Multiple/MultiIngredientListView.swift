@@ -12,6 +12,7 @@ struct MultiIngredientListView: View {
     @EnvironmentObject var query: Query
     @Environment(\.dismiss) var dismiss
     
+    
     var body: some View {
         VStack{
             if vm.isLoading{
