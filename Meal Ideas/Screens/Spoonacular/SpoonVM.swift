@@ -52,6 +52,7 @@ import CoreData
     
     func getSpoonMeals(query: String, queryType: QueryType){
         isLoading = true
+        totalMealCount = 0
         Task {
             do {
                 switch queryType{

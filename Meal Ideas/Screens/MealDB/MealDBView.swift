@@ -113,11 +113,6 @@ struct MealDBView: View {
             .onChange(of: vm.scrollViewContentOffset, perform: { newValue in
                 vm.autoHideTopView()
             })
-            .onChange(of: query.selected, perform: { _ in
-                //Clears the grid so the pictures load correctly
-                vm.meals = []
-                vm.allResultsShown = false
-            })
             .onChange(of: vm.keywordSearchTapped, perform: { newValue in
                 print("Keyword: \(query.keyword)")
                 query.selected = query.keyword

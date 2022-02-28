@@ -50,7 +50,6 @@ struct MyIdeasDetailView: View {
                         }
                     }
                     if vm.meal?.ingredients as? [String] != []{
-                        Text(Messages.addToShoppingList.rawValue)
                         DetailViewIngredientListView(ingredients: vm.meal?.ingredients as? [String] ?? [],
                                                      measurements: vm.meal?.measurements as? [String] ?? [],
                                                      mealName: vm.meal?.mealName ?? "")

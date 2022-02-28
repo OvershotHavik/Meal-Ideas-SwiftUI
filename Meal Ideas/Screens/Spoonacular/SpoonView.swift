@@ -118,11 +118,6 @@ struct SpoonView: View {
                 
                 vm.checkQuery(query: query.selected, queryType: .keyword)
             })
-            .onChange(of: query.selected, perform: { _ in
-                //Clears the grid so the pictures load correctly
-                vm.meals = []
-                vm.allResultsShown = false
-            })
             .onChange(of: vm.getRandomMeals, perform: { newValue in
                 print("Random tapped in Spoon")
                 vm.checkQuery(query: query.selected, queryType: query.queryType)
