@@ -11,7 +11,7 @@ struct MyIdeasView: View {
     @StateObject var vm : MyIdeasVM
     @EnvironmentObject var query: Query
     @EnvironmentObject var userEnvironment: UserEnvironment
-    
+
     var body: some View {
         NavigationView{
             GeometryReader{ screenBounds in
@@ -70,6 +70,7 @@ struct MyIdeasView: View {
                     }
                 }
             }
+            
             .padding(.bottom)
             .background(vm.backgroundColor)
             .navigationBarTitleDisplayMode(.inline)
@@ -79,12 +80,12 @@ struct MyIdeasView: View {
                     NavigationLink(destination: EditMealsListView(vm: EditMealsListVM())) {
                         Image(systemName: "square.and.pencil")
                             .padding(.horizontal)
-                            .foregroundColor(userEnvironment.topLeftColor.isLight() ? .black : .white)
+                            .foregroundColor(.primary)
                     }
                 }
                 ToolbarItem(placement: .principal, content: {
                     Text(Titles.mainTitle.rawValue)
-                        .foregroundColor(userEnvironment.topLeftColor.isLight() ? .black : .white)
+                    .foregroundColor(.primary)
                 })
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     NavigationLink(destination: FavoritesListView(vm: FavoritesListVM(source: .myIdeas))) {
@@ -93,7 +94,7 @@ struct MyIdeasView: View {
                     }
                     NavigationLink(destination: HistoryListView(vm: HistoryListVM(source: .myIdeas))) {
                         Image(systemName: "book")
-                            .foregroundColor(userEnvironment.topLeftColor.isLight() ? .black : .white)
+                        .foregroundColor(.primary)
                     }
                 }
             }

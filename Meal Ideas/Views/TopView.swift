@@ -24,7 +24,7 @@ struct TopView: View{
                 Text("Surprise \nMe")
                     .lineLimit(2)
             })
-                .foregroundColor(userEnvironment.topLeftColor.isLight() ? .black : .white)
+                .foregroundColor(.primary)
 
             TextField("Search...", text: $query.keyword)
                 .textFieldStyle(CustomRoundedCornerTextField())
@@ -75,7 +75,7 @@ struct TopView: View{
                 } label: {// Menu label
                 Image(systemName: "slider.horizontal.3")
                         .padding()
-                        .foregroundColor(userEnvironment.topLeftColor.isLight() ? .black : .white)
+                        .foregroundColor(.primary)
 
             }
                 .font(.title)

@@ -80,7 +80,7 @@ struct SpoonView: View {
             .toolbar {
                 ToolbarItem(placement: .principal, content: {
                     Text(Titles.mainTitle.rawValue)
-                        .foregroundColor(userEnvironment.topLeftColor.isLight() ? .black : .white)
+                        .foregroundColor(.primary)
                 })
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     NavigationLink(destination: FavoritesListView(vm: FavoritesListVM(source: .spoonacular))) {
@@ -89,7 +89,7 @@ struct SpoonView: View {
                     }
                     NavigationLink(destination: HistoryListView(vm: HistoryListVM(source: .spoonacular))) {
                         Image(systemName: "book")
-                            .foregroundColor(userEnvironment.topLeftColor.isLight() ? .black : .white)
+                            .foregroundColor(.primary)
                     }
                 }
             }

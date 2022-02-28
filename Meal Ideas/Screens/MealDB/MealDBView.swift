@@ -77,7 +77,7 @@ struct MealDBView: View {
             .toolbar {
                 ToolbarItem(placement: .principal, content: {
                     Text(Titles.mainTitle.rawValue)
-                        .foregroundColor(userEnvironment.topLeftColor.isLight() ? .black : .white)
+                    .foregroundColor(.primary)
                 })
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     
@@ -87,7 +87,7 @@ struct MealDBView: View {
                     }
                     NavigationLink(destination: HistoryListView(vm: HistoryListVM(source: .mealDB))) {
                         Image(systemName: "book")
-                            .foregroundColor(userEnvironment.topLeftColor.isLight() ? .black : .white)
+                            .foregroundColor(.primary)
                     }
                 }
             }
