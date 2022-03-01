@@ -10,7 +10,8 @@ import SwiftUI
 struct MealDBView: View {
     @StateObject var vm: MealDBVM
     @EnvironmentObject var query: Query
-    let columns = [GridItem(), GridItem()]
+    @EnvironmentObject var userEnvironment: UserEnvironment
+    
     
     var body: some View {
         NavigationView{
@@ -75,16 +76,18 @@ struct MealDBView: View {
             .toolbar {
                 ToolbarItem(placement: .principal, content: {
                     Text(Titles.mainTitle.rawValue)
+                    .foregroundColor(.primary)
                 })
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     
                     NavigationLink(destination: FavoritesListView(vm: FavoritesListVM(source: .mealDB))) {
-                        Image(systemName: "heart.fill")
+                        Image(systemName: SFSymbols.favorited.rawValue)
                             .foregroundColor(.pink)
                     }
                     NavigationLink(destination: HistoryListView(vm: HistoryListVM(source: .mealDB))) {
-                        Image(systemName: "book")
-                            .foregroundColor(.primary)
+                        Image(systemName: SFSymbols.history.rawValue)
+                            .foregroundColor(.primary
+                            )
                     }
                 }
             }
@@ -110,11 +113,6 @@ struct MealDBView: View {
             .onChange(of: vm.scrollViewContentOffset, perform: { newValue in
                 vm.autoHideTopView()
             })
-            .onChange(of: query.selected, perform: { _ in
-                //Clears the grid so the pictures load correctly
-                vm.meals = []
-                vm.allResultsShown = false
-            })
             .onChange(of: vm.keywordSearchTapped, perform: { newValue in
                 print("Keyword: \(query.keyword)")
                 query.selected = query.keyword
@@ -128,19 +126,14 @@ struct MealDBView: View {
         .accentColor(.primary)
         .navigationViewStyle(StackNavigationViewStyle())
     }
-    // MARK: - Stop Loading
+
+
     func stopLoading(){
         vm.isLoading = false
     }
 }
-// MARK: - Preview
-struct MealDBView_Previews: PreviewProvider {
-    static var previews: some View {
-        MealDBView(vm: MealDBVM(sourceCategory: .mealDBCategories))
-    }
-}
 
-// MARK: - MealDB Surprise NL
+
 struct MealDBSurpriseNL: View{
     @EnvironmentObject var query: Query
     @EnvironmentObject var shopping: Shopping
@@ -156,7 +149,8 @@ struct MealDBSurpriseNL: View{
 
     }
 }
-// MARK: - MealDB Grid
+
+
 struct MealDBGrid: View{
     @EnvironmentObject var query: Query
     @EnvironmentObject var shopping: Shopping

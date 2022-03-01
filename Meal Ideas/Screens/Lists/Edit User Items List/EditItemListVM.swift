@@ -25,6 +25,8 @@ import CoreData
             return listItems.filter { $0.containsIgnoringCase(find: searchText) }
         }
     }
+    
+    
     init(title: Titles, listType: ListType, entityName: EntityName){
         self.title = title
         self.listType = listType
@@ -68,7 +70,8 @@ import CoreData
             }
         }
     }
-    // MARK: - Add Item
+
+
     func addItem(item: String){
         listItems.append(item)
         listItems = listItems.sorted{$0 < $1}

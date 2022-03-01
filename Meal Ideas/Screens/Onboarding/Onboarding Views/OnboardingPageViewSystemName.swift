@@ -1,25 +1,27 @@
 //
-//  OnboardingPageView.swift
+//  OnboardingPageViewSystemName.swift
 //  Meal Ideas
 //
-//  Created by Steve Plavetzky on 2/3/22.
+//  Created by Steve Plavetzky on 2/20/22.
 //
 
 import SwiftUI
 
-struct OnboardingPageView: View{
+struct OnboardingPageViewSystemName: View{
     @Binding var shouldShowOnboarding: Bool
-    var image: String
+    var image: SFSymbols
     var title: OnboardingTitles
     var secondary: OnboardingSecondary
     var showsDismissButton: Bool
+    
+    
     var body: some View{
         GeometryReader{ screenBounds in
             VStack(spacing: 10) {
-                Image(uiImage: UIImage(imageLiteralResourceName: image))
+                Image(systemName: image.rawValue)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: screenBounds.size.width, height: screenBounds.size.height/3)
+                    .frame(width: screenBounds.size.width/2, height: screenBounds.size.height/3)
                 Text(title.rawValue)
                     .font(.title)
                     .multilineTextAlignment(.center)
@@ -41,12 +43,15 @@ struct OnboardingPageView: View{
                             .background(.blue)
                             .cornerRadius(6)
                     }
+                    Rectangle()
+                        .fill(.clear)
+                        .frame(height: 20)
                     Spacer()
-                } else {
+                }else {
                     VStack{
                         HStack(spacing: 10){
                             Text("Swipe to Continue")
-                            Image(systemName: "chevron.right")
+                            Image(systemName: SFSymbols.chevronRight.rawValue)
                         }
                         Rectangle()
                             .fill(.clear)

@@ -15,7 +15,7 @@ import SwiftUI
     @Published var source: Source = .mealDB
     @Published var surpriseMeal: MealDBResults.Meal?
     
-    // MARK: - CheckQuery
+
     override func checkQuery(query: String, queryType: QueryType){
         print("MealDB Query: \(query), queryType: \(queryType.rawValue)")
         surpriseMealReady = false
@@ -38,7 +38,8 @@ import SwiftUI
             }
         }
     }
-    // MARK: - Get MealDBMeals
+
+
     func getMealDBMeals(query: String, queryType: QueryType) {
         isLoading = true
         
@@ -64,14 +65,14 @@ import SwiftUI
                         modified = "Side"
                     }
                     meals = try await NetworkManager.shared.mealDBQuery(query: modified, queryType: .category)
-                    allResultsShown = true
+                    allResultsToggle()
                     
                 case .ingredient:
                     let modifiedIngredient = query.replacingOccurrences(of: " ", with: "_")
                     
                     meals = try await NetworkManager.shared.mealDBQuery(query: modifiedIngredient,
                                                                         queryType: .ingredient)
-                    allResultsShown = true
+                    allResultsToggle()
                     print("ing")
                     
                 case .none:
@@ -82,7 +83,7 @@ import SwiftUI
                     let modifiedKeyword = query.replacingOccurrences(of: " ", with: "%20")
                     meals = try await NetworkManager.shared.mealDBQuery(query: modifiedKeyword,
                                                                         queryType: .keyword)
-                    allResultsShown = true
+                    allResultsToggle()
                     
                     
                 case .custom:
@@ -107,7 +108,7 @@ import SwiftUI
         }
     }
     
-    // MARK: - Check For Favorite
+
     func checkForFavorite(id: String?, favoriteArray: [Favorites]) -> Bool{
         if favoriteArray.contains(where: {$0.mealDBID == id}){
             return true
@@ -115,7 +116,8 @@ import SwiftUI
             return false
         }
     }
-    // MARK: - Check For History
+
+
     func checkForHistory(id: String?, historyArray: [History]) -> Bool{
         if historyArray.contains(where: {$0.mealDBID == id}){
             return true
@@ -124,7 +126,7 @@ import SwiftUI
         }
     }
     
-    // MARK: - Custom Filter
+
     override func customFilter(keyword: String, category: String, ingredient: String){
         if keyword == "" &&
             category == "" &&
@@ -191,7 +193,7 @@ import SwiftUI
                             }
                         }
                         print("Meals count: \(meals.count)")
-                        allResultsShown = true
+                        allResultsToggle()
                     }
                     
                     // MARK: - Keyword and ingredient
@@ -211,7 +213,7 @@ import SwiftUI
                             }
                         }
                         print("meals count: \(meals.count)")
-                        allResultsShown = true
+                        allResultsToggle()
                     }
                     
                     // MARK: - Category and ingredient
@@ -235,7 +237,7 @@ import SwiftUI
                         
                         meals = catMeals.filter{ingMeals.contains($0)}
                         print("meals count: \(meals.count)")
-                        allResultsShown = true
+                        allResultsToggle()
                     }
                     
                     // MARK: - All three provided
@@ -268,7 +270,7 @@ import SwiftUI
                             }
                         }
                         print("meals count: \(meals.count)")
-                        allResultsShown = true
+                        allResultsToggle()
                     }
                     
                     
@@ -295,16 +297,29 @@ import SwiftUI
         }
     }
     
-    // MARK: - Stop Loading
+    
     func stopLoading(){
         if isLoading{
             DispatchQueue.main.asyncAfter(deadline: .now() + 7.5) {
                 if self.isLoading == true{
                     print("loading for 7.5 seconds, stopping and displaying alert")
                     self.isLoading = false
-//                    self.alertItem = AlertContext.unableToComplete
                 }
             }
         }
+    }
+    
+    
+    func allResultsToggle(){
+        if meals.isEmpty{
+            allResultsShown = false // hide the alert
+        } else {
+            allResultsShown = true
+        }
+    }
+    
+    
+    override func clearMeals() {
+        self.meals = []
     }
 }

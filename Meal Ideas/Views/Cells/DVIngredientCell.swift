@@ -16,7 +16,9 @@ struct DetailViewIngredientCell: View {
     var inShoppingList = false
     @EnvironmentObject var query: Query
     @EnvironmentObject var shopping: Shopping
-    @State var alpha: Double = 1
+    @State var alpha: Double = 0
+    @State var message: ShoppingListMessage = .add
+    
     
     var body: some View {
         ZStack(alignment: .leading){
@@ -26,8 +28,6 @@ struct DetailViewIngredientCell: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 50)
                     .clipShape(Circle())
-                    .opacity(alpha)
-
                 VStack(alignment: .leading){
                     Text(ingredient)
                         .font(.body)
@@ -36,12 +36,11 @@ struct DetailViewIngredientCell: View {
                         .font(.body)
                         .padding(.horizontal)
                 }
-                .opacity(alpha)
 
                 Spacer()
                 if selected{
                     withAnimation(.easeIn(duration: 0.25).delay(0.25)){
-                    Image(systemName: "checkmark")
+                        Image(systemName: SFSymbols.check.rawValue)
                         .padding(.horizontal)
                     }
                 }
@@ -50,13 +49,15 @@ struct DetailViewIngredientCell: View {
             .onTapGesture {
                 print("ingredient: \(ingredient), measurement: \(measurement)")
                 selected.toggle()
-                withAnimation(.easeIn(duration: 0.25)){
-                    alpha = 0
-                }
-                withAnimation(.easeIn(duration: 0.25).delay(0.15)){
-                    alpha = 1
-                }
+
                 if inShoppingList == false{
+                    withAnimation(.easeIn(duration: 0.25)){
+                        message = selected ? .add : .remove
+                        alpha = 1
+                    }
+                    withAnimation(.easeIn(duration: 0.25).delay(1)){
+                        alpha = 0
+                    }
                     if selected{
                         PersistenceController.shared.addToShoppingList(mealName: mealName,
                                                                        ingredient: ingredient,
@@ -77,6 +78,16 @@ struct DetailViewIngredientCell: View {
                     shopping.getShoppingList()
                 }
             }
+            
+            //Message Overlay
+            HStack{
+                Spacer()
+                Text(message.rawValue)
+                    .padding()
+                    .background(Color(UIColor.secondarySystemBackground))
+                    .opacity(alpha)
+                Spacer()
+            }
         }
         .onAppear{
             getImage(ingredientName: ingredient)
@@ -85,8 +96,9 @@ struct DetailViewIngredientCell: View {
                                                       ingredient: ingredient)
             }
         }
-        
     }
+    
+    
     func getImage(ingredientName: String){
         let modifiedMealDB = ingredientName.replacingOccurrences(of: " ", with: "%20")
         let mealDBImages = "\(BaseURL.ingredientImage)\(modifiedMealDB).png"
@@ -97,5 +109,4 @@ struct DetailViewIngredientCell: View {
             }
         }
     }
-    
 }

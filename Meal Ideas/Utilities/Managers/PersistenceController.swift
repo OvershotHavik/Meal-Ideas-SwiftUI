@@ -40,7 +40,8 @@ struct PersistenceController {
         container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         
     }
-// MARK: - Save Data with completion
+
+
     func saveData(completion: @escaping (Result<MISuccess, MIError>) throws -> Void ){
         do{
             try container.viewContext.save()
@@ -55,7 +56,8 @@ struct PersistenceController {
             }
         }
     }
-    // MARK: - Save without completion
+
+
     func saveData(){
         do{
             try container.viewContext.save()
@@ -63,7 +65,8 @@ struct PersistenceController {
             print("error saving meals to core data: \(error.localizedDescription)")
         }
     }
-    // MARK: - Delete In List
+
+
     func deleteInList(indexSet: IndexSet, entityName: EntityName, source: Source){
         switch entityName {
         case .userMeals:
@@ -262,14 +265,14 @@ struct PersistenceController {
         }
         saveData()
     }
-// MARK: - Delete Meal
+
+
     func deleteMeal(meal: UserMeals){
         container.viewContext.delete(meal)
         print("meal deleted")
     }
     
     
-    // MARK: - Save Favorites
     func saveFavorites(mealName: String, mealDBID: String?, spoonID: Int?, userMealID: UUID?){
         let newFavorite = Favorites(context: container.viewContext)
         newFavorite.mealName = mealName
@@ -282,7 +285,8 @@ struct PersistenceController {
         newFavorite.dateAdded = Date()
         saveData()
     }
-    // MARK: - Delete Favorites
+
+
     func deleteFavorite(source: Source, mealName: String, mealDBID: String?, spoonID: Double?, userMealID: UUID?){
         let request = NSFetchRequest<Favorites>(entityName: EntityName.favorites.rawValue)
         do {
@@ -314,7 +318,8 @@ struct PersistenceController {
             print("Error fetching favorites in deleteFavorites \(e.localizedDescription)")
         }
     }
-    // MARK: - Add To History
+
+
     func addToHistory(mealName: String, mealDBID: String?, spoonID: Int?, userMealID: UUID?){
         let newHistory = History(context: container.viewContext)
         newHistory.mealName = mealName
@@ -328,7 +333,7 @@ struct PersistenceController {
         saveData()
     }
     
-    // MARK: - Clear History for meal name change/delete
+
     func clearHistory(meal: UserMeals){
         //Clear history of the previous meal name to prevent crashes due to the name/meal no longer existing
         
@@ -347,7 +352,8 @@ struct PersistenceController {
             print("Error clearing history in edit meal: \(e.localizedDescription) ")
         }
     }
-    // MARK: - Delete History
+
+
     func deleteHistory(source: Source, deleteOption: Date, completed: () -> Void){
         
         let request = NSFetchRequest<History>(entityName: EntityName.history.rawValue)
@@ -387,7 +393,7 @@ struct PersistenceController {
         }
     }
 
-    // MARK: - Add User Item
+
     func addUserItem(entityName: EntityName, item: String){
         switch entityName {
         case .CDIngredient:
@@ -412,6 +418,7 @@ struct PersistenceController {
         }
         saveData()
     }
+    
     
     func editUserItem(entityName: EntityName, original: String, updated: String?){
         //If updated is nil, user selected delete
@@ -584,7 +591,6 @@ struct PersistenceController {
     }
     
     
-    // MARK: - Add To Shopping List
     func addToShoppingList(mealName: String, ingredient: String?, measurement: String?, checkedOff: Bool){
         let newShoppingListItem = ShoppingList(context: container.viewContext)
         newShoppingListItem.mealName = mealName
@@ -595,7 +601,7 @@ struct PersistenceController {
         saveData()
     }
     
-    // MARK: - Remove from shopping list
+
     func removeFromShoppingList(mealName: String, ingredient: String?, measurement: String?, checkedOff: Bool){
         let request = NSFetchRequest<ShoppingList>(entityName: EntityName.ShoppingList.rawValue)
 
@@ -612,7 +618,7 @@ struct PersistenceController {
         }
     }
     
-    // MARK: - Clear all shopping list
+
     func clearAllShoppingList(){
         let request = NSFetchRequest<ShoppingList>(entityName: EntityName.ShoppingList.rawValue)
 
@@ -628,7 +634,7 @@ struct PersistenceController {
         }
     }
     
-    // MARK: - Update SHopping List Item
+
     func updateShoppingListItem(mealName: String, ingredient: String, measurement: String, checkedOff: Bool){
         let request = NSFetchRequest<ShoppingList>(entityName: EntityName.ShoppingList.rawValue)
 
@@ -646,7 +652,7 @@ struct PersistenceController {
         }
     }
     
-    // MARK: - remove Checked Items
+
     func removeCheckedItems(){
         let request = NSFetchRequest<ShoppingList>(entityName: EntityName.ShoppingList.rawValue)
 

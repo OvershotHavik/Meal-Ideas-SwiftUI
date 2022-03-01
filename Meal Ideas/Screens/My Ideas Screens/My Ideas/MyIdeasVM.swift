@@ -17,11 +17,13 @@ import CoreData
     @Published var userCategories : [String] = []
     @Published var userIngredients: [String] = []
     
+    
     init(){
         super.init(sourceCategory: .categories)
         getAllMeals()
     }
-    // MARK: - get All Meals
+
+
     func getAllMeals(){
         //used to get all meals, runs on on appear of the view, and if all meals changes, goes through check query
         let request = NSFetchRequest<UserMeals>(entityName: EntityName.userMeals.rawValue)
@@ -47,7 +49,7 @@ import CoreData
         }
     }
     
-    // MARK: - Show All Meals
+
     func showAllMeals(){
         print("Show all meals")
         showWelcome = false
@@ -62,7 +64,7 @@ import CoreData
         })
     }
     
-    // MARK: - Check Query
+
     override func checkQuery(query: String, queryType: QueryType){
         if allMeals.isEmpty{
             alertItem = AlertContext.noMeals
@@ -103,7 +105,7 @@ import CoreData
         }
     }
     
-    // MARK: - Custom Filter
+
     override func customFilter(keyword: String, category: String, ingredient: String){
         if keyword == "" &&
             category == "" &&
@@ -238,7 +240,8 @@ import CoreData
         
         
     }
-    // MARK: - Filter Meals
+
+
     func filterMeals(query: String, queryType: QueryType){
         getAllMeals()
         isLoading = true
@@ -306,7 +309,7 @@ import CoreData
         isLoading = false
     }
     
-    // MARK: - Check For Favorite
+
     func checkForFavorite(id: UUID?, favoriteArray: [Favorites]) -> Bool{
         if favoriteArray.contains(where: {$0.userMealID == id} ){
             return true
@@ -314,13 +317,19 @@ import CoreData
             return false
         }
     }
-    // MARK: - Check For History
+
+
     func checkForHistory(id: UUID?, historyArray: [History]) -> Bool{
         if historyArray.contains(where: {$0.userMealID == id} ){
             return true
         } else {
             return false
         }
+    }
+    
+    
+    override func clearMeals() {
+        self.meals = []
     }
 }
 

@@ -8,36 +8,37 @@
 import SwiftUI
 
 struct MealIdeasTabView: View {
-    @AppStorage("shouldShowOnboarding") var shouldShowOnboarding: Bool = true
-    
+    @AppStorage("shouldShowInitialOnboarding") var shouldShowInitialOnboarding: Bool = true
     @EnvironmentObject var query: Query
     @EnvironmentObject var userEnvironment: UserEnvironment
     @EnvironmentObject var shopping: Shopping
+    
+    
     var body: some View {
         TabView{
             MyIdeasView(vm: MyIdeasVM())
                 .tabItem {
-                    Label("My Ideas", systemImage: "person")
+                    Label(Titles.myIdeas.rawValue, systemImage: SFSymbols.person.rawValue)
                 }
             MealDBView(vm: MealDBVM(sourceCategory: .mealDBCategories))
                 .tabItem {
-                    Label("The MealDB", systemImage: "fork.knife.circle.fill")
+                    Label(Titles.mealDB.rawValue, systemImage: SFSymbols.source.rawValue)
                 }
             SpoonView(vm: SpoonVM(sourceCategory: .spoonCategories))
                 .tabItem {
-                    Label("Spoonacular", systemImage: "fork.knife.circle.fill")
+                    Label(Titles.spoonacular.rawValue, systemImage: SFSymbols.source.rawValue)
                 }
             ShoppingListView(vm: ShoppingListVM())
                 .tabItem {
-                    Label("Shopping List", systemImage: "list.dash")
+                    Label(Titles.shoppingList.rawValue, systemImage: SFSymbols.list.rawValue)
                 }
             SettingsView()
                 .tabItem {
-                    Label("Settings", systemImage: "gearshape.fill")
+                    Label(Titles.settings.rawValue, systemImage: SFSymbols.settings.rawValue)
                 }
         }
-        .fullScreenCover(isPresented: $shouldShowOnboarding, content: {
-            OnboardingView(shouldShowOnboarding: $shouldShowOnboarding)
+        .fullScreenCover(isPresented: $shouldShowInitialOnboarding, content: {
+            InitialOnboardingView(shouldShowInitialOnboarding: $shouldShowInitialOnboarding)
         })
         .onAppear{
             query.getFavorites()
@@ -48,8 +49,3 @@ struct MealIdeasTabView: View {
     }
 }
 
-struct MainTabView_Previews: PreviewProvider {
-    static var previews: some View {
-        MealIdeasTabView()
-    }
-}

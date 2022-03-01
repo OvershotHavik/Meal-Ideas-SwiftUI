@@ -33,7 +33,7 @@ struct EditMealsListView: View {
             })
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink(destination: EditIdeaView(vm: EditIdeaVM(meal: nil))) {
-                    Image(systemName: "plus")
+                    Image(systemName: SFSymbols.plus.rawValue)
                         .padding(.horizontal)
                         .foregroundColor(.primary)
                 }
@@ -42,18 +42,12 @@ struct EditMealsListView: View {
         .onAppear{
             vm.fetchMeals()
         }
-        // MARK: - Delete Alert
+        // Delete Alert
         .alert("Delete Meal", isPresented: $vm.showingDeleteAlert) {
             Button("Delete", role: .destructive, action: vm.deleteMeal)
             Button("Cancel", role: .cancel) { }
         } message: {
             Text("Are you sure you want to delete the meal?")
         }
-    }
-}
-
-struct TestCoreDataView_Previews: PreviewProvider {
-    static var previews: some View {
-        EditMealsListView(vm: EditMealsListVM())
     }
 }

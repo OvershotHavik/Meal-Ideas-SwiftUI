@@ -11,15 +11,16 @@ final class ImageLoader: ObservableObject{
     @Published var image: Image? = nil
     //If network call is good, pass up the actual image, if it's nil, it stays the placeholder
     func load(fromURLString urlString: String){
-        NetworkManager.shared.downloadImage(fromURLString: urlString) { uiImage in
+        NetworkManager.shared.downloadImage(fromURLString: urlString) {[weak self] uiImage in
+            guard let self = self else {return}
             guard let uiImage = uiImage else { return }
             DispatchQueue.main.async {
                 self.image = Image(uiImage: uiImage)
             }
         }
     }
-
 }
+
 
 final class ImageLoaderFromData: ObservableObject{
     @Published var image = UIImage()
@@ -27,21 +28,22 @@ final class ImageLoaderFromData: ObservableObject{
     
     func loadFromData(mealPhotoData: Data){
         DispatchQueue.global().async { [weak self] in
+            guard let self = self else {return}
             let tempImage = UIImage(data: mealPhotoData) ?? UIImage(imageLiteralResourceName: ImageNames.placeholderMeal.rawValue)
             DispatchQueue.main.async {
-                self?.image = tempImage
-                self?.isLoading = false
+                self.image = tempImage
+                self.isLoading = false
             }
         }
     }
 }
+
+
 struct RemoteImage: View{
-    
     //helper for the placeholder and to use the placeholder or the actual image if it gets one
     var image: Image?
     var body: some View{
         image?.resizable() ?? Image(ImageNames.placeholderMeal.rawValue).resizable() // If image is nil, use the image in asset as a placeholder
-            
     }
 }
 
@@ -53,7 +55,6 @@ struct LoadRemoteImageView: View{ // Used in the list view as a view
     
     var body: some View{
         RemoteImage(image: imageLoader.image)
-//            .clipShape(Circle())
             .onAppear {
                 imageLoader.load(fromURLString: urlString)
             }

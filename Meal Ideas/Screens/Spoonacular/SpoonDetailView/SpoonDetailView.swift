@@ -11,6 +11,8 @@ struct SpoonDetailView: View {
     @StateObject var vm: SpoonDetailVM
     @EnvironmentObject var query: Query
     @EnvironmentObject var shopping: Shopping
+    
+    
     var body: some View {
         ZStack{
             vm.backgroundColor
@@ -51,9 +53,6 @@ struct SpoonDetailView: View {
                                      bottomColor: .pink)
                     }
 
-                    if !vm.ingredients.isEmpty{
-                        Text(Messages.addToShoppingList.rawValue)
-                    }
                     DetailViewIngredientListView(ingredients: vm.ingredients,
                                                  measurements: vm.measurements,
                                                  mealName: vm.meal?.title ?? "")
@@ -75,7 +74,7 @@ struct SpoonDetailView: View {
                                 print("Share tapped")
                                 vm.presentShareAS(website: website)
                             } label: {
-                                Image(systemName: "square.and.arrow.up")
+                                Image(systemName: SFSymbols.share.rawValue)
                                     .foregroundColor(.blue)
                             }
                         }
@@ -86,7 +85,7 @@ struct SpoonDetailView: View {
                         query.getFavorites()
                     } label: {
                         if vm.meal != nil{
-                            Image(systemName: vm.favorited ? "heart.fill" : "heart")
+                            Image(systemName: vm.favorited ? SFSymbols.favorited.rawValue : SFSymbols.unFavorited.rawValue)
                                 .foregroundColor(.pink)
                         }
                     }

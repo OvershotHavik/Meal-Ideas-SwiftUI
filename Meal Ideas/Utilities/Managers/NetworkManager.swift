@@ -43,7 +43,7 @@ final class NetworkManager {
 
     }
     
-    // MARK: - MealDB Network Calls
+
     func getIngredients() async throws -> [Ingredients.Meals]{
         guard let url = URL(string: BaseURL.ingredientsList) else {
             throw MIError.invalidURL
@@ -63,8 +63,8 @@ final class NetworkManager {
             throw MIError.invalidData
         }
     }
-    // MARK: - Meal DB Query
-  
+
+    
     func mealDBQuery(query: String, queryType: QueryType) async throws ->[MealDBResults.Meal]{
         switch queryType {
         case .none:
@@ -117,7 +117,8 @@ final class NetworkManager {
             return try await mealDBNetworkCall(url: url)
         }
     }
-// MARK: - MealDB Network Call
+
+
     func mealDBNetworkCall(url: URL) async throws -> [MealDBResults.Meal]{
         let (data, response) = try await URLSession.shared.data(from: url)
         
@@ -134,7 +135,7 @@ final class NetworkManager {
         }
     }
     
-    // MARK: - Spoon Query
+
     func spoonQuery(query: String, queryType: QueryType) async throws -> [SpoonacularResults.Recipe]{
         switch queryType {
         case .random:
@@ -154,7 +155,8 @@ final class NetworkManager {
         }
         
     }
-    // MARK: - Spoon Complex Query
+
+
     func spoonComplexQuery(query: String, queryType: QueryType) async throws -> SpoonacularResults.ResultsFromComplex{
         switch queryType {
 
@@ -204,7 +206,7 @@ final class NetworkManager {
         }
     }
     
-    // MARK: - Spoon Complex Search Query
+
     func spoonComplexQuery(url: URL) async throws -> SpoonacularResults.ResultsFromComplex{
         let (data, response) = try await URLSession.shared.data(from: url)
         
@@ -221,7 +223,7 @@ final class NetworkManager {
         }
     }
 
-    // MARK: - Spoon Single Meal
+
     func spoonSingleMeal(query: String) async throws -> SpoonacularResults.Recipe{
         guard let url = URL(string: BaseURL.spoonSingleBase + query + BaseURL.SpoonSingleSuffix) else {
             throw MIError.invalidURL
@@ -242,7 +244,7 @@ final class NetworkManager {
         }
     }
     
-    // MARK: - Spoon Network Call
+
     func spoonNetworkCall(url: URL) async throws -> [SpoonacularResults.Recipe]{
         let (data, response) = try await URLSession.shared.data(from: url)
         
@@ -258,7 +260,5 @@ final class NetworkManager {
             throw MIError.invalidData
         }
     }
-
-
 }
 

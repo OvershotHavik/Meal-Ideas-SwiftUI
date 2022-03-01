@@ -35,7 +35,7 @@ class Shopping: ObservableObject{
         }
     }
     
-    // MARK: - Check SHopping List
+
     func checkShoppingList(mealName: String, ingredient: String) -> Bool{
         if allShoppingList.firstIndex(where: {$0.mealName == mealName && $0.ingredient == ingredient}) != nil {
             return true

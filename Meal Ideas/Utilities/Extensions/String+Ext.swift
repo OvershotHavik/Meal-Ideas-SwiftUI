@@ -7,7 +7,6 @@
 
 import Foundation
 extension String {
-    
     var withoutHtmlTags: String {
     return self.replacingOccurrences(of: "<[^>]+>", with: "", options:
     .regularExpression, range: nil).replacingOccurrences(of: "&[^;]+;", with:
@@ -18,6 +17,8 @@ extension String {
     func contains(find: String) -> Bool{
         return self.range(of: find) != nil
     }
+    
+    
     func containsIgnoringCase(find: String) -> Bool{
         return self.range(of: find, options: .caseInsensitive) != nil
     }

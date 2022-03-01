@@ -10,7 +10,8 @@ import SwiftUI
 struct SpoonView: View {
     @StateObject var vm : SpoonVM
     @EnvironmentObject var query: Query
-    let columns = [GridItem(), GridItem()]
+    @EnvironmentObject var userEnvironment: UserEnvironment
+    
     
     var body: some View {
         NavigationView{
@@ -78,14 +79,15 @@ struct SpoonView: View {
             .toolbar {
                 ToolbarItem(placement: .principal, content: {
                     Text(Titles.mainTitle.rawValue)
+                        .foregroundColor(.primary)
                 })
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     NavigationLink(destination: FavoritesListView(vm: FavoritesListVM(source: .spoonacular))) {
-                        Image(systemName: "heart.fill")
+                        Image(systemName: SFSymbols.favorited.rawValue)
                             .foregroundColor(.pink)
                     }
                     NavigationLink(destination: HistoryListView(vm: HistoryListVM(source: .spoonacular))) {
-                        Image(systemName: "book")
+                        Image(systemName: SFSymbols.history.rawValue)
                             .foregroundColor(.primary)
                     }
                 }
@@ -98,48 +100,11 @@ struct SpoonView: View {
             .onAppear {
                 query.getHistory()
                 query.getFavorites()
-                vm.surpriseMeal = nil
-                if query.queryType == .category ||
-                    query.queryType == .ingredient{
-                    if query.selected == ""{
-                        //nothing selected, if we let it go it brings back random results
-                        return
-                    }
-                }
-                if query.queryType == vm.originalQueryType && query.selected == vm.originalQuery{
-                    //nothing changed, don't do anything
-                    return
-                }
-                vm.resetValues()
-                
-                if query.queryType == .custom{
-                    if !vm.sourceCategories.contains(query.customCategory) &&
-                        query.customCategory != ""{
-                        //If the user selected a category that isn't supported, return with no meals found
-                        vm.meals = []
-                        vm.showWelcome = false
-                        return
-                    } else {
-                        vm.customFilter(keyword: query.customKeyword,
-                                        category: query.customCategory,
-                                        ingredient: query.customIngredient)
-                        return
-                    }
-                }
-                if query.queryType == .none ||
-                    query.queryType == .random{
-                    return
-                } else {
-                    if !vm.sourceCategories.contains(query.customCategory) &&
-                        query.customCategory != ""{
-                        //If the user selected a category that isn't supported, return with no meals found
-                        vm.meals = []
-                        vm.showWelcome = false
-                        return
-                    }
-                    vm.showWelcome = false
-                    vm.checkQuery(query: query.selected, queryType: query.queryType)
-                }
+                vm.sourceOnAppear(queryType: query.queryType,
+                                  selected: query.selected,
+                                  customKeyword: query.customKeyword,
+                                  customCategory: query.customCategory,
+                                  customIngredient: query.customIngredient)
             }
             .onChange(of: vm.isLoading, perform: { _ in
                 vm.stopLoading()
@@ -153,11 +118,6 @@ struct SpoonView: View {
                 
                 vm.checkQuery(query: query.selected, queryType: .keyword)
             })
-            .onChange(of: query.selected, perform: { _ in
-                //Clears the grid so the pictures load correctly
-                vm.meals = []
-                vm.allResultsShown = false
-            })
             .onChange(of: vm.getRandomMeals, perform: { newValue in
                 print("Random tapped in Spoon")
                 vm.checkQuery(query: query.selected, queryType: query.queryType)
@@ -166,13 +126,14 @@ struct SpoonView: View {
         .accentColor(.primary)
         .navigationViewStyle(StackNavigationViewStyle())
     }
-    // MARK: - Stop Loading
+
+
     func stopLoading(){
         vm.isLoading = false
     }
 }
 
-// MARK: - Preview
+
 struct SpoonView_Previews: PreviewProvider {
     static var previews: some View {
         SpoonView(vm: SpoonVM(sourceCategory: .spoonCategories))
@@ -180,7 +141,6 @@ struct SpoonView_Previews: PreviewProvider {
 }
 
 
-// MARK: - SpoonSurpriseNL
 struct SpoonSurpriseNL: View{
     @EnvironmentObject var query: Query
     @EnvironmentObject var shopping: Shopping
@@ -195,7 +155,7 @@ struct SpoonSurpriseNL: View{
     }
 }
 
-// MARK: - Spoon Grid
+
 struct SpoonGrid: View{
     @EnvironmentObject var query: Query
     @EnvironmentObject var shopping: Shopping

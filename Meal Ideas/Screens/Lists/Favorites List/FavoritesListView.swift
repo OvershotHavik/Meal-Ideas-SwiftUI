@@ -20,31 +20,13 @@ struct FavoritesListView: View {
             ForEach(vm.searchResults) {favorite in
                 switch vm.source {
                 case .spoonacular:
-                    NavigationLink(destination: SpoonDetailView(vm: SpoonDetailVM(meal: vm.fetchSpoonMeal(spoonID: favorite.spoonID),
-                                                                                  mealID: Int(favorite.spoonID),
-                                                                                  favorited: true,
-                                                                                  showingHistory: false))) {
-                        FavoriteCell(mealName: favorite.mealName)
-                            .navigationTitle(Titles.spoonFavorite.rawValue)
-                    }
-                    
-                    
+                    SpoonacularFavoritesNL(vm: vm, favorite: favorite)
                     
                 case .mealDB:
-                    NavigationLink(destination: MealDBDetailView(vm: MealDBDetailVM(meal: vm.fetchMealDBMeal(mealDBID: favorite.mealDBID),
-                                                                                    favorited: true, mealID: favorite.mealDBID ?? "",
-                                                                                    showingHistory: false))) {
-                        FavoriteCell(mealName: favorite.mealName)
-                            .navigationTitle(Titles.mealDBFavorite.rawValue)
-                    }
-                    
+                    MealDBFavoritesNL(vm: vm, favorite: favorite)
                     
                 case .myIdeas:
-                    NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: vm.fetchUserMeal(userMealID: favorite.userMealID),
-                                                                                      favorited: true, showingHistory: false))) {
-                        FavoriteCell(mealName: favorite.mealName)
-                            .navigationTitle(Titles.myIdeasFavorite.rawValue)
-                    }
+                    MyIdeasFavoritesNL(vm: vm, favorite: favorite)
                 }
             }
             .onDelete{ IndexSet in
@@ -63,8 +45,52 @@ struct FavoritesListView: View {
     }
 }
 
-struct FavoritesListView_Previews: PreviewProvider {
-    static var previews: some View {
-        FavoritesListView(vm: FavoritesListVM(source: .mealDB))
+
+struct MyIdeasFavoritesNL: View{
+    @StateObject var vm: FavoritesListVM
+    @EnvironmentObject var query: Query
+    var favorite: Favorites
+    
+    var body: some View{
+        NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: vm.fetchUserMeal(userMealID: favorite.userMealID),
+                                                                          favorited: true, showingHistory: false))) {
+            FavoriteCell(mealName: favorite.mealName)
+                .navigationTitle(Titles.myIdeasFavorite.rawValue)
+        }
+    }
+}
+
+
+struct MealDBFavoritesNL: View{
+    @StateObject var vm: FavoritesListVM
+    @EnvironmentObject var query: Query
+    var favorite: Favorites
+    
+    
+    var body: some View{
+        NavigationLink(destination: MealDBDetailView(vm: MealDBDetailVM(meal: vm.fetchMealDBMeal(mealDBID: favorite.mealDBID),
+                                                                        favorited: true, mealID: favorite.mealDBID ?? "",
+                                                                        showingHistory: false))) {
+            FavoriteCell(mealName: favorite.mealName)
+                .navigationTitle(Titles.mealDBFavorite.rawValue)
+        }
+    }
+}
+
+
+struct SpoonacularFavoritesNL: View{
+    @StateObject var vm: FavoritesListVM
+    @EnvironmentObject var query: Query
+    var favorite: Favorites
+    
+    
+    var body: some View{
+        NavigationLink(destination: SpoonDetailView(vm: SpoonDetailVM(meal: vm.fetchSpoonMeal(spoonID: favorite.spoonID),
+                                                                      mealID: Int(favorite.spoonID),
+                                                                      favorited: true,
+                                                                      showingHistory: false))) {
+            FavoriteCell(mealName: favorite.mealName)
+                .navigationTitle(Titles.spoonFavorite.rawValue)
+        }
     }
 }

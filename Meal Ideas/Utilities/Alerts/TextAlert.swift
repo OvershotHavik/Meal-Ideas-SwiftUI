@@ -21,7 +21,7 @@ public struct TextAlert {
     public var secondaryAction: (() -> Void)? = nil // Triggers when the optional center button is tapped
 }
 
-// MARK: - UI Alert Controller Extension
+
 extension UIAlertController {
     convenience init(alert: TextAlert) {
         self.init(title: alert.title, message: alert.message, preferredStyle: .alert)
@@ -51,7 +51,7 @@ extension UIAlertController {
     }
 }
 
-// MARK: - AlertWrapper
+
 struct AlertWrapper<Content: View>: UIViewControllerRepresentable {
     @Binding var isPresented: Bool
     let alert: TextAlert
@@ -89,7 +89,7 @@ struct AlertWrapper<Content: View>: UIViewControllerRepresentable {
     }
 }
 
-// MARK: - Alert View Extension
+
 extension View {
     public func alert(isPresented: Binding<Bool>, _ alert: TextAlert) -> some View {
         AlertWrapper(isPresented: isPresented, alert: alert, content: self)

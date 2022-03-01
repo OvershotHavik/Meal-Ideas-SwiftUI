@@ -12,6 +12,8 @@ struct BadgesHStack: View {
     var items: [String]
     var topColor: Color
     var bottomColor: Color
+    
+    
     var body: some View {
         HStack{
             Text(title)
@@ -30,14 +32,5 @@ struct BadgesHStack: View {
                 }
             }
         }
-    }
-}
-
-
-
-
-struct BadgesHStack_Previews: PreviewProvider {
-    static var previews: some View {
-        BadgesHStack(title: "Category", items: ["breakfast"], topColor: .blue, bottomColor: .green)
     }
 }

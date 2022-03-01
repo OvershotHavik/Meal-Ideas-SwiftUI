@@ -13,15 +13,9 @@ struct FavoriteCell: View {
         HStack{
             Text(mealName ?? "")
             Spacer()
-            Image(systemName: "heart.fill")
+            Image(systemName: SFSymbols.favorited.rawValue)
                 .foregroundColor(.pink)
         }
         .contentShape(Rectangle())
-    }
-}
-
-struct FavoriteCell_Previews: PreviewProvider {
-    static var previews: some View {
-        FavoriteCell(mealName: "Testing meal name")
     }
 }

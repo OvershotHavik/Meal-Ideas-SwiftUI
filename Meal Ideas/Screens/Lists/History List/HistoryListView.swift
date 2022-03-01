@@ -21,50 +21,15 @@ struct HistoryListView: View {
             ForEach(vm.searchResults) {history in
                 switch vm.source{
                 case .spoonacular:
-                    NavigationLink(destination: SpoonDetailView(vm: SpoonDetailVM(meal: vm.fetchSpoonMeal(spoonID: history.spoonID),
-                                                                                  mealID: Int(history.spoonID),
-                                                                                  favorited: vm.checkForFavorite(favoritesArray: query.favoritesArray,
-                                                                                                                 id: "\(history.spoonID)",
-                                                                                                                 userMealID: nil),
-                                                                                  showingHistory: true))) {
-                        HistoryCell(mealName: history.mealName ?? "",
-                                    timeStamp: history.timeStamp,
-                                    favorited: vm.checkForFavorite(favoritesArray: query.favoritesArray,
-                                                                   id: "\(history.spoonID)",
-                                                                   userMealID: nil))
-                    }
-                                                                                  .navigationBarTitle(Titles.spoonHistory.rawValue)
+                    SpoonacularHistoryNL(vm: vm, history: history)
                     
                     
                 case .mealDB:
-                    NavigationLink(destination: MealDBDetailView(vm: MealDBDetailVM(meal: vm.fetchMealDBMeal(mealDBID: history.mealDBID),
-                                                                                    favorited: vm.checkForFavorite(favoritesArray: query.favoritesArray,
-                                                                                                                   id: history.mealDBID,
-                                                                                                                   userMealID: nil),
-                                                                                    mealID: history.mealDBID ?? "",
-                                                                                    showingHistory: true))) {
-                        HistoryCell(mealName: history.mealName ?? "",
-                                    timeStamp: history.timeStamp,
-                                    favorited: vm.checkForFavorite(favoritesArray: query.favoritesArray,
-                                                                   id: history.mealDBID,
-                                                                   userMealID: nil))
-                    }
-                                                                                    .navigationBarTitle(Titles.mealDBHistory.rawValue)
+                    MealDBHistoryNL(vm: vm, history: history)
                     
                     
                 case .myIdeas:
-                    NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: vm.fetchUserMeal(userMealID: history.userMealID),
-                                                                                      favorited: vm.checkForFavorite(favoritesArray: query.favoritesArray,
-                                                                                                                     id: history.mealName,
-                                                                                                                     userMealID: history.userMealID),
-                                                                                      showingHistory: true))) {
-                        HistoryCell(mealName: history.mealName ?? "",
-                                    timeStamp: history.timeStamp,
-                                    favorited: vm.checkForFavorite(favoritesArray: query.favoritesArray,
-                                                                   id: history.mealName,
-                                                                   userMealID: history.userMealID))
-                    }
-                                                                                      .navigationBarTitle(Titles.myIdeasHistory.rawValue)
+                    MyIdeasHistoryNL(vm: vm, history: history)
                 }
             }
             .onDelete{ IndexSet in
@@ -83,7 +48,7 @@ struct HistoryListView: View {
                     print("Trash tapped, process delete action sheet")
                     vm.deleteASPresented.toggle()
                 } label: {
-                    Image(systemName: "trash")
+                    Image(systemName: SFSymbols.trash.rawValue)
                         .foregroundColor(.blue)
                 }
                 .modifier(DeleteActionSheet(vm: vm))
@@ -95,13 +60,7 @@ struct HistoryListView: View {
     }
 }
 
-struct HistoryListView_Previews: PreviewProvider {
-    static var previews: some View {
-        HistoryListView(vm: HistoryListVM(source: .myIdeas))
-    }
-}
 
-// MARK: - Delete Action Sheet
 struct DeleteActionSheet: ViewModifier{
     @ObservedObject var vm: HistoryListVM
     @EnvironmentObject var query: Query
@@ -110,6 +69,7 @@ struct DeleteActionSheet: ViewModifier{
     let oneWeekAgoDate = Calendar.current.date(byAdding: .day, value: -7, to: Date())!
     let thirtyDaysAgo = Calendar.current.date(byAdding: .day, value: -30, to: Date())!
     let sixtyDaysAgo = Calendar.current.date(byAdding: .day, value: -60, to: Date())!
+    
     
     func body(content: Content) -> some View{
         content
@@ -175,5 +135,77 @@ struct DeleteActionSheet: ViewModifier{
                                    message: nil,
                                    buttons: buttons)
             }
+    }
+}
+
+
+
+struct MyIdeasHistoryNL: View{
+    @StateObject var vm: HistoryListVM
+    @EnvironmentObject var query: Query
+    var history: History
+    
+    var body: some View{
+        NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: vm.fetchUserMeal(userMealID: history.userMealID),
+                                                                          favorited: vm.checkForFavorite(favoritesArray: query.favoritesArray,
+                                                                                                         id: history.mealName,
+                                                                                                         userMealID: history.userMealID),
+                                                                          showingHistory: true))) {
+            HistoryCell(mealName: history.mealName ?? "",
+                        timeStamp: history.timeStamp,
+                        favorited: vm.checkForFavorite(favoritesArray: query.favoritesArray,
+                                                       id: history.mealName,
+                                                       userMealID: history.userMealID))
+        }
+                                                                          .navigationBarTitle(Titles.myIdeasHistory.rawValue)
+    }
+}
+
+
+
+struct MealDBHistoryNL: View{
+    @StateObject var vm: HistoryListVM
+    @EnvironmentObject var query: Query
+    var history: History
+    
+    
+    var body: some View{
+        NavigationLink(destination: MealDBDetailView(vm: MealDBDetailVM(meal: vm.fetchMealDBMeal(mealDBID: history.mealDBID),
+                                                                        favorited: vm.checkForFavorite(favoritesArray: query.favoritesArray,
+                                                                                                       id: history.mealDBID,
+                                                                                                       userMealID: nil),
+                                                                        mealID: history.mealDBID ?? "",
+                                                                        showingHistory: true))) {
+            HistoryCell(mealName: history.mealName ?? "",
+                        timeStamp: history.timeStamp,
+                        favorited: vm.checkForFavorite(favoritesArray: query.favoritesArray,
+                                                       id: history.mealDBID,
+                                                       userMealID: nil))
+        }
+                                                                        .navigationBarTitle(Titles.mealDBHistory.rawValue)
+    }
+}
+
+
+
+struct SpoonacularHistoryNL: View{
+    @StateObject var vm: HistoryListVM
+    @EnvironmentObject var query: Query
+    var history: History
+    
+    var body: some View{
+        NavigationLink(destination: SpoonDetailView(vm: SpoonDetailVM(meal: vm.fetchSpoonMeal(spoonID: history.spoonID),
+                                                                      mealID: Int(history.spoonID),
+                                                                      favorited: vm.checkForFavorite(favoritesArray: query.favoritesArray,
+                                                                                                     id: "\(history.spoonID)",
+                                                                                                     userMealID: nil),
+                                                                      showingHistory: true))) {
+            HistoryCell(mealName: history.mealName ?? "",
+                        timeStamp: history.timeStamp,
+                        favorited: vm.checkForFavorite(favoritesArray: query.favoritesArray,
+                                                       id: "\(history.spoonID)",
+                                                       userMealID: nil))
+        }
+                                                                      .navigationBarTitle(Titles.spoonHistory.rawValue)
     }
 }

@@ -24,7 +24,7 @@ struct IngredientCell: View {
                     .padding(.horizontal)
                 Spacer()
                 if selected == true{
-                    Image(systemName: "checkmark")
+                    Image(systemName: SFSymbols.check.rawValue)
                 }
             }
             .contentShape(Rectangle())
@@ -32,12 +32,3 @@ struct IngredientCell: View {
         }
     }
 }
- 
-/*
-struct IngredientCell_Previews: PreviewProvider {
-    static var previews: some View {
-        IngredientCell(ingredient: Ingredients.Meals)
-    }
-}
-
-*/

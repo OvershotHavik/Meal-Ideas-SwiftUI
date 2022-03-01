@@ -9,6 +9,8 @@ import SwiftUI
 
 struct EditItemList: View {
     @StateObject var vm : EditItemListVM
+    
+    
     var body: some View {
         List {
             if vm.listItems.isEmpty{
@@ -87,17 +89,9 @@ struct EditItemList: View {
                     print("Bring up the new item alert with text field")
                     vm.showTextAlert.toggle()
                 } label: {
-                    Image(systemName: "plus")
+                    Image(systemName: SFSymbols.plus.rawValue)
                 }
-                
             }
         }
     }
 }
-/*
- struct EditItemList_Previews: PreviewProvider {
- static var previews: some View {
- EditItemList()
- }
- }
- */

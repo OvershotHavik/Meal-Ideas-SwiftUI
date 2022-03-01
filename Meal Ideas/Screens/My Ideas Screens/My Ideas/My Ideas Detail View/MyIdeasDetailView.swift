@@ -12,12 +12,13 @@ struct MyIdeasDetailView: View {
     @EnvironmentObject var query: Query
     @EnvironmentObject var shopping: Shopping
     
+    
     var body: some View {
         ZStack{
             vm.backgroundColor
                 .ignoresSafeArea()
-            ScrollView{
-                VStack(spacing: 10){
+            VStack(spacing: 10){
+                ScrollView{
                     Spacer(minLength: 5)
                     
                     if let safeData = vm.meal?.mealPhoto{
@@ -49,7 +50,6 @@ struct MyIdeasDetailView: View {
                         }
                     }
                     if vm.meal?.ingredients as? [String] != []{
-                        Text(Messages.addToShoppingList.rawValue)
                         DetailViewIngredientListView(ingredients: vm.meal?.ingredients as? [String] ?? [],
                                                      measurements: vm.meal?.measurements as? [String] ?? [],
                                                      mealName: vm.meal?.mealName ?? "")
@@ -76,7 +76,7 @@ struct MyIdeasDetailView: View {
                                 print("Share tapped")
                                 vm.presentShareAS(website: website)
                             } label: {
-                                Image(systemName: "square.and.arrow.up")
+                                Image(systemName: SFSymbols.share.rawValue)
                                     .foregroundColor(.blue)
                             }
                         }
@@ -87,7 +87,7 @@ struct MyIdeasDetailView: View {
                         query.getFavorites()
                     } label: {
                         if vm.meal != nil{
-                            Image(systemName: vm.favorited ? "heart.fill" : "heart")
+                            Image(systemName: vm.favorited ? SFSymbols.favorited.rawValue : SFSymbols.unFavorited.rawValue)
                                 .foregroundColor(.pink)
                         }
                     }

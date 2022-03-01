@@ -10,6 +10,8 @@ import SwiftUI
 struct MyIdeasView: View {
     @StateObject var vm : MyIdeasVM
     @EnvironmentObject var query: Query
+    @EnvironmentObject var userEnvironment: UserEnvironment
+
     
     var body: some View {
         NavigationView{
@@ -69,6 +71,7 @@ struct MyIdeasView: View {
                     }
                 }
             }
+            
             .padding(.bottom)
             .background(vm.backgroundColor)
             .navigationBarTitleDisplayMode(.inline)
@@ -76,22 +79,23 @@ struct MyIdeasView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     NavigationLink(destination: EditMealsListView(vm: EditMealsListVM())) {
-                        Image(systemName: "square.and.pencil")
+                        Image(systemName: SFSymbols.edit.rawValue)
                             .padding(.horizontal)
                             .foregroundColor(.primary)
                     }
                 }
                 ToolbarItem(placement: .principal, content: {
                     Text(Titles.mainTitle.rawValue)
+                    .foregroundColor(.primary)
                 })
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     NavigationLink(destination: FavoritesListView(vm: FavoritesListVM(source: .myIdeas))) {
-                        Image(systemName: "heart.fill")
+                        Image(systemName: SFSymbols.favorited.rawValue)
                             .foregroundColor(.pink)
                     }
                     NavigationLink(destination: HistoryListView(vm: HistoryListVM(source: .myIdeas))) {
-                        Image(systemName: "book")
-                            .foregroundColor(.primary)
+                        Image(systemName: SFSymbols.history.rawValue)
+                        .foregroundColor(.primary)
                     }
                 }
             }
@@ -130,6 +134,7 @@ struct MyIdeasView: View {
                     vm.checkQuery(query: query.selected, queryType: query.queryType)
                 }
             })
+ 
         }
         .accentColor(.primary)
         .navigationViewStyle(StackNavigationViewStyle())
@@ -137,7 +142,6 @@ struct MyIdeasView: View {
 }
 
 
-// MARK: - My Ideas Surprise NL
 struct MyIdeaSurpriseNL: View{
     //Used for surprise meal to bring up a random meal
     @EnvironmentObject var query: Query
@@ -152,7 +156,8 @@ struct MyIdeaSurpriseNL: View{
                        .environmentObject(shopping)
     }
 }
-// MARK: - My Ideas Grid
+
+
 struct MyIdeasGrid: View{
     @EnvironmentObject var query: Query
     @EnvironmentObject var shopping: Shopping

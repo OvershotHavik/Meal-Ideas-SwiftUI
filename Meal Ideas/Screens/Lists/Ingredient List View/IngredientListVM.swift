@@ -26,11 +26,13 @@ import SwiftUI
         }
     }
     
+    
     init(itemList: [String], selection: String?){
         self.itemList = itemList
         self.selection = selection
         getIngredients()
     }
+    
     
     func getIngredients(){
         self.isLoading = true

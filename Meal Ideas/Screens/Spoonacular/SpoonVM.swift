@@ -15,7 +15,7 @@ import CoreData
     @Published var surpriseMeal: SpoonacularResults.Recipe?
     @Published var customURLString = ""
     
-    // MARK: - Check Query
+
     override func checkQuery(query: String, queryType: QueryType){
         print("Spoon query: \(query) Type: \(queryType.rawValue)")
         
@@ -50,9 +50,9 @@ import CoreData
     }
     
     
-    // MARK: - Get Spoon Meals
     func getSpoonMeals(query: String, queryType: QueryType){
         isLoading = true
+        totalMealCount = 0
         Task {
             do {
                 switch queryType{
@@ -72,25 +72,15 @@ import CoreData
                     let modifiedCategory = query.replacingOccurrences(of: " ", with: "%20").lowercased()
                     print(modifiedCategory)
                     let modified = modifiedCategory + "&offset=\(offsetBy)"
-                    
-                    let catMeals = try await NetworkManager.shared
-                        .spoonComplexQuery(query: modified, queryType: .category)
-                    meals.append(contentsOf: catMeals.results)
-                    if let safeTotalResults = catMeals.totalResults{
-                        totalMealCount = safeTotalResults
-                    }
-                    determineMoreToShow()
+                    let catMeals = try await NetworkManager.shared.spoonComplexQuery(query: modified, queryType: .category)
+                    addResultsToMeals(mealsToAdd: catMeals)
                     
                     
                 case .ingredient:
                     let modifiedIngredient = query.replacingOccurrences(of: " ", with: "%20").lowercased()
                     let modified = modifiedIngredient + "&offset=\(offsetBy)"
                     let ingMeals = try await NetworkManager.shared.spoonComplexQuery(query: modified, queryType: .ingredient)
-                    meals.append(contentsOf: ingMeals.results)
-                    if let safeTotalResults = ingMeals.totalResults{
-                        totalMealCount = safeTotalResults
-                    }
-                    determineMoreToShow()
+                    addResultsToMeals(mealsToAdd: ingMeals)
                     
                     
                 case .keyword:
@@ -99,12 +89,7 @@ import CoreData
                     print("keyword Offset: \(offsetBy)")
                     let modified = safeKeyword + "&offset=\(offsetBy)"
                     let keywordMeals = try await NetworkManager.shared.spoonComplexQuery(query: modified, queryType: .keyword)
-                    meals.append(contentsOf: keywordMeals.results)
-                    if let safeTotalResults = keywordMeals.totalResults{
-                        totalMealCount = safeTotalResults
-                    }
-                    print("spoon keyword meals count: \(meals.count)")
-                    determineMoreToShow()
+                    addResultsToMeals(mealsToAdd: keywordMeals)
                     
                     
                 case .none:
@@ -139,7 +124,17 @@ import CoreData
         }
     }
     
-    // MARK: - Custom Filter
+    
+    
+    func addResultsToMeals(mealsToAdd: SpoonacularResults.ResultsFromComplex){
+        self.meals.append(contentsOf: mealsToAdd.results)
+        if let safeTotalResults = mealsToAdd.totalResults{
+            totalMealCount = safeTotalResults
+        }
+        determineMoreToShow()
+    }
+
+    
     override func customFilter(keyword: String, category: String, ingredient: String){
         if keyword == "" &&
             category == "" &&
@@ -198,13 +193,7 @@ import CoreData
                     }
                     let query = customURLString + "&offset=\(offsetBy)"
                     let customMeals = try await NetworkManager.shared.spoonComplexQuery(query: query , queryType: .custom)
-                    meals.append(contentsOf: customMeals.results)
-                    if let safeTotalResults = customMeals.totalResults{
-                        totalMealCount = safeTotalResults
-                    }
-                    
-                    print("spoon custom meals count: \(meals.count)")
-                    determineMoreToShow()
+                    addResultsToMeals(mealsToAdd: customMeals)
                     isLoading = false
                     
                     
@@ -265,7 +254,8 @@ import CoreData
             }
         }
     }
-    // MARK: - Determine More To Show
+
+
     func determineMoreToShow(){
         if offsetBy == 0{
             if meals.count < 10{
@@ -284,7 +274,6 @@ import CoreData
     }
         
     
-    // MARK: - Check For History
     func checkForHistory(id: Int?, historyArray: [History]) -> Bool{
         if historyArray.contains(where: {$0.spoonID == Double(id ?? 0)}){
             return true
@@ -292,7 +281,8 @@ import CoreData
             return false
         }
     }
-    // MARK: - Check For Favorite
+
+
     func checkForFavorite(id: Int?, favoriteArray: [Favorites]) -> Bool{
         if favoriteArray.contains(where: {$0.spoonID == Double(id ?? 0)}){
             return true
@@ -300,16 +290,21 @@ import CoreData
             return false
         }
     }
-    // MARK: - Stop Loading
+
+
     func stopLoading(){
         if isLoading{
             DispatchQueue.main.asyncAfter(deadline: .now() + 7.5) {
                 if self.isLoading == true{
                     print("loading for 7.5 seconds, stopping and displaying alert")
                     self.isLoading = false
-//                    self.alertItem = AlertContext.unableToComplete
                 }
             }
         }
+    }
+    
+    
+    override func clearMeals() {
+        self.meals = []
     }
 }

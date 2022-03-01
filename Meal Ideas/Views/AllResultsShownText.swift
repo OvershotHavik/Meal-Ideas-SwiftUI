@@ -9,12 +9,6 @@ import SwiftUI
 
 struct AllResultsShownText: View {
     var body: some View {
-        Text("All results shown for this search")
-    }
-}
-
-struct AllResultsShown_Previews: PreviewProvider {
-    static var previews: some View {
-        AllResultsShownText()
+        Text(Messages.allResultsShown.rawValue)
     }
 }

@@ -22,7 +22,8 @@ final class FavoritesListVM: ObservableObject{
     init(source: Source){
         self.source = source
     }
-    // MARK: - Filtered Favorites by source
+
+
     func filteredFavorites(favorites: [Favorites]){
         switch source {
         case .spoonacular:
@@ -40,7 +41,8 @@ final class FavoritesListVM: ObservableObject{
             favoritesArray = myFavorites
         }
     }
-    // MARK: - Fetch User Meal
+
+
     func fetchUserMeal(userMealID: UUID?) -> UserMeals?{
         if let safeID = userMealID{
             let request = NSFetchRequest<UserMeals>(entityName: EntityName.userMeals.rawValue)
@@ -59,7 +61,8 @@ final class FavoritesListVM: ObservableObject{
         }
         return nil
     }
-    // MARK: - Fetch Spoon Favorite
+
+
     func fetchSpoonMeal(spoonID: Double) ->  SpoonacularResults.Recipe?{
         let mealIDInt: Int = Int(spoonID)
         print("Spoon meal ID: \(mealIDInt)")
@@ -76,7 +79,7 @@ final class FavoritesListVM: ObservableObject{
         return nil
     }
     
-    // MARK: - Fetch MealDB Favorite
+
     func fetchMealDBMeal(mealDBID: String?) -> MealDBResults.Meal?{
         print("Fetching MealDB Single Named mealID: \(mealDBID ?? "")")
         Task { () -> MealDBResults.Meal? in

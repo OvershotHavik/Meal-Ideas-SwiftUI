@@ -11,6 +11,8 @@ struct MenuCategoryNL: View{
     @EnvironmentObject var query: Query
     var plist: PList?
     var listItems: [String]
+    
+    
     var body: some View{
         NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: plist,
                                                                                 listItems: listItems,

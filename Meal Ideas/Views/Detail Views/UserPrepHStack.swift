@@ -11,10 +11,12 @@ struct UserPrepHStack: View {
     var hour: Int16?
     var minute: Int16?
     var second: Int16?
+    
+    
     var body: some View {
         HStack{
             if hour != 0 || minute != 0 || second != 0{
-                Image(systemName: "timer")
+                Image(systemName: SFSymbols.timer.rawValue)
             }
             
             if let safeHour = hour{
@@ -33,11 +35,5 @@ struct UserPrepHStack: View {
                 }
             }
         }
-    }
-}
-
-struct UserPrepHStack_Previews: PreviewProvider {
-    static var previews: some View {
-        UserPrepHStack()
     }
 }

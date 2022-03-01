@@ -22,21 +22,19 @@ final class EditIdeaVM: ObservableObject{
     @Published var meal : UserMeals?
     @Published var alertItem: AlertItem?
     
-    
-    // MARK: - UI Adjustments
+    // UI Adjustments
     @Published var isMPActionSheetPresented = false
     @Published var isMIActionSheetPresented = false
     @Published var showingDeleteAlert = false
     @Published var showingBackAlert = false
     @Published var isLoading = false
     
-    // MARK: - For Image Picker
+    // For Image Picker
     @Published var isShowPhotoLibrary = false
     @Published var imagePickerSelection : ImagePickerSelection?
     @Published var imageSource: UIImagePickerController.SourceType = .camera
     
-    
-    // MARK: - Meal Variables
+    // Meal Variables
     @Published var mealPhoto = UIImage()
     @Published var mealName = ""
     @Published var categories: [String] = []
@@ -53,9 +51,7 @@ final class EditIdeaVM: ObservableObject{
     @Published var safeInstructionsPhoto = UIImage()
     @Published var safeMealIngredients: [UserIngredient] = []
     
-    
-    
-    // MARK: - Prep Time
+    // Prep Time
     @Published var hourSelection = 0
     @Published var minuteSelection = 0
     @Published var secondSelection = 0
@@ -63,9 +59,9 @@ final class EditIdeaVM: ObservableObject{
     @Published var minutes = [Int](0..<60)
     @Published var seconds = [Int](0..<60)
     
-    
-    // MARK: - used for Core Data
+    //  used for Core Data
     private let pc = PersistenceController.shared
+    
     
     init(meal: UserMeals?){
         self.meal = meal
@@ -74,13 +70,11 @@ final class EditIdeaVM: ObservableObject{
     }
     
     
-    // MARK: - Remove Ingredient
     func deleteIngredient(at offsets: IndexSet){
         userIngredients.remove(atOffsets: offsets)
     }
     
     
-    // MARK: - Get All Meals
     func getAllMeals(){
         let request = NSFetchRequest<UserMeals>(entityName: EntityName.userMeals.rawValue)
         do {
@@ -91,7 +85,7 @@ final class EditIdeaVM: ObservableObject{
         }
     }
     
-    // MARK: - Check if name is already in use
+
     func checkNameAlreadyInUse(){
         if allMeals.contains(where: {$0.mealName == mealName}){
             //If the meal name already exists, show alert
@@ -99,9 +93,8 @@ final class EditIdeaVM: ObservableObject{
         }
     }
     
-    // MARK: - Save Meal
+
     func saveMeal(){
-        
         if mealName == ""{
             //if nothing was entered for meal name, alert that it is needed
             self.alertItem = AlertContext.blankMealName
@@ -196,7 +189,7 @@ final class EditIdeaVM: ObservableObject{
         }
     }
     
-    // MARK: - Check name Before Save
+
     func checkNameAlreadyInUseSave() -> Bool{
         if allMeals.contains(where: {$0.mealName == mealName}){
             //If the meal name already exists, return true so user will need to change it
@@ -213,7 +206,7 @@ final class EditIdeaVM: ObservableObject{
         }
     }
     
-    // MARK: - Verify URL
+
     func verifyUrl (urlString: String?) -> Bool {
         if let urlString = urlString {
             if let url = NSURL(string: urlString) {
@@ -223,7 +216,7 @@ final class EditIdeaVM: ObservableObject{
         return false
     }
     
-    // MARK: - UpdateFavorite
+
     func updateFavorites(){
         //Update the favorites so the favorites list doesn't try to access a meal that doesn't exist
         let request = NSFetchRequest<Favorites>(entityName: EntityName.favorites.rawValue)
@@ -244,7 +237,7 @@ final class EditIdeaVM: ObservableObject{
         }
     }
     
-    // MARK: - Delete Meal
+
     func deleteMeal(){
         print("Delete meal...")
         if let safeMeal = meal{
@@ -260,8 +253,8 @@ final class EditIdeaVM: ObservableObject{
     }
     
     
-    // MARK: - Convert meal to values to be able to modify it
     func convertMeal(){
+        //Convert meal to values to be able to modify it
         guard let safeMeal = meal else {
             return
         }
@@ -292,7 +285,8 @@ final class EditIdeaVM: ObservableObject{
         self.userMealID = safeMeal.userMealID
         
     }
-    // MARK: - Convert Date
+
+
     func convertDate(date:Date)->String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "h:mma"
@@ -301,7 +295,8 @@ final class EditIdeaVM: ObservableObject{
         let day = dateFormatter.string(from: date)
         return "\(time)\n\(day)"
     }
-    // MARK: - Check For Changes before showing the back alert
+
+
     func checkForChanges(){
         //user came into the view with a meal
         if let safeMeal = meal{

@@ -10,6 +10,9 @@ import SwiftUI
 struct ShoppingListView: View {
     @StateObject var vm = ShoppingListVM()
     @EnvironmentObject var shopping : Shopping
+    @AppStorage("shouldShowShoppingListOnboarding") var shouldShowShoppingListOnboarding: Bool = true
+    
+    
     var body: some View {
         NavigationView{
             VStack{
@@ -31,8 +34,7 @@ struct ShoppingListView: View {
                     }
                 }
                 .searchable(text: $vm.searchText)
-
-                // MARK: - Clear Checked Alert
+                // Clear Checked Alert
                 .alert("Are you sure you want to clear checked items?", isPresented: $vm.showingClearCheckedAlert) {
                     Button("Clear Checked Items", role: .destructive) {
                         withAnimation {
@@ -44,7 +46,7 @@ struct ShoppingListView: View {
                     }
                     Button("Cancel", role: .cancel) { }
                 }
-                // MARK: - Clear All Alert
+                // Clear All Alert
                 .alert("Are you sure you want to clear all items?", isPresented: $vm.showingClearAllAlert) {
                     Button("Clear All Items", role: .destructive) {
                         withAnimation {
@@ -62,12 +64,11 @@ struct ShoppingListView: View {
                 ToolbarItem(placement: .navigationBarLeading) {
                     if shopping.anyChecked{
                         Button {
-                            print("delete checked")
                             withAnimation {
                                 vm.showingClearCheckedAlert.toggle()
                             }
                         } label: {
-                            Text("Delete checked")
+                            Text("Remove Checked")
                         }
                         .accentColor(.red)
                     }
@@ -78,33 +79,25 @@ struct ShoppingListView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     if !shopping.allShoppingList.isEmpty{
                         Button  {
-                            print("Clear all")
                             withAnimation {
                                 vm.showingClearAllAlert.toggle()
                             }
                         } label: {
-                            Text("Clear all")
+                            Text("Clear All")
                         }
                         .accentColor(.red)
                     }
                 }
             }
         }
-
         .navigationViewStyle(StackNavigationViewStyle())
+        .fullScreenCover(isPresented: $shouldShowShoppingListOnboarding, content: {
+            ShoppingListOnboardingView(shouldShowShoppingListOnboarding: $shouldShowShoppingListOnboarding)
+        })
         .onAppear{
             shopping.getShoppingList()
             vm.allShoppingList = shopping.allShoppingList
             vm.mealNames = shopping.mealNames
         }
-
-    }
-}
-
-
-
-struct ShoppingListView_Previews: PreviewProvider {
-    static var previews: some View {
-        ShoppingListView()
     }
 }

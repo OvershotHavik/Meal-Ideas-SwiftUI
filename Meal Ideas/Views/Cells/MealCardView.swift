@@ -19,6 +19,7 @@ struct MealCardView: View {
     @State var mealImage = UIImage()
     @State var isLoading = false
     
+    
     var body: some View {
         ZStack{
             Color(UIColor.tertiarySystemBackground)
@@ -37,8 +38,6 @@ struct MealCardView: View {
                         } else {
                             Color.gray
                                 .clipShape(Circle())
-//                            Image(uiImage: placeholder)
-//                                .resizable()
                         }
                     }
                     .modifier(MealCardPhotoModifier())
@@ -69,22 +68,14 @@ struct MealCardView: View {
     }
 }
 
-struct MealCardView_Previews: PreviewProvider {
-    static var previews: some View {
-        MealCardView(mealPhoto: "Pizza",
-                     mealName: "test name",
-                     favorited: true,
-                     inHistory: true)
-    }
-}
-// MARK: - History Favorites H Stack
+
 struct HistoryFavoriteHStack: View{
     var inHistory: Bool
     var favorited: Bool
     var body: some View{
         HStack{
             if favorited == true {
-                Image(systemName:"heart.fill") // If favorited is true, then show book, if not, show nothing
+                Image(systemName:SFSymbols.favorited.rawValue) // If favorited is true, then show book, if not, show nothing
                     .foregroundColor(.pink)
                     .padding([.trailing, .top])
             }
@@ -92,7 +83,7 @@ struct HistoryFavoriteHStack: View{
             Spacer()
             
             if inHistory == true {
-                Image(systemName: "book") // If in history is true, then show book, if not, show nothing
+                Image(systemName: SFSymbols.history.rawValue) // If in history is true, then show book, if not, show nothing
                     .padding([.leading, .top])
                     .opacity(0.50)
             }

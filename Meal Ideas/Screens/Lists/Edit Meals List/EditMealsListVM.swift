@@ -25,7 +25,7 @@ final class EditMealsListVM: ObservableObject{
         fetchMeals()
     }
     
-    // MARK: - Fetch Meals
+
     func fetchMeals(){
         let request = NSFetchRequest<UserMeals>(entityName: EntityName.userMeals.rawValue)
         do {
@@ -36,7 +36,7 @@ final class EditMealsListVM: ObservableObject{
         }
     }
     
-    // MARK: - Delete Meal
+
     func deleteMeal(){
         if let safeIndexSet = selectedIndexSet{
             withAnimation {
