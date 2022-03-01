@@ -61,3 +61,8 @@ Shopping List added!
 - Once added to the list, you can check them off as you pick them up at the store
 - You can clear the list either by checking them off and choosing "delete checked" or you can clear all
 - Any items added tot he shopping card will show checked off on the meal's detail view.
+
+Version 0.2.1
+- Added onboarding for Shopping List
+- Added a label on the ingredient list to alert the user that it was added/removed from the shopping list
+- Added the option to have the user tap an image while creating their meal to get to the zoom view
