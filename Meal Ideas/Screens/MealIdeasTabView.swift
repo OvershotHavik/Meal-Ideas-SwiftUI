@@ -9,10 +9,11 @@ import SwiftUI
 
 struct MealIdeasTabView: View {
     @AppStorage("shouldShowInitialOnboarding") var shouldShowInitialOnboarding: Bool = true
-    
     @EnvironmentObject var query: Query
     @EnvironmentObject var userEnvironment: UserEnvironment
     @EnvironmentObject var shopping: Shopping
+    
+    
     var body: some View {
         TabView{
             MyIdeasView(vm: MyIdeasVM())

@@ -43,6 +43,9 @@ struct OnboardingPageViewSystemName: View{
                             .background(.blue)
                             .cornerRadius(6)
                     }
+                    Rectangle()
+                        .fill(.clear)
+                        .frame(height: 20)
                     Spacer()
                 }else {
                     VStack{

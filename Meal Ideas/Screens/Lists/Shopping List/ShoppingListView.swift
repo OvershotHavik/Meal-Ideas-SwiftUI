@@ -10,8 +10,8 @@ import SwiftUI
 struct ShoppingListView: View {
     @StateObject var vm = ShoppingListVM()
     @EnvironmentObject var shopping : Shopping
-//    @AppStorage("shouldShowShoppingListOnboarding")
-    @State var shouldShowShoppingListOnboarding: Bool = true
+    @AppStorage("shouldShowShoppingListOnboarding") var shouldShowShoppingListOnboarding: Bool = true
+    
     
     var body: some View {
         NavigationView{
@@ -34,7 +34,6 @@ struct ShoppingListView: View {
                     }
                 }
                 .searchable(text: $vm.searchText)
-
                 // Clear Checked Alert
                 .alert("Are you sure you want to clear checked items?", isPresented: $vm.showingClearCheckedAlert) {
                     Button("Clear Checked Items", role: .destructive) {
@@ -60,9 +59,6 @@ struct ShoppingListView: View {
                     Button("Cancel", role: .cancel) { }
                 }
             }
-            .fullScreenCover(isPresented: $shouldShowShoppingListOnboarding, content: {
-                ShoppingListOnboardingView(shouldShowShoppingListOnboarding: $shouldShowShoppingListOnboarding)
-            })
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -95,11 +91,13 @@ struct ShoppingListView: View {
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())
+        .fullScreenCover(isPresented: $shouldShowShoppingListOnboarding, content: {
+            ShoppingListOnboardingView(shouldShowShoppingListOnboarding: $shouldShowShoppingListOnboarding)
+        })
         .onAppear{
             shopping.getShoppingList()
             vm.allShoppingList = shopping.allShoppingList
             vm.mealNames = shopping.mealNames
         }
-        
     }
 }
