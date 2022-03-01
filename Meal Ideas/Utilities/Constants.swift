@@ -55,11 +55,15 @@ enum Titles: String{
     case customFilter = "Custom Filter"
     
     case myIdeas = "My Ideas"
+    case mealDB = "The MealDB"
+    case spoonacular = "Spoonacular"
+    case shoppingList = "Shopping List"
+    case settings = "Settings"
+
+    
     case history = "History"
     case favorites = "Favorites"
-    case shoppingList = "Shopping List"
     
-    case settings = "Settings"
     case editCategories = "Edit Categories"
     case editIngredients = "Edit Ingredients"
     case editSides = "Edit Sides"
@@ -143,6 +147,29 @@ enum ImageNames: String{
     case SLSeparation = "SLSeparation"
 }
 
+enum SFSymbols: String{
+    case iCloud = "person.icloud.fill"
+    case list = "list.dash"
+    case settings = "gearshape.fill"
+    case source = "fork.knife.circle.fill"
+    case person = "person"
+    case filter = "slider.horizontal.3"
+    
+    case favorited = "heart.fill"
+    case unFavorited = "heart"
+    case history = "book"
+    
+    case check = "checkmark"
+    case timer = "timer"
+    case personFilled = "person.fill"
+    
+    case chevronRight = "chevron.right"
+    case share = "square.and.arrow.up"
+    case plus = "plus"
+    case trash = "trash"
+    case edit = "square.and.pencil"
+    case chevronLeft = "chevron.left"
+}
 
 /*
 //Uncomment this section to clear the alerts. The network calls will not work but the app can be used for user meals

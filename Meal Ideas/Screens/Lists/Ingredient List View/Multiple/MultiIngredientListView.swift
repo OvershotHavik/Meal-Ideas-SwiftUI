@@ -46,7 +46,7 @@ struct MultiIngredientListView: View {
                         print("Bring up the new item alert with text field")
                         vm.showTextAlert.toggle()
                     } label: {
-                        Image(systemName: "plus")
+                        Image(systemName: SFSymbols.plus.rawValue)
                     }
                 }
             }

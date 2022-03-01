@@ -115,7 +115,7 @@ struct SampleTopView: View{
             TextField("Sample", text: $sample)
                 .textFieldStyle(CustomRoundedCornerTextField())
             
-            Image(systemName: "slider.horizontal.3")
+            Image(systemName: SFSymbols.filter.rawValue)
                 .foregroundColor(.primary)
         }
         .padding()

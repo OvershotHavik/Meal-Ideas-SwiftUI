@@ -72,7 +72,7 @@ struct ZoomImageView : View {
                             print("Share tapped")
                             presentShareAS()
                         } label: {
-                            Image(systemName: "square.and.arrow.up")
+                            Image(systemName: SFSymbols.share.rawValue)
                                 .foregroundColor(.blue)
                         }
                     }

@@ -16,61 +16,61 @@ struct InitialOnboardingView: View {
                 .ignoresSafeArea()
             TabView{
                 OnboardingPageView(shouldShowOnboarding: $shouldShowInitialOnboarding,
-                                   image: ImageNames.topViewEditHighlightImage.rawValue,
+                                   image: .topViewEditHighlightImage,
                                    title: .welcome,
                                    secondary: .welcome,
                                    showsDismissButton: false)
                 
                 OnboardingPageView(shouldShowOnboarding: $shouldShowInitialOnboarding,
-                                   image: ImageNames.myIdeasList.rawValue,
+                                   image: .myIdeasList,
                                    title: .myIdeasList,
                                    secondary: .myIdeasList,
                                    showsDismissButton: false)
                 
                 OnboardingPageView(shouldShowOnboarding: $shouldShowInitialOnboarding,
-                                   image: ImageNames.createAMealImage.rawValue,
+                                   image: .createAMealImage,
                                    title: .createYourFirst,
                                    secondary: .createYourFirst,
                                    showsDismissButton: false)
                 
                 OnboardingPageView(shouldShowOnboarding: $shouldShowInitialOnboarding,
-                                   image: ImageNames.addCustomItemImage.rawValue,
+                                   image: .addCustomItemImage,
                                    title: .addCustom,
                                    secondary: .addCustom,
                                    showsDismissButton: false)
                 
                 OnboardingPageView(shouldShowOnboarding: $shouldShowInitialOnboarding,
-                                   image: ImageNames.filterMenuImage.rawValue,
+                                   image: .filterMenuImage,
                                    title: .searchForIdeas,
                                    secondary: .searchForIdeas,
                                    showsDismissButton: false)
                 
                 OnboardingPageView(shouldShowOnboarding: $shouldShowInitialOnboarding,
-                                   image: ImageNames.adaptiveFilterImage.rawValue,
+                                   image: .adaptiveFilterImage,
                                    title: .adaptiveFilter,
                                    secondary: .adaptiveFilter,
                                    showsDismissButton: false)
                 
                 OnboardingPageView(shouldShowOnboarding: $shouldShowInitialOnboarding,
-                                   image: ImageNames.tabBarImage.rawValue,
+                                   image: .tabBarImage,
                                    title: .additionalSources,
                                    secondary: .additionalSources,
                                    showsDismissButton: false)
                 
                 OnboardingPageView(shouldShowOnboarding: $shouldShowInitialOnboarding,
-                                   image: ImageNames.topViewFavoritesHighlighted.rawValue,
+                                   image: .topViewFavoritesHighlighted,
                                    title: .favoritesAndHistory,
                                    secondary: .favoritesAndHistory,
                                    showsDismissButton: false)
                 
                 OnboardingPageView(shouldShowOnboarding: $shouldShowInitialOnboarding,
-                                   image: ImageNames.SLAdd.rawValue,
+                                   image: .SLAdd,
                                    title: .shoppingList,
                                    secondary: .shoppingList,
                                    showsDismissButton: false)
                 
                 OnboardingPageViewSystemName(shouldShowOnboarding: $shouldShowInitialOnboarding,
-                                             image: "person.icloud.fill",
+                                             image: .iCloud,
                                              title: .cloudKitEnabled,
                                              secondary: .cloudKitEnabled,
                                              showsDismissButton: true)

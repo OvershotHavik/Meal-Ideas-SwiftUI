@@ -33,7 +33,7 @@ struct EditMealsListView: View {
             })
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink(destination: EditIdeaView(vm: EditIdeaVM(meal: nil))) {
-                    Image(systemName: "plus")
+                    Image(systemName: SFSymbols.plus.rawValue)
                         .padding(.horizontal)
                         .foregroundColor(.primary)
                 }

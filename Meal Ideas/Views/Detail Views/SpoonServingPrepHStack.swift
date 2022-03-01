@@ -16,12 +16,12 @@ struct SpoonServingPrepHStack: View {
         HStack{
             //if either are nil, hide the icon as well
             if let safePrepTime = prepTime{
-                Image(systemName: "timer")
+                Image(systemName: SFSymbols.timer.rawValue)
                 Text(minutesToHoursAndMinutes(minutes: safePrepTime))
             }
 
             if let safeServings = servings{
-                Image(systemName: "person.fill")
+                Image(systemName: SFSymbols.personFilled.rawValue)
                 Text("\(safeServings)")
             }
         }

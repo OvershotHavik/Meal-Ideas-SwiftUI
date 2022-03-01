@@ -21,7 +21,7 @@ struct HistoryCell: View {
             Text(mealName)
             Spacer()
             if favorited == true {
-                Image(systemName: "heart.fill")
+                Image(systemName: SFSymbols.favorited.rawValue)
                     .foregroundColor(.pink)
             }
         }

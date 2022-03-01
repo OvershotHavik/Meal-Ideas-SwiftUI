@@ -22,7 +22,7 @@ struct SingleChoiceListView: View {
                     Text(item)
                     Spacer()
                     if query.selected == item{
-                        Image(systemName: "checkmark")
+                        Image(systemName: SFSymbols.check.rawValue)
                     }
                 }
                 .contentShape(Rectangle())

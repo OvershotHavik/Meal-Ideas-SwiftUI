@@ -116,7 +116,7 @@ struct EditIdeaView: View {
             }
         } label: {
             HStack{
-                Image(systemName: "chevron.left")
+                Image(systemName: SFSymbols.chevronLeft.rawValue)
                 Text("Back")
             }
             .font(.body)

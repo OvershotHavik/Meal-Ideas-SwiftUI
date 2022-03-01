@@ -76,7 +76,7 @@ struct MyIdeasDetailView: View {
                                 print("Share tapped")
                                 vm.presentShareAS(website: website)
                             } label: {
-                                Image(systemName: "square.and.arrow.up")
+                                Image(systemName: SFSymbols.share.rawValue)
                                     .foregroundColor(.blue)
                             }
                         }
@@ -87,7 +87,7 @@ struct MyIdeasDetailView: View {
                         query.getFavorites()
                     } label: {
                         if vm.meal != nil{
-                            Image(systemName: vm.favorited ? "heart.fill" : "heart")
+                            Image(systemName: vm.favorited ? SFSymbols.favorited.rawValue : SFSymbols.unFavorited.rawValue)
                                 .foregroundColor(.pink)
                         }
                     }

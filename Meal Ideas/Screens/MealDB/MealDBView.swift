@@ -81,11 +81,11 @@ struct MealDBView: View {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     
                     NavigationLink(destination: FavoritesListView(vm: FavoritesListVM(source: .mealDB))) {
-                        Image(systemName: "heart.fill")
+                        Image(systemName: SFSymbols.favorited.rawValue)
                             .foregroundColor(.pink)
                     }
                     NavigationLink(destination: HistoryListView(vm: HistoryListVM(source: .mealDB))) {
-                        Image(systemName: "book")
+                        Image(systemName: SFSymbols.history.rawValue)
                             .foregroundColor(.primary
                             )
                     }

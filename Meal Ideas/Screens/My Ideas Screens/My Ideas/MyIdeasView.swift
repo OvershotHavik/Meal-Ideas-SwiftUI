@@ -79,7 +79,7 @@ struct MyIdeasView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     NavigationLink(destination: EditMealsListView(vm: EditMealsListVM())) {
-                        Image(systemName: "square.and.pencil")
+                        Image(systemName: SFSymbols.edit.rawValue)
                             .padding(.horizontal)
                             .foregroundColor(.primary)
                     }
@@ -90,11 +90,11 @@ struct MyIdeasView: View {
                 })
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     NavigationLink(destination: FavoritesListView(vm: FavoritesListVM(source: .myIdeas))) {
-                        Image(systemName: "heart.fill")
+                        Image(systemName: SFSymbols.favorited.rawValue)
                             .foregroundColor(.pink)
                     }
                     NavigationLink(destination: HistoryListView(vm: HistoryListVM(source: .myIdeas))) {
-                        Image(systemName: "book")
+                        Image(systemName: SFSymbols.history.rawValue)
                         .foregroundColor(.primary)
                     }
                 }

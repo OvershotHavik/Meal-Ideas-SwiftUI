@@ -9,7 +9,7 @@ import SwiftUI
 
 struct OnboardingPageView: View{
     @Binding var shouldShowOnboarding: Bool
-    var image: String
+    var image: ImageNames
     var title: OnboardingTitles
     var secondary: OnboardingSecondary
     var showsDismissButton: Bool
@@ -18,7 +18,7 @@ struct OnboardingPageView: View{
     var body: some View{
         GeometryReader{ screenBounds in
             VStack(spacing: 10) {
-                Image(uiImage: UIImage(imageLiteralResourceName: image))
+                Image(uiImage: UIImage(imageLiteralResourceName: image.rawValue))
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: screenBounds.size.width, height: screenBounds.size.height/3)
@@ -48,7 +48,7 @@ struct OnboardingPageView: View{
                     VStack{
                         HStack(spacing: 10){
                             Text("Swipe to Continue")
-                            Image(systemName: "chevron.right")
+                            Image(systemName: SFSymbols.chevronRight.rawValue)
                         }
                         Rectangle()
                             .fill(.clear)

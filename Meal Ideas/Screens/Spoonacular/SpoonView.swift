@@ -83,11 +83,11 @@ struct SpoonView: View {
                 })
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     NavigationLink(destination: FavoritesListView(vm: FavoritesListVM(source: .spoonacular))) {
-                        Image(systemName: "heart.fill")
+                        Image(systemName: SFSymbols.favorited.rawValue)
                             .foregroundColor(.pink)
                     }
                     NavigationLink(destination: HistoryListView(vm: HistoryListVM(source: .spoonacular))) {
-                        Image(systemName: "book")
+                        Image(systemName: SFSymbols.history.rawValue)
                             .foregroundColor(.primary)
                     }
                 }

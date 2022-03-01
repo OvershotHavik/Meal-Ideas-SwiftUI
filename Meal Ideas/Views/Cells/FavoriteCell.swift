@@ -13,7 +13,7 @@ struct FavoriteCell: View {
         HStack{
             Text(mealName ?? "")
             Spacer()
-            Image(systemName: "heart.fill")
+            Image(systemName: SFSymbols.favorited.rawValue)
                 .foregroundColor(.pink)
         }
         .contentShape(Rectangle())

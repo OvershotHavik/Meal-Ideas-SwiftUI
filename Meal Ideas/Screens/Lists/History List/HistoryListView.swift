@@ -48,7 +48,7 @@ struct HistoryListView: View {
                     print("Trash tapped, process delete action sheet")
                     vm.deleteASPresented.toggle()
                 } label: {
-                    Image(systemName: "trash")
+                    Image(systemName: SFSymbols.trash.rawValue)
                         .foregroundColor(.blue)
                 }
                 .modifier(DeleteActionSheet(vm: vm))

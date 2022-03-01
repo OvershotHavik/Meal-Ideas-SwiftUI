@@ -15,41 +15,41 @@ struct ShoppingListOnboardingView: View{
             Color(UIColor.secondarySystemBackground)
                 .ignoresSafeArea()
             TabView{
-                OnboardingPageView(shouldShowOnboarding: $shouldShowShoppingListOnboarding,
-                                   image: ImageNames.SLIcon.rawValue,
-                                   title: .shoppingList,
-                                   secondary: .shoppingListIntro,
-                                   showsDismissButton: false)
+                OnboardingPageViewSystemName(shouldShowOnboarding: $shouldShowShoppingListOnboarding,
+                                             image: .list,
+                                             title: .shoppingList,
+                                             secondary: .shoppingListIntro,
+                                             showsDismissButton: false)
                 
                 OnboardingPageView(shouldShowOnboarding: $shouldShowShoppingListOnboarding,
-                                   image: ImageNames.SLAdd.rawValue,
+                                   image: .SLAdd,
                                    title: .onceAdded,
                                    secondary: .onceAdded,
                                    showsDismissButton: false)
                 
                 OnboardingPageView(shouldShowOnboarding: $shouldShowShoppingListOnboarding,
-                                   image: ImageNames.SLSeparation.rawValue,
+                                   image: .SLSeparation,
                                    title: .mealSeparation,
                                    secondary: .mealSeparation,
                                    showsDismissButton: false)
                 
                 OnboardingPageView(shouldShowOnboarding: $shouldShowShoppingListOnboarding,
-                                   image: ImageNames.SLSearchable.rawValue,
+                                   image: .SLSearchable,
                                    title: .searchable,
                                    secondary: .searchable,
                                    showsDismissButton: false)
                 
                 OnboardingPageView(shouldShowOnboarding: $shouldShowShoppingListOnboarding,
-                                   image: ImageNames.SLRemove.rawValue,
+                                   image: .SLRemove,
                                    title: .clearingList,
                                    secondary: .clearingList,
                                    showsDismissButton: false)
                 
                 OnboardingPageViewSystemName(shouldShowOnboarding: $shouldShowShoppingListOnboarding,
-                                   image: "person.icloud.fill",
-                                   title: .cloudKitEnabled,
-                                   secondary: .shoppingCloudKitEnabled,
-                                   showsDismissButton: true)
+                                             image: .iCloud,
+                                             title: .cloudKitEnabled,
+                                             secondary: .shoppingCloudKitEnabled,
+                                             showsDismissButton: true)
             }
             .tabViewStyle(PageTabViewStyle())
         }

@@ -16,7 +16,7 @@ struct UserPrepHStack: View {
     var body: some View {
         HStack{
             if hour != 0 || minute != 0 || second != 0{
-                Image(systemName: "timer")
+                Image(systemName: SFSymbols.timer.rawValue)
             }
             
             if let safeHour = hour{

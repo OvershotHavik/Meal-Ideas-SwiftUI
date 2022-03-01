@@ -17,23 +17,23 @@ struct MealIdeasTabView: View {
         TabView{
             MyIdeasView(vm: MyIdeasVM())
                 .tabItem {
-                    Label("My Ideas", systemImage: "person")
+                    Label(Titles.myIdeas.rawValue, systemImage: SFSymbols.person.rawValue)
                 }
             MealDBView(vm: MealDBVM(sourceCategory: .mealDBCategories))
                 .tabItem {
-                    Label("The MealDB", systemImage: "fork.knife.circle.fill")
+                    Label(Titles.mealDB.rawValue, systemImage: SFSymbols.source.rawValue)
                 }
             SpoonView(vm: SpoonVM(sourceCategory: .spoonCategories))
                 .tabItem {
-                    Label("Spoonacular", systemImage: "fork.knife.circle.fill")
+                    Label(Titles.spoonacular.rawValue, systemImage: SFSymbols.source.rawValue)
                 }
             ShoppingListView(vm: ShoppingListVM())
                 .tabItem {
-                    Label("Shopping List", systemImage: "list.dash")
+                    Label(Titles.shoppingList.rawValue, systemImage: SFSymbols.list.rawValue)
                 }
             SettingsView()
                 .tabItem {
-                    Label("Settings", systemImage: "gearshape.fill")
+                    Label(Titles.settings.rawValue, systemImage: SFSymbols.settings.rawValue)
                 }
         }
         .fullScreenCover(isPresented: $shouldShowInitialOnboarding, content: {

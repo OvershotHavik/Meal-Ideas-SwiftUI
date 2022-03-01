@@ -72,7 +72,7 @@ struct TopView: View{
                 }
 
                 } label: {// Menu label
-                Image(systemName: "slider.horizontal.3")
+                    Image(systemName: SFSymbols.filter.rawValue)
                         .padding()
                         .foregroundColor(.primary)
             }

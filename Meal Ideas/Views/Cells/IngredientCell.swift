@@ -24,7 +24,7 @@ struct IngredientCell: View {
                     .padding(.horizontal)
                 Spacer()
                 if selected == true{
-                    Image(systemName: "checkmark")
+                    Image(systemName: SFSymbols.check.rawValue)
                 }
             }
             .contentShape(Rectangle())

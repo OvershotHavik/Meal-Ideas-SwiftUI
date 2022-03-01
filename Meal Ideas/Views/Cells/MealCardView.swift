@@ -68,15 +68,6 @@ struct MealCardView: View {
     }
 }
 
-struct MealCardView_Previews: PreviewProvider {
-    static var previews: some View {
-        MealCardView(mealPhoto: "Pizza",
-                     mealName: "test name",
-                     favorited: true,
-                     inHistory: true)
-    }
-}
-
 
 struct HistoryFavoriteHStack: View{
     var inHistory: Bool
@@ -84,7 +75,7 @@ struct HistoryFavoriteHStack: View{
     var body: some View{
         HStack{
             if favorited == true {
-                Image(systemName:"heart.fill") // If favorited is true, then show book, if not, show nothing
+                Image(systemName:SFSymbols.favorited.rawValue) // If favorited is true, then show book, if not, show nothing
                     .foregroundColor(.pink)
                     .padding([.trailing, .top])
             }
@@ -92,7 +83,7 @@ struct HistoryFavoriteHStack: View{
             Spacer()
             
             if inHistory == true {
-                Image(systemName: "book") // If in history is true, then show book, if not, show nothing
+                Image(systemName: SFSymbols.history.rawValue) // If in history is true, then show book, if not, show nothing
                     .padding([.leading, .top])
                     .opacity(0.50)
             }

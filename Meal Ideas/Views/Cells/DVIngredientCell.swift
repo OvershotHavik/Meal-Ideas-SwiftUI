@@ -40,7 +40,7 @@ struct DetailViewIngredientCell: View {
                 Spacer()
                 if selected{
                     withAnimation(.easeIn(duration: 0.25).delay(0.25)){
-                    Image(systemName: "checkmark")
+                        Image(systemName: SFSymbols.check.rawValue)
                         .padding(.horizontal)
                     }
                 }

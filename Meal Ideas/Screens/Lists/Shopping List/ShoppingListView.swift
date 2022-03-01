@@ -10,8 +10,8 @@ import SwiftUI
 struct ShoppingListView: View {
     @StateObject var vm = ShoppingListVM()
     @EnvironmentObject var shopping : Shopping
-    @AppStorage("shouldShowShoppingListOnboarding") var shouldShowShoppingListOnboarding: Bool = true
-
+//    @AppStorage("shouldShowShoppingListOnboarding")
+    @State var shouldShowShoppingListOnboarding: Bool = true
     
     var body: some View {
         NavigationView{

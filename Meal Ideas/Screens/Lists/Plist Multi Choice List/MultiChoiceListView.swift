@@ -20,7 +20,7 @@ struct MultiChoiceListView: View {
                 
                 Spacer()
                 if vm.selectedArray.contains(item){
-                    Image(systemName: "checkmark")
+                    Image(systemName: SFSymbols.check.rawValue)
                 }
             }
             .contentShape(Rectangle())
@@ -53,7 +53,7 @@ struct MultiChoiceListView: View {
                     print("Bring up the new item alert with text field")
                     vm.showTextAlert.toggle()
                 } label: {
-                    Image(systemName: "plus")
+                    Image(systemName: SFSymbols.plus.rawValue)
                 }
             }
         }
