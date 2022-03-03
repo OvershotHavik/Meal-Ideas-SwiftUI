@@ -14,16 +14,10 @@ struct LinkView: View {
     
     var body: some View {
         if let safeURL = url{
-            if safeURL == ""{
-                //don't show a button
-            } else {
+            if safeURL != ""{
                 Link(destination: URL(string: safeURL)!) {
                     Text(title)
-                        .foregroundColor(.white)
-                        .frame(width: 200, height: 50)
-                        .background(.blue)
-                        .cornerRadius(10)
-                        .padding(.bottom)
+                        .modifier(MIButtonModifier())
                 }
             }
         }

@@ -33,6 +33,7 @@ struct ShoppingListView: View {
                         }
                     }
                 }
+                
                 .searchable(text: $vm.searchText)
                 // Clear Checked Alert
                 .alert("Are you sure you want to clear checked items?", isPresented: $vm.showingClearCheckedAlert) {
