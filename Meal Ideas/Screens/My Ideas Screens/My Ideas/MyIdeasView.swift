@@ -134,7 +134,6 @@ struct MyIdeasView: View {
                     vm.checkQuery(query: query.selected, queryType: query.queryType)
                 }
             })
- 
         }
         .accentColor(.primary)
         .navigationViewStyle(StackNavigationViewStyle())
