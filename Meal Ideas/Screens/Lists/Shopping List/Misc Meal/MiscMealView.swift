@@ -24,6 +24,10 @@ struct MiscMealView: View{
             vm.convertToShoppingList(allShoppingList: shopping.allShoppingList) // needed if user doesn't add a measurement, this will add the ingredient to the records
             shopping.getShoppingList()
         })
+        .onDisappear(perform: {
+            vm.convertToShoppingList(allShoppingList: shopping.allShoppingList)
+            shopping.getShoppingList()
+        })
         .navigationTitle(Text(Titles.misc.rawValue))
     }
 }
@@ -32,7 +36,6 @@ struct MiscMealView: View{
 
 struct MiscMealIngredientHStack: View{
     @StateObject var vm: MiscMealVM
-    @EnvironmentObject var shopping : Shopping
 
     
     var body: some View{
@@ -43,10 +46,6 @@ struct MiscMealIngredientHStack: View{
                 TextField("Measurement", text: $ing.measurement)
                     .textFieldStyle(CustomRoundedCornerTextField())
                     .frame(width: 150)
-                    .onSubmit {
-                        vm.convertToShoppingList(allShoppingList: shopping.allShoppingList)
-                        shopping.getShoppingList()
-                    }
             }
         }
         .onDelete(perform: vm.deleteIngredient)
