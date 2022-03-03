@@ -260,8 +260,20 @@ struct PersistenceController {
             }catch let e {
                 print("Error fetching CDUserCategory: \(e.localizedDescription)")
             }
+            
+            
         case .ShoppingList:
-            print("Shopping list not setup in delete from list")
+            let request = NSFetchRequest<ShoppingList>(entityName: EntityName.ShoppingList.rawValue)
+            do {
+                let savedItems = try container.viewContext.fetch(request)
+                guard let index = indexSet.first else {return}
+                let shoppingListItem = savedItems[index]
+                print(shoppingListItem)
+                container.viewContext.delete(shoppingListItem)
+                
+            }catch let e{
+                print("Error fetching ShoppingList: \(e.localizedDescription)")
+            }
         }
         saveData()
     }
