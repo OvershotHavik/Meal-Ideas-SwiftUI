@@ -17,5 +17,3 @@ struct MIButtonModifier: ViewModifier {
             .padding(.bottom)
     }
 }
-
-
