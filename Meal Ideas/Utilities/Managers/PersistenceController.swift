@@ -652,6 +652,24 @@ struct PersistenceController {
         }
     }
     
+    
+    func updateMiscMealItem(mealName: String, ingredient: String, measurement: String){
+        let request = NSFetchRequest<ShoppingList>(entityName: EntityName.ShoppingList.rawValue)
+
+        do {
+            let savedItems = try container.viewContext.fetch(request)
+            let filtered = savedItems.filter({$0.mealName == mealName && $0.ingredient == ingredient})
+            //Instead of doing the index, this goes through for any duplicates of the item to modify the record accordingly.
+            for item in filtered{
+                let miscMealItem = item
+                miscMealItem.measurement = measurement
+                saveData()
+            }
+        }catch let e {
+            print("Error fetching Shopping list: \(e.localizedDescription)")
+        }
+    }
+    
 
     func removeCheckedItems(){
         let request = NSFetchRequest<ShoppingList>(entityName: EntityName.ShoppingList.rawValue)

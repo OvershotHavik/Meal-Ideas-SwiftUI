@@ -14,6 +14,7 @@ import CoreData
     @Published var showTextAlert = false
     @Published var listType: ListType
     
+    
     init(editVM: EditIdeaVM, listType: ListType){
         self.editVM = editVM
         self.listType = listType

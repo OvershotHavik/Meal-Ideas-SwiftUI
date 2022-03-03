@@ -16,7 +16,7 @@ enum ImagePickerSelection: Identifiable {
     }
 }
 
-final class EditIdeaVM: ObservableObject{
+class EditIdeaVM: ObservableObject{
     
     @Published var allMeals: [UserMeals] = []
     @Published var meal : UserMeals?

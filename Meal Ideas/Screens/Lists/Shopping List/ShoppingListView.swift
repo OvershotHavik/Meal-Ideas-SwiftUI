@@ -33,6 +33,11 @@ struct ShoppingListView: View {
                         }
                     }
                 }
+                NavigationLink(destination: MiscMealView(), label: {
+                    Text("Add Misc Items")
+                        .bold()
+                        .modifier(MIButtonModifier())
+                })
                 
                 .searchable(text: $vm.searchText)
                 // Clear Checked Alert
@@ -59,6 +64,11 @@ struct ShoppingListView: View {
                     }
                     Button("Cancel", role: .cancel) { }
                 }
+            }
+            .onAppear{
+                shopping.getShoppingList()
+                vm.allShoppingList = shopping.allShoppingList
+                vm.mealNames = shopping.mealNames
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -95,10 +105,6 @@ struct ShoppingListView: View {
         .fullScreenCover(isPresented: $shouldShowShoppingListOnboarding, content: {
             ShoppingListOnboardingView(shouldShowShoppingListOnboarding: $shouldShowShoppingListOnboarding)
         })
-        .onAppear{
-            shopping.getShoppingList()
-            vm.allShoppingList = shopping.allShoppingList
-            vm.mealNames = shopping.mealNames
-        }
+
     }
 }

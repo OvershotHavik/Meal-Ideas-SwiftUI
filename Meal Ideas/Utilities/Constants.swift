@@ -60,7 +60,7 @@ enum Titles: String{
     case shoppingList = "Shopping List"
     case settings = "Settings"
 
-    
+    case misc = "Misc. Ingredients"
     case history = "History"
     case favorites = "Favorites"
     
