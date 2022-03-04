@@ -78,7 +78,7 @@ struct EditIdeaView: View {
                         Text("And/Or type in below:")
                         TextEditor(text: $vm.recipe)
                             .background(RoundedRectangle(cornerRadius: 10)
-                                            .fill(Color(UIColor.tertiarySystemBackground)))
+                                            .fill(Color.ui.textFieldBackground))
                             .frame(height: 150)
                     }
                     Section(header: Text(SectionHeaders.source.rawValue)){
@@ -93,10 +93,10 @@ struct EditIdeaView: View {
                     if vm.meal != nil{
                         Section(header: Text(SectionHeaders.modified.rawValue)){
                             if let safeModified = vm.meal?.modified{
-                                Text("Last Modified on: \(vm.convertDate(date:safeModified))")
+                                Text("Last Modified: \n\(vm.convertDate(date:safeModified))")
                             }
                             if let safeCreated = vm.meal?.created{
-                                Text("Created on: \(vm.convertDate(date: safeCreated))")
+                                Text("Created: \n\(vm.convertDate(date: safeCreated))")
                             }
                         }
                     }

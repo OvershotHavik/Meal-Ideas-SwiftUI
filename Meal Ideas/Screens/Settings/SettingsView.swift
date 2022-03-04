@@ -96,6 +96,7 @@ struct SettingsView: View {
                 })
             }
         }
+        .accentColor(.primary)
         .foregroundColor(.primary)
         .navigationViewStyle(StackNavigationViewStyle())
     }
@@ -111,6 +112,7 @@ struct SampleTopView: View{
         HStack(spacing: 5){
             Text("Surprise \nMe")
                 .lineLimit(2)
+                .multilineTextAlignment(.center)
                 .foregroundColor(.primary)
             TextField("Sample", text: $sample)
                 .textFieldStyle(CustomRoundedCornerTextField())

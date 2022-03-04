@@ -14,6 +14,7 @@ import CoreData
     @Published var showTextAlert = false
     @Published var listType: ListType
     
+    
     init(editVM: EditIdeaVM, listType: ListType){
         self.editVM = editVM
         self.listType = listType
@@ -23,10 +24,16 @@ import CoreData
     }
     
 
-    func checkArray(item: String){
+    func checkArray(item: String, allShoppingList: [ShoppingList]){
         if let repeatItem = selectedArray.firstIndex(of: item){
             editVM.userIngredients.remove(at: repeatItem)
             print("duplicate item: \(item), removed from array")
+            if let existing = allShoppingList.filter({$0.ingredient == item}).first{
+                PersistenceController.shared.removeFromShoppingList(mealName: Misc.mealName.rawValue,
+                                                                    ingredient: item,
+                                                                    measurement: existing.measurement,
+                                                                    checkedOff: false)
+            }
         } else {
             let newItem = UserIngredient(name: item, measurement: "")
             editVM.userIngredients.append(newItem)
