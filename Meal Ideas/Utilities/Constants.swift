@@ -144,7 +144,6 @@ enum ImageNames: String{
     case createAMealImage = "CreateAMealImage"
     
     //shopping List Onboarding
-    case SLIcon = "ShoppingListIcon"
     case SLAdd = "SLAdd"
     case SLRemove = "SLRemoveChecked"
     case SLSearchable = "SLSearchable"
