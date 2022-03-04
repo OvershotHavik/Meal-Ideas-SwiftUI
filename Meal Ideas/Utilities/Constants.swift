@@ -111,7 +111,7 @@ enum SectionHeaders: String{
 
 enum Messages: String{
     case welcome = "Welcome to Meal Ideas!"
-    case noMealsMyIdeas = "No meals found for your search. \n You can create a new one to match this search by tapping the edit icon at the top left."
+    case noMealsMyIdeas = "No meals found for your search. \n You can create a new meal to match this search by tapping the edit icon at the top left."
     case noIngredient = "No meals have been created that contain ingredients."
     case noCategory = "No meals have been created that contain any categories."
     case noMealsFound = "No meals found for your search."

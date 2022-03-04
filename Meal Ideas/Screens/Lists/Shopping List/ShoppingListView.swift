@@ -101,6 +101,7 @@ struct ShoppingListView: View {
                 }
             }
         }
+        .accentColor(.primary)
         .navigationViewStyle(StackNavigationViewStyle())
         .fullScreenCover(isPresented: $shouldShowShoppingListOnboarding, content: {
             ShoppingListOnboardingView(shouldShowShoppingListOnboarding: $shouldShowShoppingListOnboarding)
