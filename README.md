@@ -66,3 +66,8 @@ Version 0.2.1
 - Added onboarding for Shopping List
 - Added a label on the ingredient list to alert the user that it was added/removed from the shopping list
 - Added the option to have the user tap an image while creating their meal to get to the zoom view
+
+Pre Launch Update: 
+- Added an option for the user to add misc items to the shopping list
+- Updated colors and constants throughout the app
+- Fixed spoon so now it verifies the category is searchable for it before doing category and nto just custom
