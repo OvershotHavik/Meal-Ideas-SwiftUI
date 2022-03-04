@@ -148,6 +148,7 @@ enum ImageNames: String{
     case SLRemove = "SLRemoveChecked"
     case SLSearchable = "SLSearchable"
     case SLSeparation = "SLSeparation"
+    case SLMisc = "SLMisc"
 }
 
 enum SFSymbols: String{
@@ -226,6 +227,7 @@ enum OnboardingTitles: String{
     case mealSeparation = "Meal Separation"
     case searchable = "Search Across All Meals"
     case clearingList = "Clear Shopping List"
+    case miscItems = "Misc Items"
 }
 
 
@@ -249,4 +251,5 @@ enum OnboardingSecondary: String{
     case searchable = "You can pull down to search for an ingredient. \n\nIf the meal contains the ingredient, it will show it. \n\nOtherwise the meal won't show any ingredients below the title."
     case clearingList = "You can check off items as you pick them up. \n\nAt the top of the screen either tap the \"Remove Checked\" or \"Clear All\" buttons."
     case shoppingCloudKitEnabled = "Your shopping list will be synced across your iPhone and iPad devices."
+    case miscItems = "You can also tap Add Misc Items and add ingredients you haven't selected from meals. \n\nThis way you can just look in one place for all your shopping items."
 }

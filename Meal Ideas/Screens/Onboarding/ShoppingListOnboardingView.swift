@@ -45,6 +45,12 @@ struct ShoppingListOnboardingView: View{
                                    secondary: .clearingList,
                                    showsDismissButton: false)
                 
+                OnboardingPageView(shouldShowOnboarding: $shouldShowShoppingListOnboarding,
+                                   image: .SLMisc,
+                                   title: .miscItems,
+                                   secondary: .miscItems,
+                                   showsDismissButton: false)
+                
                 OnboardingPageViewSystemName(shouldShowOnboarding: $shouldShowShoppingListOnboarding,
                                              image: .iCloud,
                                              title: .cloudKitEnabled,
