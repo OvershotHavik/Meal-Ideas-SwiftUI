@@ -122,9 +122,21 @@ class BaseVM: ObservableObject{
             }
         }
         if queryType == .custom{
-            customFilter(keyword: customKeyword,
-                            category: customCategory,
-                            ingredient: customIngredient)
+            
+            
+            if !sourceCategories.contains(customCategory) &&
+                customCategory != ""{
+                //If the user selected a category that isn't supported, return with no meals
+                resetValues()
+                clearMeals()
+                showWelcome = false
+                return
+            } else {
+                customFilter(keyword: customKeyword,
+                                category: customCategory,
+                                ingredient: customIngredient)
+            }
+
             return
         }
         if queryType == originalQueryType && selected == originalQuery{
@@ -138,8 +150,8 @@ class BaseVM: ObservableObject{
         } else {
             if queryType == .category{
                 //Only do this check if the query type is categories
-                if !sourceCategories.contains(customCategory) &&
-                    customCategory != ""{
+                if !sourceCategories.contains(selected) &&
+                    selected != ""{
                     //If the user selected a category that isn't supported, return with no meals
                     resetValues()
                     clearMeals()
