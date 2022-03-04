@@ -33,6 +33,12 @@ struct ShoppingListView: View {
                         }
                     }
                 }
+                NavigationLink(destination: MiscMealView(), label: {
+                    Text("Add Misc Items")
+                        .bold()
+                        .modifier(MIButtonModifier())
+                })
+                
                 .searchable(text: $vm.searchText)
                 // Clear Checked Alert
                 .alert("Are you sure you want to clear checked items?", isPresented: $vm.showingClearCheckedAlert) {
@@ -58,6 +64,11 @@ struct ShoppingListView: View {
                     }
                     Button("Cancel", role: .cancel) { }
                 }
+            }
+            .onAppear{
+                shopping.getShoppingList()
+                vm.allShoppingList = shopping.allShoppingList
+                vm.mealNames = shopping.mealNames
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -90,14 +101,11 @@ struct ShoppingListView: View {
                 }
             }
         }
+        .accentColor(.primary)
         .navigationViewStyle(StackNavigationViewStyle())
         .fullScreenCover(isPresented: $shouldShowShoppingListOnboarding, content: {
             ShoppingListOnboardingView(shouldShowShoppingListOnboarding: $shouldShowShoppingListOnboarding)
         })
-        .onAppear{
-            shopping.getShoppingList()
-            vm.allShoppingList = shopping.allShoppingList
-            vm.mealNames = shopping.mealNames
-        }
+
     }
 }

@@ -38,10 +38,7 @@ struct OnboardingPageViewSystemName: View{
                     } label: {
                         Text("Get Started")
                             .bold()
-                            .foregroundColor(.primary)
-                            .frame(width: 200, height: 50)
-                            .background(.blue)
-                            .cornerRadius(6)
+                            .modifier(MIButtonModifier())
                     }
                     Rectangle()
                         .fill(.clear)

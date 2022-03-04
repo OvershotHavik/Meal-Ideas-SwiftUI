@@ -149,6 +149,14 @@ import CoreData
         showWelcome = false
         allResultsShown = false
         surpriseMealReady = false
+        
+        if originalCustomKeyword == keyword &&
+            originalCustomCategory == category &&
+            originalCustomIngredient == ingredient{
+            //nothing changed
+            isLoading = false
+            return
+        }
 
         if originalCustomKeyword != keyword ||
             originalCustomCategory != category ||

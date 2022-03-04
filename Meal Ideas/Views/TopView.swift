@@ -13,6 +13,8 @@ struct TopView: View{
     @Binding var keywordSearchTapped: Bool
     @Binding var getRandomMeals : Bool
     @Binding var source: Source
+    
+    
     var body: some View{
         HStack(spacing: 20){
             Button(action: {

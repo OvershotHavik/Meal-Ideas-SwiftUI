@@ -10,6 +10,7 @@ import SwiftUI
 struct MultiIngredientListView: View {
     @StateObject var vm: MultiIngredientListVM
     @EnvironmentObject var query: Query
+    @EnvironmentObject var shopping : Shopping
     @Environment(\.dismiss) var dismiss
     
     
@@ -24,7 +25,8 @@ struct MultiIngredientListView: View {
                 let selected = vm.selectedArray.contains(ingredient.strIngredient)
                 IngredientCell(ingredient: ingredient, selected: selected)
                     .onTapGesture {
-                        vm.checkArray(item: ingredient.strIngredient)
+                        vm.checkArray(item: ingredient.strIngredient, allShoppingList: shopping.allShoppingList)
+                        shopping.getShoppingList()
                     }
             }
             .alert(isPresented: $vm.showTextAlert,
