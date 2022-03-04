@@ -14,7 +14,7 @@ struct CustomRoundedCornerTextField: TextFieldStyle {
     func _body(configuration: TextField<Self._Label>) -> some View {
         configuration
             .padding(10)
-            .background(Color(UI.textFieldBackground))
+            .background(Color.ui.textFieldBackground)
             .cornerRadius(10)
     }
 }

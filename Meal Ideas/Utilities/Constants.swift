@@ -12,7 +12,6 @@ import SwiftUI
 enum UI{
     static let topViewOffsetSpacing = CGFloat(95)
     static let verticalSpacing = CGFloat(25)
-    static let textFieldBackground = "TextFieldBackground"
 }
 
 
