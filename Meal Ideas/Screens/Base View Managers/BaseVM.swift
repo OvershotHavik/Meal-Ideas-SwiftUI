@@ -24,6 +24,7 @@ class BaseVM: ObservableObject{
     @Published var surpriseMealReady = false
     @Published var sourceCategories: [String] = []
     @Published var sourceCategory: PList
+    @Published var source: Source
     //For scroll views
     @Published var scrollViewContentOffset = CGFloat(0)
     @Published var largestY = CGFloat(0)
@@ -38,8 +39,9 @@ class BaseVM: ObservableObject{
     @Published var originalCustomIngredient: String?
     
     
-    init(sourceCategory: PList){
+    init(sourceCategory: PList, source: Source){
         self.sourceCategory = sourceCategory
+        self.source = source
         fetchPlist(plist: sourceCategory)
     }
 
@@ -122,18 +124,26 @@ class BaseVM: ObservableObject{
             }
         }
         if queryType == .custom{
-            if !sourceCategories.contains(customCategory) &&
-                customCategory != ""{
-                //If the user selected a category that isn't supported, return with no meals
-                resetValues()
-                clearMeals()
-                showWelcome = false
-                return
+            if source != .myIdeas{
+                if !sourceCategories.contains(customCategory) &&
+                    customCategory != ""{
+                    //If the user selected a category that isn't supported, return with no meals
+                    resetValues()
+                    clearMeals()
+                    showWelcome = false
+                    return
+                } else {
+                    customFilter(keyword: customKeyword,
+                                    category: customCategory,
+                                    ingredient: customIngredient)
+                }
             } else {
+                //My ideas doesn't need to check for category
                 customFilter(keyword: customKeyword,
                                 category: customCategory,
                                 ingredient: customIngredient)
             }
+
 
             return
         }
@@ -146,17 +156,21 @@ class BaseVM: ObservableObject{
             queryType == .random{
             return
         } else {
-            if queryType == .category{
-                //Only do this check if the query type is categories
-                if !sourceCategories.contains(selected) &&
-                    selected != ""{
-                    //If the user selected a category that isn't supported, return with no meals
-                    resetValues()
-                    clearMeals()
-                    showWelcome = false
-                    return
+            if source != .myIdeas{
+                //only needs checked on other sources
+                if queryType == .category{
+                    //Only do this check if the query type is categories
+                    if !sourceCategories.contains(selected) &&
+                        selected != ""{
+                        //If the user selected a category that isn't supported, return with no meals
+                        resetValues()
+                        clearMeals()
+                        showWelcome = false
+                        return
+                    }
                 }
             }
+
             showWelcome = false
             checkQuery(query: selected, queryType: queryType)
         }

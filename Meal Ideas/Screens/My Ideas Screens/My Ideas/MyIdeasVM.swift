@@ -12,14 +12,13 @@ import CoreData
     @Published var meals : [UserMeals] = []
     private let pc = PersistenceController.shared
     @Published var allMeals : [UserMeals] = []
-    @Published var source: Source = .myIdeas
     @Published var surpriseMeal : UserMeals?
     @Published var userCategories : [String] = []
     @Published var userIngredients: [String] = []
     
     
     init(){
-        super.init(sourceCategory: .categories)
+        super.init(sourceCategory: .categories, source: .myIdeas)
         getAllMeals()
     }
 

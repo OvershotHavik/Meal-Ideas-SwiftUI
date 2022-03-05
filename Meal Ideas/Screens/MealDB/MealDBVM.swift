@@ -12,7 +12,6 @@ import SwiftUI
 @MainActor final class MealDBVM: BaseVM{
     
     @Published var meals : [MealDBResults.Meal] = []
-    @Published var source: Source = .mealDB
     @Published var surpriseMeal: MealDBResults.Meal?
     
 

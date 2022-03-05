@@ -20,11 +20,11 @@ struct MealIdeasTabView: View {
                 .tabItem {
                     Label(Titles.myIdeas.rawValue, systemImage: SFSymbols.person.rawValue)
                 }
-            MealDBView(vm: MealDBVM(sourceCategory: .mealDBCategories))
+            MealDBView(vm: MealDBVM(sourceCategory: .mealDBCategories, source: .mealDB))
                 .tabItem {
                     Label(Titles.mealDB.rawValue, systemImage: SFSymbols.source.rawValue)
                 }
-            SpoonView(vm: SpoonVM(sourceCategory: .spoonCategories))
+            SpoonView(vm: SpoonVM(sourceCategory: .spoonCategories, source: .spoonacular))
                 .tabItem {
                     Label(Titles.spoonacular.rawValue, systemImage: SFSymbols.source.rawValue)
                 }

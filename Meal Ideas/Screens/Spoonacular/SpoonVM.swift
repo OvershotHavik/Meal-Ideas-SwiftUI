@@ -11,7 +11,7 @@ import CoreData
 @MainActor final class SpoonVM: BaseVM{
     @Published var meals: [SpoonacularResults.Recipe] = []
     @Published var individualMeal: SpoonacularResults.Recipe?
-    @Published var source: Source = .spoonacular
+//    @Published var source: Source = .spoonacular
     @Published var surpriseMeal: SpoonacularResults.Recipe?
     @Published var customURLString = ""
     

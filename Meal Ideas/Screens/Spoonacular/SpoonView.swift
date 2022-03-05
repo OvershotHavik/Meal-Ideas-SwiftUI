@@ -134,13 +134,6 @@ struct SpoonView: View {
 }
 
 
-struct SpoonView_Previews: PreviewProvider {
-    static var previews: some View {
-        SpoonView(vm: SpoonVM(sourceCategory: .spoonCategories))
-    }
-}
-
-
 struct SpoonSurpriseNL: View{
     @EnvironmentObject var query: Query
     @EnvironmentObject var shopping: Shopping
