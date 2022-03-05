@@ -130,6 +130,7 @@ struct MealDBView: View {
 
     func stopLoading(){
         vm.isLoading = false
+        vm.allResultsToggle()
     }
 }
 

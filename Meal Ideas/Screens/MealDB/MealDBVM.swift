@@ -42,7 +42,7 @@ import SwiftUI
 
     func getMealDBMeals(query: String, queryType: QueryType) {
         isLoading = true
-        
+        allResultsShown = false
         Task {
             do{
                 switch queryType {
@@ -58,6 +58,7 @@ import SwiftUI
                         }
                     }
                     
+                    
                 case .category:
                     print("Fetching MealDB Category: \(query)")
                     var modified = query.replacingOccurrences(of: " ", with: "%20")
@@ -67,13 +68,14 @@ import SwiftUI
                     meals = try await NetworkManager.shared.mealDBQuery(query: modified, queryType: .category)
                     allResultsToggle()
                     
+                    
                 case .ingredient:
                     let modifiedIngredient = query.replacingOccurrences(of: " ", with: "_")
                     
                     meals = try await NetworkManager.shared.mealDBQuery(query: modifiedIngredient,
                                                                         queryType: .ingredient)
                     allResultsToggle()
-                    print("ing")
+
                     
                 case .none:
                     ()
@@ -87,7 +89,7 @@ import SwiftUI
                     
                     
                 case .custom:
-                    () // Custom is not being used in mealDB due to limitations in their API
+                    () // custom has it's own function
                 }
                 isLoading = false
             }catch{

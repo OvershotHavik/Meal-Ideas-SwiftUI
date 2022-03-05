@@ -44,6 +44,7 @@ class BaseVM: ObservableObject{
     }
     
 
+
     func resetValues(){
         alertItem = nil
         isLoading = false
@@ -122,8 +123,6 @@ class BaseVM: ObservableObject{
             }
         }
         if queryType == .custom{
-            
-            
             if !sourceCategories.contains(customCategory) &&
                 customCategory != ""{
                 //If the user selected a category that isn't supported, return with no meals

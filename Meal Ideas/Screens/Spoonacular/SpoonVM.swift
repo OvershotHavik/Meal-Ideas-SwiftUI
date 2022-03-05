@@ -161,6 +161,7 @@ import CoreData
         if originalCustomKeyword != keyword ||
             originalCustomCategory != category ||
             originalCustomIngredient != ingredient{
+            totalMealCount = 0
             meals = []
             customURLString = ""
             self.originalCustomKeyword = keyword
