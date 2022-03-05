@@ -42,7 +42,6 @@ class BaseVM: ObservableObject{
         self.sourceCategory = sourceCategory
         fetchPlist(plist: sourceCategory)
     }
-    
 
 
     func resetValues(){
