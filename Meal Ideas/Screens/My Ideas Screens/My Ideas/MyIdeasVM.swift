@@ -100,6 +100,7 @@ import CoreData
                 if queryType == .random{
                     filterMeals(query: query, queryType: queryType)
                 }
+                isLoading = false
             }
         }
     }
