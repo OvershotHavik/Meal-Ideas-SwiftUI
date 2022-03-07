@@ -239,7 +239,7 @@ enum OnboardingSecondary: String{
     case addCustom = "Not seeing a category, ingredient, or side you want? \n\nTap the + to add your own custom ones! \n\nThese can be edited in the Settings tab."
     case searchForIdeas = "Tap Surprise Me for a random meal. \n\nOr search by keyword in the text field. \n\nOr tap the filter icon to get more options."
     case adaptiveFilter = "For My Ideas only: \nThe filters will only show choices for ingredients or categories for meals that have been created with them. \n\nThe other sources only list categories that are supported by them."
-    case additionalSources = "Not sure what to make? \n\nNeed some more inspiration? \n\nYou can search other sources! \n\nWhichever search type you select will cary over to the other sources automatically."
+    case additionalSources = "Not sure what to make? \n\nNeed some more inspiration? \n\nYou can search other sources! \n\nWhichever search type you select will carry over to the other sources automatically."
     case favoritesAndHistory = "Each source keeps track of the meals you have viewed, along with favorited meals. \n\nThese can be viewed here."
     case shoppingList = "You can tap ingredients to add them to the Shopping List. \n\nTap the Shopping List Tab to learn more."
     case cloudKitEnabled = "Any meals you create, custom items, shopping list, favorites and history for each source is synced across your iPhone and iPad devices."
