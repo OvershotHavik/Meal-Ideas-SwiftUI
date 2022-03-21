@@ -91,7 +91,6 @@ import CoreData
             if originalQuery != query{
                 meals = []
                 self.originalQuery = query
-                //                filterMeals(query: query, queryType: queryType)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.25, execute: { [ weak self]  in
                     self?.filterMeals(query: query, queryType: queryType)
                 })
@@ -111,6 +110,9 @@ import CoreData
             category == "" &&
             ingredient == ""{
             print("nothing provided for custom")
+            if meals.count == 0{
+                meals = []
+            }
             //nothing provided
             return
         }

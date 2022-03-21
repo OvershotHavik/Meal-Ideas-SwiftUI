@@ -32,7 +32,7 @@ struct MealIdeasTabView: View {
                 .tabItem {
                     Label(Titles.shoppingList.rawValue, systemImage: SFSymbols.list.rawValue)
                 }
-            SettingsView()
+            SettingsView(vm: SettingsVM())
                 .tabItem {
                     Label(Titles.settings.rawValue, systemImage: SFSymbols.settings.rawValue)
                 }
