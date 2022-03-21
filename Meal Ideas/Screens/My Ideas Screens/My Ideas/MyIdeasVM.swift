@@ -150,6 +150,7 @@ import CoreData
                     ingredient != ""{
                     self?.filterMeals(query: ingredient, queryType: .ingredient)
                 }
+                
                 // MARK: - Keyword and category
                 if keyword != "" &&
                     category != "" &&
@@ -169,8 +170,8 @@ import CoreData
                     }
                     print("Meals count: \(self?.meals.count ?? 0)")
                     self?.isLoading = false
-                    
                 }
+                
                 // MARK: - Keyword and ingredient
                 if keyword != "" &&
                     category == "" &&
@@ -189,7 +190,6 @@ import CoreData
                     }
                     print("Meals count: \(self?.meals.count ?? 0)")
                     self?.isLoading = false
-                    
                 }
                 
                 // MARK: - Category and ingredient
@@ -209,7 +209,6 @@ import CoreData
                     }
                     print("Meals count: \(self?.meals.count ?? 0)")
                     self?.isLoading = false
-                    
                 }
                 
                 // MARK: - All three provided
@@ -233,12 +232,12 @@ import CoreData
                     }
                     print("Meals count: \(self?.meals.count ?? 0)")
                     self?.isLoading = false
-                    
                 }
             })
         }
-        
-        
+        if meals.count == 0{
+            meals = [] // for tests, it needs to publish for the test to complete correctly
+        }
     }
 
 
@@ -302,9 +301,13 @@ import CoreData
             
             
         case .custom:
-            print("Custom not setup yet in my ideas")
+            print("custom has it's own function")
         case .none:
             print("My Ideas none")
+        }
+        
+        if meals.count == 0{
+            meals = [] // for tests, it needs to publish for the test to complete correctly
         }
         isLoading = false
     }

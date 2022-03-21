@@ -4,7 +4,7 @@
 //
 //  Created by Steve Plavetzky on 11/19/21.
 //
-
+/*
 import XCTest
 @testable import Meal_Ideas
 
@@ -31,3 +31,4 @@ class Meal_IdeasTests: XCTestCase {
     }
 
 }
+*/
