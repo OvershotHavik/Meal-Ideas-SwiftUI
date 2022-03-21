@@ -49,13 +49,15 @@ class MyIdeasTests: XCTestCase {
         guard let sut = sut else {return}
         let expectation = expectation(description: "Wait for meals to populate")
         //When
-        sut.showAllMeals()
-        sut.$meals
-            .dropFirst()
-            .sink { _ in
-                expectation.fulfill()
-            }
-            .store(in: &cancellables)
+        sut.showAllMeals(){
+            expectation.fulfill()
+        }
+//        sut.$meals
+//            .dropFirst()
+//            .sink { _ in
+//                expectation.fulfill()
+//            }
+//            .store(in: &cancellables)
         //Then
         wait(for: [expectation], timeout: 2)
         XCTAssertGreaterThan(sut.meals.count, 0)

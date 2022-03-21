@@ -49,7 +49,7 @@ import CoreData
     }
     
 
-    func showAllMeals(){
+    func showAllMeals(completed: @escaping () -> Void){
         print("Show all meals")
         showWelcome = false
         allResultsShown  = false
@@ -60,6 +60,7 @@ import CoreData
             self?.meals = self?.allMeals ?? []
             self?.allResultsShown = true
             self?.isLoading = false
+            completed()
         })
     }
     
