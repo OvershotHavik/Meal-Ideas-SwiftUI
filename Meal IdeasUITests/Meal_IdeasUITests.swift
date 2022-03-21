@@ -4,7 +4,7 @@
 //
 //  Created by Steve Plavetzky on 11/19/21.
 //
-
+/*
 import XCTest
 
 class Meal_IdeasUITests: XCTestCase {
@@ -40,3 +40,4 @@ class Meal_IdeasUITests: XCTestCase {
         }
     }
 }
+*/
