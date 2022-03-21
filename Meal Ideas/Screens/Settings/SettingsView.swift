@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @StateObject var vm = SettingsVM()
+    @StateObject var vm : SettingsVM
     @EnvironmentObject var userEnvironment: UserEnvironment
-    
     
     var body: some View {
         NavigationView{
