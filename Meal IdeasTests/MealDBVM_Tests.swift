@@ -189,7 +189,6 @@ class MealDBVM_Tests: XCTestCase {
         let keyword = ""
         let category = ""
         let ingredient = ""
-        let expectedAlertItem = AlertContext.invalidData
         //When
         sut.customFilter(keyword: keyword, category: category, ingredient: ingredient) {
             expectation.fulfill()
@@ -197,7 +196,7 @@ class MealDBVM_Tests: XCTestCase {
         //Then
         wait(for: [expectation], timeout: 10)
         XCTAssertEqual(sut.meals.count, 0)
-        XCTAssertEqual(sut.alertItem, expectedAlertItem)
+        //No errors thrown since the 
     }
     
     
