@@ -16,7 +16,7 @@ import CoreData
     @Published var customURLString = ""
     
 
-    override func checkQuery(query: String, queryType: QueryType){
+    override func checkQuery(query: String, queryType: QueryType, completed: @escaping () -> Void){
         print("Spoon query: \(query) Type: \(queryType.rawValue)")
         
         if isLoading == true {
@@ -30,27 +30,27 @@ import CoreData
             meals = []
             self.originalQueryType = queryType
             self.originalQuery = query
-            getSpoonMeals(query: query, queryType: queryType)
+            getSpoonMeals(query: query, queryType: queryType){}
         } else {
             if originalQuery != query{
                 offsetBy = 0
                 meals = []
                 self.originalQuery = query
-                getSpoonMeals(query: query, queryType: queryType)
+                getSpoonMeals(query: query, queryType: queryType){}
             } else {
                 
                 if queryType == .random{
-                    getSpoonMeals(query: query, queryType: queryType)
+                    getSpoonMeals(query: query, queryType: queryType){}
                     return
                 }
                 offsetBy += 10
-                getSpoonMeals(query: query, queryType: queryType)
+                getSpoonMeals(query: query, queryType: queryType){}
             }
         }
     }
     
     
-    func getSpoonMeals(query: String, queryType: QueryType){
+    func getSpoonMeals(query: String, queryType: QueryType, completed: @escaping () -> Void){
         isLoading = true
         totalMealCount = 0
         Task {
@@ -135,7 +135,7 @@ import CoreData
     }
 
     
-    override func customFilter(keyword: String, category: String, ingredient: String){
+    override func customFilter(keyword: String, category: String, ingredient: String, completed: @escaping () -> Void){
         if keyword == "" &&
             category == "" &&
             ingredient == ""{

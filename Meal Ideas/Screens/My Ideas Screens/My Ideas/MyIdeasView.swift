@@ -108,7 +108,7 @@ struct MyIdeasView: View {
                 query.getHistory()
                 query.getFavorites()
                 vm.surpriseMeal = nil
-                vm.getAllMeals() // updates the meals if the user created/deleted and came back
+                vm.getAllMeals(){} // updates the meals if the user created/deleted and came back
                 if query.showAllUserMealIdeas == true{
                     vm.showAllMeals(){}
                     return
@@ -117,7 +117,7 @@ struct MyIdeasView: View {
                                   selected: query.selected,
                                   customKeyword: query.customKeyword,
                                   customCategory: query.customCategory,
-                                  customIngredient: query.customIngredient)
+                                  customIngredient: query.customIngredient){}
             }
             .onChange(of: vm.scrollViewContentOffset, perform: { newValue in
                 vm.autoHideTopView()
@@ -126,12 +126,12 @@ struct MyIdeasView: View {
             .onChange(of: vm.keywordSearchTapped, perform: { newValue in
                 print("Keyword: \(query.keyword)")
                 query.selected = query.keyword
-                vm.checkQuery(query: query.selected, queryType: query.queryType)
+                vm.checkQuery(query: query.selected, queryType: query.queryType){}
             })
             .onChange(of: vm.getRandomMeals, perform: { newValue in
                 print("Random tapped in User Meals")
                 if vm.getRandomMeals == true {
-                    vm.checkQuery(query: query.selected, queryType: query.queryType)
+                    vm.checkQuery(query: query.selected, queryType: query.queryType){}
                 }
             })
         }
