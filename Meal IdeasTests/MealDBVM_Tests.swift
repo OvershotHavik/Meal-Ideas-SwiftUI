@@ -196,7 +196,7 @@ class MealDBVM_Tests: XCTestCase {
         //Then
         wait(for: [expectation], timeout: 10)
         XCTAssertEqual(sut.meals.count, 0)
-        //No errors thrown since the 
+        //No errors thrown since the
     }
     
     
@@ -352,7 +352,6 @@ class MealDBVM_Tests: XCTestCase {
         XCTAssertEqual(sut.meals.count, 0)
         //When using this filtered API call, it only brings back meal name and the thumbnail, so we can't verify if it has the ingredient or category
         XCTAssertEqual(sut.alertItem, expectedAlertItem)
-
     }
     
     
