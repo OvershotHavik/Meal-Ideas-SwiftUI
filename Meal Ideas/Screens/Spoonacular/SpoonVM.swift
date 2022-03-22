@@ -30,21 +30,29 @@ import CoreData
             meals = []
             self.originalQueryType = queryType
             self.originalQuery = query
-            getSpoonMeals(query: query, queryType: queryType){}
+            getSpoonMeals(query: query, queryType: queryType){
+                completed()
+            }
         } else {
             if originalQuery != query{
                 offsetBy = 0
                 meals = []
                 self.originalQuery = query
-                getSpoonMeals(query: query, queryType: queryType){}
+                getSpoonMeals(query: query, queryType: queryType){
+                    completed()
+                }
             } else {
                 
                 if queryType == .random{
-                    getSpoonMeals(query: query, queryType: queryType){}
+                    getSpoonMeals(query: query, queryType: queryType){
+                        completed()
+                    }
                     return
                 }
                 offsetBy += 10
-                getSpoonMeals(query: query, queryType: queryType){}
+                getSpoonMeals(query: query, queryType: queryType){
+                    completed()
+                }
             }
         }
     }
@@ -64,6 +72,7 @@ import CoreData
                         allResultsShown = false
                         withAnimation(Animation.easeIn.delay(1)){
                             meals.insert(first, at: 0)
+                            completed()
                         }
                     }
                     
@@ -74,6 +83,7 @@ import CoreData
                     let modified = modifiedCategory + "&offset=\(offsetBy)"
                     let catMeals = try await NetworkManager.shared.spoonComplexQuery(query: modified, queryType: .category)
                     addResultsToMeals(mealsToAdd: catMeals)
+                    completed()
                     
                     
                 case .ingredient:
@@ -81,6 +91,7 @@ import CoreData
                     let modified = modifiedIngredient + "&offset=\(offsetBy)"
                     let ingMeals = try await NetworkManager.shared.spoonComplexQuery(query: modified, queryType: .ingredient)
                     addResultsToMeals(mealsToAdd: ingMeals)
+                    completed()
                     
                     
                 case .keyword:
@@ -90,12 +101,14 @@ import CoreData
                     let modified = safeKeyword + "&offset=\(offsetBy)"
                     let keywordMeals = try await NetworkManager.shared.spoonComplexQuery(query: modified, queryType: .keyword)
                     addResultsToMeals(mealsToAdd: keywordMeals)
+                    completed()
                     
                     
                 case .none:
                     let meal = try await NetworkManager.shared.spoonQuery(query: query, queryType: .none)
                     if let safeMeal = meal.first{
                         individualMeal = safeMeal
+                        completed()
                     }
                     
                 case .custom:
@@ -120,6 +133,7 @@ import CoreData
                     alertItem = AlertContext.invalidResponse // generic error would go here
                     isLoading = false
                 }
+                completed()
             }
         }
     }
@@ -140,6 +154,7 @@ import CoreData
             category == "" &&
             ingredient == ""{
             //Nothing provided, return
+            completed()
             return
         }
         if isLoading == true {
@@ -204,7 +219,7 @@ import CoreData
                     let customMeals = try await NetworkManager.shared.spoonComplexQuery(query: query , queryType: .custom)
                     addResultsToMeals(mealsToAdd: customMeals)
                     isLoading = false
-                    
+                    completed()
                     
                 } catch {
                     if let miError = error as? MIError{
@@ -222,6 +237,7 @@ import CoreData
                         alertItem = AlertContext.invalidResponse // generic error would go here
                         isLoading = false
                     }
+                    completed()
                 }
             }
             
@@ -242,7 +258,7 @@ import CoreData
                     print("spoon custom meals count: \(meals.count)")
                     determineMoreToShow()
                     isLoading = false
-
+                    completed()
                 } catch {
                     if let miError = error as? MIError{
                         isLoading = false
@@ -259,6 +275,7 @@ import CoreData
                         alertItem = AlertContext.invalidResponse // generic error would go here
                         isLoading = false
                     }
+                    completed()
                 }
             }
         }
