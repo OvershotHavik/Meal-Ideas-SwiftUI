@@ -15,7 +15,7 @@ import SwiftUI
     @Published var surpriseMeal: MealDBResults.Meal?
     
 
-    override func checkQuery(query: String, queryType: QueryType){
+    override func checkQuery(query: String, queryType: QueryType, completed: @escaping () -> Void){
         print("MealDB Query: \(query), queryType: \(queryType.rawValue)")
         surpriseMealReady = false
         showWelcome = false
@@ -23,23 +23,29 @@ import SwiftUI
             meals = []
             self.originalQueryType = queryType
             self.originalQuery = query
-            getMealDBMeals(query: query, queryType: queryType)
+            getMealDBMeals(query: query, queryType: queryType){
+                completed()
+            }
         } else {
             if originalQuery != query {
                 meals = []
                 self.originalQuery = query
-                getMealDBMeals(query: query, queryType: queryType)
+                getMealDBMeals(query: query, queryType: queryType){
+                    completed()
+                }
             } else {
                 //same choice was selected so nothing should happen except for random
                 if queryType == .random{
-                    getMealDBMeals(query: query, queryType: queryType)
+                    getMealDBMeals(query: query, queryType: queryType){
+                        completed()
+                    }
                 }
             }
         }
     }
 
 
-    func getMealDBMeals(query: String, queryType: QueryType) {
+    func getMealDBMeals(query: String, queryType: QueryType, completed: @escaping () -> Void) {
         isLoading = true
         allResultsShown = false
         Task {
@@ -54,6 +60,7 @@ import SwiftUI
                         allResultsShown = false
                         withAnimation(Animation.easeIn.delay(1)){
                             meals.insert(first, at: 0)
+                            completed()
                         }
                     }
                     
@@ -66,6 +73,7 @@ import SwiftUI
                     }
                     meals = try await NetworkManager.shared.mealDBQuery(query: modified, queryType: .category)
                     allResultsToggle()
+                    completed()
                     
                     
                 case .ingredient:
@@ -74,6 +82,7 @@ import SwiftUI
                     meals = try await NetworkManager.shared.mealDBQuery(query: modifiedIngredient,
                                                                         queryType: .ingredient)
                     allResultsToggle()
+                    completed()
 
                     
                 case .none:
@@ -85,6 +94,7 @@ import SwiftUI
                     meals = try await NetworkManager.shared.mealDBQuery(query: modifiedKeyword,
                                                                         queryType: .keyword)
                     allResultsToggle()
+                    completed()
                     
                     
                 case .custom:
@@ -95,6 +105,7 @@ import SwiftUI
             }catch{
                 if meals.count == 0{
                     meals = [] // for testing to pass correctly
+//                    completed()
                 }
                 if let miError = error as? MIError{
                     switch miError {
@@ -103,12 +114,15 @@ import SwiftUI
                         alertItem = AlertContext.invalidURL
                     case .invalidData:
                         alertItem = AlertContext.invalidData
+//                        completed()
                     default: alertItem = AlertContext.invalidResponse // generic error if wanted..
                     }
+//                    completed()
                 } else {
                     alertItem = AlertContext.invalidResponse // generic error would go here
                     isLoading = false
                 }
+                completed()
             }
         }
     }
@@ -132,11 +146,12 @@ import SwiftUI
     }
     
 
-    override func customFilter(keyword: String, category: String, ingredient: String){
+    override func customFilter(keyword: String, category: String, ingredient: String, completed: @escaping () -> Void){
         if keyword == "" &&
             category == "" &&
             ingredient == ""{
             //Nothing provided, return
+            completed()
             return
         }
         showWelcome = false
@@ -158,7 +173,9 @@ import SwiftUI
                     if keyword != "" &&
                         category == "" &&
                         ingredient == ""{
-                        getMealDBMeals(query: keyword, queryType: .keyword)
+                        getMealDBMeals(query: keyword, queryType: .keyword){
+                            completed()
+                        }
                         
                     }
                     
@@ -166,7 +183,9 @@ import SwiftUI
                     if keyword == "" &&
                         category != "" &&
                         ingredient == ""{
-                        getMealDBMeals(query: category, queryType: .category)
+                        getMealDBMeals(query: category, queryType: .category){
+                            completed()
+                        }
                         
                     }
                     
@@ -174,7 +193,9 @@ import SwiftUI
                     if keyword == "" &&
                         category == "" &&
                         ingredient != ""{
-                        getMealDBMeals(query: ingredient, queryType: .ingredient)
+                        getMealDBMeals(query: ingredient, queryType: .ingredient){
+                            completed()
+                        }
                         
                     }
                     
@@ -190,6 +211,7 @@ import SwiftUI
                         let catMeals = try await NetworkManager.shared.mealDBQuery(query: safeCategory, queryType: .category)
                         print("CatMeals count: \(catMeals.count)")
                         
+//                        meals = catMeals.filter({(($0.strMeal?.containsIgnoringCase(find: keyword)) != nil)})
                         for meal in catMeals{
                             if let safeName = meal.strMeal{
                                 if safeName.containsIgnoringCase(find: keyword){
@@ -199,6 +221,7 @@ import SwiftUI
                         }
                         print("Meals count: \(meals.count)")
                         allResultsToggle()
+                        completed()
                     }
                     
                     // MARK: - Keyword and ingredient
@@ -219,6 +242,7 @@ import SwiftUI
                         }
                         print("meals count: \(meals.count)")
                         allResultsToggle()
+                        completed()
                     }
                     
                     // MARK: - Category and ingredient
@@ -243,6 +267,7 @@ import SwiftUI
                         meals = catMeals.filter{ingMeals.contains($0)}
                         print("meals count: \(meals.count)")
                         allResultsToggle()
+                        completed()
                     }
                     
                     // MARK: - All three provided
@@ -276,6 +301,7 @@ import SwiftUI
                         }
                         print("meals count: \(meals.count)")
                         allResultsToggle()
+                        completed()
                     }
                     
                     
@@ -298,6 +324,7 @@ import SwiftUI
                         alertItem = AlertContext.invalidResponse // generic error would go here
                         isLoading = false
                     }
+                    completed()
                 }
             }
         }else {

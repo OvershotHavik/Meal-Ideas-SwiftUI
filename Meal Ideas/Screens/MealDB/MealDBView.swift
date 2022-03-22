@@ -105,7 +105,7 @@ struct MealDBView: View {
                                   selected: query.selected,
                                   customKeyword: query.customKeyword,
                                   customCategory: query.customCategory,
-                                  customIngredient: query.customIngredient)
+                                  customIngredient: query.customIngredient){}
             }
             .onChange(of: vm.isLoading, perform: { _ in
                 vm.stopLoading()
@@ -116,11 +116,11 @@ struct MealDBView: View {
             .onChange(of: vm.keywordSearchTapped, perform: { newValue in
                 print("Keyword: \(query.keyword)")
                 query.selected = query.keyword
-                vm.checkQuery(query: query.keyword, queryType: .keyword)
+                vm.checkQuery(query: query.keyword, queryType: .keyword){}
             })
             .onChange(of: vm.getRandomMeals, perform: { newValue in
                 print("Random tapped in mealDB")
-                vm.checkQuery(query: query.selected, queryType: query.queryType)
+                vm.checkQuery(query: query.selected, queryType: query.queryType){}
             })
         }
         .accentColor(.primary)

@@ -44,8 +44,8 @@ class BaseVM: ObservableObject{
         self.source = source
         fetchPlist(plist: sourceCategory)
     }
-
-
+    
+    
     func resetValues(){
         alertItem = nil
         isLoading = false
@@ -60,7 +60,7 @@ class BaseVM: ObservableObject{
         totalMealCount = 0
     }
     
-
+    
     func autoHideTopView(){
         withAnimation(.easeOut){
             if scrollViewContentOffset < UI.topViewOffsetSpacing{
@@ -78,9 +78,9 @@ class BaseVM: ObservableObject{
                 showTopView = true
                 largestY = scrollViewContentOffset
             }
-        }        
+        }
     }
-
+    
     
     func fetchPlist(plist: PList){
         if sourceCategories.isEmpty{
@@ -99,12 +99,12 @@ class BaseVM: ObservableObject{
     }
     
     
-    @MainActor func checkQuery(query: String, queryType: QueryType){
+    @MainActor func checkQuery(query: String, queryType: QueryType, completed: @escaping () -> Void){
         //override in sub class
     }
     
     
-    @MainActor func customFilter(keyword: String, category: String, ingredient: String){
+    @MainActor func customFilter(keyword: String, category: String, ingredient: String, completed: @escaping () -> Void){
         //override in sub class
     }
     
@@ -114,7 +114,7 @@ class BaseVM: ObservableObject{
     }
     
     
-    @MainActor func sourceOnAppear(queryType: QueryType, selected: String, customKeyword: String, customCategory: String, customIngredient: String){
+    @MainActor func sourceOnAppear(queryType: QueryType, selected: String, customKeyword: String, customCategory: String, customIngredient: String, completed: @escaping () -> Void){
         
         if queryType == .category ||
             queryType == .ingredient{
@@ -134,17 +134,17 @@ class BaseVM: ObservableObject{
                     return
                 } else {
                     customFilter(keyword: customKeyword,
-                                    category: customCategory,
-                                    ingredient: customIngredient)
+                                 category: customCategory,
+                                 ingredient: customIngredient){}
                 }
             } else {
                 //My ideas doesn't need to check for category
                 customFilter(keyword: customKeyword,
-                                category: customCategory,
-                                ingredient: customIngredient)
+                             category: customCategory,
+                             ingredient: customIngredient){}
             }
-
-
+            
+            
             return
         }
         if queryType == originalQueryType && selected == originalQuery{
@@ -170,9 +170,9 @@ class BaseVM: ObservableObject{
                     }
                 }
             }
-
+            
             showWelcome = false
-            checkQuery(query: selected, queryType: queryType)
+            checkQuery(query: selected, queryType: queryType){}
         }
     }
 }

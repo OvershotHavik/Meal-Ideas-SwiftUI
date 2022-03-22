@@ -19,11 +19,11 @@ import CoreData
     
     init(){
         super.init(sourceCategory: .categories, source: .myIdeas)
-        getAllMeals()
+        getAllMeals(){}
     }
 
 
-    func getAllMeals(){
+    func getAllMeals(completed: @escaping () -> Void){
         //used to get all meals, runs on on appear of the view, and if all meals changes, goes through check query
         let request = NSFetchRequest<UserMeals>(entityName: EntityName.userMeals.rawValue)
         do {
@@ -42,8 +42,9 @@ import CoreData
                 userIngredients.append(Messages.noIngredient.rawValue)
             }
             
-            
+            completed()
         } catch let error {
+            completed()
             print("error fetching: \(error.localizedDescription)")
         }
     }
@@ -65,7 +66,7 @@ import CoreData
     }
     
 
-    override func checkQuery(query: String, queryType: QueryType){
+    override func checkQuery(query: String, queryType: QueryType, completed: @escaping () -> Void){
         if allMeals.isEmpty{
             alertItem = AlertContext.noMeals
             return
@@ -82,10 +83,14 @@ import CoreData
             self.originalQuery = query
             if originalQueryType == .random{
                 //due to the way the random works, the delay brings back a nil value and messes it up, so need to skip the delay
-                filterMeals(query: query, queryType: queryType)
+                filterMeals(query: query, queryType: queryType){
+                    completed()
+                }
             } else {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.25, execute: { [ weak self]  in
-                    self?.filterMeals(query: query, queryType: queryType)
+                    self?.filterMeals(query: query, queryType: queryType){
+                        completed()
+                    }
                 })
             }
         } else {
@@ -93,27 +98,29 @@ import CoreData
                 meals = []
                 self.originalQuery = query
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.25, execute: { [ weak self]  in
-                    self?.filterMeals(query: query, queryType: queryType)
+                    self?.filterMeals(query: query, queryType: queryType){
+                        completed()
+                    }
                 })
             } else {
                 // nothing happens, query and query type didn't change
                 if queryType == .random{
-                    filterMeals(query: query, queryType: queryType)
+                    filterMeals(query: query, queryType: queryType){
+                        completed()
+                    }
                 }
                 isLoading = false
             }
         }
     }
-    
 
-    override func customFilter(keyword: String, category: String, ingredient: String){
+
+    override func customFilter(keyword: String, category: String, ingredient: String, completed: @escaping () -> Void){
         if keyword == "" &&
             category == "" &&
             ingredient == ""{
             print("nothing provided for custom")
-            if meals.count == 0{
-                meals = []
-            }
+            completed()
             //nothing provided
             return
         }
@@ -137,21 +144,27 @@ import CoreData
                 if keyword != "" &&
                     category == "" &&
                     ingredient == ""{
-                    self?.filterMeals(query: keyword, queryType: .keyword)
+                    self?.filterMeals(query: keyword, queryType: .keyword){
+                        completed()
+                    }
                 }
                 
                 // MARK: - Just Category provided
                 if keyword == "" &&
                     category != "" &&
                     ingredient == ""{
-                    self?.filterMeals(query: category, queryType: .category)
+                    self?.filterMeals(query: category, queryType: .category){
+                        completed()
+                    }
                 }
                 
                 // MARK: - Just ingredient provided
                 if keyword == "" &&
                     category == "" &&
                     ingredient != ""{
-                    self?.filterMeals(query: ingredient, queryType: .ingredient)
+                    self?.filterMeals(query: ingredient, queryType: .ingredient){
+                        completed()
+                    }
                 }
                 
                 // MARK: - Keyword and category
@@ -173,6 +186,7 @@ import CoreData
                     }
                     print("Meals count: \(self?.meals.count ?? 0)")
                     self?.isLoading = false
+                    completed()
                 }
                 
                 // MARK: - Keyword and ingredient
@@ -193,6 +207,7 @@ import CoreData
                     }
                     print("Meals count: \(self?.meals.count ?? 0)")
                     self?.isLoading = false
+                    completed()
                 }
                 
                 // MARK: - Category and ingredient
@@ -212,6 +227,7 @@ import CoreData
                     }
                     print("Meals count: \(self?.meals.count ?? 0)")
                     self?.isLoading = false
+                    completed()
                 }
                 
                 // MARK: - All three provided
@@ -235,17 +251,15 @@ import CoreData
                     }
                     print("Meals count: \(self?.meals.count ?? 0)")
                     self?.isLoading = false
+                    completed()
                 }
             })
-        }
-        if meals.count == 0{
-            meals = [] // for tests, it needs to publish for the test to complete correctly
         }
     }
 
 
-    func filterMeals(query: String, queryType: QueryType){
-        getAllMeals()
+    func filterMeals(query: String, queryType: QueryType, completed: @escaping () -> Void){
+        getAllMeals(){}
         isLoading = true
         
         switch queryType {
@@ -259,9 +273,10 @@ import CoreData
                     meals.insert(first, at: 0)
                     meals = meals.unique()
                     isLoading = false
+                    completed()
                 }
             }
-            
+
             
         case .category:
             print("My Ideas category")
@@ -273,6 +288,7 @@ import CoreData
                     }
                 }
             }
+            completed()
             totalMealCount = meals.count
             
             
@@ -286,6 +302,7 @@ import CoreData
                     }
                 }
             }
+            completed()
             totalMealCount = meals.count
             
             
@@ -300,6 +317,7 @@ import CoreData
                     }
                 }
             }
+            completed()
             totalMealCount = meals.count
             
             
@@ -307,10 +325,6 @@ import CoreData
             print("custom has it's own function")
         case .none:
             print("My Ideas none")
-        }
-        
-        if meals.count == 0{
-            meals = [] // for tests, it needs to publish for the test to complete correctly
         }
         isLoading = false
     }

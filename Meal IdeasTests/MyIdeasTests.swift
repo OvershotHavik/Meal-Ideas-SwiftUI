@@ -38,7 +38,7 @@ class MyIdeasTests: XCTestCase {
         //Given
         guard let sut = sut else {return}
         //When
-        sut.getAllMeals()
+        sut.getAllMeals(){}
         //Then
         XCTAssertGreaterThan(sut.allMeals.count , 0, "Number of meals: \(sut.allMeals.count)")
     }
@@ -70,14 +70,18 @@ class MyIdeasTests: XCTestCase {
         let expectation = expectation(description: "Wait for meals to populate")
         let query = "Test"
         //When
-        sut.checkQuery(query: query, queryType: .random)
-        sut.$meals
-            .sink{returnedItems in
-                  expectation.fulfill()
-            }
-            .store(in: &cancellables)
+        sut.checkQuery(query: query, queryType: .random){
+            expectation.fulfill()
+        }
+
+
+//        sut.$meals
+//            .sink{returnedItems in
+//                  expectation.fulfill()
+//            }
+//            .store(in: &cancellables)
         //Then
-        wait(for: [expectation], timeout: 2)
+        wait(for: [expectation], timeout: 5)
         XCTAssertGreaterThan(sut.meals.count, 0)
     }
     
@@ -88,13 +92,9 @@ class MyIdeasTests: XCTestCase {
         let expectation = expectation(description: "Wait for meals to populate")
         let query = "Test"
         //When
-        sut.checkQuery(query: query, queryType: .keyword)
-        sut.$meals
-            .dropFirst() // drops the first initialized array that would be blank, not the values of the array
-            .sink{returnedItems in
-                  expectation.fulfill()
-            }
-            .store(in: &cancellables)
+        sut.checkQuery(query: query, queryType: .keyword){
+            expectation.fulfill()
+        }
         //Then
         wait(for: [expectation], timeout: 2)
         XCTAssertGreaterThan(sut.meals.count, 0)
@@ -111,13 +111,9 @@ class MyIdeasTests: XCTestCase {
         let query = "Test1"
         let queryType: QueryType = .keyword
         //When
-        sut.checkQuery(query: query, queryType: queryType)
-        sut.$meals
-            .dropFirst() // drops the first initialized array that would be blank, not the values of the array
-            .sink{returnedItems in
-                  expectation.fulfill()
-            }
-            .store(in: &cancellables)
+        sut.checkQuery(query: query, queryType: queryType){
+            expectation.fulfill()
+        }
         //Then
         wait(for: [expectation], timeout: 2)
         XCTAssertEqual(sut.meals.count, 0)
@@ -132,14 +128,9 @@ class MyIdeasTests: XCTestCase {
         let queryType: QueryType = .category
         
         //When
-        sut.checkQuery(query: query, queryType: queryType)
-        sut.$meals
-            .dropFirst() // drops the first initialized array that would be blank, not the values of the array
-            .sink{returnedItems in
-                  expectation.fulfill()
-            }
-            .store(in: &cancellables)
-
+        sut.checkQuery(query: query, queryType: queryType){
+            expectation.fulfill()
+        }
         //Then
         wait(for: [expectation], timeout: 2)
         XCTAssertGreaterThan(sut.meals.count, 0)
@@ -158,13 +149,9 @@ class MyIdeasTests: XCTestCase {
         let query = UUID().uuidString // invalid
         let queryType: QueryType = .category
         //When
-        sut.checkQuery(query: query, queryType: queryType)
-        sut.$meals
-            .dropFirst() // drops the first initialized array that would be blank, not the values of the array
-            .sink{returnedItems in
-                  expectation.fulfill()
-            }
-            .store(in: &cancellables)
+        sut.checkQuery(query: query, queryType: queryType){
+            expectation.fulfill()
+        }
         //Then
         wait(for: [expectation], timeout: 10)
         XCTAssertTrue(sut.meals.count == 0)
@@ -178,13 +165,9 @@ class MyIdeasTests: XCTestCase {
         let query = "Apples"
         let queryType: QueryType = .ingredient
         //When
-        sut.checkQuery(query: query, queryType: queryType)
-        sut.$meals
-            .dropFirst() // drops the first initialized array that would be blank, not the values of the array
-            .sink{returnedItems in
-                  expectation.fulfill()
-            }
-            .store(in: &cancellables)
+        sut.checkQuery(query: query, queryType: queryType){
+            expectation.fulfill()
+        }
 
         //Then
         wait(for: [expectation], timeout: 10)
@@ -204,13 +187,9 @@ class MyIdeasTests: XCTestCase {
         let query = UUID().uuidString // invalid
         let queryType: QueryType = .ingredient
         //When
-        sut.checkQuery(query: query, queryType: queryType)
-        sut.$meals
-            .dropFirst() // drops the first initialized array that would be blank, not the values of the array
-            .sink{returnedItems in
-                  expectation.fulfill()
-            }
-            .store(in: &cancellables)
+        sut.checkQuery(query: query, queryType: queryType){
+            expectation.fulfill()
+        }
         //Then
         wait(for: [expectation], timeout: 10)
         XCTAssertTrue(sut.meals.count == 0)
@@ -225,13 +204,9 @@ class MyIdeasTests: XCTestCase {
         let category = "Snack"
         let ingredient = "Apples"
         //When
-        sut.customFilter(keyword: keyword, category: category, ingredient: ingredient)
-        sut.$meals
-            .dropFirst() // drops the first initialized array that would be blank, not the values of the array
-            .sink{returnedItems in
-                  expectation.fulfill()
-            }
-            .store(in: &cancellables)
+        sut.customFilter(keyword: keyword, category: category, ingredient: ingredient){
+            expectation.fulfill()
+        }
         //Then
         wait(for: [expectation], timeout: 10)
         XCTAssertGreaterThan(sut.meals.count, 0)
@@ -253,13 +228,18 @@ class MyIdeasTests: XCTestCase {
         let keyword = ""
         let category = ""
         let ingredient = ""
+        let expectation = expectation(description: "Wait for meals to populate")
+
         //When
-        sut.customFilter(keyword: keyword, category: category, ingredient: ingredient)
+        sut.customFilter(keyword: keyword, category: category, ingredient: ingredient){
+            expectation.fulfill()
+        }
         //Nothing happens since nothing was provided
         //Then
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            XCTAssertTrue(sut.meals.count == 0)
-        }
+
+        wait(for: [expectation], timeout: 2)
+        XCTAssertTrue(sut.meals.count == 0)
+
     }
      
     
@@ -271,13 +251,9 @@ class MyIdeasTests: XCTestCase {
         let category = ""
         let ingredient = ""
         //When
-        sut.customFilter(keyword: keyword, category: category, ingredient: ingredient)
-        sut.$meals
-            .dropFirst() // drops the first initialized array that would be blank, not the values of the array
-            .sink{returnedItems in
-                  expectation.fulfill()
-            }
-            .store(in: &cancellables)
+        sut.customFilter(keyword: keyword, category: category, ingredient: ingredient){
+            expectation.fulfill()
+        }
         //Then
         wait(for: [expectation], timeout: 10)
         XCTAssertGreaterThan(sut.meals.count, 0)
@@ -295,13 +271,9 @@ class MyIdeasTests: XCTestCase {
         let category = ""
         let ingredient = ""
         //When
-        sut.customFilter(keyword: keyword, category: category, ingredient: ingredient)
-        sut.$meals
-            .dropFirst() // drops the first initialized array that would be blank, not the values of the array
-            .sink{returnedItems in
-                  expectation.fulfill()
-            }
-            .store(in: &cancellables)
+        sut.customFilter(keyword: keyword, category: category, ingredient: ingredient){
+            expectation.fulfill()
+        }
         //Then
         wait(for: [expectation], timeout: 10)
         XCTAssertTrue(sut.meals.count == 0)
@@ -316,13 +288,9 @@ class MyIdeasTests: XCTestCase {
         let category = "Snack"
         let ingredient = ""
         //When
-        sut.customFilter(keyword: keyword, category: category, ingredient: ingredient)
-        sut.$meals
-            .dropFirst() // drops the first initialized array that would be blank, not the values of the array
-            .sink{returnedItems in
-                  expectation.fulfill()
-            }
-            .store(in: &cancellables)
+        sut.customFilter(keyword: keyword, category: category, ingredient: ingredient){
+            expectation.fulfill()
+        }
         //Then
         wait(for: [expectation], timeout: 10)
         XCTAssertGreaterThan(sut.meals.count, 0)
@@ -342,13 +310,9 @@ class MyIdeasTests: XCTestCase {
         let category = UUID().uuidString
         let ingredient = ""
         //When
-        sut.customFilter(keyword: keyword, category: category, ingredient: ingredient)
-        sut.$meals
-            .dropFirst() // drops the first initialized array that would be blank, not the values of the array
-            .sink{returnedItems in
-                  expectation.fulfill()
-            }
-            .store(in: &cancellables)
+        sut.customFilter(keyword: keyword, category: category, ingredient: ingredient){
+            expectation.fulfill()
+        }
         //Then
         wait(for: [expectation], timeout: 10)
         XCTAssertTrue(sut.meals.count == 0)
@@ -363,13 +327,9 @@ class MyIdeasTests: XCTestCase {
         let category = ""
         let ingredient = "Apples"
         //When
-        sut.customFilter(keyword: keyword, category: category, ingredient: ingredient)
-        sut.$meals
-            .dropFirst() // drops the first initialized array that would be blank, not the values of the array
-            .sink{returnedItems in
-                  expectation.fulfill()
-            }
-            .store(in: &cancellables)
+        sut.customFilter(keyword: keyword, category: category, ingredient: ingredient){
+            expectation.fulfill()
+        }
         //Then
         wait(for: [expectation], timeout: 10)
         XCTAssertGreaterThan(sut.meals.count, 0)
@@ -390,13 +350,9 @@ class MyIdeasTests: XCTestCase {
         let ingredient = UUID().uuidString
         
         //When
-        sut.customFilter(keyword: keyword, category: category, ingredient: ingredient)
-        sut.$meals
-            .dropFirst() // drops the first initialized array that would be blank, not the values of the array
-            .sink{returnedItems in
-                  expectation.fulfill()
-            }
-            .store(in: &cancellables)
+        sut.customFilter(keyword: keyword, category: category, ingredient: ingredient){
+            expectation.fulfill()
+        }
         //Then
         wait(for: [expectation], timeout: 10)
         XCTAssertTrue(sut.meals.count == 0)
@@ -411,13 +367,9 @@ class MyIdeasTests: XCTestCase {
         let category = "Snack"
         let ingredient = ""
         //When
-        sut.customFilter(keyword: keyword, category: category, ingredient: ingredient)
-        sut.$meals
-            .dropFirst() // drops the first initialized array that would be blank, not the values of the array
-            .sink{returnedItems in
-                  expectation.fulfill()
-            }
-            .store(in: &cancellables)
+        sut.customFilter(keyword: keyword, category: category, ingredient: ingredient){
+            expectation.fulfill()
+        }
         //Then
         wait(for: [expectation], timeout: 10)
         XCTAssertGreaterThan(sut.meals.count, 0)
@@ -438,13 +390,9 @@ class MyIdeasTests: XCTestCase {
         let category = ""
         let ingredient = "Apples"
         //When
-        sut.customFilter(keyword: keyword, category: category, ingredient: ingredient)
-        sut.$meals
-            .dropFirst() // drops the first initialized array that would be blank, not the values of the array
-            .sink{returnedItems in
-                  expectation.fulfill()
-            }
-            .store(in: &cancellables)
+        sut.customFilter(keyword: keyword, category: category, ingredient: ingredient){
+            expectation.fulfill()
+        }
         //Then
         wait(for: [expectation], timeout: 10)
         XCTAssertGreaterThan(sut.meals.count, 0)
@@ -465,13 +413,9 @@ class MyIdeasTests: XCTestCase {
         let category = "Snack"
         let ingredient = "Apples"
         //When
-        sut.customFilter(keyword: keyword, category: category, ingredient: ingredient)
-        sut.$meals
-            .dropFirst() // drops the first initialized array that would be blank, not the values of the array
-            .sink{returnedItems in
-                  expectation.fulfill()
-            }
-            .store(in: &cancellables)
+        sut.customFilter(keyword: keyword, category: category, ingredient: ingredient){
+            expectation.fulfill()
+        }
         //Then
         wait(for: [expectation], timeout: 10)
         XCTAssertGreaterThan(sut.meals.count, 0)

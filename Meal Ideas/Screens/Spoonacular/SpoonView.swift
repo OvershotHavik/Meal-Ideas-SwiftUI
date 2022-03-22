@@ -104,7 +104,7 @@ struct SpoonView: View {
                                   selected: query.selected,
                                   customKeyword: query.customKeyword,
                                   customCategory: query.customCategory,
-                                  customIngredient: query.customIngredient)
+                                  customIngredient: query.customIngredient){}
             }
             .onChange(of: vm.isLoading, perform: { _ in
                 vm.stopLoading()
@@ -116,11 +116,11 @@ struct SpoonView: View {
                 print("Keyword: \(query.keyword)")
                 query.selected = query.keyword
                 
-                vm.checkQuery(query: query.selected, queryType: .keyword)
+                vm.checkQuery(query: query.selected, queryType: .keyword){}
             })
             .onChange(of: vm.getRandomMeals, perform: { newValue in
                 print("Random tapped in Spoon")
-                vm.checkQuery(query: query.selected, queryType: query.queryType)
+                vm.checkQuery(query: query.selected, queryType: query.queryType){}
             })
         }
         .accentColor(.primary)
@@ -179,10 +179,10 @@ struct SpoonGrid: View{
                                                                                           if query.queryType == .custom{
                                                                                               vm.customFilter(keyword: query.customKeyword,
                                                                                                               category: query.customCategory,
-                                                                                                              ingredient: query.customIngredient)
+                                                                                                              ingredient: query.customIngredient){}
                                                                                           } else {
                                                                                               print("check query called")
-                                                                                              vm.checkQuery(query: query.selected, queryType: query.queryType)
+                                                                                              vm.checkQuery(query: query.selected, queryType: query.queryType){}
                                                                                           }
                                                                                       }
                                                                                   }
