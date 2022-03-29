@@ -112,12 +112,13 @@ struct SampleTopView: View{
             Text("Surprise \nMe")
                 .lineLimit(2)
                 .multilineTextAlignment(.center)
-                .foregroundColor(.primary)
+                .foregroundColor(userEnvironment.topLeftColor.isLight() ? Color.black : Color.white)
+            
             TextField("Sample", text: $sample)
                 .textFieldStyle(CustomRoundedCornerTextField())
             
             Image(systemName: SFSymbols.filter.rawValue)
-                .foregroundColor(.primary)
+            .foregroundColor(userEnvironment.bottomRightColor.isLight() ? Color.black : Color.white)
         }
         .padding()
         

@@ -18,7 +18,6 @@ struct TopView: View{
     var body: some View{
         HStack(spacing: 20){
             Button(action: {
-                print("Surprise me tapped")
                 query.queryType = .random
                 query.selected = ""
                 getRandomMeals.toggle()
@@ -26,7 +25,7 @@ struct TopView: View{
                 Text("Surprise \nMe")
                     .lineLimit(2)
             })
-                .foregroundColor(.primary)
+                .foregroundColor(userEnvironment.topLeftColor.isLight() ? Color.black : Color.white)
 
             TextField("Search...", text: $query.keyword)
                 .textFieldStyle(CustomRoundedCornerTextField())
@@ -76,12 +75,11 @@ struct TopView: View{
                 } label: {// Menu label
                     Image(systemName: SFSymbols.filter.rawValue)
                         .padding()
-                        .foregroundColor(.primary)
+                        .foregroundColor(userEnvironment.bottomRightColor.isLight() ? Color.black : Color.white)
             }
                 .font(.title)
         }
         .padding()
-        .foregroundColor(.primary)
         .background(BackgroundGradientView())
     }
 }

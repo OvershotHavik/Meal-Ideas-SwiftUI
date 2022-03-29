@@ -81,7 +81,7 @@ struct MyIdeasView: View {
                     NavigationLink(destination: EditMealsListView(vm: EditMealsListVM())) {
                         Image(systemName: SFSymbols.edit.rawValue)
                             .padding(.horizontal)
-                            .foregroundColor(.primary)
+                            .foregroundColor(userEnvironment.topLeftColor.isLight() ? Color.black : Color.white)
                     }
                 }
                 ToolbarItem(placement: .principal, content: {
@@ -95,7 +95,7 @@ struct MyIdeasView: View {
                     }
                     NavigationLink(destination: HistoryListView(vm: HistoryListVM(source: .myIdeas))) {
                         Image(systemName: SFSymbols.history.rawValue)
-                        .foregroundColor(.primary)
+                        .foregroundColor(userEnvironment.bottomRightColor.isLight() ? Color.black : Color.white)
                     }
                 }
             }
