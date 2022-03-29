@@ -75,15 +75,19 @@ final class MyIdeasDetailVM: DetailBaseVM{
         if meal.prepHour != 0{
             prepTime += "\(meal.prepHour)h "
         }
+        
         if meal.prepMinute != 0{
             prepTime += "\(meal.prepMinute)m "
         }
+        
         if meal.prepSecond != 0{
             prepTime += "\(meal.prepSecond)s "
         }
+        
         if prepTime != ""{
             sharedString += "Prep Time: \(prepTime)\n\n"
         }
+        
         if let categories = meal.category as? [String]{
             if !categories.isEmpty{
                 sharedString += "Categories: "
@@ -91,25 +95,23 @@ final class MyIdeasDetailVM: DetailBaseVM{
                     sharedString += "\(category), "
                 }
                 sharedString.removeLast(2)
-                sharedString += "\n\n"
             }
         }
 
         if let sides = meal.sides as? [String]{
             if !sides.isEmpty{
-                sharedString += "Sides: "
+                sharedString += "\n\nSides: "
                 for side in sides {
                     sharedString += "\(side), "
                 }
                 sharedString.removeLast(2)
-                sharedString += "\n\n"
             }
         }
         
         if let ingredients = meal.ingredients as? [String],
             let measurements = meal.measurements as? [String]{
             if !ingredients.isEmpty{
-                sharedString += "Ingredients: \n"
+                sharedString += "\n\nIngredients: \n"
                 for i in ingredients.indices{
                     if measurements[i] != ""{
                         sharedString += "\(ingredients[i]) - \(measurements[i])\n"
@@ -117,18 +119,21 @@ final class MyIdeasDetailVM: DetailBaseVM{
                         sharedString += "\(ingredients[i])\n"
                     }
                 }
-                sharedString += "\n\n"
             }
         }
+        
         if let safeRecipe = meal.recipe{
-            sharedString += "Recipe:\n\(safeRecipe)\n\n"
+            if safeRecipe != ""{
+                sharedString += "\n\nRecipe:\n\(safeRecipe)"
+            }
         }
         
         if let safeSource = meal.source{
             if safeSource != ""{
-                sharedString += "Website: \(safeSource)\n\n"
+                sharedString += "\n\nWebsite: \(safeSource)"
             }
         }
+        
         print(sharedString)
         if let safeMealPhoto = meal.mealPhoto{
             mealPhoto = UIImage(data: safeMealPhoto)
