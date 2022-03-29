@@ -70,17 +70,14 @@ struct MyIdeasDetailView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar{
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    if let website = vm.meal?.source{
-                        if website != ""{
-                            Button {
-                                print("Share tapped")
-                                vm.presentShareAS(website: website)
-                            } label: {
-                                Image(systemName: SFSymbols.share.rawValue)
-                                    .foregroundColor(.blue)
-                            }
-                        }
+                    Button {
+                        print("Share tapped")
+                        vm.shareTapped()
+                    } label: {
+                        Image(systemName: SFSymbols.share.rawValue)
+                            .foregroundColor(.blue)
                     }
+
                     Button {
                         vm.favorited.toggle()
                         vm.favoriteToggled()

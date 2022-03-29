@@ -59,4 +59,107 @@ final class MyIdeasDetailVM: DetailBaseVM{
             }
         }
     }
+    
+    
+    func shareTapped(){
+        guard let meal = meal else {
+            return
+        }
+        var mealPhoto: UIImage?
+        var instructionPhoto: UIImage?
+        var sharedString = ""
+        
+        sharedString = "\(meal.mealName ?? "")\n\n"
+        
+        var prepTime = ""
+        if meal.prepHour != 0{
+            prepTime += "\(meal.prepHour)h "
+        }
+        if meal.prepMinute != 0{
+            prepTime += "\(meal.prepMinute)m "
+        }
+        if meal.prepSecond != 0{
+            prepTime += "\(meal.prepSecond)s "
+        }
+        if prepTime != ""{
+            sharedString += "Prep Time: \(prepTime)\n\n"
+        }
+        if let categories = meal.category as? [String]{
+            if !categories.isEmpty{
+                sharedString += "Categories: "
+                for category in categories {
+                    sharedString += "\(category), "
+                }
+                sharedString.removeLast(2)
+                sharedString += "\n\n"
+            }
+        }
+
+        if let sides = meal.sides as? [String]{
+            if !sides.isEmpty{
+                sharedString += "Sides: "
+                for side in sides {
+                    sharedString += "\(side), "
+                }
+                sharedString.removeLast(2)
+                sharedString += "\n\n"
+            }
+        }
+        
+        if let ingredients = meal.ingredients as? [String],
+            let measurements = meal.measurements as? [String]{
+            if !ingredients.isEmpty{
+                sharedString += "Ingredients: \n"
+                for i in ingredients.indices{
+                    if measurements[i] != ""{
+                        sharedString += "\(ingredients[i]) - \(measurements[i])\n"
+                    } else {
+                        sharedString += "\(ingredients[i])\n"
+                    }
+                }
+                sharedString += "\n\n"
+            }
+        }
+        if let safeRecipe = meal.recipe{
+            sharedString += "Recipe:\n\(safeRecipe)\n\n"
+        }
+        
+        if let safeSource = meal.source{
+            if safeSource != ""{
+                sharedString += "Website: \(safeSource)\n\n"
+            }
+        }
+        print(sharedString)
+        if let safeMealPhoto = meal.mealPhoto{
+            mealPhoto = UIImage(data: safeMealPhoto)
+        }
+        if let safeInstructions = meal.instructionsPhoto{
+            instructionPhoto = UIImage(data: safeInstructions)
+        }
+        
+        presentShareAS(sharedString: sharedString,
+                       mealPhoto: mealPhoto,
+                       instructionsPhoto: instructionPhoto)
+    }
+    
+    
+    func presentShareAS(sharedString: String?, mealPhoto: UIImage?, instructionsPhoto: UIImage?){
+        isShareSheetShowing.toggle()
+        var activityItems: [Any] = []
+        if let safeString = sharedString{
+            activityItems.append(safeString)
+        }
+        if let safeMealPhoto = mealPhoto{
+            activityItems.append(safeMealPhoto)
+        }
+        if let safeInstructionsPhoto = instructionsPhoto{
+            activityItems.append(safeInstructionsPhoto)
+        }
+        let shareActionSheet = UIActivityViewController(activityItems: activityItems,  applicationActivities: nil)
+        
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        let window = windowScene?.windows.first
+        window?.rootViewController?.present(shareActionSheet, animated: true, completion: nil)
+    }
 }
