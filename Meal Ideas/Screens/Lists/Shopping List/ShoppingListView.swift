@@ -65,6 +65,7 @@ struct ShoppingListView: View {
                     Button("Cancel", role: .cancel) { }
                 }
             }
+
             .onAppear{
                 shopping.getShoppingList()
                 vm.allShoppingList = shopping.allShoppingList
@@ -72,7 +73,7 @@ struct ShoppingListView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
+                ToolbarItemGroup(placement: .navigationBarLeading) {
                     if shopping.anyChecked{
                         Button {
                             withAnimation {
@@ -83,18 +84,30 @@ struct ShoppingListView: View {
                         }
                         .accentColor(.red)
                     }
+                    
+                    if !shopping.allShoppingList.isEmpty{
+                        Button {
+                            print("Share tapped")
+                            vm.shareTapped(allShoppingList: shopping.allShoppingList)
+                        } label: {
+                            Image(systemName: SFSymbols.share.rawValue)
+                        }
+                        .foregroundColor(.blue)
+                    }
                 }
+                
                 ToolbarItem(placement: .principal, content: {
                     Text(Titles.shoppingList.rawValue)
                 })
-                ToolbarItem(placement: .navigationBarTrailing) {
+                
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
                     if !shopping.allShoppingList.isEmpty{
                         Button  {
                             withAnimation {
                                 vm.showingClearAllAlert.toggle()
                             }
                         } label: {
-                            Text("Clear All")
+                            Image(systemName: SFSymbols.trash.rawValue)
                         }
                         .accentColor(.red)
                     }
@@ -106,6 +119,5 @@ struct ShoppingListView: View {
         .fullScreenCover(isPresented: $shouldShowShoppingListOnboarding, content: {
             ShoppingListOnboardingView(shouldShowShoppingListOnboarding: $shouldShowShoppingListOnboarding)
         })
-
     }
 }

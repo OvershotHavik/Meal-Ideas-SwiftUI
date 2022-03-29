@@ -25,7 +25,6 @@ final class UserEnvironment: ObservableObject{
         do {
             let data = try JSONEncoder().encode(userSettings)
             userSettingsData = data
-            print("Saved to app storage")
         } catch {
             alertItem = AlertContext.invalidUserData
         }
