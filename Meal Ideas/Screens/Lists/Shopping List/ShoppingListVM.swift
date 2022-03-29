@@ -34,11 +34,11 @@ class ShoppingListVM: ObservableObject{
             let filteredMeals = searchResults.filter({$0.mealName == meal})
             sharedString += "\(meal):\n"
             for item in filteredMeals{
-                let check = "\(item.checkedOff ? "☑️" : " ")"
+                let check = "\(item.checkedOff ? "☑️" : "     ")"
                 if item.measurement != ""{
-                    sharedString += "\(item.ingredient ?? "") - \(item.measurement ?? "") \(check)\n"
+                    sharedString += "\(check) \(item.ingredient ?? "") - \(item.measurement ?? "")\n"
                 } else {
-                    sharedString += "\(item.ingredient ?? "") \(check) \n"
+                    sharedString += "\(check) \(item.ingredient ?? "") \(check) \n"
                 }
             }
             sharedString += "\n"
@@ -50,8 +50,8 @@ class ShoppingListVM: ObservableObject{
     
     func presentShareAS(sharedString: String?){
         isShareSheetShowing.toggle()
-        if let safeWebsite = sharedString{
-            let shareActionSheet = UIActivityViewController(activityItems: [safeWebsite],  applicationActivities: nil)
+        if let sharedString = sharedString{
+            let shareActionSheet = UIActivityViewController(activityItems: [sharedString],  applicationActivities: nil)
             
             let scenes = UIApplication.shared.connectedScenes
             let windowScene = scenes.first as? UIWindowScene
