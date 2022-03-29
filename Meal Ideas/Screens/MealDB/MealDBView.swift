@@ -86,8 +86,7 @@ struct MealDBView: View {
                     }
                     NavigationLink(destination: HistoryListView(vm: HistoryListVM(source: .mealDB))) {
                         Image(systemName: SFSymbols.history.rawValue)
-                            .foregroundColor(.primary
-                            )
+                            .foregroundColor(userEnvironment.bottomRightColor.isLight() ? Color.black : Color.white)
                     }
                 }
             }

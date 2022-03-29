@@ -20,8 +20,8 @@ extension Color{
          let textFieldBackground = Color("TextFieldBackground")
     }
 }
-/*
- keeping for future use, if I can figure out how to get the status bar text color to change correctly based on what view is shown, I would use this to modify the text color of the top view based on the colors the user picks
+
+
 extension Color{
     func isLight() -> Bool {
         guard let components = cgColor?.components, components.count > 2 else {return false}
@@ -29,4 +29,4 @@ extension Color{
         return (brightness > 0.5)
     }
 }
-*/
+
