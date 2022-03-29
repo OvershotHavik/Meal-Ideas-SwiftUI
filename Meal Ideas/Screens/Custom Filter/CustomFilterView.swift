@@ -21,7 +21,6 @@ struct CustomFilterView: View {
     
     
     var body: some View {
-        
         Form{
             Section{
                 TextField("Search...", text: $keyword)
@@ -115,7 +114,6 @@ struct CustomIngredientNL: View{
     
     
     var body: some View{
-        
         NavigationLink(destination: SingleIngredientListView(vm: IngredientListVM(itemList: userIngredients, selection: ingredient))) {
             Text("Select an ingredient")
         }                                                         .foregroundColor(.blue)

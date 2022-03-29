@@ -121,7 +121,6 @@ struct SampleTopView: View{
             .foregroundColor(userEnvironment.bottomRightColor.isLight() ? Color.black : Color.white)
         }
         .padding()
-        
         .background(BackgroundGradientView())
     }
 }
