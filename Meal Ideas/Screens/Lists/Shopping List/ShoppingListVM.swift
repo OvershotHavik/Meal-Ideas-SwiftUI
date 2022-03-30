@@ -34,7 +34,7 @@ class ShoppingListVM: ObservableObject{
             let filteredMeals = searchResults.filter({$0.mealName == meal})
             sharedString += "\(meal):\n"
             for item in filteredMeals{
-                let check = "\(item.checkedOff ? "☑️" : "     ")"
+                let check = "\(item.checkedOff ? "✔️" : "     ")"
                 if item.measurement != ""{
                     sharedString += "\(check) \(item.ingredient ?? "") - \(item.measurement ?? "")\n"
                 } else {

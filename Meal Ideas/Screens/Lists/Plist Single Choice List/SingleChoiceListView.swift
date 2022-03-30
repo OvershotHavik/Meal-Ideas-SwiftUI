@@ -19,11 +19,18 @@ struct SingleChoiceListView: View {
             }
             List(vm.searchResults.sorted{$0 < $1}, id: \.self, selection: $vm.singleChoiceString) {item in
                 HStack{
-                    Text(item)
-                    Spacer()
                     if query.selected == item{
-                        Image(systemName: SFSymbols.check.rawValue)
+                        withAnimation(.easeIn(duration: 0.25).delay(0.25)){
+                            Image(systemName: SFSymbols.check.rawValue)
+                            .padding(.horizontal, 5)
+                        }
+                    } else {
+                        Rectangle()
+                            .foregroundColor(.clear)
+                            .frame(width: 18)
+                            .padding(.horizontal, 5)
                     }
+                    Text(item)
                 }
                 .contentShape(Rectangle())
                 .onTapGesture{

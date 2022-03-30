@@ -15,6 +15,17 @@ struct IngredientCell: View {
         let modifiedMealDB = ingredient.strIngredient.replacingOccurrences(of: " ", with: "%20")
         if let mealDBImages = URL(string: "\(BaseURL.ingredientImage)\(modifiedMealDB).png"){
             HStack{
+                if selected{
+                    withAnimation(.easeIn(duration: 0.25).delay(0.25)){
+                        Image(systemName: SFSymbols.check.rawValue)
+                        .padding(.horizontal, 5)
+                    }
+                } else {
+                    Rectangle()
+                        .foregroundColor(.clear)
+                        .frame(width: 18)
+                        .padding(.horizontal, 5)
+                }
                 LoadRemoteImageView(urlString: mealDBImages.absoluteString)
                     .clipShape(Circle())
                     .aspectRatio(contentMode: .fit)
@@ -22,10 +33,6 @@ struct IngredientCell: View {
                 Text(ingredient.strIngredient)
                     .font(.body)
                     .padding(.horizontal)
-                Spacer()
-                if selected == true{
-                    Image(systemName: SFSymbols.check.rawValue)
-                }
             }
             .contentShape(Rectangle())
             .frame(height: 50)

@@ -23,6 +23,17 @@ struct DetailViewIngredientCell: View {
     var body: some View {
         ZStack(alignment: .leading){
             HStack{
+                if selected{
+                    withAnimation(.easeIn(duration: 0.25).delay(0.25)){
+                        Image(systemName: SFSymbols.check.rawValue)
+                        .padding(.horizontal, 5)
+                    }
+                } else {
+                    Rectangle()
+                        .foregroundColor(.clear)
+                        .frame(width: 18)
+                        .padding(.horizontal, 5)
+                }
                 Image(uiImage: image ?? UIImage(imageLiteralResourceName: "Placeholder"))
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -35,14 +46,6 @@ struct DetailViewIngredientCell: View {
                     Text(measurement)
                         .font(.body)
                         .padding(.horizontal)
-                }
-
-                Spacer()
-                if selected{
-                    withAnimation(.easeIn(duration: 0.25).delay(0.25)){
-                        Image(systemName: SFSymbols.check.rawValue)
-                        .padding(.horizontal)
-                    }
                 }
             }
             .contentShape(Rectangle())
