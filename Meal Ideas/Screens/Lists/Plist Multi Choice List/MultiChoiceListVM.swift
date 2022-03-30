@@ -135,14 +135,19 @@ final class  MultiChoiceListVM: ObservableObject {
 
     func addItem(item: String){
         selectedArray.append(item)
-        if listType == .category{
-            editVM.categories.append(item)
+
+        if listItems.firstIndex(of: item) == nil{
+            //only add if the item isn't already in the core data
+            if listType == .category{
+                editVM.categories.append(item)
+                PersistenceController.shared.addUserItem(entityName: .CDCategory, item: item)
+            }
+            if listType == .side{
+                editVM.sides.append(item)
+                PersistenceController.shared.addUserItem(entityName: .CDSides, item: item)
+            }
+            listItems.append(item)
+            listItems = listItems.sorted{$0 < $1}
         }
-        if listType == .side{
-            editVM.sides.append(item)
-        }
-        
-        listItems.append(item)
-        listItems = listItems.sorted{$0 < $1}
     }
 }

@@ -153,11 +153,10 @@ struct PersistenceController {
         case .CDIngredient:
             let request = NSFetchRequest<CDIngredient>(entityName: EntityName.CDIngredient.rawValue)
             do {
-                let savedIngredients = try container.viewContext.fetch(request)
+                let savedIngredients = try container.viewContext.fetch(request).sorted(by: {$0.ingredient ?? "" < $1.ingredient ?? ""})
                 guard let index = indexSet.first else {return}
                 let ingredient = savedIngredients[index]
                 print(ingredient)
-                container.viewContext.delete(ingredient)
                 //Delete the ingredient from any meals that may have it in them
                 let mealRequest = NSFetchRequest<UserMeals>(entityName: EntityName.userMeals.rawValue)
                 
@@ -181,6 +180,7 @@ struct PersistenceController {
                         }
                     }
                 }
+                container.viewContext.delete(ingredient)
             }catch let e {
                 print("Error fetching CDIngredients: \(e.localizedDescription)")
             }
@@ -189,11 +189,10 @@ struct PersistenceController {
         case .CDCategory:
             let request = NSFetchRequest<CDCategory>(entityName: EntityName.CDCategory.rawValue)
             do {
-                let savedItems = try container.viewContext.fetch(request)
+                let savedItems = try container.viewContext.fetch(request).sorted(by: {$0.category ?? "" < $1.category ?? ""})
                 guard let index = indexSet.first else {return}
                 let category = savedItems[index]
                 print(category)
-                container.viewContext.delete(category)
                 //Delete the Category from any meals that may have it in them
 
                 let mealRequest = NSFetchRequest<UserMeals>(entityName: EntityName.userMeals.rawValue)
@@ -218,6 +217,7 @@ struct PersistenceController {
                         }
                     }
                 }
+                container.viewContext.delete(category)
             }catch let e {
                 print("Error fetching CDUserCategory: \(e.localizedDescription)")
             }
@@ -226,11 +226,10 @@ struct PersistenceController {
         case .CDSides:
             let request = NSFetchRequest<CDSides>(entityName: EntityName.CDSides.rawValue)
             do {
-                let savedItems = try container.viewContext.fetch(request)
+                let savedItems = try container.viewContext.fetch(request).sorted(by: {$0.side ?? "" < $1.side ?? ""})
                 guard let index = indexSet.first else {return}
                 let side = savedItems[index]
                 print(side)
-                container.viewContext.delete(side)
                 //Delete the Side from any meals that may have it in them
 
                 let mealRequest = NSFetchRequest<UserMeals>(entityName: EntityName.userMeals.rawValue)
@@ -255,8 +254,8 @@ struct PersistenceController {
                         }
                     }
                 }
-                    
-                
+                container.viewContext.delete(side)
+
             }catch let e {
                 print("Error fetching CDUserCategory: \(e.localizedDescription)")
             }

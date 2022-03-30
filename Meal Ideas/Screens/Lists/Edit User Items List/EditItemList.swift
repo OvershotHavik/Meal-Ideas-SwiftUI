@@ -34,7 +34,7 @@ struct EditItemList: View {
                 PersistenceController.shared.deleteInList(indexSet: IndexSet,
                                                           entityName: vm.entityName,
                                                           source: .myIdeas)
-                vm.listItems.remove(atOffsets: IndexSet)
+                vm.getUserItems()
             }
         }
         .padding(.bottom)
