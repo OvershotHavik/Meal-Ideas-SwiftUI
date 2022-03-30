@@ -16,12 +16,18 @@ struct MultiChoiceListView: View {
     var body: some View {
         List(vm.searchResults.sorted{$0 < $1}, id: \.self) {item in
             HStack {
-                Text(item)
-                
-                Spacer()
                 if vm.selectedArray.contains(item){
-                    Image(systemName: SFSymbols.check.rawValue)
+                    withAnimation(.easeIn(duration: 0.25).delay(0.25)){
+                        Image(systemName: SFSymbols.check.rawValue)
+                        .padding(.horizontal, 5)
+                    }
+                } else {
+                    Rectangle()
+                        .foregroundColor(.clear)
+                        .frame(width: 18)
+                        .padding(.horizontal, 5)
                 }
+                Text(item)
             }
             .contentShape(Rectangle())
             .onTapGesture {
@@ -31,16 +37,7 @@ struct MultiChoiceListView: View {
         .alert(isPresented: $vm.showTextAlert,
                TextAlert(title: "Add a new \(vm.listType)", message:  "This will be added to this meal. \nThis will also be available for future meals", action: { result in
             if let text = result{
-                if vm.listType == .side{
-                    print("Side entered: \(text)")
-                    vm.addItem(item: text)
-                    PersistenceController.shared.addUserItem(entityName: .CDSides, item: text)
-                }
-                if vm.listType == .category{
-                    print("category entered: \(text)")
-                    vm.addItem(item: text)
-                    PersistenceController.shared.addUserItem(entityName: .CDCategory, item: text)
-                }
+                vm.addItem(item: text)
             }
         }))
         .toolbar{
