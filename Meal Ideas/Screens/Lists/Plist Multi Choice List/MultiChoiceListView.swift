@@ -29,7 +29,7 @@ struct MultiChoiceListView: View {
                 }
                 Text(item)
             }
-            .contentShape(Rectangle())
+            .contentShape(Rectangle().size(width: .infinity, height: .infinity))
             .onTapGesture {
                 vm.checkArray(item: item)
             }

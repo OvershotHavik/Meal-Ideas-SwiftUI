@@ -34,7 +34,7 @@ struct IngredientCell: View {
                     .font(.body)
                     .padding(.horizontal)
             }
-            .contentShape(Rectangle())
+            .contentShape(Rectangle().size(width: .infinity, height: .infinity))
             .frame(height: 50)
         }
     }

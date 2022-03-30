@@ -32,7 +32,7 @@ struct SingleChoiceListView: View {
                     }
                     Text(item)
                 }
-                .contentShape(Rectangle())
+                .contentShape(Rectangle().size(width: .infinity, height: .infinity))
                 .onTapGesture{
                     query.selected = item
                     query.customCategory = item // manually setting for category right now, may need to change if using this elsewhere for something else

@@ -366,7 +366,6 @@ struct PersistenceController {
 
 
     func deleteHistory(source: Source, deleteOption: Date, completed: () -> Void){
-        
         let request = NSFetchRequest<History>(entityName: EntityName.history.rawValue)
         do {
             let savedHistory = try container.viewContext.fetch(request)
