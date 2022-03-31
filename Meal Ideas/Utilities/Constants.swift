@@ -133,6 +133,7 @@ enum ShoppingListMessage: String{
 enum ImageNames: String{
     case placeholderMeal = "Placeholder"
     case filterMenuImage = "FilterMenuImage"
+    case copyTextExample = "CopyTextExample"
     
     //Onboarding
     case adaptiveFilterImage = "AdaptiveFilterImage"
