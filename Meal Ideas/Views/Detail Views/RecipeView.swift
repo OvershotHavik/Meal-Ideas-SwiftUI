@@ -13,7 +13,7 @@ struct RecipeView: View {
     
     var body: some View {
         if recipe == ""{
-            Text("No recipe Provided")
+            Text("No Recipe Provided")
                 .font(.body)
         } else {
             Text(recipe)

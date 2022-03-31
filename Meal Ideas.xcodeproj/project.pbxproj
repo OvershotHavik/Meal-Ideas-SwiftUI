@@ -336,6 +336,7 @@
 				B37C63232760F3B500DF3934 /* UIKit COmponents */,
 				B3C2BDCE27552FFC00CD5EE0 /* Cells */,
 				B3606DAC274D5E8000E61972 /* Detail Views */,
+				B36136CC27CD6601007D0199 /* Onboarding Views */,
 				B3606DA4274C446900E61972 /* TopView.swift */,
 				B3A75CB427668ED90062C8B4 /* LoadingView.swift */,
 				B3A75CB6276699B30062C8B4 /* NoResultsViewWithImage.swift */,
@@ -425,7 +426,6 @@
 		B372F1D827AB1D0300DCB991 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				B36136CC27CD6601007D0199 /* Onboarding Views */,
 				B372F1D927AB1D1D00DCB991 /* InitialOnboardingView.swift */,
 				B36136CA27CD50C9007D0199 /* ShoppingListOnboardingView.swift */,
 			);
@@ -1206,7 +1206,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.StevePlavetzky.Meal-Ideas";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1241,7 +1241,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.StevePlavetzky.Meal-Ideas";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
