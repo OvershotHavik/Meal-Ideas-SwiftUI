@@ -31,8 +31,3 @@ struct CopyingTextView: View {
     }
 }
 
-struct CopyingTextView_Previews: PreviewProvider {
-    static var previews: some View {
-        CopyingTextView()
-    }
-}
