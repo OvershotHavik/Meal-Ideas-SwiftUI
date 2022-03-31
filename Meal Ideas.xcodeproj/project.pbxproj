@@ -82,6 +82,7 @@
 		B3BC34C02799F227000F7677 /* TrackableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BC34BF2799F226000F7677 /* TrackableScrollView.swift */; };
 		B3BC34C2279C4643000F7677 /* SpoonCategories.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3BC34C1279C4642000F7677 /* SpoonCategories.plist */; };
 		B3BC34C4279C4894000F7677 /* MealDBCategories.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3BC34C3279C4894000F7677 /* MealDBCategories.plist */; };
+		B3BE6AC827F62A63007294C7 /* CopyingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BE6AC727F62A63007294C7 /* CopyingTextView.swift */; };
 		B3C7EB7E279C795100BB7519 /* MultiIngredientListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C7EB7D279C795100BB7519 /* MultiIngredientListVM.swift */; };
 		B3CA2341274808CA00CA9C68 /* Meal_IdeasApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CA2340274808CA00CA9C68 /* Meal_IdeasApp.swift */; };
 		B3CA2345274808D600CA9C68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3CA2344274808D600CA9C68 /* Assets.xcassets */; };
@@ -213,6 +214,7 @@
 		B3BC34BF2799F226000F7677 /* TrackableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackableScrollView.swift; sourceTree = "<group>"; };
 		B3BC34C1279C4642000F7677 /* SpoonCategories.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = SpoonCategories.plist; sourceTree = "<group>"; };
 		B3BC34C3279C4894000F7677 /* MealDBCategories.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = MealDBCategories.plist; sourceTree = "<group>"; };
+		B3BE6AC727F62A63007294C7 /* CopyingTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyingTextView.swift; sourceTree = "<group>"; };
 		B3C7EB7D279C795100BB7519 /* MultiIngredientListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiIngredientListVM.swift; sourceTree = "<group>"; };
 		B3CA233D274808CA00CA9C68 /* Meal Ideas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Meal Ideas.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3CA2340274808CA00CA9C68 /* Meal_IdeasApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal_IdeasApp.swift; sourceTree = "<group>"; };
@@ -597,6 +599,14 @@
 			path = "History List";
 			sourceTree = "<group>";
 		};
+		B3BE6AC627F62A09007294C7 /* Copying Text */ = {
+			isa = PBXGroup;
+			children = (
+				B3BE6AC727F62A63007294C7 /* CopyingTextView.swift */,
+			);
+			path = "Copying Text";
+			sourceTree = "<group>";
+		};
 		B3C2BDAC2752632300CD5EE0 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
@@ -729,6 +739,7 @@
 		B3CA2373274810C900CA9C68 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				B3BE6AC627F62A09007294C7 /* Copying Text */,
 				B35CEAED27B40C4400D49250 /* Base View Managers */,
 				B372F1D827AB1D0300DCB991 /* Onboarding */,
 				B32934FF27A1E1CB00951C47 /* Settings */,
@@ -924,6 +935,7 @@
 				B3D32CDC278399E300FA4ACA /* DVIngredientCell.swift in Sources */,
 				B375C98927621B380013895F /* MultiChoiceListView.swift in Sources */,
 				B398AFD127C1379A00A69A21 /* ShoppingListView.swift in Sources */,
+				B3BE6AC827F62A63007294C7 /* CopyingTextView.swift in Sources */,
 				B3A668C2276F9CB700533988 /* FavoritesListVM.swift in Sources */,
 				B375C98527621B060013895F /* SingleChoiceListView.swift in Sources */,
 				B3CEDDB82756FEA300BB832B /* SpoonServingPrepHStack.swift in Sources */,

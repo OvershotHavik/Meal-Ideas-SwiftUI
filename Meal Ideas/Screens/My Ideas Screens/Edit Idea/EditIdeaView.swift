@@ -60,6 +60,7 @@ struct EditIdeaView: View {
                                          bottomColor: .green)
                         }
                     }
+                    
                     Section(header: Text(SectionHeaders.prep.rawValue)){
                         PrepTimePickerView(vm: vm)
                     }
@@ -76,6 +77,10 @@ struct EditIdeaView: View {
                                 .frame(height: screenBounds.size.height/3)
                         }
                         Text("And/Or type in below:")
+                        NavigationLink(destination: CopyingTextView()) {
+                            Text("Tips for copying from a picture")
+                                .foregroundColor(.blue)
+                        }
                         TextEditor(text: $vm.recipe)
                             .background(RoundedRectangle(cornerRadius: 10)
                                             .fill(Color.ui.textFieldBackground))
