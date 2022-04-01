@@ -22,6 +22,7 @@ struct BadgesHStack: View {
                 HStack{
                     ForEach(items.sorted(by: {$0 < $1}), id: \.self) {cat in
                         Text(cat)
+                            .foregroundColor(.white)
                             .padding(.horizontal, 10)
                             .padding(.vertical, 3)
                             .background(LinearGradient(gradient: Gradient(colors: [topColor, bottomColor]),

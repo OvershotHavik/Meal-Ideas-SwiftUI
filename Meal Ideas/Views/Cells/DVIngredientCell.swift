@@ -48,7 +48,7 @@ struct DetailViewIngredientCell: View {
                         .padding(.horizontal)
                 }
             }
-            .contentShape(Rectangle())
+            .contentShape(Rectangle().size(width: .infinity, height: .infinity))
             .onTapGesture {
                 print("ingredient: \(ingredient), measurement: \(measurement)")
                 selected.toggle()
