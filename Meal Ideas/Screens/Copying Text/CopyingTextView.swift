@@ -24,6 +24,7 @@ struct CopyingTextView: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(height: screenBounds.size.height / 2)
                     }
+                    Text("Keep in mind that the text copied this way does not include spacing for paragraphs. In the example above, that all copied as one paragraph. You may want to find the line breaks within the text field and hit return twice to duplicate that.")
                 }
             }
             .padding()
