@@ -79,7 +79,7 @@ struct SpoonView: View {
             .toolbar {
                 ToolbarItem(placement: .principal, content: {
                     Text(Titles.mainTitle.rawValue)
-                        .foregroundColor(.primary)
+                    .foregroundColor(userEnvironment.topLeftColor.isLight() ? Color.black : Color.white)
                 })
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     NavigationLink(destination: FavoritesListView(vm: FavoritesListVM(source: .spoonacular))) {

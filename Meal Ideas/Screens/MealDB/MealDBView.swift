@@ -76,7 +76,7 @@ struct MealDBView: View {
             .toolbar {
                 ToolbarItem(placement: .principal, content: {
                     Text(Titles.mainTitle.rawValue)
-                    .foregroundColor(.primary)
+                    .foregroundColor(userEnvironment.topLeftColor.isLight() ? Color.black : Color.white)
                 })
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     
