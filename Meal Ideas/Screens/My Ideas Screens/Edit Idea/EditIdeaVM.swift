@@ -109,12 +109,12 @@ class EditIdeaVM: ObservableObject{
         var mealPhotoData: Data?
         
         if mealPhoto != UIImage(){
-            mealPhotoData = mealPhoto.jpegData(compressionQuality: 1.0)
+            mealPhotoData = mealPhoto.jpegData(compressionQuality: 0.5)
         }
         
         var instructionsPhotoData: Data?
         if instructionsPhoto != UIImage(){
-            instructionsPhotoData = instructionsPhoto.jpegData(compressionQuality: 1.0)
+            instructionsPhotoData = instructionsPhoto.jpegData(compressionQuality: 0.5)
         }
         
         var ingredients : [String] = []
