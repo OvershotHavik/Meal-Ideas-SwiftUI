@@ -13,7 +13,8 @@ import Combine
     
     @Published var meals : [MealDBResults.Meal] = []
     @Published var surpriseMeal: MealDBResults.Meal?
-    var cancellables = Set<AnyCancellable>()
+    private var customMeals: [MealDBResults.Meal] = []
+    private var cancellables = Set<AnyCancellable>()
     
     init(){
         super.init(sourceCategory: .mealDBCategories, source: .mealDB)
@@ -228,20 +229,25 @@ import Combine
                         if safeCategory == "Side%20Dish"{
                             safeCategory = "Side"
                         }
-                        let catMeals = try await NetworkManager.shared.mealDBQuery(query: safeCategory, queryType: .category)
-                        print("CatMeals count: \(catMeals.count)")
+                        guard let url = URL(string: BaseURL.mealDBCategories + safeCategory) else {
+                            throw MIError.invalidURL
+                        }
                         
-//                        meals = catMeals.filter({(($0.strMeal?.containsIgnoringCase(find: keyword)) != nil)})
-                        for meal in catMeals{
-                            if let safeName = meal.strMeal{
-                                if safeName.containsIgnoringCase(find: keyword){
-                                    meals.append(meal)
+                        getCustomMeals(url: url) { [weak self] in
+                            guard let self = self else {return}
+                            print("Custom Meals count: \(self.customMeals.count)")
+
+                            for meal in self.customMeals{
+                                if let safeName = meal.strMeal{
+                                    if safeName.containsIgnoringCase(find: keyword){
+                                        self.meals.append(meal)
+                                    }
                                 }
                             }
+                            print("Meals count: \(self.meals.count)")
+                            self.allResultsToggle()
+                            completed()
                         }
-                        print("Meals count: \(meals.count)")
-                        allResultsToggle()
-                        completed()
                     }
                     
                     // MARK: - Keyword and ingredient
@@ -249,20 +255,24 @@ import Combine
                         category == "" &&
                         ingredient != "" {
                         let modifiedIngredient = ingredient.replacingOccurrences(of: " ", with: "_")
+                        guard let url = URL(string: BaseURL.mealDBIngredient + modifiedIngredient) else {
+                            throw MIError.invalidURL
+                        }
                         
-                        let ingMeals = try await NetworkManager.shared.mealDBQuery(query: modifiedIngredient,
-                                                                                   queryType: .ingredient)
-                        print("ingMeals count: \(ingMeals.count)")
-                        for meal in ingMeals{
-                            if let safeName = meal.strMeal{
-                                if safeName.containsIgnoringCase(find: keyword){
-                                    meals.append(meal)
+                        getCustomMeals(url: url) { [weak self] in
+                            guard let self = self else {return}
+                            print("ingMeals count: \(self.customMeals.count)")
+                            for meal in self.customMeals{
+                                if let safeName = meal.strMeal{
+                                    if safeName.containsIgnoringCase(find: keyword){
+                                        self.meals.append(meal)
+                                    }
                                 }
                             }
+                            print("meals count: \(self.meals.count)")
+                            self.allResultsToggle()
+                            completed()
                         }
-                        print("meals count: \(meals.count)")
-                        allResultsToggle()
-                        completed()
                     }
                     
                     // MARK: - Category and ingredient
@@ -275,26 +285,75 @@ import Combine
                         if safeCategory == "Side%20Dish"{
                             safeCategory = "Side"
                         }
-                        let catMeals = try await NetworkManager.shared.mealDBQuery(query: safeCategory, queryType: .category)
-                        print("CatMeals count: \(catMeals.count)")
-                        
-                        let modifiedIngredient = ingredient.replacingOccurrences(of: " ", with: "_")
-                        
-                        let ingMeals = try await NetworkManager.shared.mealDBQuery(query: modifiedIngredient,
-                                                                                   queryType: .ingredient)
-                        print("ingMeals count: \(ingMeals.count)")
-                        
-                        meals = catMeals.filter{ingMeals.contains($0)}
-                        print("meals count: \(meals.count)")
-                        allResultsToggle()
-                        completed()
+                        guard let catURL = URL(string: BaseURL.mealDBCategories + safeCategory) else {
+                            throw MIError.invalidURL
+                        }
+                        getCustomMeals(url: catURL) {[weak self] in
+                            guard let self = self else {return}
+                            let customCategoryResults = self.customMeals
+                            print("CatMeals count: \(customCategoryResults.count)")
+                            
+                            let modifiedIngredient = ingredient.replacingOccurrences(of: " ", with: "_")
+                            guard let ingredientURL = URL(string: BaseURL.mealDBIngredient + modifiedIngredient) else {
+                                self.alertItem = AlertContext.invalidURL
+                                return
+                            }
+                            self.getCustomMeals(url: ingredientURL) { [weak self] in
+                                guard let self = self else {return}
+                                let customIngredientMeals = self.customMeals
+                                print("ingMeals count: \(customIngredientMeals.count)")
+                                self.meals = customCategoryResults.filter{customIngredientMeals.contains($0)}
+                                print("meals count: \(self.meals.count)")
+                                self.allResultsToggle()
+                                completed()
+                            }
+                        }
                     }
                     
                     // MARK: - All three provided
                     if keyword != "" &&
                         category != "" &&
                         ingredient != "" {
+                        print("Fetching MealDB Category: \(category)")
+                        var safeCategory = category.replacingOccurrences(of: " ", with: "%20")
+                        if safeCategory == "Side%20Dish"{
+                            safeCategory = "Side"
+                        }
+                        guard let catURL = URL(string: BaseURL.mealDBCategories + safeCategory) else {
+                            throw MIError.invalidURL
+                        }
+                        getCustomMeals(url: catURL) {[weak self] in
+                            guard let self = self else {return}
+                            let customCategoryResults = self.customMeals
+                            print("CatMeals count: \(customCategoryResults.count)")
+                            
+                            let modifiedIngredient = ingredient.replacingOccurrences(of: " ", with: "_")
+                            guard let ingredientURL = URL(string: BaseURL.mealDBIngredient + modifiedIngredient) else {
+                                self.alertItem = AlertContext.invalidURL
+                                return
+                            }
+                            self.getCustomMeals(url: ingredientURL) { [weak self] in
+                                guard let self = self else {return}
+                                let customIngredientMeals = self.customMeals
+                                print("ingMeals count: \(customIngredientMeals.count)")
+                                let filteredMeals = customCategoryResults.filter{customIngredientMeals.contains($0)}
+                                print("filtered meals count: \(filteredMeals.count)")
+
+                                for meal in filteredMeals{
+                                    if let safeName = meal.strMeal{
+                                        if safeName.containsIgnoringCase(find: keyword){
+                                            self.meals.append(meal)
+                                        }
+                                    }
+                                }
+                                print("meals count: \(self.meals.count)")
+                                self.allResultsToggle()
+                                completed()
+                            }
+                        }
                         
+                                                                                                            
+                            /*
                         print("Fetching MealDB Category: \(category)")
                         var safeCategory = category.replacingOccurrences(of: " ", with: "%20")
                         if safeCategory == "Side%20Dish"{
@@ -322,6 +381,7 @@ import Combine
                         print("meals count: \(meals.count)")
                         allResultsToggle()
                         completed()
+                             */
                     }
                     
                     
@@ -433,6 +493,36 @@ import Combine
                 self.meals = returnedMeals.meals
                 self.isLoading = false
                 self.allResultsToggle()
+                completed()
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func getCustomMeals(url: URL, completed: @escaping () -> Void){
+        URLSession.shared.dataTaskPublisher(for: url)
+            .receive(on: DispatchQueue.main)
+            .tryMap{ (data, response) -> Data in
+                guard let response = response as? HTTPURLResponse,
+                      response.statusCode >= 200 && response.statusCode < 300 else {
+                    throw URLError(.badServerResponse)
+                }
+                return data
+            }
+            .decode(type: MealDBResults.Results.self, decoder: JSONDecoder())
+            .sink{ [weak self] completion in
+                guard let self = self else {return}
+                switch completion{
+                case .finished:
+                    print("finished!")
+                case .failure(let error):
+                    self.alertItem = AlertContext.invalidData
+                    print("Error: \(error.localizedDescription)") // show an alert here based on the error in a real app
+                    completed()
+                }
+                
+            } receiveValue: { [weak self] returnedMeals in
+                guard let self = self else {return}
+                self.customMeals = returnedMeals.meals
                 completed()
             }
             .store(in: &cancellables)

@@ -394,6 +394,45 @@ class MealDBVM_Tests: XCTestCase {
     }
     
     
+    @MainActor func test_MealDBVM_customFilter_keywordAndIngredient_shouldReturnMeals(){
+        //given
+        guard let sut = sut else {return}
+        let expectation = expectation(description: "Wait for meals to populate")
+        let keyword = "Beef"
+        let category = ""
+        let ingredient = "Beef"
+        //When
+        sut.customFilter(keyword: keyword, category: category, ingredient: ingredient) {
+            expectation.fulfill()
+        }
+        //Then
+        wait(for: [expectation], timeout: 10)
+        XCTAssertGreaterThan(sut.meals.count, 0)
+        for meal in sut.meals{
+            XCTAssertTrue(((meal.strMeal?.containsIgnoringCase(find: keyword)) != nil))
+        }
+    }
+    
+    
+    @MainActor func test_MealDBVM_customFilter_keywordAndIngredient_shouldNotReturnMeals(){
+        //given
+        guard let sut = sut else {return}
+        let expectation = expectation(description: "Wait for meals to populate")
+        let keyword = UUID().uuidString
+        let category = ""
+        let ingredient = UUID().uuidString
+        let expectedAlertItem = AlertContext.invalidData
+        //When
+        sut.customFilter(keyword: keyword, category: category, ingredient: ingredient) {
+            expectation.fulfill()
+        }
+        //Then
+        wait(for: [expectation], timeout: 10)
+        XCTAssertEqual(sut.meals.count, 0)
+        XCTAssertEqual(sut.alertItem, expectedAlertItem)
+    }
+    
+    
     @MainActor func test_MealDBVM_customFilter_categoryAndIngredient_shouldReturnMeals(){
         //given
         guard let sut = sut else {return}
