@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreData
+import Combine
 
 enum ImagePickerSelection: Identifiable {
     case mealPhoto, instructions
@@ -37,6 +38,7 @@ class EditIdeaVM: ObservableObject{
     // Meal Variables
     @Published var mealPhoto = UIImage()
     @Published var mealName = ""
+    @Published var mealNameInUse: Bool = false
     @Published var categories: [String] = []
     @Published var userIngredients : [UserIngredient] = []
     @Published var recipe = ""
@@ -59,6 +61,8 @@ class EditIdeaVM: ObservableObject{
     @Published var minutes = [Int](0..<60)
     @Published var seconds = [Int](0..<60)
     
+    var cancellables = Set<AnyCancellable>()
+    
     //  used for Core Data
     private let pc = PersistenceController.shared
     
@@ -67,6 +71,20 @@ class EditIdeaVM: ObservableObject{
         self.meal = meal
         convertMeal()
         getAllMeals()
+        addMealNameSubscriber()
+    }
+    
+    
+    func addMealNameSubscriber(){
+        $mealName
+            .debounce(for: .seconds(1), scheduler: DispatchQueue.main) // would delay the call for the seconds you specify
+            .map{[weak self] (text) -> Bool in
+                return self?.checkNameAlreadyInUseSave() ?? false
+            }
+            .sink(receiveValue: { [weak self] isInUse in
+                self?.mealNameInUse = isInUse
+            })
+            .store(in: &cancellables)
     }
     
     

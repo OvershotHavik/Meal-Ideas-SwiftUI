@@ -174,6 +174,8 @@ enum SFSymbols: String{
     case trash = "trash"
     case edit = "square.and.pencil"
     case chevronLeft = "chevron.left"
+    
+    case xMark = "xmark"
 }
 
 /*

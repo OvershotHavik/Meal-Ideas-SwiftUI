@@ -229,10 +229,16 @@ struct MealNameTextField: View{
     var body: some View{
         TextField(vm.meal?.mealName ?? "Meal Name*", text: $vm.mealName)
             .textFieldStyle(CustomRoundedCornerTextField())
+            
             .overlay{
                 Rectangle().frame(height: 2).padding(.top, 35)
                     .foregroundColor(vm.mealName == "" ? Color.red : Color.clear)
             }
+            .overlay(alignment: .trailing, content: {
+                Image(systemName: SFSymbols.xMark.rawValue)
+                    .foregroundColor(.red)
+                    .opacity(vm.mealNameInUse ? 1.0 : 0.0)
+            })
             .font(.title)
             .onSubmit {
                 vm.checkNameAlreadyInUse()
@@ -392,6 +398,8 @@ struct SaveButtonView: View{
                 .padding()
                 .foregroundColor(.green)
         }
+        .opacity(vm.mealNameInUse ? 1 : 0.5)
+        .disabled(!vm.mealNameInUse)
     }
 }
 
