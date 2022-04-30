@@ -17,9 +17,9 @@ import Combine
 class MealDBVM_Tests: XCTestCase {
     var sut: MealDBVM?
     var cancellables = Set<AnyCancellable>()
-    override func setUpWithError() throws {
+    @MainActor override func setUpWithError() throws {
         try super.setUpWithError()
-        sut = MealDBVM(sourceCategory: .mealDBCategories, source: .mealDB)
+        sut = MealDBVM()
         cancellables = []
     }
 
@@ -78,7 +78,7 @@ class MealDBVM_Tests: XCTestCase {
         let expectedAlertItem = AlertContext.invalidData
         //When
         sut.checkQuery(query: query, queryType: queryType){
-//            expectation.fulfill()
+            expectation.fulfill()
         }
         sut.$meals
             .dropFirst()
@@ -121,7 +121,7 @@ class MealDBVM_Tests: XCTestCase {
         let expectedAlertItem = AlertContext.invalidData
         //When
         sut.checkQuery(query: query, queryType: queryType){
-//            expectation.fulfill()
+            expectation.fulfill()
         }
         sut.$meals
             .dropFirst()
@@ -166,7 +166,7 @@ class MealDBVM_Tests: XCTestCase {
         let expectedAlertItem = AlertContext.invalidData
         //When
         sut.checkQuery(query: query, queryType: queryType){
-//            expectation.fulfill()
+            expectation.fulfill()
         }
         sut.$meals
             .dropFirst()

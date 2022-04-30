@@ -5,15 +5,29 @@
 //  Created by Steve Plavetzky on 11/23/21.
 //
 
-import Foundation
 import CoreData
 import SwiftUI
+import Combine
 
 @MainActor final class MealDBVM: BaseVM{
     
     @Published var meals : [MealDBResults.Meal] = []
     @Published var surpriseMeal: MealDBResults.Meal?
+    var cancellables = Set<AnyCancellable>()
     
+    init(){
+        super.init(sourceCategory: .mealDBCategories, source: .mealDB)
+//        setupMealPublisher()
+    }
+    
+    func setupMealPublisher(){
+        $meals
+            .sink { [weak self] _ in
+                self?.allResultsToggle()
+            }
+            .store(in: &cancellables)
+    }
+
 
     override func checkQuery(query: String, queryType: QueryType, completed: @escaping () -> Void){
         print("MealDB Query: \(query), queryType: \(queryType.rawValue)")
@@ -43,6 +57,13 @@ import SwiftUI
             }
         }
     }
+    
+    
+    func setupSurpriseMealPublisher(){
+//        $surpriseMeal
+            
+    }
+    
 
 
     func getMealDBMeals(query: String, queryType: QueryType, completed: @escaping () -> Void) {
@@ -53,36 +74,37 @@ import SwiftUI
                 switch queryType {
                 case .random:
                     print("random")
-                    let newMeal = try await NetworkManager.shared.mealDBQuery(query: "", queryType: .random)
-                    if let first = newMeal.first{
-                        surpriseMeal = first
-                        surpriseMealReady = true
-                        allResultsShown = false
-                        withAnimation(Animation.easeIn.delay(1)){
-                            meals.insert(first, at: 0)
-                            completed()
-                        }
+                    guard let url = URL(string: BaseURL.mealDBRandom) else {
+                        throw MIError.invalidURL
+                    }
+                    print(url)
+                    getRandomMeals(url: url){
+                        completed()
                     }
                     
-                    
                 case .category:
-                    print("Fetching MealDB Category: \(query)")
                     var modified = query.replacingOccurrences(of: " ", with: "%20")
                     if modified == "Side%20Dish"{
                         modified = "Side"
                     }
-                    meals = try await NetworkManager.shared.mealDBQuery(query: modified, queryType: .category)
-                    allResultsToggle()
-                    completed()
-                    
+                    guard let url = URL(string: BaseURL.mealDBCategories + modified) else {
+                        throw MIError.invalidURL
+                    }
+                    print(url)
+                    getMeals(url: url){
+                        completed()
+                    }
                     
                 case .ingredient:
                     let modifiedIngredient = query.replacingOccurrences(of: " ", with: "_")
                     
-                    meals = try await NetworkManager.shared.mealDBQuery(query: modifiedIngredient,
-                                                                        queryType: .ingredient)
-                    allResultsToggle()
-                    completed()
+                    guard let url = URL(string: BaseURL.mealDBIngredient + modifiedIngredient) else {
+                        throw MIError.invalidURL
+                    }
+                    print(url)
+                    getMeals(url: url){
+                        completed()
+                    }
 
                     
                 case .none:
@@ -91,17 +113,18 @@ import SwiftUI
                     
                 case .keyword:
                     let modifiedKeyword = query.replacingOccurrences(of: " ", with: "%20")
-                    meals = try await NetworkManager.shared.mealDBQuery(query: modifiedKeyword,
-                                                                        queryType: .keyword)
-                    allResultsToggle()
-                    completed()
+                    guard let url = URL(string: BaseURL.mealDBKeyword + modifiedKeyword) else {
+                        throw MIError.invalidURL
+                    }
+                    print(url)
+                    getMeals(url: url){
+                        completed()
+                    }
                     
                     
                 case .custom:
                     () // custom has it's own function
                 }
-                isLoading = false
-
             }catch{
                 if meals.count == 0{
                     meals = [] // for testing to pass correctly
@@ -176,7 +199,6 @@ import SwiftUI
                         getMealDBMeals(query: keyword, queryType: .keyword){
                             completed()
                         }
-                        
                     }
                     
                     // MARK: - Just Category provided
@@ -186,7 +208,6 @@ import SwiftUI
                         getMealDBMeals(query: category, queryType: .category){
                             completed()
                         }
-                        
                     }
                     
                     // MARK: - Just ingredient provided
@@ -196,7 +217,6 @@ import SwiftUI
                         getMealDBMeals(query: ingredient, queryType: .ingredient){
                             completed()
                         }
-                        
                     }
                     
                     // MARK: - Keyword and category
@@ -333,19 +353,7 @@ import SwiftUI
     }
     
     
-    func stopLoading(){
-        if isLoading{
-            DispatchQueue.main.asyncAfter(deadline: .now() + 7.5) {
-                if self.isLoading == true{
-                    print("loading for 7.5 seconds, stopping and displaying alert")
-                    self.isLoading = false
-                }
-            }
-        }
-    }
-    
-    
-    func allResultsToggle(){
+    private func allResultsToggle(){
         if meals.isEmpty{
             allResultsShown = false // hide the alert
         } else {
@@ -356,5 +364,84 @@ import SwiftUI
     
     override func clearMeals() {
         self.meals = []
+    }
+    
+    
+    private func getRandomMeals(url: URL, completed: @escaping () -> Void){
+        URLSession.shared.dataTaskPublisher(for: url)
+            .receive(on: DispatchQueue.main)
+            .tryMap{ (data, response) -> Data in
+                guard let response = response as? HTTPURLResponse,
+                      response.statusCode >= 200 && response.statusCode < 300 else {
+                    throw URLError(.badServerResponse)
+                }
+                return data
+            }
+            .decode(type: MealDBResults.Results.self, decoder: JSONDecoder())
+            .sink {[weak self] completion in
+                guard let self = self else {return}
+                switch completion{
+                case .finished:
+                    print("finished!")
+                case .failure(let error):
+                    self.alertItem = AlertContext.invalidData
+                    print("Error: \(error.localizedDescription)") // show an alert here based on the error in a real app
+                    completed()
+                }
+            } receiveValue: {[weak self] returnedMeals in
+                guard let self = self else {return}
+                let results = returnedMeals.meals
+                if let first = results.first{
+                    self.surpriseMeal = first
+                    self.surpriseMealReady = true
+                    self.isLoading = false
+                    self.allResultsShown = false
+                    withAnimation(Animation.easeIn.delay(1)){
+                        self.meals.insert(first, at: 0)
+                    }
+                    completed()
+                }
+            }
+            .store(in: &cancellables)
+    }
+
+    
+    private func getMeals(url: URL, completed: @escaping () -> Void){
+        URLSession.shared.dataTaskPublisher(for: url)
+            .receive(on: DispatchQueue.main)
+            .tryMap{ (data, response) -> Data in
+                guard let response = response as? HTTPURLResponse,
+                      response.statusCode >= 200 && response.statusCode < 300 else {
+                    throw URLError(.badServerResponse)
+                }
+                return data
+            }
+            .decode(type: MealDBResults.Results.self, decoder: JSONDecoder())
+            .sink{ [weak self] completion in
+                guard let self = self else {return}
+                switch completion{
+                case .finished:
+                    print("finished!")
+                case .failure(let error):
+                    self.alertItem = AlertContext.invalidData
+                    print("Error: \(error.localizedDescription)") // show an alert here based on the error in a real app
+                    completed()
+                }
+                
+            } receiveValue: { [weak self] returnedMeals in
+                guard let self = self else {return}
+                self.meals = returnedMeals.meals
+                self.isLoading = false
+                self.allResultsToggle()
+                completed()
+            }
+            .store(in: &cancellables)
+    }
+    
+    
+    func cancelTasks(){
+        for item in self.cancellables{
+            item.cancel()
+        }
     }
 }

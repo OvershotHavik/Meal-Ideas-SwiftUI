@@ -20,7 +20,7 @@ struct MealIdeasTabView: View {
                 .tabItem {
                     Label(Titles.myIdeas.rawValue, systemImage: SFSymbols.person.rawValue)
                 }
-            MealDBView(vm: MealDBVM(sourceCategory: .mealDBCategories, source: .mealDB))
+            MealDBView(vm: MealDBVM())
                 .tabItem {
                     Label(Titles.mealDB.rawValue, systemImage: SFSymbols.source.rawValue)
                 }

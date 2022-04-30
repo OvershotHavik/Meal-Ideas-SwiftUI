@@ -106,9 +106,6 @@ struct MealDBView: View {
                                   customCategory: query.customCategory,
                                   customIngredient: query.customIngredient){}
             }
-            .onChange(of: vm.isLoading, perform: { _ in
-                vm.stopLoading()
-            })
             .onChange(of: vm.scrollViewContentOffset, perform: { newValue in
                 vm.autoHideTopView()
             })
@@ -129,7 +126,6 @@ struct MealDBView: View {
 
     func stopLoading(){
         vm.isLoading = false
-        vm.allResultsToggle()
     }
 }
 
