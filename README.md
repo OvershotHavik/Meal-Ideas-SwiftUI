@@ -67,7 +67,30 @@ Version 0.2.1
 - Added a label on the ingredient list to alert the user that it was added/removed from the shopping list
 - Added the option to have the user tap an image while creating their meal to get to the zoom view
 
-Pre Launch Update: 
+Pre Launch Update: March 6 2022
 - Added an option for the user to add misc items to the shopping list
 - Updated colors and constants throughout the app
 - Fixed spoon so now it verifies the category is searchable for it before doing category and nto just custom
+
+Version 1.1.0:  April 2 2022
+- Sharing
+    - You can now share your shopping list via text, email, etc.
+        - All of your shopping list will be shared. Any selected items will show a check mark next to them.
+    - You can now share your meals via text, email, etc. 
+        - When you share your meal, the photo’s and any information you provided will be shared as text. Sharing between other users within My Meal Ideas is not supported at this time. 
+- Auto color adjustment
+    - If you select a color that is darker, the text and buttons will switch to white. If you choose a lighter color, the font and buttons will switch to black. This applies to the area where the color is shown only. 
+- Check mark placement
+    - Moved the check mark to the left so it is closer to what you selected.
+- Copy text from a photo
+    - Within the create meal screen, there is now a button above the text field. When you tap this it will take you to a screen to walk you through how to copy text from a photo to save time when entering the information in.
+- Minor bug fixes and rewording
+- Updated pictures for onboarding and App Store to reflect changes.
+
+Version 1.1.1 update:  May 1 2022
+- Added image compression to save space on the device and iCloud.
+- Added an alert when typing a meal name to advise if what has been typed in so far is already in use.
+- Added Unit tests for the three sources for the meals. 
+- Converted MealDB from Async/Await to Combine for the experience and reference. Left the network calls in the Network Manager for future use if I decide to switch it back to async/await.
+
+If you have created a meal with an image, please go back and make a change to the meal, such as add a space to the end of the meal name, save it, then go back in and remove the space. This will save the image with the compression. Any future meals saved will have the compression added automatically. 
