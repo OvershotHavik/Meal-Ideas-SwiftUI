@@ -83,7 +83,6 @@ final class HistoryListVM: ObservableObject{
     
 
     func fetchMealDBMeal(mealDBID: String?) -> MealDBResults.Meal?{
-
         print("Fetching MealDB Single Named mealID: \(mealDBID ?? "")")
         Task { () -> MealDBResults.Meal? in
             do {

@@ -73,8 +73,6 @@ class MyIdeasTests: XCTestCase {
         sut.checkQuery(query: query, queryType: .random){
             expectation.fulfill()
         }
-
-
 //        sut.$meals
 //            .sink{returnedItems in
 //                  expectation.fulfill()
@@ -168,7 +166,6 @@ class MyIdeasTests: XCTestCase {
         sut.checkQuery(query: query, queryType: queryType){
             expectation.fulfill()
         }
-
         //Then
         wait(for: [expectation], timeout: 10)
         XCTAssertGreaterThan(sut.meals.count, 0)
@@ -236,10 +233,8 @@ class MyIdeasTests: XCTestCase {
         }
         //Nothing happens since nothing was provided
         //Then
-
         wait(for: [expectation], timeout: 2)
         XCTAssertTrue(sut.meals.count == 0)
-
     }
      
     

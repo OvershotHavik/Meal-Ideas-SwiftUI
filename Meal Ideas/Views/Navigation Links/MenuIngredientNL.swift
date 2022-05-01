@@ -11,7 +11,6 @@ struct MenuIngredientsNL: View{
     @EnvironmentObject var query: Query
     var userIngredients: [String]
     
-    
     var body: some View{
         NavigationLink(destination: SingleIngredientListView(vm: IngredientListVM(itemList: userIngredients,
                                                                                   selection: query.selected)),

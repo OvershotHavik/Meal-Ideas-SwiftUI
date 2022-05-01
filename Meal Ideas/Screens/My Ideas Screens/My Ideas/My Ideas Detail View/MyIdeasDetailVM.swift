@@ -8,10 +8,8 @@
 import SwiftUI
 
 final class MyIdeasDetailVM: DetailBaseVM{
-    
     @Published var meal: UserMeals?
     @Published var instructionsPhoto = UIImage()
-    
     
     init(meal: UserMeals?, favorited: Bool, showingHistory: Bool){
         self.meal = meal
@@ -46,7 +44,7 @@ final class MyIdeasDetailVM: DetailBaseVM{
     }
 
 
-    func addToHistory(){
+    private func addToHistory(){
         //Only add to history if not already showing the meal in history list
         if showingHistory == false{
             if meal != nil{

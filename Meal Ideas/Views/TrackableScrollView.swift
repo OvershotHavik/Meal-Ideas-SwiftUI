@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ScrollOffsetPreferenceKey: PreferenceKey {
     typealias Value = [CGFloat]
-    
     static var defaultValue: [CGFloat] = [0]
     
     static func reduce(value: inout [CGFloat], nextValue: () -> [CGFloat]) {
@@ -50,6 +49,7 @@ public struct TrackableScrollView<Content>: View where Content: View {
             }
         }
     }
+    
     
     private func calculateContentOffset(fromOutsideProxy outsideProxy: GeometryProxy, insideProxy: GeometryProxy) -> CGFloat {
         if axes == .vertical {

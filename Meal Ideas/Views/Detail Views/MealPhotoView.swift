@@ -11,7 +11,6 @@ struct MealPhotoUIImageView: View{
     var mealPhoto: UIImage
     var website: String?
     
-    
     var body: some View{
         HStack {
             NavigationLink(destination: ZoomImageView(image: mealPhoto, website: website)) {
@@ -29,7 +28,6 @@ struct CDPhotoView: View{
     var image = UIImage()
     var website: String?
     @StateObject var imageLoader = ImageLoaderFromData()
-
     
     var body: some View{
         ZStack{

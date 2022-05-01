@@ -16,7 +16,6 @@ struct SettingsView: View {
             Form {
                 Section(header: Text("Change Gradient Colors")){
                     SampleTopView()
-                    
                         .frame(height: 100)
                         .frame(maxWidth: .infinity)
                     //Top Left
@@ -102,10 +101,9 @@ struct SettingsView: View {
 }
 
 
-struct SampleTopView: View{
+private struct SampleTopView: View{
     @EnvironmentObject var userEnvironment: UserEnvironment
     @State var sample = ""
-    
     
     var body: some View{
         HStack(spacing: 5){

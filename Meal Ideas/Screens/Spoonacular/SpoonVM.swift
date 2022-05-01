@@ -11,10 +11,8 @@ import CoreData
 @MainActor final class SpoonVM: BaseVM{
     @Published var meals: [SpoonacularResults.Recipe] = []
     @Published var individualMeal: SpoonacularResults.Recipe?
-//    @Published var source: Source = .spoonacular
     @Published var surpriseMeal: SpoonacularResults.Recipe?
     @Published var customURLString = ""
-    
 
     override func checkQuery(query: String, queryType: QueryType, completed: @escaping () -> Void){
         print("Spoon query: \(query) Type: \(queryType.rawValue)")
@@ -58,7 +56,7 @@ import CoreData
     }
     
     
-    func getSpoonMeals(query: String, queryType: QueryType, completed: @escaping () -> Void){
+    private func getSpoonMeals(query: String, queryType: QueryType, completed: @escaping () -> Void){
         isLoading = true
         totalMealCount = 0
         Task {
@@ -139,8 +137,7 @@ import CoreData
     }
     
     
-    
-    func addResultsToMeals(mealsToAdd: SpoonacularResults.ResultsFromComplex){
+    private func addResultsToMeals(mealsToAdd: SpoonacularResults.ResultsFromComplex){
         self.meals.append(contentsOf: mealsToAdd.results)
         if let safeTotalResults = mealsToAdd.totalResults{
             totalMealCount = safeTotalResults
@@ -282,7 +279,7 @@ import CoreData
     }
 
 
-    func determineMoreToShow(){
+    private func determineMoreToShow(){
         if offsetBy == 0{
             if meals.count < 10{
                 moreToShow = false

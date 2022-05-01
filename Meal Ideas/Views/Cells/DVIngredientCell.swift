@@ -19,7 +19,6 @@ struct DetailViewIngredientCell: View {
     @State var alpha: Double = 0
     @State var message: ShoppingListMessage = .add
     
-    
     var body: some View {
         ZStack(alignment: .leading){
             HStack{
@@ -48,7 +47,7 @@ struct DetailViewIngredientCell: View {
                         .padding(.horizontal)
                 }
             }
-            .contentShape(Rectangle())
+            .contentShape(Rectangle().size(width: .infinity, height: .infinity))
             .onTapGesture {
                 print("ingredient: \(ingredient), measurement: \(measurement)")
                 selected.toggle()
@@ -81,7 +80,6 @@ struct DetailViewIngredientCell: View {
                     shopping.getShoppingList()
                 }
             }
-            
             //Message Overlay
             HStack{
                 Spacer()

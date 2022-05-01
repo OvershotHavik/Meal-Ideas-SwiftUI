@@ -12,7 +12,6 @@ struct MealDBView: View {
     @EnvironmentObject var query: Query
     @EnvironmentObject var userEnvironment: UserEnvironment
     
-    
     var body: some View {
         NavigationView{
             ZStack(alignment: .top){
@@ -76,7 +75,7 @@ struct MealDBView: View {
             .toolbar {
                 ToolbarItem(placement: .principal, content: {
                     Text(Titles.mainTitle.rawValue)
-                    .foregroundColor(.primary)
+                    .foregroundColor(userEnvironment.topLeftColor.isLight() ? Color.black : Color.white)
                 })
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     
@@ -106,9 +105,6 @@ struct MealDBView: View {
                                   customCategory: query.customCategory,
                                   customIngredient: query.customIngredient){}
             }
-            .onChange(of: vm.isLoading, perform: { _ in
-                vm.stopLoading()
-            })
             .onChange(of: vm.scrollViewContentOffset, perform: { newValue in
                 vm.autoHideTopView()
             })
@@ -129,15 +125,15 @@ struct MealDBView: View {
 
     func stopLoading(){
         vm.isLoading = false
-        vm.allResultsToggle()
     }
 }
 
 
-struct MealDBSurpriseNL: View{
+private struct MealDBSurpriseNL: View{
     @EnvironmentObject var query: Query
     @EnvironmentObject var shopping: Shopping
     @StateObject var vm: MealDBVM
+    
     var body: some View{
         NavigationLink(destination: MealDBDetailView(vm: MealDBDetailVM(meal: vm.surpriseMeal,
                                                                         favorited: vm.checkForFavorite(id: vm.surpriseMeal?.id,
@@ -151,7 +147,7 @@ struct MealDBSurpriseNL: View{
 }
 
 
-struct MealDBGrid: View{
+private struct MealDBGrid: View{
     @EnvironmentObject var query: Query
     @EnvironmentObject var shopping: Shopping
     @StateObject var vm: MealDBVM

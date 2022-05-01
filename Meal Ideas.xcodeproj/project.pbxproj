@@ -53,6 +53,7 @@
 		B375C98927621B380013895F /* MultiChoiceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B375C98827621B380013895F /* MultiChoiceListView.swift */; };
 		B375C98B27621B4B0013895F /* MultiChoiceListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B375C98A27621B4B0013895F /* MultiChoiceListVM.swift */; };
 		B375C99327629F140013895F /* MultiIngredientListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B375C99227629F140013895F /* MultiIngredientListView.swift */; };
+		B3772894281EFF0A0038C9E4 /* IngredientSelectNL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3772893281EFF0A0038C9E4 /* IngredientSelectNL.swift */; };
 		B37C63252760F3DB00DF3934 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C63242760F3DB00DF3934 /* ImagePicker.swift */; };
 		B385993A27736A1B0046AE4D /* ZoomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B385993927736A1B0046AE4D /* ZoomImageView.swift */; };
 		B39244BF27D1409F008BC82E /* MIButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39244BE27D1409F008BC82E /* MIButtonModifier.swift */; };
@@ -185,6 +186,7 @@
 		B375C98827621B380013895F /* MultiChoiceListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiChoiceListView.swift; sourceTree = "<group>"; };
 		B375C98A27621B4B0013895F /* MultiChoiceListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiChoiceListVM.swift; sourceTree = "<group>"; };
 		B375C99227629F140013895F /* MultiIngredientListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiIngredientListView.swift; sourceTree = "<group>"; };
+		B3772893281EFF0A0038C9E4 /* IngredientSelectNL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientSelectNL.swift; sourceTree = "<group>"; };
 		B37C63242760F3DB00DF3934 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		B385993927736A1B0046AE4D /* ZoomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomImageView.swift; sourceTree = "<group>"; };
 		B39244BE27D1409F008BC82E /* MIButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIButtonModifier.swift; sourceTree = "<group>"; };
@@ -567,6 +569,7 @@
 				B39484AA27AFF264001C259B /* MenuCustomNL.swift */,
 				B39484AC27AFF2B7001C259B /* MenuIngredientNL.swift */,
 				B39484AE27AFF307001C259B /* MenuCategoryNL.swift */,
+				B3772893281EFF0A0038C9E4 /* IngredientSelectNL.swift */,
 			);
 			path = "Navigation Links";
 			sourceTree = "<group>";
@@ -976,6 +979,7 @@
 				B39484AD27AFF2B7001C259B /* MenuIngredientNL.swift in Sources */,
 				B3A668CB276FB8C900533988 /* FavoriteCell.swift in Sources */,
 				B398AFD327C137A900A69A21 /* ShoppingListVM.swift in Sources */,
+				B3772894281EFF0A0038C9E4 /* IngredientSelectNL.swift in Sources */,
 				B3CEDDC4275700E300BB832B /* ThingsToDo.swift in Sources */,
 				B3627BF9275F756B004A6519 /* EditMealsListView.swift in Sources */,
 				B345CC4A277F6F470065B78A /* UserPrepHStack.swift in Sources */,
@@ -1206,7 +1210,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.StevePlavetzky.Meal-Ideas";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1241,7 +1245,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.StevePlavetzky.Meal-Ideas";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

@@ -37,11 +37,10 @@ final class  MultiChoiceListVM: ObservableObject {
         getSides()
         getCategories()
         fetchPlist()
-        
     }
 
 
-    func fetchPlist(){
+    private func fetchPlist(){
         PListManager.loadItemsFromLocalPlist(XcodePlist: PList,
                                              classToDecodeTo: [NewItem].self,
                                              completionHandler: { [weak self] result in
@@ -75,7 +74,6 @@ final class  MultiChoiceListVM: ObservableObject {
 
     func checkArray(item: String){
         //updates the array on the editIdeaVM as well as selectedArray to have the list view respond accordingly
-        
         switch PList{
         case .categories:
             if let repeatItem = editVM.categories.firstIndex(of: item){
@@ -106,7 +104,7 @@ final class  MultiChoiceListVM: ObservableObject {
     }
 
 
-    func getSides(){
+    private func getSides(){
         let request = NSFetchRequest<CDSides>(entityName: EntityName.CDSides.rawValue)
         do {
             let sides = try PersistenceController.shared.container.viewContext.fetch(request)
@@ -120,7 +118,7 @@ final class  MultiChoiceListVM: ObservableObject {
     }
     
 
-    func getCategories(){
+    private func getCategories(){
         let request = NSFetchRequest<CDCategory>(entityName: EntityName.CDCategory.rawValue)
         do {
             let categories = try PersistenceController.shared.container.viewContext.fetch(request)

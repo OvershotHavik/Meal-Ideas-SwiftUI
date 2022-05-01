@@ -7,11 +7,13 @@
 
 import Foundation
 import CoreData
+
 class Shopping: ObservableObject{    
     @Published var allShoppingList: [ShoppingList] = []
     @Published var anyChecked = false
     @Published var mealNames: [String] = []
 
+    
     func getShoppingList(){
         let request = NSFetchRequest<ShoppingList>(entityName: EntityName.ShoppingList.rawValue)
         do {

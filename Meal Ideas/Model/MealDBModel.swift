@@ -8,19 +8,16 @@
 import Foundation
 
 struct MealDBResults {
-
     struct Results: Decodable  {
         let meals: [Meal]
     }
     struct Meal: Decodable, Identifiable, Hashable{
-        
         enum CodingKeys: String, CodingKey{
             case idMeal, strMeal, strDrinkAlternative, strCategory, strArea, strInstructions, strMealThumb,
             strTags, strYoutube, strSource,
             strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5, strIngredient6, strIngredient7, strIngredient8, strIngredient9, strIngredient10, strIngredient11, strIngredient12, strIngredient13, strIngredient14, strIngredient15, strIngredient16, strIngredient17, strIngredient18, strIngredient19, strIngredient20,
             strMeasure1, strMeasure2, strMeasure3, strMeasure4, strMeasure5, strMeasure6, strMeasure7, strMeasure8, strMeasure9, strMeasure10, strMeasure11, strMeasure12, strMeasure13, strMeasure14, strMeasure15, strMeasure16, strMeasure17, strMeasure18, strMeasure19, strMeasure20
         }
-        
 
         init(from decoder: Decoder) throws{
             favorited = false
@@ -37,7 +34,6 @@ struct MealDBResults {
             strTags = try container.decodeIfPresent(String.self, forKey: .strTags)
             strYoutube = try container.decodeIfPresent(String.self, forKey: .strYoutube)
             strSource = try container.decodeIfPresent(String.self, forKey: .strSource)
-
 
             if let ingredient1 = try container.decodeIfPresent(String.self, forKey: .strIngredient1){
                 ingredientArray.append(ingredient1)
@@ -99,6 +95,7 @@ struct MealDBResults {
             if let ingredient20 = try container.decodeIfPresent(String.self, forKey: .strIngredient20){
                 ingredientArray.append(ingredient20)
             }
+            
             ingredientArray = ingredientArray.filter {$0 != " "}
             ingredientArray = ingredientArray.filter {$0 != ""}
             ingredientsArray = ingredientArray
@@ -165,8 +162,8 @@ struct MealDBResults {
             }
 //            measureArray[(ingredientArray.count-1)...] = []
             measurementsArray = measureArray
-            
         }
+        
         var id : String?
         var strMeal : String?
         var strDrinkAlternative : String?
@@ -203,6 +200,7 @@ struct MealDBResults {
             let strIngredient19: String?
             let strIngredient20: String?
         }
+        
         struct Measurements: Codable{
             let strMeasure1: String?
             let strMeasure2: String?

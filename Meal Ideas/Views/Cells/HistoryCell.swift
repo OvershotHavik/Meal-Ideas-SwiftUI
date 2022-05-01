@@ -12,7 +12,6 @@ struct HistoryCell: View {
     var timeStamp: Date?
     var favorited: Bool
     
-    
     var body: some View {
         HStack{
             if let safeDate = timeStamp{

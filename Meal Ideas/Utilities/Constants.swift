@@ -49,7 +49,7 @@ enum Source: String{
 
 
 enum Titles: String{
-    case mainTitle = "Meal Ideas"
+    case mainTitle = "My Meal Ideas"
     case oneCategory = "Categories"
     case oneIngredient = "Ingredients"
     case customFilter = "Custom Filter"
@@ -86,6 +86,7 @@ enum Misc: String{
     case mealName = "misc"
 }
 
+
 enum SpoonTags: String{
     case category = "&type="
     case ingredient = "&includeIngredients="
@@ -110,7 +111,7 @@ enum SectionHeaders: String{
 
 
 enum Messages: String{
-    case welcome = "Welcome to Meal Ideas!"
+    case welcome = "Welcome to My Meal Ideas!"
     case noMealsMyIdeas = "No meals found for your search. \n You can create a new meal to match this search by tapping the edit icon at the top left."
     case noIngredient = "No meals have been created that contain ingredients."
     case noCategory = "No meals have been created that contain any categories."
@@ -174,6 +175,8 @@ enum SFSymbols: String{
     case trash = "trash"
     case edit = "square.and.pencil"
     case chevronLeft = "chevron.left"
+    
+    case xMark = "xmark"
 }
 
 /*
@@ -212,7 +215,7 @@ enum BaseURL{
 
 enum OnboardingTitles: String{
     //Original onboarding
-    case welcome = "Welcome to Meal Ideas!"
+    case welcome = "Welcome to My Meal Ideas!"
     case myIdeasList = "Your Ideas"
     case createYourFirst = "Create Your Meal Idea"
     case addCustom = "Add Custom Items"

@@ -11,7 +11,6 @@ import UIKit
     @Published var meal: SpoonacularResults.Recipe?
     @Published var mealID: Int?
     
-    
     init(meal: SpoonacularResults.Recipe?, mealID: Int?, favorited: Bool, showingHistory: Bool){
         super.init()
         self.mealID = mealID
@@ -25,8 +24,7 @@ import UIKit
         addToHistory()        
     }
 
-
-    func getIngredientsAndMeasurements(){
+    private func getIngredientsAndMeasurements(){
         guard let safeMeal = meal else {
             print("meal not set in get ingredients")
             return
@@ -60,7 +58,7 @@ import UIKit
     }
 
 
-    func getInstructions(){
+    private func getInstructions(){
         guard let safeMeal = meal else {
             print("meal not set in get instructions")
             return
@@ -101,7 +99,7 @@ import UIKit
     }
 
 
-    func fetchMeal() {
+    private func fetchMeal() {
         guard let safeMealID = mealID else {
             print("no meal id in fetch meal ")
             return
@@ -124,7 +122,7 @@ import UIKit
     }
 
 
-    func getMealPhoto(){
+    private func getMealPhoto(){
         if meal != nil{
             NetworkManager.shared.downloadImage(fromURLString: meal?.image ?? "") { uiImage in
                 guard let uiImage = uiImage else {
@@ -158,7 +156,7 @@ import UIKit
     }
 
 
-    func addToHistory(){
+    private func addToHistory(){
         //Only add to history if not already showing the meal in history list
         if showingHistory == false{
             if meal != nil{

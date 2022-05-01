@@ -14,7 +14,6 @@ struct TopView: View{
     @Binding var getRandomMeals : Bool
     @Binding var source: Source
     
-    
     var body: some View{
         HStack(spacing: 20){
             Button(action: {
@@ -71,7 +70,7 @@ struct TopView: View{
                         Text(QueryType.custom.rawValue)
                     }
                 }
-
+                
                 } label: {// Menu label
                     Image(systemName: SFSymbols.filter.rawValue)
                         .padding()

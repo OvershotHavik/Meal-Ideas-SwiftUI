@@ -13,6 +13,7 @@ struct Meal_IdeasApp: App {
     let query = Query()
     let userEnvironment = UserEnvironment()
     let shopping = Shopping()
+    
     var body: some Scene {
         WindowGroup {
                 MealIdeasTabView()

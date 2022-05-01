@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 enum MIError: Error {
     case invalidURL
     case invalidResponse
@@ -14,7 +15,6 @@ enum MIError: Error {
     case invalidEmail
     case missingFields
     case unableToSave
-    
 }
 
 

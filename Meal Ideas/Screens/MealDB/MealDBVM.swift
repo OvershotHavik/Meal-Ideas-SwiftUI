@@ -5,15 +5,30 @@
 //  Created by Steve Plavetzky on 11/23/21.
 //
 
-import Foundation
 import CoreData
 import SwiftUI
+import Combine
 
 @MainActor final class MealDBVM: BaseVM{
     
     @Published var meals : [MealDBResults.Meal] = []
     @Published var surpriseMeal: MealDBResults.Meal?
+    private var customMeals: [MealDBResults.Meal] = []
+    private var cancellables = Set<AnyCancellable>()
     
+    init(){
+        super.init(sourceCategory: .mealDBCategories, source: .mealDB)
+//        setupMealPublisher()
+    }
+    
+    func setupMealPublisher(){
+        $meals
+            .sink { [weak self] _ in
+                self?.allResultsToggle()
+            }
+            .store(in: &cancellables)
+    }
+
 
     override func checkQuery(query: String, queryType: QueryType, completed: @escaping () -> Void){
         print("MealDB Query: \(query), queryType: \(queryType.rawValue)")
@@ -43,6 +58,13 @@ import SwiftUI
             }
         }
     }
+    
+    
+    func setupSurpriseMealPublisher(){
+//        $surpriseMeal
+            
+    }
+    
 
 
     func getMealDBMeals(query: String, queryType: QueryType, completed: @escaping () -> Void) {
@@ -53,36 +75,37 @@ import SwiftUI
                 switch queryType {
                 case .random:
                     print("random")
-                    let newMeal = try await NetworkManager.shared.mealDBQuery(query: "", queryType: .random)
-                    if let first = newMeal.first{
-                        surpriseMeal = first
-                        surpriseMealReady = true
-                        allResultsShown = false
-                        withAnimation(Animation.easeIn.delay(1)){
-                            meals.insert(first, at: 0)
-                            completed()
-                        }
+                    guard let url = URL(string: BaseURL.mealDBRandom) else {
+                        throw MIError.invalidURL
+                    }
+                    print(url)
+                    getRandomMeals(url: url){
+                        completed()
                     }
                     
-                    
                 case .category:
-                    print("Fetching MealDB Category: \(query)")
                     var modified = query.replacingOccurrences(of: " ", with: "%20")
                     if modified == "Side%20Dish"{
                         modified = "Side"
                     }
-                    meals = try await NetworkManager.shared.mealDBQuery(query: modified, queryType: .category)
-                    allResultsToggle()
-                    completed()
-                    
+                    guard let url = URL(string: BaseURL.mealDBCategories + modified) else {
+                        throw MIError.invalidURL
+                    }
+                    print(url)
+                    getMeals(url: url){
+                        completed()
+                    }
                     
                 case .ingredient:
                     let modifiedIngredient = query.replacingOccurrences(of: " ", with: "_")
                     
-                    meals = try await NetworkManager.shared.mealDBQuery(query: modifiedIngredient,
-                                                                        queryType: .ingredient)
-                    allResultsToggle()
-                    completed()
+                    guard let url = URL(string: BaseURL.mealDBIngredient + modifiedIngredient) else {
+                        throw MIError.invalidURL
+                    }
+                    print(url)
+                    getMeals(url: url){
+                        completed()
+                    }
 
                     
                 case .none:
@@ -91,17 +114,18 @@ import SwiftUI
                     
                 case .keyword:
                     let modifiedKeyword = query.replacingOccurrences(of: " ", with: "%20")
-                    meals = try await NetworkManager.shared.mealDBQuery(query: modifiedKeyword,
-                                                                        queryType: .keyword)
-                    allResultsToggle()
-                    completed()
+                    guard let url = URL(string: BaseURL.mealDBKeyword + modifiedKeyword) else {
+                        throw MIError.invalidURL
+                    }
+                    print(url)
+                    getMeals(url: url){
+                        completed()
+                    }
                     
                     
                 case .custom:
                     () // custom has it's own function
                 }
-                isLoading = false
-
             }catch{
                 if meals.count == 0{
                     meals = [] // for testing to pass correctly
@@ -176,7 +200,6 @@ import SwiftUI
                         getMealDBMeals(query: keyword, queryType: .keyword){
                             completed()
                         }
-                        
                     }
                     
                     // MARK: - Just Category provided
@@ -186,7 +209,6 @@ import SwiftUI
                         getMealDBMeals(query: category, queryType: .category){
                             completed()
                         }
-                        
                     }
                     
                     // MARK: - Just ingredient provided
@@ -196,7 +218,6 @@ import SwiftUI
                         getMealDBMeals(query: ingredient, queryType: .ingredient){
                             completed()
                         }
-                        
                     }
                     
                     // MARK: - Keyword and category
@@ -208,20 +229,25 @@ import SwiftUI
                         if safeCategory == "Side%20Dish"{
                             safeCategory = "Side"
                         }
-                        let catMeals = try await NetworkManager.shared.mealDBQuery(query: safeCategory, queryType: .category)
-                        print("CatMeals count: \(catMeals.count)")
+                        guard let url = URL(string: BaseURL.mealDBCategories + safeCategory) else {
+                            throw MIError.invalidURL
+                        }
                         
-//                        meals = catMeals.filter({(($0.strMeal?.containsIgnoringCase(find: keyword)) != nil)})
-                        for meal in catMeals{
-                            if let safeName = meal.strMeal{
-                                if safeName.containsIgnoringCase(find: keyword){
-                                    meals.append(meal)
+                        getCustomMeals(url: url) { [weak self] in
+                            guard let self = self else {return}
+                            print("Custom Meals count: \(self.customMeals.count)")
+
+                            for meal in self.customMeals{
+                                if let safeName = meal.strMeal{
+                                    if safeName.containsIgnoringCase(find: keyword){
+                                        self.meals.append(meal)
+                                    }
                                 }
                             }
+                            print("Meals count: \(self.meals.count)")
+                            self.allResultsToggle()
+                            completed()
                         }
-                        print("Meals count: \(meals.count)")
-                        allResultsToggle()
-                        completed()
                     }
                     
                     // MARK: - Keyword and ingredient
@@ -229,20 +255,24 @@ import SwiftUI
                         category == "" &&
                         ingredient != "" {
                         let modifiedIngredient = ingredient.replacingOccurrences(of: " ", with: "_")
+                        guard let url = URL(string: BaseURL.mealDBIngredient + modifiedIngredient) else {
+                            throw MIError.invalidURL
+                        }
                         
-                        let ingMeals = try await NetworkManager.shared.mealDBQuery(query: modifiedIngredient,
-                                                                                   queryType: .ingredient)
-                        print("ingMeals count: \(ingMeals.count)")
-                        for meal in ingMeals{
-                            if let safeName = meal.strMeal{
-                                if safeName.containsIgnoringCase(find: keyword){
-                                    meals.append(meal)
+                        getCustomMeals(url: url) { [weak self] in
+                            guard let self = self else {return}
+                            print("ingMeals count: \(self.customMeals.count)")
+                            for meal in self.customMeals{
+                                if let safeName = meal.strMeal{
+                                    if safeName.containsIgnoringCase(find: keyword){
+                                        self.meals.append(meal)
+                                    }
                                 }
                             }
+                            print("meals count: \(self.meals.count)")
+                            self.allResultsToggle()
+                            completed()
                         }
-                        print("meals count: \(meals.count)")
-                        allResultsToggle()
-                        completed()
                     }
                     
                     // MARK: - Category and ingredient
@@ -255,53 +285,72 @@ import SwiftUI
                         if safeCategory == "Side%20Dish"{
                             safeCategory = "Side"
                         }
-                        let catMeals = try await NetworkManager.shared.mealDBQuery(query: safeCategory, queryType: .category)
-                        print("CatMeals count: \(catMeals.count)")
-                        
-                        let modifiedIngredient = ingredient.replacingOccurrences(of: " ", with: "_")
-                        
-                        let ingMeals = try await NetworkManager.shared.mealDBQuery(query: modifiedIngredient,
-                                                                                   queryType: .ingredient)
-                        print("ingMeals count: \(ingMeals.count)")
-                        
-                        meals = catMeals.filter{ingMeals.contains($0)}
-                        print("meals count: \(meals.count)")
-                        allResultsToggle()
-                        completed()
+                        guard let catURL = URL(string: BaseURL.mealDBCategories + safeCategory) else {
+                            throw MIError.invalidURL
+                        }
+                        getCustomMeals(url: catURL) {[weak self] in
+                            guard let self = self else {return}
+                            let customCategoryResults = self.customMeals
+                            print("CatMeals count: \(customCategoryResults.count)")
+                            
+                            let modifiedIngredient = ingredient.replacingOccurrences(of: " ", with: "_")
+                            guard let ingredientURL = URL(string: BaseURL.mealDBIngredient + modifiedIngredient) else {
+                                self.alertItem = AlertContext.invalidURL
+                                return
+                            }
+                            self.getCustomMeals(url: ingredientURL) { [weak self] in
+                                guard let self = self else {return}
+                                let customIngredientMeals = self.customMeals
+                                print("ingMeals count: \(customIngredientMeals.count)")
+                                self.meals = customCategoryResults.filter{customIngredientMeals.contains($0)}
+                                print("meals count: \(self.meals.count)")
+                                self.allResultsToggle()
+                                completed()
+                            }
+                        }
                     }
                     
                     // MARK: - All three provided
                     if keyword != "" &&
                         category != "" &&
                         ingredient != "" {
-                        
                         print("Fetching MealDB Category: \(category)")
                         var safeCategory = category.replacingOccurrences(of: " ", with: "%20")
                         if safeCategory == "Side%20Dish"{
                             safeCategory = "Side"
                         }
-                        let catMeals = try await NetworkManager.shared.mealDBQuery(query: safeCategory, queryType: .category)
-                        print("CatMeals count: \(catMeals.count)")
-                        
-                        let modifiedIngredient = ingredient.replacingOccurrences(of: " ", with: "_")
-                        
-                        let ingMeals = try await NetworkManager.shared.mealDBQuery(query: modifiedIngredient,
-                                                                                   queryType: .ingredient)
-                        print("ingMeals count: \(ingMeals.count)")
-                        
-                        let filteredMeals = catMeals.filter{ingMeals.contains($0)}
-                        print("filtered meals count: \(filteredMeals.count)")
-                        
-                        for meal in filteredMeals{
-                            if let safeName = meal.strMeal{
-                                if safeName.containsIgnoringCase(find: keyword){
-                                    meals.append(meal)
+                        guard let catURL = URL(string: BaseURL.mealDBCategories + safeCategory) else {
+                            throw MIError.invalidURL
+                        }
+                        getCustomMeals(url: catURL) {[weak self] in
+                            guard let self = self else {return}
+                            let customCategoryResults = self.customMeals
+                            print("CatMeals count: \(customCategoryResults.count)")
+                            
+                            let modifiedIngredient = ingredient.replacingOccurrences(of: " ", with: "_")
+                            guard let ingredientURL = URL(string: BaseURL.mealDBIngredient + modifiedIngredient) else {
+                                self.alertItem = AlertContext.invalidURL
+                                return
+                            }
+                            self.getCustomMeals(url: ingredientURL) { [weak self] in
+                                guard let self = self else {return}
+                                let customIngredientMeals = self.customMeals
+                                print("ingMeals count: \(customIngredientMeals.count)")
+                                let filteredMeals = customCategoryResults.filter{customIngredientMeals.contains($0)}
+                                print("filtered meals count: \(filteredMeals.count)")
+
+                                for meal in filteredMeals{
+                                    if let safeName = meal.strMeal{
+                                        if safeName.containsIgnoringCase(find: keyword){
+                                            self.meals.append(meal)
+                                        }
+                                    }
                                 }
+                                print("meals count: \(self.meals.count)")
+                                self.allResultsToggle()
+                                completed()
                             }
                         }
-                        print("meals count: \(meals.count)")
-                        allResultsToggle()
-                        completed()
                     }
                     
                     
@@ -333,19 +382,7 @@ import SwiftUI
     }
     
     
-    func stopLoading(){
-        if isLoading{
-            DispatchQueue.main.asyncAfter(deadline: .now() + 7.5) {
-                if self.isLoading == true{
-                    print("loading for 7.5 seconds, stopping and displaying alert")
-                    self.isLoading = false
-                }
-            }
-        }
-    }
-    
-    
-    func allResultsToggle(){
+    private func allResultsToggle(){
         if meals.isEmpty{
             allResultsShown = false // hide the alert
         } else {
@@ -356,5 +393,115 @@ import SwiftUI
     
     override func clearMeals() {
         self.meals = []
+    }
+    
+    
+    private func getRandomMeals(url: URL, completed: @escaping () -> Void){
+        URLSession.shared.dataTaskPublisher(for: url)
+            .receive(on: DispatchQueue.main)
+            .tryMap{ (data, response) -> Data in
+                guard let response = response as? HTTPURLResponse,
+                      response.statusCode >= 200 && response.statusCode < 300 else {
+                    throw URLError(.badServerResponse)
+                }
+                return data
+            }
+            .decode(type: MealDBResults.Results.self, decoder: JSONDecoder())
+            .sink {[weak self] completion in
+                guard let self = self else {return}
+                switch completion{
+                case .finished:
+                    print("finished!")
+                case .failure(let error):
+                    self.alertItem = AlertContext.invalidData
+                    print("Error: \(error.localizedDescription)") // show an alert here based on the error in a real app
+                    completed()
+                }
+            } receiveValue: {[weak self] returnedMeals in
+                guard let self = self else {return}
+                let results = returnedMeals.meals
+                if let first = results.first{
+                    self.surpriseMeal = first
+                    self.surpriseMealReady = true
+                    self.isLoading = false
+                    self.allResultsShown = false
+                    withAnimation(Animation.easeIn.delay(1)){
+                        self.meals.insert(first, at: 0)
+                    }
+                    completed()
+                }
+            }
+            .store(in: &cancellables)
+    }
+
+    
+    private func getMeals(url: URL, completed: @escaping () -> Void){
+        URLSession.shared.dataTaskPublisher(for: url)
+            .receive(on: DispatchQueue.main)
+            .tryMap{ (data, response) -> Data in
+                guard let response = response as? HTTPURLResponse,
+                      response.statusCode >= 200 && response.statusCode < 300 else {
+                    throw URLError(.badServerResponse)
+                }
+                return data
+            }
+            .decode(type: MealDBResults.Results.self, decoder: JSONDecoder())
+            .sink{ [weak self] completion in
+                guard let self = self else {return}
+                switch completion{
+                case .finished:
+                    print("finished!")
+                case .failure(let error):
+                    self.alertItem = AlertContext.invalidData
+                    print("Error: \(error.localizedDescription)") // show an alert here based on the error in a real app
+                    completed()
+                }
+                
+            } receiveValue: { [weak self] returnedMeals in
+                guard let self = self else {return}
+                self.meals = returnedMeals.meals
+                self.isLoading = false
+                self.allResultsToggle()
+                completed()
+            }
+            .store(in: &cancellables)
+    }
+    
+    
+    private func getCustomMeals(url: URL, completed: @escaping () -> Void){
+        URLSession.shared.dataTaskPublisher(for: url)
+            .receive(on: DispatchQueue.main)
+            .tryMap{ (data, response) -> Data in
+                guard let response = response as? HTTPURLResponse,
+                      response.statusCode >= 200 && response.statusCode < 300 else {
+                    throw URLError(.badServerResponse)
+                }
+                return data
+            }
+            .decode(type: MealDBResults.Results.self, decoder: JSONDecoder())
+            .sink{ [weak self] completion in
+                guard let self = self else {return}
+                switch completion{
+                case .finished:
+                    print("finished!")
+                case .failure(let error):
+                    self.alertItem = AlertContext.invalidData
+                    print("Error: \(error.localizedDescription)") // show an alert here based on the error in a real app
+                    completed()
+                }
+                
+            } receiveValue: { [weak self] returnedMeals in
+                guard let self = self else {return}
+                self.customMeals = returnedMeals.meals
+                completed()
+            }
+            .store(in: &cancellables)
+    }
+    
+    
+    func cancelTasks(){
+        for item in self.cancellables{
+            item.cancel()
+        }
     }
 }

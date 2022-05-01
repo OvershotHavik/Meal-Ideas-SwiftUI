@@ -10,7 +10,6 @@ import SwiftUI
 struct MealNameView: View {
     var name: String
     
-    
     var body: some View {
         Text(name)
             .font(.title)

@@ -11,7 +11,6 @@ import Foundation
  Future versions
  - [ ] Figure out how to get the amount of times a meal has been favorites in CloudKit and display it under an open heart on the meal card. For future release
 
- - [ ] Offer the ability to share user meals?
  - [ ] Offer expert to json
  - [ ] Add a sort option for the results, like to show favorites first, viewed/not viewed, a-z
  - [ ] maybe offer to change from a grid to a list?

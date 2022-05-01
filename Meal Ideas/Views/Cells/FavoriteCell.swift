@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FavoriteCell: View {
     var mealName: String?
+    
     var body: some View {
         HStack{
             Text(mealName ?? "")

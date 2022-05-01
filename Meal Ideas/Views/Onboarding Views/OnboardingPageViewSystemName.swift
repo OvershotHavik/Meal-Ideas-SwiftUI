@@ -14,7 +14,6 @@ struct OnboardingPageViewSystemName: View{
     var secondary: OnboardingSecondary
     var showsDismissButton: Bool
     
-    
     var body: some View{
         GeometryReader{ screenBounds in
             ScrollView{

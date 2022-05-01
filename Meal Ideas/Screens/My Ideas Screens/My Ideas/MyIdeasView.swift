@@ -12,7 +12,6 @@ struct MyIdeasView: View {
     @EnvironmentObject var query: Query
     @EnvironmentObject var userEnvironment: UserEnvironment
 
-    
     var body: some View {
         NavigationView{
             GeometryReader{ screenBounds in
@@ -86,7 +85,7 @@ struct MyIdeasView: View {
                 }
                 ToolbarItem(placement: .principal, content: {
                     Text(Titles.mainTitle.rawValue)
-                    .foregroundColor(.primary)
+                        .foregroundColor(userEnvironment.topLeftColor.isLight() ? Color.black : Color.white)
                 })
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     NavigationLink(destination: FavoritesListView(vm: FavoritesListVM(source: .myIdeas))) {
@@ -141,11 +140,12 @@ struct MyIdeasView: View {
 }
 
 
-struct MyIdeaSurpriseNL: View{
+private struct MyIdeaSurpriseNL: View{
     //Used for surprise meal to bring up a random meal
     @EnvironmentObject var query: Query
     @EnvironmentObject var shopping: Shopping
     @StateObject var vm: MyIdeasVM
+    
     var body: some View{
         NavigationLink(destination: MyIdeasDetailView(vm: MyIdeasDetailVM(meal: vm.surpriseMeal,
                                                                           favorited: vm.checkForFavorite(id: vm.surpriseMeal?.userMealID,
@@ -157,7 +157,7 @@ struct MyIdeaSurpriseNL: View{
 }
 
 
-struct MyIdeasGrid: View{
+private struct MyIdeasGrid: View{
     @EnvironmentObject var query: Query
     @EnvironmentObject var shopping: Shopping
     @StateObject var vm: MyIdeasVM

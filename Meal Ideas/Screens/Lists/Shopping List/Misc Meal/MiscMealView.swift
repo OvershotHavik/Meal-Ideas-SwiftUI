@@ -14,7 +14,7 @@ struct MiscMealView: View{
     var body: some View{
         Form{
             Section(header: Text(SectionHeaders.ingredients.rawValue)){
-                IngredientSelectView(vm: vm)
+                IngredientSelectNL(vm: vm)
                     .foregroundColor(.blue)
                 MiscMealIngredientHStack(vm: vm)
             }
@@ -33,11 +33,9 @@ struct MiscMealView: View{
 }
 
 
-
-struct MiscMealIngredientHStack: View{
+private struct MiscMealIngredientHStack: View{
     @StateObject var vm: MiscMealVM
 
-    
     var body: some View{
         ForEach($vm.userIngredients) {$ing in
             HStack{

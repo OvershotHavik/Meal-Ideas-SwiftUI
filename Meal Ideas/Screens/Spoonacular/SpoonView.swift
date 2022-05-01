@@ -12,7 +12,6 @@ struct SpoonView: View {
     @EnvironmentObject var query: Query
     @EnvironmentObject var userEnvironment: UserEnvironment
     
-    
     var body: some View {
         NavigationView{
             ZStack(alignment: .top){
@@ -79,7 +78,7 @@ struct SpoonView: View {
             .toolbar {
                 ToolbarItem(placement: .principal, content: {
                     Text(Titles.mainTitle.rawValue)
-                        .foregroundColor(.primary)
+                    .foregroundColor(userEnvironment.topLeftColor.isLight() ? Color.black : Color.white)
                 })
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     NavigationLink(destination: FavoritesListView(vm: FavoritesListVM(source: .spoonacular))) {
@@ -134,10 +133,11 @@ struct SpoonView: View {
 }
 
 
-struct SpoonSurpriseNL: View{
+private struct SpoonSurpriseNL: View{
     @EnvironmentObject var query: Query
     @EnvironmentObject var shopping: Shopping
     @StateObject var vm: SpoonVM
+    
     var body: some View{
         NavigationLink(destination: SpoonDetailView(vm: SpoonDetailVM(meal: vm.surpriseMeal,
                                                                       mealID: vm.surpriseMeal?.id, favorited: vm.checkForFavorite(id: vm.surpriseMeal?.id,
@@ -149,11 +149,11 @@ struct SpoonSurpriseNL: View{
 }
 
 
-struct SpoonGrid: View{
+private struct SpoonGrid: View{
     @EnvironmentObject var query: Query
     @EnvironmentObject var shopping: Shopping
-
     @StateObject var vm: SpoonVM
+    
     var body: some View{
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 160))], alignment: .center) {
             ForEach(vm.meals.indices, id: \.self) { mealIndex in

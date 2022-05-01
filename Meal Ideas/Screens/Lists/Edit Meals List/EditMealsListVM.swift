@@ -21,6 +21,7 @@ final class EditMealsListVM: ObservableObject{
             return savedMeals.filter { $0.mealName!.containsIgnoringCase(find: searchText) }
         }
     }
+    
     init() {
         fetchMeals()
     }

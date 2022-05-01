@@ -61,6 +61,7 @@ struct AlertWrapper<Content: View>: UIViewControllerRepresentable {
         UIHostingController(rootView: content)
     }
     
+    
     final class Coordinator {
         var alertController: UIAlertController?
         init(_ controller: UIAlertController? = nil) {
@@ -68,9 +69,11 @@ struct AlertWrapper<Content: View>: UIViewControllerRepresentable {
         }
     }
     
+    
     func makeCoordinator() -> Coordinator {
         return Coordinator()
     }
+    
     
     func updateUIViewController(_ uiViewController: UIHostingController<Content>, context: UIViewControllerRepresentableContext<AlertWrapper>) {
         uiViewController.rootView = content

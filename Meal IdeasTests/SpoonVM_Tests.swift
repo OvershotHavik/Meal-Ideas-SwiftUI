@@ -14,7 +14,6 @@ import Combine
 //Testing Structure: Given, When, Then
 
 class SpoonVM_Tests: XCTestCase {
-
     var sut: SpoonVM?
     var cancellables = Set<AnyCancellable>()
     var sourceCategories: [String] = []
@@ -33,7 +32,7 @@ class SpoonVM_Tests: XCTestCase {
         sourceCategories = []
     }
     //To get the category verification part for spoon since if this is not run, spoon will bring back random results
-    func fetchPlist(plist: PList){
+    private func fetchPlist(plist: PList){
         if sourceCategories.isEmpty{
             PListManager.loadItemsFromLocalPlist(XcodePlist: plist,
                                                  classToDecodeTo: [NewItem].self,
@@ -48,6 +47,7 @@ class SpoonVM_Tests: XCTestCase {
             })
         }
     }
+    
     
     @MainActor func test_SpoonVM_checkQuery_random(){
         //Given
@@ -259,6 +259,7 @@ class SpoonVM_Tests: XCTestCase {
         }
     }
     
+    
     @MainActor func test_SpoonVM_customFilter_keyword_shouldReturnMeals(){
         //given
         guard let sut = sut else {return}
@@ -371,7 +372,6 @@ class SpoonVM_Tests: XCTestCase {
             let ingredients = meal.extendedIngredients.compactMap({$0.name})
             XCTAssertTrue(ingredients.contains(where: {$0.containsIgnoringCase(find: ingredient)}))
         }
-
     }
     
     

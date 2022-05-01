@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreData
+import Combine
 
 enum ImagePickerSelection: Identifiable {
     case mealPhoto, instructions
@@ -37,6 +38,7 @@ class EditIdeaVM: ObservableObject{
     // Meal Variables
     @Published var mealPhoto = UIImage()
     @Published var mealName = ""
+    @Published var mealNameInUse: Bool = false
     @Published var categories: [String] = []
     @Published var userIngredients : [UserIngredient] = []
     @Published var recipe = ""
@@ -59,7 +61,7 @@ class EditIdeaVM: ObservableObject{
     @Published var minutes = [Int](0..<60)
     @Published var seconds = [Int](0..<60)
     
-    //  used for Core Data
+    private var cancellables = Set<AnyCancellable>()
     private let pc = PersistenceController.shared
     
     
@@ -67,6 +69,20 @@ class EditIdeaVM: ObservableObject{
         self.meal = meal
         convertMeal()
         getAllMeals()
+        addMealNameSubscriber()
+    }
+    
+    
+    private func addMealNameSubscriber(){
+        $mealName
+            .debounce(for: .seconds(1), scheduler: DispatchQueue.main) // would delay the call for the seconds you specify
+            .map{[weak self] (text) -> Bool in
+                return self?.checkNameAlreadyInUseSave() ?? false
+            }
+            .sink(receiveValue: { [weak self] isInUse in
+                self?.mealNameInUse = isInUse
+            })
+            .store(in: &cancellables)
     }
     
     
@@ -75,7 +91,7 @@ class EditIdeaVM: ObservableObject{
     }
     
     
-    func getAllMeals(){
+    private func getAllMeals(){
         let request = NSFetchRequest<UserMeals>(entityName: EntityName.userMeals.rawValue)
         do {
             self.allMeals = try pc.container.viewContext.fetch(request)
@@ -86,7 +102,7 @@ class EditIdeaVM: ObservableObject{
     }
     
 
-    func checkNameAlreadyInUse(){
+    func checkNameAlreadyInUseOnSubmit(){
         if allMeals.contains(where: {$0.mealName == mealName}){
             //If the meal name already exists, show alert
             self.alertItem = AlertContext.nameInUse
@@ -109,12 +125,12 @@ class EditIdeaVM: ObservableObject{
         var mealPhotoData: Data?
         
         if mealPhoto != UIImage(){
-            mealPhotoData = mealPhoto.jpegData(compressionQuality: 1.0)
+            mealPhotoData = mealPhoto.jpegData(compressionQuality: 0.25)
         }
         
         var instructionsPhotoData: Data?
         if instructionsPhoto != UIImage(){
-            instructionsPhotoData = instructionsPhoto.jpegData(compressionQuality: 1.0)
+            instructionsPhotoData = instructionsPhoto.jpegData(compressionQuality: 0.25)
         }
         
         var ingredients : [String] = []
@@ -175,7 +191,6 @@ class EditIdeaVM: ObservableObject{
             print("usermealID: \(String(describing: newMealCD.userMealID))")
         }
         
-        
         pc.saveData(){ result in
             switch result {
             case .success(_):
@@ -190,7 +205,7 @@ class EditIdeaVM: ObservableObject{
     }
     
 
-    func checkNameAlreadyInUseSave() -> Bool{
+    private func checkNameAlreadyInUseSave() -> Bool{
         if allMeals.contains(where: {$0.mealName == mealName}){
             //If the meal name already exists, return true so user will need to change it
             if meal != nil {
@@ -207,7 +222,7 @@ class EditIdeaVM: ObservableObject{
     }
     
 
-    func verifyUrl (urlString: String?) -> Bool {
+    private func verifyUrl (urlString: String?) -> Bool {
         if let urlString = urlString {
             if let url = NSURL(string: urlString) {
                 return UIApplication.shared.canOpenURL(url as URL)
@@ -217,7 +232,7 @@ class EditIdeaVM: ObservableObject{
     }
     
 
-    func updateFavorites(){
+    private func updateFavorites(){
         //Update the favorites so the favorites list doesn't try to access a meal that doesn't exist
         let request = NSFetchRequest<Favorites>(entityName: EntityName.favorites.rawValue)
         var allFavorites : [Favorites] = []
@@ -231,7 +246,6 @@ class EditIdeaVM: ObservableObject{
                 print("Updated favorites for \(mealName)")
                 try pc.container.viewContext.save()
             }
-            
         } catch let error {
             print("error fetching: \(error.localizedDescription)")
         }
@@ -253,7 +267,7 @@ class EditIdeaVM: ObservableObject{
     }
     
     
-    func convertMeal(){
+    private func convertMeal(){
         //Convert meal to values to be able to modify it
         guard let safeMeal = meal else {
             return
@@ -283,7 +297,6 @@ class EditIdeaVM: ObservableObject{
         self.sides = safeMeal.sides as? [String] ?? []
         self.source = safeMeal.source ?? ""
         self.userMealID = safeMeal.userMealID
-        
     }
 
 

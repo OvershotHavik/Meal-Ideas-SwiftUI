@@ -13,14 +13,13 @@ struct MealIdeasTabView: View {
     @EnvironmentObject var userEnvironment: UserEnvironment
     @EnvironmentObject var shopping: Shopping
     
-    
     var body: some View {
         TabView{
             MyIdeasView(vm: MyIdeasVM())
                 .tabItem {
                     Label(Titles.myIdeas.rawValue, systemImage: SFSymbols.person.rawValue)
                 }
-            MealDBView(vm: MealDBVM(sourceCategory: .mealDBCategories, source: .mealDB))
+            MealDBView(vm: MealDBVM())
                 .tabItem {
                     Label(Titles.mealDB.rawValue, systemImage: SFSymbols.source.rawValue)
                 }
