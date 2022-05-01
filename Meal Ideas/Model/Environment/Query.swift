@@ -39,7 +39,6 @@ final class Query: ObservableObject{
             }
         }
     }
-    
     @Published var keyword = ""
     @Published var favoritesArray : [Favorites] = []
     @Published var historyArray : [History] = []
@@ -52,7 +51,6 @@ final class Query: ObservableObject{
     @Published var showAllUserMealIdeas = false
     
     
-
     func getFavorites(){
         let request = NSFetchRequest<Favorites>(entityName: EntityName.favorites.rawValue)
         do {

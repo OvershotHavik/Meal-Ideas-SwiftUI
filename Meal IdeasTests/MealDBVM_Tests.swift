@@ -29,6 +29,7 @@ class MealDBVM_Tests: XCTestCase {
         cancellables = []
     }
 
+    
     @MainActor func test_MealDBVM_checkQuery_random(){
         //Given
         guard let sut = sut else {return}
