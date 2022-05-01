@@ -10,7 +10,6 @@ import SwiftUI
 import Combine
 
 @MainActor final class MealDBVM: BaseVM{
-    
     @Published var meals : [MealDBResults.Meal] = []
     @Published var surpriseMeal: MealDBResults.Meal?
     private var customMeals: [MealDBResults.Meal] = []
@@ -18,7 +17,6 @@ import Combine
     
     init(){
         super.init(sourceCategory: .mealDBCategories, source: .mealDB)
-//        setupMealPublisher()
     }
     
     func setupMealPublisher(){
@@ -28,8 +26,8 @@ import Combine
             }
             .store(in: &cancellables)
     }
-
-
+    
+    
     override func checkQuery(query: String, queryType: QueryType, completed: @escaping () -> Void){
         print("MealDB Query: \(query), queryType: \(queryType.rawValue)")
         surpriseMealReady = false
@@ -60,13 +58,6 @@ import Combine
     }
     
     
-    func setupSurpriseMealPublisher(){
-//        $surpriseMeal
-            
-    }
-    
-
-
     func getMealDBMeals(query: String, queryType: QueryType, completed: @escaping () -> Void) {
         isLoading = true
         allResultsShown = false
@@ -106,7 +97,7 @@ import Combine
                     getMeals(url: url){
                         completed()
                     }
-
+                    
                     
                 case .none:
                     ()
@@ -129,7 +120,7 @@ import Combine
             }catch{
                 if meals.count == 0{
                     meals = [] // for testing to pass correctly
-//                    completed()
+                    //                    completed()
                 }
                 if let miError = error as? MIError{
                     switch miError {
@@ -138,10 +129,10 @@ import Combine
                         alertItem = AlertContext.invalidURL
                     case .invalidData:
                         alertItem = AlertContext.invalidData
-//                        completed()
+                        //                        completed()
                     default: alertItem = AlertContext.invalidResponse // generic error if wanted..
                     }
-//                    completed()
+                    //                    completed()
                 } else {
                     alertItem = AlertContext.invalidResponse // generic error would go here
                     isLoading = false
@@ -151,7 +142,7 @@ import Combine
         }
     }
     
-
+    
     func checkForFavorite(id: String?, favoriteArray: [Favorites]) -> Bool{
         if favoriteArray.contains(where: {$0.mealDBID == id}){
             return true
@@ -159,8 +150,8 @@ import Combine
             return false
         }
     }
-
-
+    
+    
     func checkForHistory(id: String?, historyArray: [History]) -> Bool{
         if historyArray.contains(where: {$0.mealDBID == id}){
             return true
@@ -169,7 +160,7 @@ import Combine
         }
     }
     
-
+    
     override func customFilter(keyword: String, category: String, ingredient: String, completed: @escaping () -> Void){
         if keyword == "" &&
             category == "" &&
@@ -236,7 +227,7 @@ import Combine
                         getCustomMeals(url: url) { [weak self] in
                             guard let self = self else {return}
                             print("Custom Meals count: \(self.customMeals.count)")
-
+                            
                             for meal in self.customMeals{
                                 if let safeName = meal.strMeal{
                                     if safeName.containsIgnoringCase(find: keyword){
@@ -338,7 +329,7 @@ import Combine
                                 print("ingMeals count: \(customIngredientMeals.count)")
                                 let filteredMeals = customCategoryResults.filter{customIngredientMeals.contains($0)}
                                 print("filtered meals count: \(filteredMeals.count)")
-
+                                
                                 for meal in filteredMeals{
                                     if let safeName = meal.strMeal{
                                         if safeName.containsIgnoringCase(find: keyword){
@@ -433,7 +424,7 @@ import Combine
             }
             .store(in: &cancellables)
     }
-
+    
     
     private func getMeals(url: URL, completed: @escaping () -> Void){
         URLSession.shared.dataTaskPublisher(for: url)
