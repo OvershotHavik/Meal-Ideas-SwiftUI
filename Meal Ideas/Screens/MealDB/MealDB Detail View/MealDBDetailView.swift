@@ -11,6 +11,7 @@ struct MealDBDetailView: View {
     @StateObject var vm : MealDBDetailVM
     @EnvironmentObject var query: Query
     @EnvironmentObject var shopping: Shopping
+    
     var body: some View {
         ZStack{
             vm.backgroundColor

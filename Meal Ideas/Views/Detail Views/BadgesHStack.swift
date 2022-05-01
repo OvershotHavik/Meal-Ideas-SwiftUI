@@ -13,7 +13,6 @@ struct BadgesHStack: View {
     var topColor: Color
     var bottomColor: Color
     
-    
     var body: some View {
         HStack{
             Text(title)

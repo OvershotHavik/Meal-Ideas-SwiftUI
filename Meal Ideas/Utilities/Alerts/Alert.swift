@@ -13,12 +13,12 @@ struct AlertItem: Identifiable, Equatable {
         lhs.title == rhs.title &&
         lhs.message == rhs.message
     }
-    
     let id = UUID()
     var title: Text
     let message: Text
     let dismissButton: Alert.Button
 }
+
 
 struct AlertContext{    
     static let noMeals       = AlertItem(title: Text("No Meals"),

@@ -14,7 +14,6 @@ import CoreData
     @Published var showTextAlert = false
     @Published var listType: ListType
     
-    
     init(editVM: EditIdeaVM, listType: ListType){
         self.editVM = editVM
         self.listType = listType
@@ -44,7 +43,7 @@ import CoreData
     }
 
 
-    func getUserIngredients(){
+    private func getUserIngredients(){
         let request = NSFetchRequest<CDIngredient>(entityName: EntityName.CDIngredient.rawValue)
         do {
             let ingredients = try PersistenceController.shared.container.viewContext.fetch(request)

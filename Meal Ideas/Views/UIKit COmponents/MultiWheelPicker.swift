@@ -105,21 +105,26 @@ struct BasePicker: UIViewRepresentable {
             parent = pickerView
         }
         
+        
         func numberOfComponents(in pickerView: UIPickerView) -> Int {
             return 1
         }
+        
         
         func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
             return 90
         }
         
+        
         func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
             return parent.data.count
         }
         
+        
         func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
             return "\(parent.data[row].formatted()) \(parent.label)"
         }
+        
         
         func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
             parent.selection.wrappedValue = parent.data[row]

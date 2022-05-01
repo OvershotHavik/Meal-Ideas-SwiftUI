@@ -13,7 +13,6 @@ struct SingleIngredientListView: View {
     @EnvironmentObject var query: Query
     @Environment(\.dismiss) var dismiss
     
-    
     var body: some View {
         ZStack{
             List(vm.searchResults.sorted{$0.strIngredient < $1.strIngredient}, selection: $vm.selection){ ingredient in

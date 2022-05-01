@@ -10,7 +10,6 @@ import SwiftUI
 struct MealCardView: View {
     var mealPhoto: String
     var mealPhotoData: Data?
-    
     var mealName: String
     var favorited: Bool
     var inHistory: Bool
@@ -18,7 +17,6 @@ struct MealCardView: View {
     let placeholder = UIImage(imageLiteralResourceName: ImageNames.placeholderMeal.rawValue)
     @State var mealImage = UIImage()
     @State var isLoading = false
-    
     
     var body: some View {
         ZStack{
@@ -69,9 +67,10 @@ struct MealCardView: View {
 }
 
 
-struct HistoryFavoriteHStack: View{
+private struct HistoryFavoriteHStack: View{
     var inHistory: Bool
     var favorited: Bool
+    
     var body: some View{
         HStack{
             if favorited == true {

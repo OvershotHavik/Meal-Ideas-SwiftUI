@@ -86,6 +86,7 @@ enum Misc: String{
     case mealName = "misc"
 }
 
+
 enum SpoonTags: String{
     case category = "&type="
     case ingredient = "&includeIngredients="

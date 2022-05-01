@@ -8,7 +8,6 @@
 import SwiftUI
 
 final class SingleChoiceListVM: ObservableObject {
-    
     @Published var listItems: [String]
     @Published var PList: PList?
     @Published var title: Titles
@@ -22,7 +21,6 @@ final class SingleChoiceListVM: ObservableObject {
         }
     }
     
-    
     init(PList: PList?, listItems: [String], singleChoiceString: String?, title: Titles){
         self.PList = PList
         self.listItems = listItems
@@ -32,7 +30,7 @@ final class SingleChoiceListVM: ObservableObject {
     }
     
     
-    func fetchPlist(){
+    private func fetchPlist(){
         if let PList = PList {
             PListManager.loadItemsFromLocalPlist(XcodePlist: PList,
                                                  classToDecodeTo: [NewItem].self,

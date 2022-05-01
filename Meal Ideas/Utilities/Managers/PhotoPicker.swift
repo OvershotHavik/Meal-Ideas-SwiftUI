@@ -11,10 +11,11 @@ import PhotosUI
 
 struct PhotoPicker: UIViewControllerRepresentable {
     typealias UIViewControllerType = PHPickerViewController
-    let filter: PHPickerFilter
-    var limit: Int  // 0 == 'no limit'.
+    private let filter: PHPickerFilter
+    private var limit: Int  // 0 == 'no limit'.
     @Binding var isLoading: Bool
-    let onComplete: ([PHPickerResult]) -> Void
+    private let onComplete: ([PHPickerResult]) -> Void
+    
     
     func makeUIViewController(context: Context) -> PHPickerViewController {
         var configuration = PHPickerConfiguration()
@@ -24,10 +25,16 @@ struct PhotoPicker: UIViewControllerRepresentable {
         controller.delegate = context.coordinator
         return controller
     }
+    
+    
     func updateUIViewController(_ uiViewController: PHPickerViewController, context: Context) {}
+    
+    
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
+    
+    
     class Coordinator: PHPickerViewControllerDelegate {
         func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
             parent.onComplete(results)
@@ -39,6 +46,8 @@ struct PhotoPicker: UIViewControllerRepresentable {
             self.parent = parent
         }
     }
+    
+    
     static func convertToUIImageArray(fromResults results: [PHPickerResult], onComplete: @escaping ([UIImage]?, Error?) -> Void) {
         var images = [UIImage]()
         let dispatchGroup = DispatchGroup()

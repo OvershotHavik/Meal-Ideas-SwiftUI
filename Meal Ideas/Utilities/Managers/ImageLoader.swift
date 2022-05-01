@@ -25,7 +25,7 @@ final class ImageLoader: ObservableObject{
 final class ImageLoaderFromData: ObservableObject{
     @Published var image = UIImage()
     @Published var isLoading = true
-    
+
     func loadFromData(mealPhotoData: Data){
         DispatchQueue.global().async { [weak self] in
             guard let self = self else {return}
@@ -49,7 +49,6 @@ struct RemoteImage: View{
 
 
 struct LoadRemoteImageView: View{ // Used in the list view as a view
-    
     @StateObject var imageLoader = ImageLoader()
     let urlString: String
     

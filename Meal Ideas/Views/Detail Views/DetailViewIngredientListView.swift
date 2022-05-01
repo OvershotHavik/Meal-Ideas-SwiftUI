@@ -12,7 +12,6 @@ struct DetailViewIngredientListView: View {
     var measurements: [String]
     var mealName: String
     
-    
     var body: some View {
         ForEach(ingredients.indices, id: \.self) { i in
             DetailViewIngredientCell(ingredient: ingredients[i],

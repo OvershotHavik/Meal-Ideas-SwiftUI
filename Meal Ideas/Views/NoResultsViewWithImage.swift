@@ -10,11 +10,11 @@ import SwiftUI
 struct NoResultsViewWithImage: View {
     let imageName : String
     let message: String
+    
     var body: some View {
         ZStack{
             Color(UIColor.systemBackground)
                 .ignoresSafeArea()
-            
             VStack{
                 Image(imageName)
                     .resizable()
@@ -35,6 +35,7 @@ struct NoResultsViewWithImage: View {
 
 struct NoResultsView: View {
     let message: String
+    
     var body: some View{
         VStack{
             Spacer()

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct CustomFilterView: View {
-    
     @Environment(\.dismiss) var dismiss
     @Binding var keyword: String
     @Binding var category: String
@@ -18,7 +17,6 @@ struct CustomFilterView: View {
     var plist: PList?
     var userIngredients: [String]
     var userCategories: [String]
-    
     
     var body: some View {
         Form{
@@ -89,12 +87,11 @@ struct CustomFilterView: View {
 }
 
 
-struct CustomCategoryNL: View{
+private struct CustomCategoryNL: View{
     var plist: PList?
     var userCategories: [String]
     var source: Source
     @Binding var category: String
-
     
     var body: some View{
         NavigationLink(destination: SingleChoiceListView(vm: SingleChoiceListVM(PList: plist,
@@ -108,10 +105,9 @@ struct CustomCategoryNL: View{
 }
 
 
-struct CustomIngredientNL: View{
+private struct CustomIngredientNL: View{
     var userIngredients: [String]
     @Binding var ingredient: String
-    
     
     var body: some View{
         NavigationLink(destination: SingleIngredientListView(vm: IngredientListVM(itemList: userIngredients, selection: ingredient))) {

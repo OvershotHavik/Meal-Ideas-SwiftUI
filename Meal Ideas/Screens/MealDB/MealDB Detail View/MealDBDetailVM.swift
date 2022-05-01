@@ -9,10 +9,8 @@ import UIKit
 import CoreData
 
 @MainActor final class MealDBDetailVM: DetailBaseVM{
-    
     @Published var meal: MealDBResults.Meal?
     @Published var mealID: String
-    
     
     init(meal : MealDBResults.Meal?, favorited: Bool, mealID: String, showingHistory: Bool){
         self.mealID = mealID
@@ -26,7 +24,7 @@ import CoreData
     }
 
 
-    func fetchMeal(){
+    private func fetchMeal(){
         if meal == nil || meal?.ingredientsArray == []{
             print("No Meal Provided, Fetching MealDB Single Named mealID: \(mealID)")
             isLoading = false
@@ -44,7 +42,7 @@ import CoreData
     }
     
 
-    func getMealPhoto(){
+    private func getMealPhoto(){
         if meal != nil{
             NetworkManager.shared.downloadImage(fromURLString: meal?.strMealThumb ?? "") { uiImage in
                 guard let uiImage = uiImage else {
@@ -82,7 +80,7 @@ import CoreData
     }
 
 
-    func addToHistory(){
+    private func addToHistory(){
         //Only add to history if not already showing the meal in history list
         if showingHistory == false{
             if meal != nil{

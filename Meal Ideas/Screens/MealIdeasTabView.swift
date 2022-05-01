@@ -13,7 +13,6 @@ struct MealIdeasTabView: View {
     @EnvironmentObject var userEnvironment: UserEnvironment
     @EnvironmentObject var shopping: Shopping
     
-    
     var body: some View {
         TabView{
             MyIdeasView(vm: MyIdeasVM())

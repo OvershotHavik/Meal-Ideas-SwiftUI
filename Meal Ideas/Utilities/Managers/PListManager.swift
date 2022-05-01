@@ -9,7 +9,6 @@ import UIKit
 
 
 final class PListManager{
-  
     static func loadItemsFromLocalPlist<T>(XcodePlist: PList, classToDecodeTo: [T].Type, completionHandler: @escaping (Result <Array<T>, Error>) -> Void) where T: Decodable {
         var xcodePlistData = Data()
         // Local plist stored in xcode

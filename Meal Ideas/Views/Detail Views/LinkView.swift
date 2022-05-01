@@ -11,7 +11,6 @@ struct LinkView: View {
     var url: String?
     var title: String
     
-    
     var body: some View {
         if let safeURL = url{
             if safeURL != ""{

@@ -351,37 +351,6 @@ import Combine
                                 completed()
                             }
                         }
-                        
-                                                                                                            
-                            /*
-                        print("Fetching MealDB Category: \(category)")
-                        var safeCategory = category.replacingOccurrences(of: " ", with: "%20")
-                        if safeCategory == "Side%20Dish"{
-                            safeCategory = "Side"
-                        }
-                        let catMeals = try await NetworkManager.shared.mealDBQuery(query: safeCategory, queryType: .category)
-                        print("CatMeals count: \(catMeals.count)")
-                        
-                        let modifiedIngredient = ingredient.replacingOccurrences(of: " ", with: "_")
-                        
-                        let ingMeals = try await NetworkManager.shared.mealDBQuery(query: modifiedIngredient,
-                                                                                   queryType: .ingredient)
-                        print("ingMeals count: \(ingMeals.count)")
-                        
-                        let filteredMeals = catMeals.filter{ingMeals.contains($0)}
-                        print("filtered meals count: \(filteredMeals.count)")
-                        
-                        for meal in filteredMeals{
-                            if let safeName = meal.strMeal{
-                                if safeName.containsIgnoringCase(find: keyword){
-                                    meals.append(meal)
-                                }
-                            }
-                        }
-                        print("meals count: \(meals.count)")
-                        allResultsToggle()
-                        completed()
-                             */
                     }
                     
                     
@@ -497,6 +466,7 @@ import Combine
             }
             .store(in: &cancellables)
     }
+    
     
     private func getCustomMeals(url: URL, completed: @escaping () -> Void){
         URLSession.shared.dataTaskPublisher(for: url)

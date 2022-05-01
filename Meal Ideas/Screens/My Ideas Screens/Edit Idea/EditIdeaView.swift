@@ -13,7 +13,6 @@ struct EditIdeaView: View {
     @StateObject var mealPhotoLoader = ImageLoaderFromData()
     @StateObject var mealInstructionsLoader = ImageLoaderFromData()
     
-    
     var body: some View {
         ZStack {
             GeometryReader{ screenBounds in
@@ -45,7 +44,7 @@ struct EditIdeaView: View {
                         }
                     }
                     Section(header: Text(SectionHeaders.ingredients.rawValue)){
-                        IngredientSelectView(vm: vm)
+                        IngredientSelectNL(vm: vm)
                             .foregroundColor(.blue)
                         IngredientHStack(vm: vm)
                     }
@@ -222,9 +221,8 @@ struct EditIdeaView: View {
 }
 
 
-struct MealNameTextField: View{
+private struct MealNameTextField: View{
     @StateObject var vm: EditIdeaVM
-    
     
     var body: some View{
         TextField(vm.meal?.mealName ?? "Meal Name*", text: $vm.mealName)
@@ -241,15 +239,14 @@ struct MealNameTextField: View{
             })
             .font(.title)
             .onSubmit {
-                vm.checkNameAlreadyInUse()
+                vm.checkNameAlreadyInUseOnSubmit()
             }
     }
 }
 
 
-struct MealPhotoButtonView: View{
+private struct MealPhotoButtonView: View{
     @StateObject var vm: EditIdeaVM
-    
     
     var body: some View{
         Button {
@@ -262,9 +259,8 @@ struct MealPhotoButtonView: View{
 }
 
 
-struct MealPhotoView: View{
+private struct MealPhotoView: View{
     @StateObject var vm: EditIdeaVM
-    
     
     var body: some View{
         HStack{
@@ -285,9 +281,8 @@ struct MealPhotoView: View{
 }
 
 
-struct CategorySelectView: View{
+private struct CategorySelectView: View{
     @StateObject var vm: EditIdeaVM
-    
     
     var body: some View{
         NavigationLink(destination: MultiChoiceListView(vm: MultiChoiceListVM(PList: .categories,
@@ -300,23 +295,8 @@ struct CategorySelectView: View{
 }
 
 
-struct IngredientSelectView: View{
+private struct IngredientHStack: View{
     @StateObject var vm: EditIdeaVM
-    
-    
-    var body: some View{
-        
-        NavigationLink(destination: MultiIngredientListView(vm: MultiIngredientListVM(editVM: vm,
-                                                                                      listType: .ingredient))) {
-            Text("Select Ingredients")
-        }
-    }
-}
-
-
-struct IngredientHStack: View{
-    @StateObject var vm: EditIdeaVM
-    
     
     var body: some View{
         ForEach($vm.userIngredients) {$ing in
@@ -333,9 +313,8 @@ struct IngredientHStack: View{
 }
 
 
-struct SidesButtonView: View{
+private struct SidesButtonView: View{
     @StateObject var vm: EditIdeaVM
-    
     
     var body: some View{
         NavigationLink(destination: MultiChoiceListView(vm: MultiChoiceListVM(PList: .sides,
@@ -348,9 +327,8 @@ struct SidesButtonView: View{
 }
 
 
-struct MealInstructionsButtonView: View{
+private struct MealInstructionsButtonView: View{
     @StateObject var vm: EditIdeaVM
-    
     
     var body: some View{
         Button {
@@ -363,9 +341,8 @@ struct MealInstructionsButtonView: View{
 }
 
 
-struct InstructionPhotoView: View{
+private struct InstructionPhotoView: View{
     @StateObject var vm: EditIdeaVM
-    
     
     var body: some View{
         HStack{
@@ -386,9 +363,8 @@ struct InstructionPhotoView: View{
 }
 
 
-struct SaveButtonView: View{
+private struct SaveButtonView: View{
     var vm: EditIdeaVM
-    
     
     var body: some View{
         Button {
@@ -398,16 +374,13 @@ struct SaveButtonView: View{
                 .padding()
                 .foregroundColor(.green)
         }
-        .opacity(vm.mealNameInUse ? 1 : 0.5)
-        .disabled(!vm.mealNameInUse)
     }
 }
 
 
-struct DeleteButtonView: View{
+private struct DeleteButtonView: View{
     var vm: EditIdeaVM
     @Binding var showingDeleteAlert: Bool
-    
     
     var body: some View{
         Button {
@@ -422,9 +395,8 @@ struct DeleteButtonView: View{
 }
 
 
-struct MealPhotoActionSheet: ViewModifier{
+private struct MealPhotoActionSheet: ViewModifier{
     @StateObject var vm: EditIdeaVM
-    
     
     func body(content: Content) -> some View {
         content
@@ -461,9 +433,8 @@ struct MealPhotoActionSheet: ViewModifier{
 }
 
 
-struct MealInstructionsActionSheet: ViewModifier{
+private struct MealInstructionsActionSheet: ViewModifier{
     @StateObject var vm: EditIdeaVM
-    
     
     func body(content: Content) -> some View {
         content
@@ -500,9 +471,8 @@ struct MealInstructionsActionSheet: ViewModifier{
 }
 
 
-struct PrepTimePickerView: View{
+private struct PrepTimePickerView: View{
     @StateObject var vm: EditIdeaVM
-    
     
     var body: some View{
         HStack {

@@ -10,7 +10,6 @@ import SwiftUI
 struct EditItemList: View {
     @StateObject var vm : EditItemListVM
     
-    
     var body: some View {
         List {
             if vm.listItems.isEmpty{
@@ -77,7 +76,6 @@ struct EditItemList: View {
         }
                         )
         )
-        
         .searchable(text: $vm.searchText)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {

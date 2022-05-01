@@ -16,7 +16,6 @@ final class NetworkManager {
     
     //fromURLString is what the call will be, but urlString is what is used within the function
     func downloadImage(fromURLString urlString: String, completed: @escaping (UIImage?) -> Void ){
-        
         let cacheKey = NSString(string: urlString)
         
         if let image = cache.object(forKey: cacheKey){
@@ -40,7 +39,6 @@ final class NetworkManager {
             }
             task.resume()
         }
-
     }
     
 
@@ -125,7 +123,6 @@ final class NetworkManager {
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
             throw MIError.invalidResponse
         }
-        
         do{
             let results = try JSONDecoder().decode(MealDBResults.Results.self, from: data)
             
@@ -153,13 +150,11 @@ final class NetworkManager {
             print("Not setup yet in spoon query")
             return try await spoonNetworkCall(url: url)
         }
-        
     }
 
 
     func spoonComplexQuery(query: String, queryType: QueryType) async throws -> SpoonacularResults.ResultsFromComplex{
         switch queryType {
-
         case .category:
             guard let url = URL(string: BaseURL.spoonCategories + query) else {
                 throw MIError.invalidURL

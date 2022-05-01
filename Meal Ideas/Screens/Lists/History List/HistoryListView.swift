@@ -12,7 +12,6 @@ struct HistoryListView: View {
     @EnvironmentObject var query: Query
     
     var body: some View {
-        
         List {
             if vm.searchResults.isEmpty{
                 NoResultsView(message: Messages.noHistory.rawValue)
@@ -61,7 +60,7 @@ struct HistoryListView: View {
 }
 
 
-struct DeleteActionSheet: ViewModifier{
+private struct DeleteActionSheet: ViewModifier{
     @ObservedObject var vm: HistoryListVM
     @EnvironmentObject var query: Query
     let all = Calendar.current.date(byAdding: .day, value: 0, to: Date())!
@@ -69,7 +68,6 @@ struct DeleteActionSheet: ViewModifier{
     let oneWeekAgoDate = Calendar.current.date(byAdding: .day, value: -7, to: Date())!
     let thirtyDaysAgo = Calendar.current.date(byAdding: .day, value: -30, to: Date())!
     let sixtyDaysAgo = Calendar.current.date(byAdding: .day, value: -60, to: Date())!
-    
     
     func body(content: Content) -> some View{
         content
@@ -140,7 +138,7 @@ struct DeleteActionSheet: ViewModifier{
 
 
 
-struct MyIdeasHistoryNL: View{
+private struct MyIdeasHistoryNL: View{
     @StateObject var vm: HistoryListVM
     @EnvironmentObject var query: Query
     var history: History
@@ -163,11 +161,10 @@ struct MyIdeasHistoryNL: View{
 
 
 
-struct MealDBHistoryNL: View{
+private struct MealDBHistoryNL: View{
     @StateObject var vm: HistoryListVM
     @EnvironmentObject var query: Query
     var history: History
-    
     
     var body: some View{
         NavigationLink(destination: MealDBDetailView(vm: MealDBDetailVM(meal: vm.fetchMealDBMeal(mealDBID: history.mealDBID),
@@ -187,8 +184,7 @@ struct MealDBHistoryNL: View{
 }
 
 
-
-struct SpoonacularHistoryNL: View{
+private struct SpoonacularHistoryNL: View{
     @StateObject var vm: HistoryListVM
     @EnvironmentObject var query: Query
     var history: History

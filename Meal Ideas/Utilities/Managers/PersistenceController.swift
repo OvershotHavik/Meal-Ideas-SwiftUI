@@ -11,10 +11,9 @@ import SwiftUI
 struct PersistenceController {
     static let shared = PersistenceController()
 
-
     let container: NSPersistentCloudKitContainer
 
-    init(inMemory: Bool = false) {
+    private init(inMemory: Bool = false) {
         container = NSPersistentCloudKitContainer(name: "Meal_Ideas")
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
@@ -35,10 +34,8 @@ struct PersistenceController {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
-        
         container.viewContext.automaticallyMergesChangesFromParent = true
         container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-        
     }
 
 
@@ -110,8 +107,6 @@ struct PersistenceController {
                     let myIdeasHistory = savedHistory.filter{$0.userMealID != nil}.sorted{$0.timeStamp ?? Date() > $1.timeStamp ?? Date()}
                     let history = myIdeasHistory[index]
                     container.viewContext.delete(history)
-                    
-
                 }
                 guard let index = indexSet.first else {return}
                 let history = savedHistory[index]
@@ -144,7 +139,6 @@ struct PersistenceController {
                     let favorite = myFavorites[index]
                     container.viewContext.delete(favorite)
                 }
-
             } catch let e{
                 print("Error fetching favorites: \(e.localizedDescription)")
             }
@@ -255,7 +249,6 @@ struct PersistenceController {
                     }
                 }
                 container.viewContext.delete(side)
-
             }catch let e {
                 print("Error fetching CDUserCategory: \(e.localizedDescription)")
             }
@@ -269,7 +262,6 @@ struct PersistenceController {
                 let shoppingListItem = savedItems[index]
                 print(shoppingListItem)
                 container.viewContext.delete(shoppingListItem)
-                
             }catch let e{
                 print("Error fetching ShoppingList: \(e.localizedDescription)")
             }
@@ -319,12 +311,10 @@ struct PersistenceController {
             case .myIdeas:
                 guard let index = savedFavorites.firstIndex(where: {$0.mealName == mealName && $0.userMealID == userMealID}) else {return}
                 let favoriteToDelete = savedFavorites[index]
-                
                 container.viewContext.delete(favoriteToDelete)
             }
             print("removed favorite \(mealName)")
             saveData()
-
         }catch let e{
             print("Error fetching favorites in deleteFavorites \(e.localizedDescription)")
         }
@@ -347,7 +337,6 @@ struct PersistenceController {
 
     func clearHistory(meal: UserMeals){
         //Clear history of the previous meal name to prevent crashes due to the name/meal no longer existing
-        
         let request = NSFetchRequest<History>(entityName: EntityName.history.rawValue)
         do{
             let allHistory = try container.viewContext.fetch(request)
@@ -380,6 +369,7 @@ struct PersistenceController {
                 saveData()
                 completed()
                 
+                
             case .mealDB:
                 let filtered = savedHistory.filter({$0.timeStamp! < deleteOption && $0.mealDBID != nil})
                 for meal in filtered{
@@ -388,6 +378,7 @@ struct PersistenceController {
                 }
                 saveData()
                 completed()
+                
                 
             case .myIdeas:
                 let filtered = savedHistory.filter({$0.timeStamp! < deleteOption && $0.mealDBID == nil && $0.spoonID == 0})
@@ -470,7 +461,6 @@ struct PersistenceController {
                         }
                     }
                 }
-                    
                 if updated == nil{
                     print("delete tapped, removing")
                     //user selected delete, delete it from the CD
@@ -524,7 +514,6 @@ struct PersistenceController {
                         }
                     }
                 }
-                
                 if updated == nil{
                     print("delete tapped, removing")
                     //user selected delete, delete it from the CD
@@ -543,13 +532,10 @@ struct PersistenceController {
         case .CDSides:
             let request = NSFetchRequest<CDSides>(entityName: EntityName.CDSides.rawValue)
             do {
-                
                 let savedItems = try container.viewContext.fetch(request)
                 guard let index = savedItems.firstIndex(where: {$0.side == original}) else {return}
                 let side = savedItems[index]
                 print(side)
-
-
                 //Update the Side from any meals that may have it in them
 
                 let mealRequest = NSFetchRequest<UserMeals>(entityName: EntityName.userMeals.rawValue)
@@ -589,12 +575,9 @@ struct PersistenceController {
                     side.side = updated
                     saveData()
                 }
-                    
-                    
             }catch let e {
                 print("Error fetching CDUserCategory: \(e.localizedDescription)")
             }
-            
         default: print("Not setup in EditUserItems")
         }
         saveData()
@@ -631,7 +614,6 @@ struct PersistenceController {
 
     func clearAllShoppingList(){
         let request = NSFetchRequest<ShoppingList>(entityName: EntityName.ShoppingList.rawValue)
-
         do{
             let savedItems = try container.viewContext.fetch(request)
             for item in savedItems{
@@ -647,7 +629,6 @@ struct PersistenceController {
 
     func updateShoppingListItem(mealName: String, ingredient: String, measurement: String, checkedOff: Bool){
         let request = NSFetchRequest<ShoppingList>(entityName: EntityName.ShoppingList.rawValue)
-
         do {
             let savedItems = try container.viewContext.fetch(request)
             let filtered = savedItems.filter({$0.mealName == mealName && $0.ingredient == ingredient && $0.measurement == measurement})
@@ -665,7 +646,6 @@ struct PersistenceController {
     
     func updateMiscMealItem(mealName: String, ingredient: String, measurement: String){
         let request = NSFetchRequest<ShoppingList>(entityName: EntityName.ShoppingList.rawValue)
-
         do {
             let savedItems = try container.viewContext.fetch(request)
             let filtered = savedItems.filter({$0.mealName == mealName && $0.ingredient == ingredient})
@@ -683,7 +663,6 @@ struct PersistenceController {
 
     func removeCheckedItems(){
         let request = NSFetchRequest<ShoppingList>(entityName: EntityName.ShoppingList.rawValue)
-
         do{
             let savedItems = try container.viewContext.fetch(request)
             for item in savedItems{

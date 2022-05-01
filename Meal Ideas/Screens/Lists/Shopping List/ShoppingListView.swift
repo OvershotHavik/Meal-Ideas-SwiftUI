@@ -12,7 +12,6 @@ struct ShoppingListView: View {
     @EnvironmentObject var shopping : Shopping
     @AppStorage("shouldShowShoppingListOnboarding") var shouldShowShoppingListOnboarding: Bool = true
     
-    
     var body: some View {
         NavigationView{
             VStack{

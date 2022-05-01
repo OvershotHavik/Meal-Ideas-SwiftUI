@@ -38,7 +38,6 @@ class BaseVM: ObservableObject{
     @Published var originalCustomCategory: String?
     @Published var originalCustomIngredient: String?
     
-    
     init(sourceCategory: PList, source: Source){
         self.sourceCategory = sourceCategory
         self.source = source
@@ -68,11 +67,9 @@ class BaseVM: ObservableObject{
             } else {
                 showTopView = false
             }
-            
             if scrollViewContentOffset > largestY{
                 //user is scrolling down
                 largestY = scrollViewContentOffset
-                
             } else {
                 //user started scrolling up again, show the view and set largest Y to current value
                 showTopView = true
@@ -82,7 +79,7 @@ class BaseVM: ObservableObject{
     }
     
     
-    func fetchPlist(plist: PList){
+    private func fetchPlist(plist: PList){
         if sourceCategories.isEmpty{
             PListManager.loadItemsFromLocalPlist(XcodePlist: plist,
                                                  classToDecodeTo: [NewItem].self,
@@ -143,8 +140,6 @@ class BaseVM: ObservableObject{
                              category: customCategory,
                              ingredient: customIngredient){}
             }
-            
-            
             return
         }
         if queryType == originalQueryType && selected == originalQuery{
@@ -170,7 +165,6 @@ class BaseVM: ObservableObject{
                     }
                 }
             }
-            
             showWelcome = false
             checkQuery(query: selected, queryType: queryType){}
         }

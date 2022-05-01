@@ -9,7 +9,6 @@ import SwiftUI
 
 struct BackgroundGradientView: View {
     @EnvironmentObject var userEnvironment: UserEnvironment
-
     
     var body: some View {
         LinearGradient(gradient: Gradient(colors: [

@@ -12,7 +12,6 @@ struct Ingredients: Codable{
         var meals : [Meals]
     }
     class Meals: Codable, Identifiable, Equatable{
-
         static func == (lhs: Ingredients.Meals, rhs: Ingredients.Meals) -> Bool {
             return lhs.id == rhs.id &&
             lhs.strIngredient == rhs.strIngredient &&
@@ -24,6 +23,7 @@ struct Ingredients: Codable{
         enum CodingKeys: String, CodingKey{
             case idIngredient, strIngredient, strDescription, strType
         }
+        
         required init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             id = try container.decode(String.self, forKey: .idIngredient)
@@ -32,6 +32,7 @@ struct Ingredients: Codable{
             strDescription = try container.decodeIfPresent(String.self, forKey: .strDescription)
             strType = try container.decodeIfPresent(String.self, forKey: .strType)
         }
+        
         init(id: String, strIngredient: String, strDescription: String?, strMeasurement: String, strType: String?){
             self.id = id
             self.strIngredient = strIngredient

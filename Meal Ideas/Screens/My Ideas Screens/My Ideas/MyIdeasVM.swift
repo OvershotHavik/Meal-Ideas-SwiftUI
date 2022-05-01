@@ -16,7 +16,6 @@ import CoreData
     @Published var userCategories : [String] = []
     @Published var userIngredients: [String] = []
     
-    
     init(){
         super.init(sourceCategory: .categories, source: .myIdeas)
         getAllMeals(){}

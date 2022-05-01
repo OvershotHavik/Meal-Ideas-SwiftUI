@@ -26,7 +26,6 @@ import SwiftUI
         }
     }
     
-    
     init(itemList: [String], selection: String?){
         self.itemList = itemList
         self.selection = selection
@@ -34,7 +33,7 @@ import SwiftUI
     }
     
     
-    func getIngredients(){
+    private func getIngredients(){
         self.isLoading = true
         Task(priority: .userInitiated) {
             do {

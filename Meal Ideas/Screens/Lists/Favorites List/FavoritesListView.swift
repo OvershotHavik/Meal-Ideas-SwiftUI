@@ -46,7 +46,7 @@ struct FavoritesListView: View {
 }
 
 
-struct MyIdeasFavoritesNL: View{
+private struct MyIdeasFavoritesNL: View{
     @StateObject var vm: FavoritesListVM
     @EnvironmentObject var query: Query
     var favorite: Favorites
@@ -61,11 +61,10 @@ struct MyIdeasFavoritesNL: View{
 }
 
 
-struct MealDBFavoritesNL: View{
+private struct MealDBFavoritesNL: View{
     @StateObject var vm: FavoritesListVM
     @EnvironmentObject var query: Query
     var favorite: Favorites
-    
     
     var body: some View{
         NavigationLink(destination: MealDBDetailView(vm: MealDBDetailVM(meal: vm.fetchMealDBMeal(mealDBID: favorite.mealDBID),
@@ -78,11 +77,10 @@ struct MealDBFavoritesNL: View{
 }
 
 
-struct SpoonacularFavoritesNL: View{
+private struct SpoonacularFavoritesNL: View{
     @StateObject var vm: FavoritesListVM
     @EnvironmentObject var query: Query
     var favorite: Favorites
-    
     
     var body: some View{
         NavigationLink(destination: SpoonDetailView(vm: SpoonDetailVM(meal: vm.fetchSpoonMeal(spoonID: favorite.spoonID),

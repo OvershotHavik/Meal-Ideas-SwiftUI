@@ -13,7 +13,6 @@ struct MultiIngredientListView: View {
     @EnvironmentObject var shopping : Shopping
     @Environment(\.dismiss) var dismiss
     
-    
     var body: some View {
         VStack{
             if vm.isLoading{
